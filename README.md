@@ -30,7 +30,9 @@ public class MyProcessTest {
 The assertions are wrapped inside the ProcessAssert.assertProcessActive() method.
 
 ## Assertions
-ProcessAssert will throw regular JUnit AssertErrors with decriptive messages so you can hunt down problems in your process definition. This integrates with JUnit's normal way of handling exceptions and should provide you with clear information in your IDE.
+ProcessAssert will throw regular JUnit AssertErrors with decriptive messages so you can hunt down problems in your process definition. This integrates with JUnit's normal way of handling exceptions and should provide you with clear information in your IDE. For example:
+
+![Assertion error in Eclipse][imgAssertionErrorInEclipse]
 
 You have to provide an `ActivitiRule` instance to `ProcessAssert`'s methods. This allows ProcessAssert to access the Activiti services in the way you setup your test to perform the checks. Most methods are overloaded, in most cases to allow you to provide either an object or an id of the main object of the test. For instance, if you are performing checks on `ProcessInstance`s, you can provide either the instance object or the id of the object. When testing `UserTask`s, you can provide the `Task` instance or the id of the task. 
 
@@ -40,3 +42,5 @@ Process assertion methods should be obvious from their name and JavaDocs, but he
 ### Asserting a process is active
 `assertProcessActive(...);`
 TODO
+
+[imgAssertionErrorInEclipse]: https://raw.github.com/tiesebarrell/activiti-process-assertions/master/src/test/resources/example/images/assertionErrorInEclipse.png "Example of assertion error in Eclipse"
