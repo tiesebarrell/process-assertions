@@ -28,15 +28,14 @@ public final class ProcessInstanceAssert extends AbstractProcessAssert {
   public static void processIsActive(final ActivitiRule rule, final String processInstanceId) {
 
     // Assert there is a running process instance
-    trace(String.format("Asserting process instance with id '%s' can be found", processInstanceId));
+    trace(LogMessage.PROCESS_2, processInstanceId);
     final ProcessInstance processInstance = rule.getRuntimeService().createProcessInstanceQuery()
         .processInstanceId(processInstanceId).singleResult();
 
     Assert.assertNotNull(processInstance);
 
     // Assert that the historic process instance is not ended
-    trace(String.format("Asserting historic process instance with id '%s' can be found and is not ended",
-        processInstanceId));
+    trace(LogMessage.PROCESS_3, processInstanceId);
     final HistoricProcessInstance historicProcessInstance = rule.getHistoryService()
         .createHistoricProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
 
@@ -47,15 +46,14 @@ public final class ProcessInstanceAssert extends AbstractProcessAssert {
   public static void processIsEnded(final ActivitiRule rule, final String processInstanceId) {
 
     // Assert there is no running process instance
-    trace(String.format("Asserting there is no running process instance with id '%s'", processInstanceId));
+    trace(LogMessage.PROCESS_6, processInstanceId);
     final ProcessInstance processInstance = rule.getRuntimeService().createProcessInstanceQuery()
         .processInstanceId(processInstanceId).singleResult();
 
     Assert.assertNull(processInstance);
 
     // Assert there is a historic process instance and it is ended
-    trace(String
-        .format("Asserting historic process instance with id '%s' can be found and is ended", processInstanceId));
+    trace(LogMessage.PROCESS_4, processInstanceId);
     final HistoricProcessInstance historicProcessInstance = rule.getHistoryService()
         .createHistoricProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
 

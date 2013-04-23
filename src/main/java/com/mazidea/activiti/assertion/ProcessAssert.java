@@ -57,7 +57,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
    */
   public static final void assertProcessActive(final ActivitiRule rule, final String processInstanceId) {
     assertNotNull(processInstanceId);
-    debug("Asserting process instance with id '%s' is active", processInstanceId);
+    debug(LogMessage.PROCESS_1, processInstanceId);
     try {
       ProcessInstanceAssert.processIsActive(rule, processInstanceId);
     } catch (AssertionError ae) {
@@ -88,7 +88,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
    */
   public static final void assertProcessEnded(final ActivitiRule rule, final String processInstanceId) {
     assertNotNull(processInstanceId);
-    debug("Asserting process instance with id '%s' is ended", processInstanceId);
+    debug(LogMessage.PROCESS_5, processInstanceId);
     try {
       ProcessInstanceAssert.processIsEnded(rule, processInstanceId);
     } catch (AssertionError ae) {
@@ -160,8 +160,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
     assertNotNull(processInstanceId);
     assertNotNull(taskDefinitionKey);
 
-    debug("Asserting a task instance is uncompleted with taskDefinitionKey '%s' in process instance with id '%s'",
-        taskDefinitionKey, processInstanceId);
+    debug(LogMessage.TASK_1, taskDefinitionKey, processInstanceId);
     try {
       TaskInstanceAssert.taskIsUncompleted(rule, processInstanceId, taskDefinitionKey);
     } catch (AssertionError ae) {

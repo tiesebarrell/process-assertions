@@ -15,6 +15,8 @@
  ******************************************************************************/
 package com.mazidea.activiti.assertion;
 
+import java.util.ResourceBundle;
+
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,10 +31,27 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractProcessAssert {
 
   // Log to the ProcessAssert class' logger
-  private static Logger logger = LoggerFactory.getLogger(ProcessAssert.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ProcessAssert.class);
 
   protected AbstractProcessAssert() {
     super();
+  }
+
+  /**
+   * Logs the message and parameters at trace level if the logger has enabled
+   * ERROR level.
+   * 
+   * Uses {@link String#format(String, Object...)} to format messages.
+   * 
+   * @param message
+   *          the message with (optional) substitutable parameter placeholders
+   * @param objects
+   *          the parameters for substitution
+   */
+  protected static void error(final LogMessage message, final Object... objects) {
+    if (LOGGER.isErrorEnabled()) {
+      LOGGER.error(String.format(getMessage(message) + message, objects));
+    }
   }
 
   /**
@@ -46,9 +65,9 @@ public abstract class AbstractProcessAssert {
    * @param objects
    *          the parameters for substitution
    */
-  protected static void debug(final String message, final Object... objects) {
-    if (logger.isDebugEnabled()) {
-      logger.debug(String.format(message, objects));
+  protected static void debug(final LogMessage message, final Object... objects) {
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug(String.format(getMessage(message), objects));
     }
   }
 
@@ -63,10 +82,15 @@ public abstract class AbstractProcessAssert {
    * @param objects
    *          the parameters for substitution
    */
-  protected static void trace(final String message, final Object... objects) {
-    if (logger.isTraceEnabled()) {
-      logger.trace(String.format("\t" + message, objects));
+  protected static void trace(final LogMessage message, final Object... objects) {
+    if (LOGGER.isTraceEnabled()) {
+      LOGGER.trace(String.format(getMessage(message) + message, objects));
     }
+  }
+
+  private static String getMessage(LogMessage message) {
+    final ResourceBundle bundle = ResourceBundle.getBundle("messages.LogMessages");
+    return bundle.getString(message.getBundleKey());
   }
 
   /**
@@ -82,9 +106,7 @@ public abstract class AbstractProcessAssert {
    */
   protected static void fail(final String message, final Object... objects) {
     final String formattedMessage = String.format(message, objects);
-    if (logger.isErrorEnabled()) {
-      logger.error("Failing process assertions: " + formattedMessage);
-    }
+    error(LogMessage.ERROR_ASSERTIONS_1, formattedMessage);
     Assert.fail(formattedMessage);
   }
 }
