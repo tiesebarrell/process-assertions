@@ -50,7 +50,7 @@ public abstract class AbstractProcessAssert {
    */
   protected static void error(final LogMessage message, final Object... objects) {
     if (LOGGER.isErrorEnabled()) {
-      LOGGER.error(String.format(getMessage(message) + message, objects));
+      LOGGER.error(String.format(getMessage(message), objects));
     }
   }
 
