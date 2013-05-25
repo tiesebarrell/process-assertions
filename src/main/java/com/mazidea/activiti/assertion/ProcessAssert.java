@@ -61,7 +61,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
     try {
       ProcessInstanceAssert.processIsActive(rule, processInstanceId);
     } catch (AssertionError ae) {
-      fail(String.format("The process with id '%s' is not active", processInstanceId));
+      fail(LogMessage.ERROR_PROCESS_1, processInstanceId);
     }
   }
 
@@ -92,7 +92,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
     try {
       ProcessInstanceAssert.processIsEnded(rule, processInstanceId);
     } catch (AssertionError ae) {
-      fail(String.format("The process with id '%s' is not ended", processInstanceId));
+      fail(LogMessage.ERROR_PROCESS_2, processInstanceId);
     }
   }
 
@@ -164,8 +164,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
     try {
       TaskInstanceAssert.taskIsUncompleted(rule, processInstanceId, taskDefinitionKey);
     } catch (AssertionError ae) {
-      fail("There is no task with definition key '%s' pending completion in process instance with id '%s'",
-          taskDefinitionKey, processInstanceId);
+      fail(LogMessage.ERROR_TASK_1, taskDefinitionKey, processInstanceId);
     }
   }
 

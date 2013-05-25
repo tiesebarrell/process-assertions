@@ -33,6 +33,8 @@ public abstract class AbstractProcessAssert {
   // Log to the ProcessAssert class' logger
   private static final Logger LOGGER = LoggerFactory.getLogger(ProcessAssert.class);
 
+  private static ResourceBundle bundle;
+
   protected AbstractProcessAssert() {
     super();
   }
@@ -41,16 +43,14 @@ public abstract class AbstractProcessAssert {
    * Logs the message and parameters at trace level if the logger has enabled
    * ERROR level.
    * 
-   * Uses {@link String#format(String, Object...)} to format messages.
-   * 
    * @param message
-   *          the message with (optional) substitutable parameter placeholders
+   *          the log message
    * @param objects
    *          the parameters for substitution
    */
   protected static void error(final LogMessage message, final Object... objects) {
     if (LOGGER.isErrorEnabled()) {
-      LOGGER.error(String.format(getMessage(message), objects));
+      LOGGER.error(formatLogMessage(message, objects));
     }
   }
 
@@ -58,16 +58,14 @@ public abstract class AbstractProcessAssert {
    * Logs the message and parameters at debug level if the logger has enabled
    * DEBUG level.
    * 
-   * Uses {@link String#format(String, Object...)} to format messages.
-   * 
    * @param message
-   *          the message with (optional) substitutable parameter placeholders
+   *          the log message
    * @param objects
    *          the parameters for substitution
    */
   protected static void debug(final LogMessage message, final Object... objects) {
     if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug(String.format(getMessage(message), objects));
+      LOGGER.debug(formatLogMessage(message, objects));
     }
   }
 
@@ -75,22 +73,15 @@ public abstract class AbstractProcessAssert {
    * Logs the message and parameters at trace level if the logger has enabled
    * TRACE level.
    * 
-   * Uses {@link String#format(String, Object...)} to format messages.
-   * 
    * @param message
-   *          the message with (optional) substitutable parameter placeholders
+   *          the log message
    * @param objects
    *          the parameters for substitution
    */
   protected static void trace(final LogMessage message, final Object... objects) {
     if (LOGGER.isTraceEnabled()) {
-      LOGGER.trace(String.format(getMessage(message) + message, objects));
+      LOGGER.trace(formatLogMessage(message, objects));
     }
-  }
-
-  private static String getMessage(LogMessage message) {
-    final ResourceBundle bundle = ResourceBundle.getBundle("messages.LogMessages");
-    return bundle.getString(message.getBundleKey());
   }
 
   /**
@@ -100,13 +91,28 @@ public abstract class AbstractProcessAssert {
    * Uses {@link String#format(String, Object...)} to format messages.
    * 
    * @param message
-   *          the message with (optional) substitutable parameter placeholders
+   *          the log message
    * @param objects
    *          the parameters for substitution
    */
-  protected static void fail(final String message, final Object... objects) {
-    final String formattedMessage = String.format(message, objects);
+  protected static void fail(final LogMessage message, final Object... objects) {
+    final String formattedMessage = formatLogMessage(message, objects);
     error(LogMessage.ERROR_ASSERTIONS_1, formattedMessage);
     Assert.fail(formattedMessage);
+  }
+
+  private static String formatLogMessage(final LogMessage message, final Object... objects) {
+    return String.format(getMessage(message), objects);
+  }
+
+  private static String getMessage(LogMessage message) {
+    return getBundle().getString(message.getBundleKey());
+  }
+
+  private static ResourceBundle getBundle() {
+    if (bundle == null) {
+      bundle = ResourceBundle.getBundle("messages.LogMessages");
+    }
+    return bundle;
   }
 }

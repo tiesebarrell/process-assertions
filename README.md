@@ -30,7 +30,7 @@ public class MyProcessTest {
 The assertions are wrapped inside the `ProcessAssert.assertProcessActive()` method.
 
 ## Assertions
-When you use `ProcessAssert`, it will throw regular JUnit `AssertError`s with decriptive messages so you can hunt down problems in your process definition. This integrates with JUnit's normal way of handling exceptions and should provide you with clear information in your IDE. For example:
+When you use `ProcessAssert`, it will throw regular JUnit `AssertError`s with decriptive messages so you can hunt down problems in your process definition (or in your test case!). This integrates with JUnit's normal way of handling exceptions and should provide you with clear information in your IDE. For example:
 
 ![Assertion error in Eclipse][imgAssertionErrorInEclipse]
 

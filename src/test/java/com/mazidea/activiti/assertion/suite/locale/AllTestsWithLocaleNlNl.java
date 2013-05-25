@@ -13,46 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package com.mazidea.activiti.assertion;
+package com.mazidea.activiti.assertion.suite.locale;
+
+import java.util.Locale;
+
+import org.junit.BeforeClass;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
+
+import com.mazidea.activiti.assertion.suite.AllTests;
 
 /**
- * Messages used in log statements.
- * 
- * @author Tiese Barrell
- * 
+ * Test suite for the nl-NL locale.
  */
-public enum LogMessage {
+@RunWith(Suite.class)
+@SuiteClasses({ AllTests.class })
+public class AllTestsWithLocaleNlNl {
 
-  PROCESS_1("process.1"),
-
-  PROCESS_2("process.2"),
-
-  PROCESS_3("process.3"),
-
-  PROCESS_4("process.4"),
-
-  PROCESS_5("process.5"),
-
-  PROCESS_6("process.6"),
-
-  TASK_1("task.1"),
-
-  ERROR_ASSERTIONS_1("error.assertions.1"),
-
-  ERROR_PROCESS_1("error.process.1"),
-
-  ERROR_PROCESS_2("error.process.2"),
-
-  ERROR_TASK_1("error.task.1");
-
-  private final String bundleKey;
-
-  private LogMessage(final String bundleKey) {
-    this.bundleKey = bundleKey;
-  }
-
-  public String getBundleKey() {
-    return bundleKey;
+  @BeforeClass
+  public static void setUpClass() {
+    Locale.setDefault(new Locale("nl", "NL"));
   }
 
 }
