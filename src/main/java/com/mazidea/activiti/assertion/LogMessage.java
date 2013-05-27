@@ -35,6 +35,10 @@ public enum LogMessage {
 
   PROCESS_6("process.6"),
 
+  PROCESS_7("process.7"),
+
+  PROCESS_8("process.8"),
+
   TASK_1("task.1"),
 
   ERROR_ASSERTIONS_1("error.assertions.1"),

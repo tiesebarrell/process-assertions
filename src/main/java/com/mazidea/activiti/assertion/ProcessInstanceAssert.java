@@ -31,8 +31,13 @@ public final class ProcessInstanceAssert extends AbstractProcessAssert {
     trace(LogMessage.PROCESS_2, processInstanceId);
     final ProcessInstance processInstance = rule.getRuntimeService().createProcessInstanceQuery()
         .processInstanceId(processInstanceId).singleResult();
-
     Assert.assertNotNull(processInstance);
+
+    trace(LogMessage.PROCESS_7, processInstanceId);
+    Assert.assertFalse(processInstance.isEnded());
+
+    trace(LogMessage.PROCESS_8, processInstanceId);
+    Assert.assertFalse(processInstance.isSuspended());
 
     // Assert that the historic process instance is not ended
     trace(LogMessage.PROCESS_3, processInstanceId);
