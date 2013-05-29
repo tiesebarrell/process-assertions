@@ -34,6 +34,14 @@ public final class AssertUtils {
     super();
   }
 
+  /**
+   * Determines whether the history level of the process engine is set to
+   * {@link HistoryLevel.FULL}.
+   * 
+   * @param rule
+   *          the {@link ActivitiRule} to access the process engine's services
+   * @return true if the history level is set to full, false otherwise
+   */
   static boolean historyLevelIsFull(final ActivitiRule rule) {
 
     boolean result = false;
@@ -48,6 +56,19 @@ public final class AssertUtils {
     return result;
   }
 
+  /**
+   * Gets a list of {@link HistoricVariableUpdate}s in descending order of
+   * update time for the provided process instance id and the provided name for
+   * the process variable.
+   * 
+   * @param rule
+   *          the {@link ActivitiRule} to access the process engine's services
+   * @param processInstanceId
+   *          the process instance's id to get the variables for
+   * @param processVariableName
+   *          the name of the process variable to get the updates for
+   * @return a list of variable updates, in descending order
+   */
   static List<HistoricVariableUpdate> getDescendingVariableUpdates(final ActivitiRule rule,
       final String processInstanceId, final String processVariableName) {
 

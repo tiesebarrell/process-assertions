@@ -16,6 +16,7 @@
 package com.mazidea.activiti.assertion;
 
 import static com.mazidea.activiti.assertion.ProcessAssert.assertProcessActive;
+import static org.junit.Assert.fail;
 
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.test.Deployment;
@@ -32,18 +33,19 @@ import org.springframework.test.context.ContextConfiguration;
 public class ProcessIsActiveAssertionsTest extends AbstractProcessAssertTest {
 
   @Test
-  @Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_TASK_BPMN)
+  @Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
   public void testProcessActiveForObject() throws Exception {
-    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_TASK);
+    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
     assertProcessActive(activitiRule, processInstance);
   }
 
   @Test(expected = AssertionError.class)
-  @Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_TASK_BPMN)
+  @Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
   public void testProcessActiveFailureForNullObject() throws Exception {
-    runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_TASK);
+    runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
     ProcessInstance nullInstance = null;
     assertProcessActive(activitiRule, nullInstance);
+    fail("Expected exception for null process instance object");
   }
 
   @Test(expected = AssertionError.class)
@@ -51,21 +53,23 @@ public class ProcessIsActiveAssertionsTest extends AbstractProcessAssertTest {
   public void testProcessActiveFailureForObject() throws Exception {
     ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
     assertProcessActive(activitiRule, processInstance);
+    fail("Expected exception for process instance object");
   }
 
   @Test
-  @Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_TASK_BPMN)
+  @Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
   public void testProcessActiveForId() throws Exception {
-    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_TASK);
+    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
     assertProcessActive(activitiRule, processInstance.getId());
   }
 
   @Test(expected = AssertionError.class)
-  @Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_TASK_BPMN)
+  @Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
   public void testProcessActiveFailureForNullId() throws Exception {
-    runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_TASK);
+    runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
     String nullId = null;
     assertProcessActive(activitiRule, nullId);
+    fail("Expected exception for null process instance id");
   }
 
   @Test(expected = AssertionError.class)
@@ -73,6 +77,7 @@ public class ProcessIsActiveAssertionsTest extends AbstractProcessAssertTest {
   public void testProcessActiveFailureForId() throws Exception {
     ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
     assertProcessActive(activitiRule, processInstance.getId());
+    fail("Expected exception for process instance id");
   }
 
 }

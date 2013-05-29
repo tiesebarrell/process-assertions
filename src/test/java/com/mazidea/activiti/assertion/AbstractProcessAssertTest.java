@@ -34,11 +34,15 @@ public abstract class AbstractProcessAssertTest {
 
   protected static final String DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN = "diagrams/TestProcessStraightThrough.bpmn";
 
-  protected static final String DIAGRAMS_TEST_PROCESS_SINGLE_TASK_BPMN = "diagrams/TestProcessSingleTask.bpmn";
+  protected static final String DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN = "diagrams/TestProcessSingleUserTask.bpmn";
+
+  protected static final String DIAGRAMS_TEST_PROCESS_TWO_USER_TASKS_BPMN = "diagrams/TestProcessTwoUserTasks.bpmn";
 
   protected static final String TEST_PROCESS_STRAIGHT_THROUGH = "testProcessStraightThrough";
 
-  protected static final String TEST_PROCESS_SINGLE_TASK = "testProcessSingleTask";
+  protected static final String TEST_PROCESS_SINGLE_USER_TASK = "testProcessSingleUserTask";
+
+  protected static final String TEST_PROCESS_TWO_USER_TASKS = "testProcessTwoUserTasks";
 
   @Autowired
   @Rule

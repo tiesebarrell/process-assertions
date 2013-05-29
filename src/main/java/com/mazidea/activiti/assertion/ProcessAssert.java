@@ -32,6 +32,10 @@ public final class ProcessAssert extends AbstractProcessAssert {
     super();
   }
 
+  //
+  // Assertions for active process instances
+  //
+
   /**
    * Asserts the provided process instance is active, i.e. the process instance
    * is not ended.
@@ -65,6 +69,10 @@ public final class ProcessAssert extends AbstractProcessAssert {
     }
   }
 
+  //
+  // Assertions for ended process instances
+  //
+
   /**
    * Asserts the provided process instance is ended.
    * 
@@ -79,7 +87,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
   }
 
   /**
-   * Asserts the process instance with the provided id ended.
+   * Asserts the process instance with the provided id is ended.
    * 
    * @param rule
    *          the {@link ActivitiRule} to access the process engine's services
@@ -96,6 +104,10 @@ public final class ProcessAssert extends AbstractProcessAssert {
     }
   }
 
+  //
+  // Assertions for tasks
+  //
+
   /**
    * Asserts the provided task is pending completion.
    * 
@@ -106,8 +118,29 @@ public final class ProcessAssert extends AbstractProcessAssert {
    */
   public static final void assertTaskUncompleted(final ActivitiRule rule, final Task task) {
     assertNotNull(task);
-    assertTaskUncompleted(rule, task.getProcessInstanceId(), task.getTaskDefinitionKey());
+    assertTaskUncompleted(rule, task.getId());
   }
+
+  /**
+   * Asserts the task with the provided id is pending completion.
+   * 
+   * @param rule
+   *          the {@link ActivitiRule} to access the process engine's services
+   * @param taskId
+   *          the task's id to check for
+   */
+  public static final void assertTaskUncompleted(final ActivitiRule rule, final String taskId) {
+    assertNotNull(taskId);
+
+    debug(LogMessage.TASK_2, taskId);
+    try {
+      TaskInstanceAssert.taskIsUncompleted(rule, taskId);
+    } catch (AssertionError ae) {
+      fail(LogMessage.ERROR_TASK_2, taskId);
+    }
+  }
+
+  // Marker
 
   /**
    * Asserts the provided task is pending completion based on its
@@ -167,6 +200,10 @@ public final class ProcessAssert extends AbstractProcessAssert {
       fail(LogMessage.ERROR_TASK_1, taskDefinitionKey, processInstanceId);
     }
   }
+
+  //
+  // Assertions for ended process instances and end states
+  //
 
   /**
    * Asserts the provided process instance is ended and has reached the end
@@ -267,6 +304,10 @@ public final class ProcessAssert extends AbstractProcessAssert {
     // Assert.assertTrue(processEndedAndInEndStates(rule, processInstanceId,
     // endStateKeys));
   }
+
+  //
+  // Assertions for historic values of process variables
+  //
 
   /**
    * Asserts that the process variable with the provided name is available in

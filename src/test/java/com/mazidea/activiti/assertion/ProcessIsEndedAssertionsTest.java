@@ -16,6 +16,7 @@
 package com.mazidea.activiti.assertion;
 
 import static com.mazidea.activiti.assertion.ProcessAssert.assertProcessEnded;
+import static org.junit.Assert.fail;
 
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.test.Deployment;
@@ -44,13 +45,15 @@ public class ProcessIsEndedAssertionsTest extends AbstractProcessAssertTest {
     runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
     ProcessInstance nullInstance = null;
     assertProcessEnded(activitiRule, nullInstance);
+    fail("Expected exception for null process instance object");
   }
 
   @Test(expected = AssertionError.class)
-  @Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_TASK_BPMN)
+  @Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
   public void testProcessEndedFailureForObject() throws Exception {
-    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_TASK);
+    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
     assertProcessEnded(activitiRule, processInstance);
+    fail("Expected exception for process instance object");
   }
 
   @Test
@@ -66,13 +69,15 @@ public class ProcessIsEndedAssertionsTest extends AbstractProcessAssertTest {
     runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
     String nullId = null;
     assertProcessEnded(activitiRule, nullId);
+    fail("Expected exception for null process instance id");
   }
 
   @Test(expected = AssertionError.class)
-  @Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_TASK_BPMN)
+  @Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
   public void testProcessEndedFailureForId() throws Exception {
-    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_TASK);
+    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
     assertProcessEnded(activitiRule, processInstance.getId());
+    fail("Expected exception for process instance id");
   }
 
 }

@@ -28,6 +28,17 @@ public final class TaskInstanceAssert {
     super();
   }
 
+  public static void taskIsUncompleted(final ActivitiRule rule, final String taskId) {
+
+    // Assert a task exists
+    final Task task = rule.getTaskService().createTaskQuery().taskId(taskId).active().singleResult();
+    Assert.assertNotNull(task);
+
+    // Assert the process is not completed
+    ProcessInstanceAssert.processIsActive(rule, task.getProcessInstanceId());
+
+  }
+
   public static void taskIsUncompleted(final ActivitiRule rule, final String processInstanceId,
       final String taskDefinitionKey) {
 

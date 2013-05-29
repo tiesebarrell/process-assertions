@@ -23,36 +23,40 @@ package com.mazidea.activiti.assertion;
  */
 public enum LogMessage {
 
-  PROCESS_1("process.1"),
+  PROCESS_1(),
 
-  PROCESS_2("process.2"),
+  PROCESS_2(),
 
-  PROCESS_3("process.3"),
+  PROCESS_3(),
 
-  PROCESS_4("process.4"),
+  PROCESS_4(),
 
-  PROCESS_5("process.5"),
+  PROCESS_5(),
 
-  PROCESS_6("process.6"),
+  PROCESS_6(),
 
-  PROCESS_7("process.7"),
+  PROCESS_7(),
 
-  PROCESS_8("process.8"),
+  PROCESS_8(),
 
-  TASK_1("task.1"),
+  TASK_1(),
 
-  ERROR_ASSERTIONS_1("error.assertions.1"),
+  TASK_2(),
 
-  ERROR_PROCESS_1("error.process.1"),
+  ERROR_ASSERTIONS_1(),
 
-  ERROR_PROCESS_2("error.process.2"),
+  ERROR_PROCESS_1(),
 
-  ERROR_TASK_1("error.task.1");
+  ERROR_PROCESS_2(),
+
+  ERROR_TASK_1(),
+
+  ERROR_TASK_2();
 
   private final String bundleKey;
 
-  private LogMessage(final String bundleKey) {
-    this.bundleKey = bundleKey;
+  private LogMessage() {
+    this.bundleKey = name().replaceAll("_", ".").toLowerCase();
   }
 
   public String getBundleKey() {
