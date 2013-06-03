@@ -45,16 +45,26 @@ public class TaskIsUncompletedAssertionsTest extends AbstractProcessAssertTest {
   @Deployment(resources = DIAGRAMS_TEST_PROCESS_TWO_USER_TASKS_BPMN)
   public void testTaskUncompletedForTaskObject() throws Exception {
     runtimeService.startProcessInstanceByKey(TEST_PROCESS_TWO_USER_TASKS);
-    Task task = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_1).singleResult();
-    assertTaskUncompleted(activitiRule, task);
+    Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_1).singleResult();
+    assertTaskUncompleted(activitiRule, task1);
 
-    // todo progress to task 2 and revert
+    // Move on to task two and test
+    taskService.complete(task1.getId());
+    Task task2 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_2).singleResult();
+    assertTaskUncompleted(activitiRule, task2);
+
+    try {
+      assertTaskUncompleted(activitiRule, task1);
+      fail("Expected exception for task1 that is now completed");
+    } catch (AssertionError e) {
+      // no-op
+    }
   }
 
   @Test(expected = AssertionError.class)
-  @Deployment(resources = DIAGRAMS_TEST_PROCESS_TWO_USER_TASKS_BPMN)
+  @Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
   public void testTaskUncompletedFailureForNullTaskObject() throws Exception {
-    runtimeService.startProcessInstanceByKey(TEST_PROCESS_TWO_USER_TASKS);
+    runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
     Task nullTask = null;
     assertTaskUncompleted(activitiRule, nullTask);
     fail("Expected exception for null task object");
@@ -64,16 +74,27 @@ public class TaskIsUncompletedAssertionsTest extends AbstractProcessAssertTest {
   @Deployment(resources = DIAGRAMS_TEST_PROCESS_TWO_USER_TASKS_BPMN)
   public void testTaskUncompletedForTaskId() throws Exception {
     runtimeService.startProcessInstanceByKey(TEST_PROCESS_TWO_USER_TASKS);
-    Task task = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_1).singleResult();
-    assertTaskUncompleted(activitiRule, task.getId());
+    Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_1).singleResult();
+    assertTaskUncompleted(activitiRule, task1.getId());
 
-    // todo progress to task 2 and revert
+    // Move on to task two and test
+    taskService.complete(task1.getId());
+    Task task2 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_2).singleResult();
+    assertTaskUncompleted(activitiRule, task2.getId());
+
+    try {
+      assertTaskUncompleted(activitiRule, task1.getId());
+      fail("Expected exception for task1 that is now completed");
+    } catch (AssertionError e) {
+      // no-op
+    }
+
   }
 
   @Test(expected = AssertionError.class)
-  @Deployment(resources = DIAGRAMS_TEST_PROCESS_TWO_USER_TASKS_BPMN)
+  @Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
   public void testTaskUncompletedFailureForNullTaskId() throws Exception {
-    runtimeService.startProcessInstanceByKey(TEST_PROCESS_TWO_USER_TASKS);
+    runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
     String nullString = null;
     assertTaskUncompleted(activitiRule, nullString);
     fail("Expected exception for null task id");
