@@ -13,23 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package com.mazidea.activiti.assertion.suite;
+package com.mazidea.activiti.assertion.suite.locale;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import com.mazidea.activiti.assertion.LogMessageTest;
-import com.mazidea.activiti.assertion.ProcessIsActiveAssertionsTest;
-import com.mazidea.activiti.assertion.ProcessIsEndedAssertionsTest;
-import com.mazidea.activiti.assertion.TaskIsUncompletedAssertionsTest;
+import com.mazidea.activiti.assertion.suite.AllTests;
 
 /**
- * Test suite for the com.mazidea.activiti.assertion package.
+ * Test suite for all tests in all locales, including the default locale.
  */
 @RunWith(Suite.class)
-@SuiteClasses({ ProcessIsActiveAssertionsTest.class, ProcessIsEndedAssertionsTest.class,
-    TaskIsUncompletedAssertionsTest.class, LogMessageTest.class })
-public class AssertionTests {
+@SuiteClasses({ AllTests.class, AllTestsWithLocaleNlNl.class })
+public class AllTestsAllLocales {
 
 }

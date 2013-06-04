@@ -111,7 +111,7 @@ public abstract class AbstractProcessAssert {
 
   private static ResourceBundle getBundle() {
     if (bundle == null) {
-      bundle = ResourceBundle.getBundle("messages.LogMessages");
+      bundle = ResourceBundle.getBundle(Constants.LOG_MESSAGES_BUNDLE_NAME);
     }
     return bundle;
   }

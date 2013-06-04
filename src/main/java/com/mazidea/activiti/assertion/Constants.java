@@ -13,23 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package com.mazidea.activiti.assertion.suite;
-
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
-
-import com.mazidea.activiti.assertion.LogMessageTest;
-import com.mazidea.activiti.assertion.ProcessIsActiveAssertionsTest;
-import com.mazidea.activiti.assertion.ProcessIsEndedAssertionsTest;
-import com.mazidea.activiti.assertion.TaskIsUncompletedAssertionsTest;
+package com.mazidea.activiti.assertion;
 
 /**
- * Test suite for the com.mazidea.activiti.assertion package.
+ * Constants for process assertions.
+ * 
+ * @author Tiese Barrell
+ * 
  */
-@RunWith(Suite.class)
-@SuiteClasses({ ProcessIsActiveAssertionsTest.class, ProcessIsEndedAssertionsTest.class,
-    TaskIsUncompletedAssertionsTest.class, LogMessageTest.class })
-public class AssertionTests {
+public final class Constants {
 
+  /**
+   * The name for the bundle containing log messages.
+   */
+  public static final String LOG_MESSAGES_BUNDLE_NAME = "messages.LogMessages";
+
+  private Constants() {
+    super();
+  }
 }
