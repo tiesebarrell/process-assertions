@@ -140,26 +140,6 @@ public final class ProcessAssert extends AbstractProcessAssert {
     }
   }
 
-  // Marker
-
-  /**
-   * Asserts the provided task is pending completion based on its
-   * taskDefinitionKey in the provided processInstance.
-   * 
-   * @param rule
-   *          the {@link ActivitiRule} to access the process engine's services
-   * @param processInstance
-   *          the process instance to check for
-   * @param task
-   *          the task to check for
-   */
-  public static final void assertTaskUncompleted(final ActivitiRule rule, final ProcessInstance processInstance,
-      final Task task) {
-    assertNotNull(processInstance);
-    assertNotNull(task);
-    assertTaskUncompleted(rule, processInstance.getId(), task.getTaskDefinitionKey());
-  }
-
   /**
    * Asserts a task with the provided taskDefinitionKey is pending completion in
    * the provided process instance.
@@ -167,13 +147,14 @@ public final class ProcessAssert extends AbstractProcessAssert {
    * @param rule
    *          the {@link ActivitiRule} to access the process engine's services
    * @param processInstance
-   *          the process instance to check for
+   *          the process instance's id to check for
    * @param taskDefinitionKey
    *          the task's definition key to check for
    */
   public static final void assertTaskUncompleted(final ActivitiRule rule, final ProcessInstance processInstance,
       final String taskDefinitionKey) {
     assertNotNull(processInstance);
+    assertNotNull(taskDefinitionKey);
     assertTaskUncompleted(rule, processInstance.getId(), taskDefinitionKey);
   }
 
@@ -184,7 +165,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
    * @param rule
    *          the {@link ActivitiRule} to access the process engine's services
    * @param processInstanceId
-   *          the id of the process instance to check for
+   *          the process instance's id to check for
    * @param taskDefinitionKey
    *          the task's definition key to check for
    */
@@ -200,6 +181,8 @@ public final class ProcessAssert extends AbstractProcessAssert {
       fail(LogMessage.ERROR_TASK_1, taskDefinitionKey, processInstanceId);
     }
   }
+
+  // Marker
 
   //
   // Assertions for ended process instances and end states

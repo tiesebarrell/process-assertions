@@ -39,7 +39,7 @@
 					<source>${jdk.version}</source>
 					<target>${jdk.version}</target>
 					<debug>true</debug>
-					<encoding>UTF-8</encoding>
+					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
 		</plugins>

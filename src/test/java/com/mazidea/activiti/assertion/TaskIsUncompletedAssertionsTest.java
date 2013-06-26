@@ -16,10 +16,12 @@
 package com.mazidea.activiti.assertion;
 
 import static com.mazidea.activiti.assertion.ProcessAssert.assertTaskUncompleted;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.Collections;
 
+import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.Deployment;
 import org.junit.Ignore;
@@ -52,13 +54,17 @@ public class TaskIsUncompletedAssertionsTest extends AbstractProcessAssertTest {
     taskService.complete(task1.getId());
     Task task2 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_2).singleResult();
     assertTaskUncompleted(activitiRule, task2);
+  }
 
-    try {
-      assertTaskUncompleted(activitiRule, task1);
-      fail("Expected exception for task1 that is now completed");
-    } catch (AssertionError e) {
-      // no-op
-    }
+  @Test(expected = AssertionError.class)
+  @Deployment(resources = DIAGRAMS_TEST_PROCESS_TWO_USER_TASKS_BPMN)
+  public void testTaskUncompletedForTaskObjectForCompletedTask() throws Exception {
+    runtimeService.startProcessInstanceByKey(TEST_PROCESS_TWO_USER_TASKS);
+    Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_1).singleResult();
+    taskService.complete(task1.getId());
+
+    assertTaskUncompleted(activitiRule, task1);
+    fail("Expected exception for task1 that is now completed");
   }
 
   @Test(expected = AssertionError.class)
@@ -81,14 +87,17 @@ public class TaskIsUncompletedAssertionsTest extends AbstractProcessAssertTest {
     taskService.complete(task1.getId());
     Task task2 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_2).singleResult();
     assertTaskUncompleted(activitiRule, task2.getId());
+  }
 
-    try {
-      assertTaskUncompleted(activitiRule, task1.getId());
-      fail("Expected exception for task1 that is now completed");
-    } catch (AssertionError e) {
-      // no-op
-    }
+  @Test(expected = AssertionError.class)
+  @Deployment(resources = DIAGRAMS_TEST_PROCESS_TWO_USER_TASKS_BPMN)
+  public void testTaskUncompletedForTaskIdForCompletedTask() throws Exception {
+    runtimeService.startProcessInstanceByKey(TEST_PROCESS_TWO_USER_TASKS);
+    Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_1).singleResult();
+    taskService.complete(task1.getId());
 
+    assertTaskUncompleted(activitiRule, task1.getId());
+    fail("Expected exception for task1 that is now completed");
   }
 
   @Test(expected = AssertionError.class)
@@ -100,16 +109,28 @@ public class TaskIsUncompletedAssertionsTest extends AbstractProcessAssertTest {
     fail("Expected exception for null task id");
   }
 
-  // Marker
-
   @Test
-  @Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
-  @Ignore
-  public void testTaskUncompletedForTaskObjectOnly() throws Exception {
-    runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
-    Task task = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(SINGLE_USER_TASK).singleResult();
-    assertTaskUncompleted(activitiRule, task);
+  @Deployment(resources = DIAGRAMS_TEST_PROCESS_TWO_USER_TASKS_BPMN)
+  public void testTaskUncompletedForProcessInstanceObjectAndKey() throws Exception {
+    final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_TWO_USER_TASKS);
+    assertNotNull(processInstance);
+    assertTaskUncompleted(activitiRule, processInstance, USER_TASK_1);
+
+    // Move on to task two and test
+    Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_1).singleResult();
+    taskService.complete(task1.getId());
+
+    assertTaskUncompleted(activitiRule, processInstance, USER_TASK_2);
+
+    try {
+      assertTaskUncompleted(activitiRule, processInstance, USER_TASK_1);
+      fail("Expected exception for task1 that is now completed");
+    } catch (AssertionError e) {
+      // no-op
+    }
   }
+
+  // Marker
 
   @Test(expected = AssertionError.class)
   @Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)

@@ -15,6 +15,8 @@
  ******************************************************************************/
 package com.mazidea.activiti.assertion;
 
+import java.util.List;
+
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
 import org.junit.Assert;
@@ -46,10 +48,11 @@ public final class TaskInstanceAssert {
     ProcessInstanceAssert.processIsActive(rule, processInstanceId);
 
     // Assert a task exists
-    final Task task = rule.getTaskService().createTaskQuery().processInstanceId(processInstanceId)
-        .taskDefinitionKey(taskDefinitionKey).singleResult();
+    final List<Task> tasks = rule.getTaskService().createTaskQuery().processInstanceId(processInstanceId)
+        .taskDefinitionKey(taskDefinitionKey).list();
 
-    Assert.assertNotNull(task);
+    Assert.assertNotNull(tasks);
+    Assert.assertFalse(tasks.isEmpty());
 
   }
 
