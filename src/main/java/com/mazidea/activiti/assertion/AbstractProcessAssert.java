@@ -15,13 +15,12 @@
  ******************************************************************************/
 package com.mazidea.activiti.assertion;
 
+import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.helpers.FormattingTuple;
-import org.slf4j.helpers.MessageFormatter;
 
 /**
  * Abstract base class for process assertions. Provides easy access to logger
@@ -50,7 +49,7 @@ public abstract class AbstractProcessAssert {
 	 *            the parameters for substitution
 	 */
 	protected static void error(final LogMessage message, final Object... objects) {
-		LOGGER.error(getMessage(message), objects);
+		LOGGER.error(getFormattedMessage(message, objects));
 	}
 
 	/**
@@ -62,7 +61,7 @@ public abstract class AbstractProcessAssert {
 	 *            the parameters for substitution
 	 */
 	protected static void debug(final LogMessage message, final Object... objects) {
-		LOGGER.debug(getMessage(message), objects);
+		LOGGER.debug(getFormattedMessage(message, objects));
 	}
 
 	/**
@@ -74,14 +73,12 @@ public abstract class AbstractProcessAssert {
 	 *            the parameters for substitution
 	 */
 	protected static void trace(final LogMessage message, final Object... objects) {
-		LOGGER.trace(getMessage(message), objects);
+		LOGGER.trace(getFormattedMessage(message, objects));
 	}
 
 	/**
 	 * Fails the assertions by throwing an AssertionError with the provided
 	 * message and parameters.
-	 * 
-	 * Uses {@link String#format(String, Object...)} to format messages.
 	 * 
 	 * @param message
 	 *            the log message
@@ -95,19 +92,8 @@ public abstract class AbstractProcessAssert {
 		Assert.fail(failureMessage);
 	}
 
-	/**
-	 * Gets the formatted message by using SLF4J's implementation to allow for
-	 * the same substitution specification in resource bundles.
-	 * 
-	 * @param message
-	 *            the log message
-	 * @param objects
-	 *            the parameters for substitution
-	 * @return the formatted message
-	 */
 	private static String getFormattedMessage(final LogMessage message, final Object[] objects) {
-		final FormattingTuple formattingTuple = MessageFormatter.arrayFormat(getMessage(message), objects);
-		return formattingTuple.getMessage();
+		return MessageFormat.format(getMessage(message), objects);
 	}
 
 	private static String getMessage(LogMessage message) {
