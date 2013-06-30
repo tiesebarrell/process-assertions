@@ -16,6 +16,7 @@
 package com.mazidea.activiti.assertion;
 
 import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.junit.Assert;
@@ -101,9 +102,22 @@ public abstract class AbstractProcessAssert {
 	}
 
 	private static ResourceBundle getBundle() {
-		if (bundle == null) {
-			bundle = ResourceBundle.getBundle(Constants.LOG_MESSAGES_BUNDLE_NAME);
-		}
+		loadBundleIfRequired();
 		return bundle;
 	}
+
+	private static void loadBundleIfRequired() {
+		if (bundleLoadRequired()) {
+			loadBundle();
+		}
+	}
+
+	private static boolean bundleLoadRequired() {
+		return bundle == null || !bundle.getLocale().equals(Locale.getDefault());
+	}
+
+	private static void loadBundle() {
+		bundle = ResourceBundle.getBundle(Constants.LOG_MESSAGES_BUNDLE_NAME);
+	}
+
 }
