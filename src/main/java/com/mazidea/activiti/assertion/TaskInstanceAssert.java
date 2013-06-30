@@ -24,36 +24,35 @@ import org.junit.Assert;
 /**
  * Provides assertions for task instances.
  */
-public final class TaskInstanceAssert {
+final class TaskInstanceAssert {
 
-  private TaskInstanceAssert() {
-    super();
-  }
+	private TaskInstanceAssert() {
+		super();
+	}
 
-  public static void taskIsUncompleted(final ActivitiRule rule, final String taskId) {
+	static void taskIsUncompleted(final ActivitiRule rule, final String taskId) {
 
-    // Assert a task exists
-    final Task task = rule.getTaskService().createTaskQuery().taskId(taskId).active().singleResult();
-    Assert.assertNotNull(task);
+		// Assert a task exists
+		final Task task = rule.getTaskService().createTaskQuery().taskId(taskId).active().singleResult();
+		Assert.assertNotNull(task);
 
-    // Assert the process is not completed
-    ProcessInstanceAssert.processIsActive(rule, task.getProcessInstanceId());
+		// Assert the process is not completed
+		ProcessInstanceAssert.processIsActive(rule, task.getProcessInstanceId());
 
-  }
+	}
 
-  public static void taskIsUncompleted(final ActivitiRule rule, final String processInstanceId,
-      final String taskDefinitionKey) {
+	static void taskIsUncompleted(final ActivitiRule rule, final String processInstanceId, final String taskDefinitionKey) {
 
-    // Assert the process is not completed
-    ProcessInstanceAssert.processIsActive(rule, processInstanceId);
+		// Assert the process is not completed
+		ProcessInstanceAssert.processIsActive(rule, processInstanceId);
 
-    // Assert a task exists
-    final List<Task> tasks = rule.getTaskService().createTaskQuery().processInstanceId(processInstanceId)
-        .taskDefinitionKey(taskDefinitionKey).list();
+		// Assert a task exists
+		final List<Task> tasks = rule.getTaskService().createTaskQuery().processInstanceId(processInstanceId).taskDefinitionKey(taskDefinitionKey)
+				.active().list();
 
-    Assert.assertNotNull(tasks);
-    Assert.assertFalse(tasks.isEmpty());
+		Assert.assertNotNull(tasks);
+		Assert.assertFalse(tasks.isEmpty());
 
-  }
+	}
 
 }

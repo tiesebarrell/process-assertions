@@ -22,37 +22,37 @@ import org.activiti.engine.test.ActivitiRule;
 import org.junit.Assert;
 
 /**
- * Provides assertions for process instances.
+ * Provides assertions for historic variable instances.
  */
-public final class HistoricVariableInstanceAssert {
+final class HistoricVariableInstanceAssert {
 
-  private HistoricVariableInstanceAssert() {
-    super();
-  }
+	private HistoricVariableInstanceAssert() {
+		super();
+	}
 
-  private static boolean historicProcessVariableLatestValueEquals(final ActivitiRule rule,
-      final String processInstanceId, final String processVariableName, final Object expectedValue) {
+	static boolean historicProcessVariableLatestValueEquals(final ActivitiRule rule, final String processInstanceId,
+			final String processVariableName, final Object expectedValue) {
 
-    boolean result = false;
+		boolean result = false;
 
-    try {
-      final List<HistoricVariableUpdate> variableUpdates = AssertUtils.getDescendingVariableUpdates(rule,
-          processInstanceId, processVariableName);
+		try {
+			final List<HistoricVariableUpdate> variableUpdates = AssertUtils.getDescendingVariableUpdates(rule, processInstanceId,
+					processVariableName);
 
-      if (variableUpdates.size() > 0) {
-        final HistoricVariableUpdate latest = variableUpdates.get(0);
-        Assert.assertNotNull(latest);
-        Assert.assertEquals(processVariableName, latest.getVariableName());
-        Assert.assertEquals(expectedValue, latest.getValue());
-        result = true;
-      } else {
-        result = false;
-      }
+			if (variableUpdates.size() > 0) {
+				final HistoricVariableUpdate latest = variableUpdates.get(0);
+				Assert.assertNotNull(latest);
+				Assert.assertEquals(processVariableName, latest.getVariableName());
+				Assert.assertEquals(expectedValue, latest.getValue());
+				result = true;
+			} else {
+				result = false;
+			}
 
-    } catch (final AssertionError ae) {
-      result = false;
-    }
+		} catch (final AssertionError ae) {
+			result = false;
+		}
 
-    return result;
-  }
+		return result;
+	}
 }

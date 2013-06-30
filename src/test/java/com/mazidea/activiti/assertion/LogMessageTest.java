@@ -39,102 +39,100 @@ import org.junit.Test;
  */
 public class LogMessageTest {
 
-  private Locale originalLocale;
+	private Locale originalLocale;
 
-  @Before
-  public void setup() {
-    originalLocale = Locale.getDefault();
-  }
+	@Before
+	public void setup() {
+		originalLocale = Locale.getDefault();
+	}
 
-  @After
-  public void tearDown() {
-    Locale.setDefault(originalLocale);
-  }
+	@After
+	public void tearDown() {
+		Locale.setDefault(originalLocale);
+	}
 
-  @Test
-  public void testAllKeysDefined() throws Exception {
+	@Test
+	public void testAllKeysDefined() throws Exception {
 
-    final List<LogMessage> missingEntries = checkForMissingEntries();
+		final List<LogMessage> missingEntries = checkForMissingEntries();
 
-    if (!missingEntries.isEmpty()) {
-      fail(buildAssertionErrorMessage(missingEntries));
-    }
+		if (!missingEntries.isEmpty()) {
+			fail(buildAssertionErrorMessage(missingEntries));
+		}
 
-  }
+	}
 
-  @Test
-  public void testInvalidLocaleHasMissingEntries() throws Exception {
+	@Test
+	public void testInvalidLocaleHasMissingEntries() throws Exception {
 
-    Locale.setDefault(new Locale("xx", "YY"));
+		Locale.setDefault(new Locale("xx", "YY"));
 
-    final List<LogMessage> missingEntries = checkForMissingEntries();
+		final List<LogMessage> missingEntries = checkForMissingEntries();
 
-    if (missingEntries.isEmpty()) {
-      fail("Expected invalid locale 'xx', 'YY' to have missing entries");
-    }
+		if (missingEntries.isEmpty()) {
+			fail("Expected invalid locale 'xx', 'YY' to have missing entries");
+		}
 
-    assertEquals(LogMessage.values().length, missingEntries.size());
+		assertEquals(LogMessage.values().length, missingEntries.size());
 
-  }
+	}
 
-  @Test
-  @Ignore
-  public void testFallback() throws Exception {
+	@Test
+	@Ignore
+	public void testFallback() throws Exception {
 
-    // implement test for key fallback. First separate logic for resolving from
-    // ResourceBundle, then create test case
+		// TODO implement test for key fallback. First separate logic for
+		// resolving from ResourceBundle, then create test case
 
-    fail("Not yet implemented");
+		fail("Not yet implemented");
 
-  }
+	}
 
-  private List<LogMessage> checkForMissingEntries() throws Exception {
-    final List<LogMessage> missingEntries = new ArrayList<LogMessage>();
+	private List<LogMessage> checkForMissingEntries() throws Exception {
+		final List<LogMessage> missingEntries = new ArrayList<LogMessage>();
 
-    final Properties properties = new Properties();
+		final Properties properties = new Properties();
 
-    final String resourceBundlePathForLocale = getResourceBundlePathForLocale();
+		final String resourceBundlePathForLocale = getResourceBundlePathForLocale();
 
-    final InputStream is = Thread.currentThread().getContextClassLoader()
-        .getResourceAsStream(resourceBundlePathForLocale);
-    properties.load(is);
+		final InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourceBundlePathForLocale);
+		properties.load(is);
 
-    for (final LogMessage logMessage : LogMessage.values()) {
+		for (final LogMessage logMessage : LogMessage.values()) {
 
-      String entry = properties.getProperty(logMessage.getBundleKey());
-      if (StringUtils.isBlank(entry)) {
-        missingEntries.add(logMessage);
-      }
-    }
-    return missingEntries;
-  }
+			String entry = properties.getProperty(logMessage.getBundleKey());
+			if (StringUtils.isBlank(entry)) {
+				missingEntries.add(logMessage);
+			}
+		}
+		return missingEntries;
+	}
 
-  private String getResourceBundlePathForLocale() {
+	private String getResourceBundlePathForLocale() {
 
-    final String localeSpecificPath = getLocaleSpecificPath();
+		final String localeSpecificPath = getLocaleSpecificPath();
 
-    return StringUtils.replace(Constants.LOG_MESSAGES_BUNDLE_NAME, ".", "/") + localeSpecificPath + ".properties";
-  }
+		return StringUtils.replace(Constants.LOG_MESSAGES_BUNDLE_NAME, ".", "/") + localeSpecificPath + ".properties";
+	}
 
-  private String getLocaleSpecificPath() {
-    final Locale fallBackLocale = new Locale("en", "US");
-    String result = "";
-    if (!Locale.getDefault().equals(fallBackLocale)) {
-      result = "_" + Locale.getDefault().toString();
-    }
-    return result;
-  }
+	private String getLocaleSpecificPath() {
+		final Locale fallBackLocale = new Locale("en", "US");
+		String result = "";
+		if (!Locale.getDefault().equals(fallBackLocale)) {
+			result = "_" + Locale.getDefault().toString();
+		}
+		return result;
+	}
 
-  private String buildAssertionErrorMessage(final Collection<LogMessage> missingEntries) {
-    final StringBuilder builder = new StringBuilder();
+	private String buildAssertionErrorMessage(final Collection<LogMessage> missingEntries) {
+		final StringBuilder builder = new StringBuilder();
 
-    builder.append("There are entries missing in the LogMessages bundle for locale ")
-        .append(Locale.getDefault().toString()).append(": \n");
-    for (final LogMessage logMessage : missingEntries) {
-      builder.append(logMessage.getBundleKey()).append("\n");
-    }
+		builder.append("There are entries missing in the LogMessages bundle for locale ").append(Locale.getDefault().toString()).append(": \n");
+		for (final LogMessage logMessage : missingEntries) {
+			builder.append(logMessage.getBundleKey()).append("\n");
+		}
 
-    return builder.toString();
-  }
+		return builder.toString();
+	}
 
 }

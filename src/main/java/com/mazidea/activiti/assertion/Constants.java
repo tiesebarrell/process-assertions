@@ -23,12 +23,12 @@ package com.mazidea.activiti.assertion;
  */
 public final class Constants {
 
-  /**
-   * The name for the bundle containing log messages.
-   */
-  public static final String LOG_MESSAGES_BUNDLE_NAME = "messages.LogMessages";
+	/**
+	 * The name for the bundle containing log messages.
+	 */
+	public static final String LOG_MESSAGES_BUNDLE_NAME = "messages.LogMessages";
 
-  private Constants() {
-    super();
-  }
+	private Constants() {
+		super();
+	}
 }

@@ -22,14 +22,15 @@ import org.junit.runners.Suite.SuiteClasses;
 import com.mazidea.activiti.assertion.LogMessageTest;
 import com.mazidea.activiti.assertion.ProcessIsActiveAssertionsTest;
 import com.mazidea.activiti.assertion.ProcessIsEndedAssertionsTest;
-import com.mazidea.activiti.assertion.TaskIsUncompletedAssertionsTest;
+import com.mazidea.activiti.assertion.TaskIsUncompletedByProcessInstanceAndTaskDefinitionKeyAssertionsTest;
+import com.mazidea.activiti.assertion.TaskIsUncompletedByTaskAssertionsTest;
 
 /**
  * Test suite for the com.mazidea.activiti.assertion package.
  */
 @RunWith(Suite.class)
-@SuiteClasses({ ProcessIsActiveAssertionsTest.class, ProcessIsEndedAssertionsTest.class,
-    TaskIsUncompletedAssertionsTest.class, LogMessageTest.class })
+@SuiteClasses({ ProcessIsActiveAssertionsTest.class, ProcessIsEndedAssertionsTest.class, TaskIsUncompletedByTaskAssertionsTest.class,
+		TaskIsUncompletedByProcessInstanceAndTaskDefinitionKeyAssertionsTest.class, LogMessageTest.class })
 public class AssertionTests {
 
 }
