@@ -14,13 +14,14 @@
 		<activiti.version>5.12</activiti.version>
 		<commons.collections.version>20040616</commons.collections.version>
 		<h2.version>1.3.168</h2.version>
-		<jdk.version>1.6</jdk.version>
+		<jdk.version>1.7</jdk.version>
 		<junit.version>4.11</junit.version>
 		<log4j.version>1.2.17</log4j.version>
 		<slf4j.api.version>1.7.2</slf4j.api.version>
 		<slf4j.version>1.7.5</slf4j.version>
 		<spring.version>3.1.2.RELEASE</spring.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
 	</properties>
 
 	<repositories>
@@ -42,6 +43,13 @@
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
+			<plugin>
+        		<groupId>org.apache.maven.plugins</groupId>
+        		<artifactId>maven-javadoc-plugin</artifactId>
+        		<configuration>
+        			<stylesheetfile>src/main/javadoc/stylesheet.css</stylesheetfile>
+		        </configuration>
+      		</plugin>
 		</plugins>
 	</build>
 
@@ -131,4 +139,9 @@
 		</dependency>
 	</dependencies>
 
+	<organization>
+		<name>Tiese Barrell</name>
+		<url>http://www.mazidea.com/</url>
+	</organization>
+	<url>http://test.url</url>
 </project>
