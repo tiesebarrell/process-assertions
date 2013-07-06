@@ -195,29 +195,54 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	//
 
 	/**
-	 * Asserts the provided process instance is ended and has reached the end
-	 * state with the provided key.
+	 * Asserts the provided process instance is ended and has reached
+	 * <strong>only</strong> the end event with the provided key.
 	 * 
 	 * <p>
-	 * <strong>Note:</strong> this assertion assumes the process has exclusive
-	 * endstates. If the process definition branches into non-exclusive branches
-	 * with individual endstates or the process potentially has multiple
-	 * endstates, this method should not be used.
-	 * </p>
+	 * <strong>Note:</strong> this assertion should be used for processes that
+	 * have exclusive end events and no intermediate end events. This generally
+	 * only applies to simple processes. If the process definition branches into
+	 * non-exclusive branches with distinct end events or the process
+	 * potentially has multiple end events that are reached, this method should
+	 * not be used.
 	 * 
-	 * @see {@link #assertProcessEndedAndInEndStates(ActivitiRule, ProcessInstance, String...)}
+	 * <p>
+	 * To test that a process ended in an end event and that particular end
+	 * event was the final event reached, use
+	 * {@link #assertProcessEndedAndReachedEndStateLast(ActivitiRule, ProcessInstance, String)}
+	 * instead.
+	 * 
+	 * <p>
+	 * To assert that a process ended in an exact set of end events, use
+	 * {@link #assertProcessEndedAndInEndStates(ActivitiRule, ProcessInstance, String...)}
+	 * instead.
+	 * 
+	 * @see #assertProcessEndedAndReachedEndStateLast(ActivitiRule,
+	 *      ProcessInstance, String)
+	 * @see #assertProcessEndedAndInEndStates(ActivitiRule, ProcessInstance,
+	 *      String...)
 	 * 
 	 * @param rule
 	 *            the {@link ActivitiRule} to access the process engine's
 	 *            services
 	 * @param processInstance
 	 *            the process instance to check for
-	 * @param endStateKey
-	 *            the key of the end state to check for
+	 * @param endEventId
+	 *            the end event's id to check for
 	 */
-	public static final void assertProcessEndedAndInExclusiveEndState(final ActivitiRule rule, final ProcessInstance processInstance,
+	public static final void assertProcessEndedAndInExclusiveEndEvent(final ActivitiRule rule, final ProcessInstance processInstance,
+			final String endEventId) {
+		assertProcessEndedAndInExclusiveEndEvent(rule, processInstance.getId(), endEventId);
+	}
+
+	public static final void assertProcessEndedAndReachedEndStateLast(final ActivitiRule rule, final ProcessInstance processInstance,
 			final String endStateKey) {
-		assertProcessEndedAndInExclusiveEndState(rule, processInstance.getId(), endStateKey);
+		throw new UnsupportedOperationException("This process assertion has not been implemented yet");
+	}
+
+	public static final void assertProcessEndedAndReachedEndStateLast(final ActivitiRule rule, final String processInstanceId,
+			final String endStateKey) {
+		throw new UnsupportedOperationException("This process assertion has not been implemented yet");
 	}
 
 	/**
@@ -231,7 +256,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * endstates, this method should not be used.
 	 * </p>
 	 * 
-	 * @see {@link #assertProcessEndedAndInEndStates(ActivitiRule, String, String...)}
+	 * @see #assertProcessEndedAndInEndStates(ActivitiRule, String, String...)
 	 * 
 	 * @param rule
 	 *            the {@link ActivitiRule} to access the process engine's
@@ -241,7 +266,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * @param endStateKey
 	 *            the key of the end state to check for
 	 */
-	public static void assertProcessEndedAndInExclusiveEndState(final ActivitiRule rule, final String processInstanceId, final String endStateKey) {
+	public static void assertProcessEndedAndInExclusiveEndEvent(final ActivitiRule rule, final String processInstanceId, final String endStateKey) {
 		// Assert.assertTrue(processEndedAndInExclusiveEndState(rule,
 		// processInstanceId, endStateKey));
 	}
@@ -256,7 +281,8 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * exact set of provided endstates is checked against).
 	 * </p>
 	 * 
-	 * @see {@link #assertProcessEndedAndInExclusiveEndState(ActivitiRule, ProcessInstance, String)}
+	 * @see #assertProcessEndedAndInExclusiveEndEvent(ActivitiRule,
+	 *      ProcessInstance, String)
 	 * 
 	 * @param rule
 	 *            the {@link ActivitiRule} to access the process engine's
@@ -281,7 +307,8 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * exact set of provided endstates is checked against).
 	 * </p>
 	 * 
-	 * @see {@link #assertProcessEndedAndInExclusiveEndState(ActivitiRule, String, String)}
+	 * @see #assertProcessEndedAndInExclusiveEndEvent(ActivitiRule, String,
+	 *      String)
 	 * 
 	 * @param rule
 	 *            the {@link ActivitiRule} to access the process engine's
