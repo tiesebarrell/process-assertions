@@ -196,7 +196,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 
 	/**
 	 * Asserts the provided process instance is ended and has reached
-	 * <strong>only</strong> the end event with the provided key.
+	 * <strong>only</strong> the end event with the provided id.
 	 * 
 	 * <p>
 	 * <strong>Note:</strong> this assertion should be used for processes that
@@ -232,7 +232,56 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 */
 	public static final void assertProcessEndedAndInExclusiveEndEvent(final ActivitiRule rule, final ProcessInstance processInstance,
 			final String endEventId) {
+		assertNotNull(processInstance);
+		assertNotNull(endEventId);
 		assertProcessEndedAndInExclusiveEndEvent(rule, processInstance.getId(), endEventId);
+	}
+
+	/**
+	 * Asserts the process instance with the provided id is ended and has
+	 * reached <strong>only</strong> the end event with the provided id.
+	 * 
+	 * <p>
+	 * <strong>Note:</strong> this assertion should be used for processes that
+	 * have exclusive end events and no intermediate end events. This generally
+	 * only applies to simple processes. If the process definition branches into
+	 * non-exclusive branches with distinct end events or the process
+	 * potentially has multiple end events that are reached, this method should
+	 * not be used.
+	 * 
+	 * <p>
+	 * To test that a process ended in an end event and that particular end
+	 * event was the final event reached, use
+	 * {@link #assertProcessEndedAndReachedEndStateLast(ActivitiRule, String, String)}
+	 * instead.
+	 * 
+	 * <p>
+	 * To assert that a process ended in an exact set of end events, use
+	 * {@link #assertProcessEndedAndInEndStates(ActivitiRule, String, String...)}
+	 * instead.
+	 * 
+	 * @see #assertProcessEndedAndReachedEndStateLast(ActivitiRule, String,
+	 *      String)
+	 * @see #assertProcessEndedAndInEndStates(ActivitiRule, String, String...)
+	 * 
+	 * @param rule
+	 *            the {@link ActivitiRule} to access the process engine's
+	 *            services
+	 * @param processInstanceId
+	 *            the process instance's id to check for
+	 * @param endEventId
+	 *            the end event's id to check for
+	 */
+	public static void assertProcessEndedAndInExclusiveEndEvent(final ActivitiRule rule, final String processInstanceId, final String endEventId) {
+		assertNotNull(processInstanceId);
+		assertNotNull(endEventId);
+
+		debug(LogMessage.PROCESS_9, processInstanceId, endEventId);
+		try {
+			EndEventAssert.processEndedAndInExclusiveEndEvent(rule, processInstanceId, endEventId);
+		} catch (AssertionError ae) {
+			fail(LogMessage.ERROR_PROCESS_3, processInstanceId, endEventId);
+		}
 	}
 
 	public static final void assertProcessEndedAndReachedEndStateLast(final ActivitiRule rule, final ProcessInstance processInstance,
@@ -243,32 +292,6 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	public static final void assertProcessEndedAndReachedEndStateLast(final ActivitiRule rule, final String processInstanceId,
 			final String endStateKey) {
 		throw new UnsupportedOperationException("This process assertion has not been implemented yet");
-	}
-
-	/**
-	 * Asserts the process instance with the provided id is ended and has
-	 * reached the end state with the provided key.
-	 * 
-	 * <p>
-	 * <strong>Note:</strong> this assertion assumes the process has exclusive
-	 * endstates. If the process definition branches into non-exclusive branches
-	 * with individual endstates or the process potentially has multiple
-	 * endstates, this method should not be used.
-	 * </p>
-	 * 
-	 * @see #assertProcessEndedAndInEndStates(ActivitiRule, String, String...)
-	 * 
-	 * @param rule
-	 *            the {@link ActivitiRule} to access the process engine's
-	 *            services
-	 * @param processInstanceId
-	 *            the process instance id to check for
-	 * @param endStateKey
-	 *            the key of the end state to check for
-	 */
-	public static void assertProcessEndedAndInExclusiveEndEvent(final ActivitiRule rule, final String processInstanceId, final String endStateKey) {
-		// Assert.assertTrue(processEndedAndInExclusiveEndState(rule,
-		// processInstanceId, endStateKey));
 	}
 
 	/**

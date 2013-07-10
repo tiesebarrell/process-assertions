@@ -23,44 +23,64 @@ package org.anemonos.activiti.assertion;
  */
 public enum LogMessage {
 
-  PROCESS_1(),
+	PROCESS_1,
 
-  PROCESS_2(),
+	PROCESS_2,
 
-  PROCESS_3(),
+	PROCESS_3,
 
-  PROCESS_4(),
+	PROCESS_4,
 
-  PROCESS_5(),
+	PROCESS_5,
 
-  PROCESS_6(),
+	PROCESS_6,
 
-  PROCESS_7(),
+	PROCESS_7,
 
-  PROCESS_8(),
+	PROCESS_8,
 
-  TASK_1(),
+	PROCESS_9,
 
-  TASK_2(),
+	/**
+	 * A task with definitionKey is uncompleted in process.
+	 */
+	TASK_1(),
 
-  ERROR_ASSERTIONS_1(),
+	/**
+	 * Task is uncompleted.
+	 */
+	TASK_2(),
 
-  ERROR_PROCESS_1(),
+	/**
+	 * A task instance can be found.
+	 */
+	TASK_3(),
 
-  ERROR_PROCESS_2(),
+	/**
+	 * A task instance can be found with definitionKey in process.
+	 */
+	TASK_4(),
 
-  ERROR_TASK_1(),
+	ERROR_ASSERTIONS_1(),
 
-  ERROR_TASK_2();
+	ERROR_PROCESS_1(),
 
-  private final String bundleKey;
+	ERROR_PROCESS_2(),
 
-  private LogMessage() {
-    this.bundleKey = name().replaceAll("_", ".").toLowerCase();
-  }
+	ERROR_PROCESS_3(),
 
-  public String getBundleKey() {
-    return bundleKey;
-  }
+	ERROR_TASK_1(),
+
+	ERROR_TASK_2();
+
+	private final String bundleKey;
+
+	private LogMessage() {
+		this.bundleKey = name().replaceAll("_", ".").toLowerCase();
+	}
+
+	public String getBundleKey() {
+		return bundleKey;
+	}
 
 }

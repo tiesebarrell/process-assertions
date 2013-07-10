@@ -24,15 +24,12 @@ import org.junit.Assert;
 /**
  * Provides assertions for task instances.
  */
-final class TaskInstanceAssert {
-
-	private TaskInstanceAssert() {
-		super();
-	}
+final class TaskInstanceAssert extends AbstractProcessAssert {
 
 	static void taskIsUncompleted(final ActivitiRule rule, final String taskId) {
 
 		// Assert a task exists
+		trace(LogMessage.TASK_3, taskId);
 		final Task task = rule.getTaskService().createTaskQuery().taskId(taskId).active().singleResult();
 		Assert.assertNotNull(task);
 
@@ -47,6 +44,7 @@ final class TaskInstanceAssert {
 		ProcessInstanceAssert.processIsActive(rule, processInstanceId);
 
 		// Assert a task exists
+		trace(LogMessage.TASK_4, taskDefinitionKey, processInstanceId);
 		final List<Task> tasks = rule.getTaskService().createTaskQuery().processInstanceId(processInstanceId).taskDefinitionKey(taskDefinitionKey)
 				.active().list();
 
