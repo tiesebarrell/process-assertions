@@ -27,47 +27,23 @@ import org.apache.commons.collections.CollectionUtils;
 import org.junit.Assert;
 
 /**
- * Provides assertions for end states.
+ * Provides assertions for end events.
  */
-final class EndStateAssert {
+final class EndEventAssert extends AbstractProcessAssert {
 
-	private EndStateAssert() {
-		super();
-	}
+	static void processEndedAndInExclusiveEndEvent(final ActivitiRule rule, final String processInstanceId, final String endEventId) {
 
-	static boolean processEndedAndInExclusiveEndState(final ActivitiRule rule, final String processInstanceId, final String endStateKey) {
-
-		boolean result = false;
-
+		// Assert the process instance is ended
 		ProcessInstanceAssert.processIsEnded(rule, processInstanceId);
 
-		try {
-			// Assert there is no running process instance.
-			final ProcessInstance processInstance = rule.getRuntimeService().createProcessInstanceQuery().processInstanceId(processInstanceId)
-					.singleResult();
+		// Assert that there is exactly one historic activity instance for end
+		// events and that it has the correct id
+		trace(LogMessage.PROCESS_10, processInstanceId, endEventId);
+		final List<HistoricActivityInstance> historicActivityInstances = rule.getHistoryService().createHistoricActivityInstanceQuery()
+				.activityType("endEvent").finished().list();
 
-			Assert.assertNull(processInstance);
-
-			// Assert there is a historic process instance and it is ended
-			final HistoricProcessInstance historicProcessInstance = rule.getHistoryService().createHistoricProcessInstanceQuery()
-					.processInstanceId(processInstanceId).singleResult();
-
-			Assert.assertNotNull(historicProcessInstance);
-
-			Assert.assertNotNull(historicProcessInstance.getEndTime());
-
-			// Assert in the provided endstate
-			final HistoricActivityInstance historicActivityInstance = rule.getHistoryService().createHistoricActivityInstanceQuery()
-					.activityType("endEvent").singleResult();
-
-			Assert.assertEquals(endStateKey, historicActivityInstance.getActivityId());
-
-			result = true;
-		} catch (final AssertionError ae) {
-			result = false;
-		}
-
-		return result;
+		Assert.assertEquals(1, historicActivityInstances.size());
+		Assert.assertEquals(endEventId, historicActivityInstances.get(0).getActivityId());
 	}
 
 	private static boolean processEndedAndInEndStates(final ActivitiRule rule, final String processInstanceId, final String... endStateKeys) {

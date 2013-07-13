@@ -57,10 +57,9 @@ public class TaskIsUncompletedByTaskAssertionsTest extends AbstractProcessAssert
 		taskService.complete(task1.getId());
 
 		assertTaskUncompleted(activitiRule, task1);
-		fail("Expected exception for task1 that is now completed");
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test(expected = IllegalArgumentException.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
 	public void testTaskUncompletedFailureForNullTaskObject() throws Exception {
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
@@ -90,10 +89,9 @@ public class TaskIsUncompletedByTaskAssertionsTest extends AbstractProcessAssert
 		taskService.complete(task1.getId());
 
 		assertTaskUncompleted(activitiRule, task1.getId());
-		fail("Expected exception for task1 that is now completed");
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test(expected = IllegalArgumentException.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
 	public void testTaskUncompletedFailureForNullTaskId() throws Exception {
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);

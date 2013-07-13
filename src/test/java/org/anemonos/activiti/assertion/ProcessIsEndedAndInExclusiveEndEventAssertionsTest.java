@@ -15,8 +15,11 @@
  ******************************************************************************/
 package org.anemonos.activiti.assertion;
 
-import static org.anemonos.activiti.assertion.ProcessAssert.assertProcessEnded;
+import static org.anemonos.activiti.assertion.ProcessAssert.assertProcessEndedAndInExclusiveEndEvent;
 import static org.junit.Assert.fail;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.test.Deployment;
@@ -24,58 +27,56 @@ import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
- * Tests for assertions that test a process is ended.
+ * Tests for assertions that test a process is ended and has reached an
+ * exclusive end state.
  * 
  * @author Tiese Barrell
  * 
  */
 @ContextConfiguration("classpath:application-context.xml")
-public class ProcessIsEndedAssertionsTest extends AbstractProcessAssertTest {
+public class ProcessIsEndedAndInExclusiveEndEventAssertionsTest extends AbstractProcessAssertTest {
+
+	private static final String TARGET_END_EVENT_ID = "endCompleted";
+	private static final String CONDITIONAL_END_PROCESS_EVENT_ID = "endProcess";
 
 	@Test
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
-	public void testProcessEndedForObject() throws Exception {
+	public void testProcessEndedAndInExclusiveEndEventForObject() throws Exception {
 		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
-		assertProcessEnded(activitiRule, processInstance);
+		assertProcessEndedAndInExclusiveEndEvent(activitiRule, processInstance, TARGET_END_EVENT_ID);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
-	public void testProcessEndedFailureForNullObject() throws Exception {
+	public void testProcessEndedAndInExclusiveEndEventForNullObject() throws Exception {
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
 		ProcessInstance nullInstance = null;
-		assertProcessEnded(activitiRule, nullInstance);
+		assertProcessEndedAndInExclusiveEndEvent(activitiRule, nullInstance, TARGET_END_EVENT_ID);
 		fail("Expected exception for null process instance object");
 	}
 
 	@Test(expected = AssertionError.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
-	public void testProcessEndedFailureForObject() throws Exception {
+	public void testProcessEndedAndInExclusiveEndEventFailureForObjectNotEnded() throws Exception {
 		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
-		assertProcessEnded(activitiRule, processInstance);
-	}
-
-	@Test
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
-	public void testProcessEndedForId() throws Exception {
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
-		assertProcessEnded(activitiRule, processInstance.getId());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
-	public void testProcessEndedFailureForNullId() throws Exception {
-		runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
-		String nullId = null;
-		assertProcessEnded(activitiRule, nullId);
-		fail("Expected exception for null process instance id");
+		assertProcessEndedAndInExclusiveEndEvent(activitiRule, processInstance, TARGET_END_EVENT_ID);
 	}
 
 	@Test(expected = AssertionError.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
-	public void testProcessEndedFailureForId() throws Exception {
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
-		assertProcessEnded(activitiRule, processInstance.getId());
+	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
+	public void testProcessEndedAndInExclusiveEndEventFailureForObjectIncorrectEndEvent() throws Exception {
+		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
+		assertProcessEndedAndInExclusiveEndEvent(activitiRule, processInstance, CONDITIONAL_END_PROCESS_EVENT_ID);
+	}
+
+	@Test(expected = AssertionError.class)
+	@Deployment(resources = DIAGRAMS_TEST_PROCESS_CONDITIONAL_SUBPROCESSES_BPMN)
+	public void testProcessEndedAndInExclusiveEndEventFailureForObjectNotExclusive() throws Exception {
+		final Map<String, Object> variables = new HashMap<String, Object>();
+		variables.put("do2", true);
+		variables.put("do3", false);
+		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_CONDITIONAL_SUBPROCESSES, variables);
+		assertProcessEndedAndInExclusiveEndEvent(activitiRule, processInstance, CONDITIONAL_END_PROCESS_EVENT_ID);
 	}
 
 }

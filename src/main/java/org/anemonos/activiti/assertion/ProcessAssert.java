@@ -15,11 +15,10 @@
  ******************************************************************************/
 package org.anemonos.activiti.assertion;
 
-import static org.junit.Assert.assertNotNull;
-
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
+import org.apache.commons.lang.Validate;
 import org.junit.Assert;
 
 /**
@@ -47,7 +46,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 *            the process instance to check for
 	 */
 	public static final void assertProcessActive(final ActivitiRule rule, final ProcessInstance processInstance) {
-		assertNotNull(processInstance);
+		Validate.notNull(processInstance);
 		assertProcessActive(rule, processInstance.getId());
 	}
 
@@ -62,7 +61,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 *            the process instance's id to check for
 	 */
 	public static final void assertProcessActive(final ActivitiRule rule, final String processInstanceId) {
-		assertNotNull(processInstanceId);
+		Validate.notNull(processInstanceId);
 		debug(LogMessage.PROCESS_1, processInstanceId);
 		try {
 			ProcessInstanceAssert.processIsActive(rule, processInstanceId);
@@ -85,7 +84,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 *            the process instance to check for
 	 */
 	public static final void assertProcessEnded(final ActivitiRule rule, final ProcessInstance processInstance) {
-		assertNotNull(processInstance);
+		Validate.notNull(processInstance);
 		assertProcessEnded(rule, processInstance.getId());
 	}
 
@@ -99,7 +98,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 *            the process instance's id to check for
 	 */
 	public static final void assertProcessEnded(final ActivitiRule rule, final String processInstanceId) {
-		assertNotNull(processInstanceId);
+		Validate.notNull(processInstanceId);
 		debug(LogMessage.PROCESS_5, processInstanceId);
 		try {
 			ProcessInstanceAssert.processIsEnded(rule, processInstanceId);
@@ -122,7 +121,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 *            the task to check for
 	 */
 	public static final void assertTaskUncompleted(final ActivitiRule rule, final Task task) {
-		assertNotNull(task);
+		Validate.notNull(task);
 		assertTaskUncompleted(rule, task.getId());
 	}
 
@@ -136,7 +135,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 *            the task's id to check for
 	 */
 	public static final void assertTaskUncompleted(final ActivitiRule rule, final String taskId) {
-		assertNotNull(taskId);
+		Validate.notNull(taskId);
 
 		debug(LogMessage.TASK_2, taskId);
 		try {
@@ -159,8 +158,8 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 *            the task's definition key to check for
 	 */
 	public static final void assertTaskUncompleted(final ActivitiRule rule, final ProcessInstance processInstance, final String taskDefinitionKey) {
-		assertNotNull(processInstance);
-		assertNotNull(taskDefinitionKey);
+		Validate.notNull(processInstance);
+		Validate.notNull(taskDefinitionKey);
 		assertTaskUncompleted(rule, processInstance.getId(), taskDefinitionKey);
 	}
 
@@ -177,8 +176,8 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 *            the task's definition key to check for
 	 */
 	public static final void assertTaskUncompleted(final ActivitiRule rule, final String processInstanceId, final String taskDefinitionKey) {
-		assertNotNull(processInstanceId);
-		assertNotNull(taskDefinitionKey);
+		Validate.notNull(processInstanceId);
+		Validate.notNull(taskDefinitionKey);
 
 		debug(LogMessage.TASK_1, taskDefinitionKey, processInstanceId);
 		try {
@@ -191,7 +190,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	// Marker
 
 	//
-	// Assertions for ended process instances and end states
+	// Assertions for ended process instances and end events
 	//
 
 	/**
@@ -232,8 +231,8 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 */
 	public static final void assertProcessEndedAndInExclusiveEndEvent(final ActivitiRule rule, final ProcessInstance processInstance,
 			final String endEventId) {
-		assertNotNull(processInstance);
-		assertNotNull(endEventId);
+		Validate.notNull(processInstance);
+		Validate.notNull(endEventId);
 		assertProcessEndedAndInExclusiveEndEvent(rule, processInstance.getId(), endEventId);
 	}
 
@@ -273,8 +272,8 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 *            the end event's id to check for
 	 */
 	public static void assertProcessEndedAndInExclusiveEndEvent(final ActivitiRule rule, final String processInstanceId, final String endEventId) {
-		assertNotNull(processInstanceId);
-		assertNotNull(endEventId);
+		Validate.notNull(processInstanceId);
+		Validate.notNull(endEventId);
 
 		debug(LogMessage.PROCESS_9, processInstanceId, endEventId);
 		try {

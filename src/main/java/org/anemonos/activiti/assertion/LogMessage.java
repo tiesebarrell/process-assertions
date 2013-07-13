@@ -42,6 +42,11 @@ public enum LogMessage {
 	PROCESS_9,
 
 	/**
+	 * Exactly one historic activity instance of type endEvent and id matches.
+	 */
+	PROCESS_10,
+
+	/**
 	 * A task with definitionKey is uncompleted in process.
 	 */
 	TASK_1(),
