@@ -16,7 +16,6 @@
 package org.anemonos.activiti.assertion;
 
 import static org.anemonos.activiti.assertion.ProcessAssert.assertProcessEnded;
-import static org.junit.Assert.fail;
 
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.test.Deployment;
@@ -45,7 +44,6 @@ public class ProcessIsEndedAssertionsTest extends AbstractProcessAssertTest {
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
 		ProcessInstance nullInstance = null;
 		assertProcessEnded(activitiRule, nullInstance);
-		fail("Expected exception for null process instance object");
 	}
 
 	@Test(expected = AssertionError.class)
@@ -68,7 +66,6 @@ public class ProcessIsEndedAssertionsTest extends AbstractProcessAssertTest {
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
 		String nullId = null;
 		assertProcessEnded(activitiRule, nullId);
-		fail("Expected exception for null process instance id");
 	}
 
 	@Test(expected = AssertionError.class)

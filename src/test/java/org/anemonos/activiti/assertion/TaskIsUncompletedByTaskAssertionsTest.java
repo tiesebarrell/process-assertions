@@ -16,7 +16,6 @@
 package org.anemonos.activiti.assertion;
 
 import static org.anemonos.activiti.assertion.ProcessAssert.assertTaskUncompleted;
-import static org.junit.Assert.fail;
 
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.Deployment;
@@ -65,7 +64,6 @@ public class TaskIsUncompletedByTaskAssertionsTest extends AbstractProcessAssert
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
 		Task nullTask = null;
 		assertTaskUncompleted(activitiRule, nullTask);
-		fail("Expected exception for null task object");
 	}
 
 	@Test
@@ -97,7 +95,6 @@ public class TaskIsUncompletedByTaskAssertionsTest extends AbstractProcessAssert
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
 		String nullString = null;
 		assertTaskUncompleted(activitiRule, nullString);
-		fail("Expected exception for null task id");
 	}
 
 }

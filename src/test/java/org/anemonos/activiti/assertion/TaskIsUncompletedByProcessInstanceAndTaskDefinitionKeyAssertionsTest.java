@@ -17,7 +17,6 @@ package org.anemonos.activiti.assertion;
 
 import static org.anemonos.activiti.assertion.ProcessAssert.assertTaskUncompleted;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
@@ -92,7 +91,6 @@ public class TaskIsUncompletedByProcessInstanceAndTaskDefinitionKeyAssertionsTes
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
 		final ProcessInstance nullProcessInstance = null;
 		assertTaskUncompleted(activitiRule, nullProcessInstance, SINGLE_USER_TASK);
-		fail("Expected exception for null process instance object");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -101,7 +99,6 @@ public class TaskIsUncompletedByProcessInstanceAndTaskDefinitionKeyAssertionsTes
 		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
 		final String nullTaskDefinitionKey = null;
 		assertTaskUncompleted(activitiRule, processInstance, nullTaskDefinitionKey);
-		fail("Expected exception for null process instance object");
 	}
 
 	@Test
@@ -155,7 +152,6 @@ public class TaskIsUncompletedByProcessInstanceAndTaskDefinitionKeyAssertionsTes
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
 		final String nullProcessInstanceId = null;
 		assertTaskUncompleted(activitiRule, nullProcessInstanceId, SINGLE_USER_TASK);
-		fail("Expected exception for null process instance object");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -164,7 +160,6 @@ public class TaskIsUncompletedByProcessInstanceAndTaskDefinitionKeyAssertionsTes
 		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
 		final String nullTaskDefinitionKey = null;
 		assertTaskUncompleted(activitiRule, processInstance.getId(), nullTaskDefinitionKey);
-		fail("Expected exception for null process instance object");
 	}
 
 }

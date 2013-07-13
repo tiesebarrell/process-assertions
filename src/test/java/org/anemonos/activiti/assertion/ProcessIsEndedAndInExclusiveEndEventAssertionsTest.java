@@ -16,7 +16,6 @@
 package org.anemonos.activiti.assertion;
 
 import static org.anemonos.activiti.assertion.ProcessAssert.assertProcessEndedAndInExclusiveEndEvent;
-import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,7 +51,6 @@ public class ProcessIsEndedAndInExclusiveEndEventAssertionsTest extends Abstract
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
 		ProcessInstance nullInstance = null;
 		assertProcessEndedAndInExclusiveEndEvent(activitiRule, nullInstance, TARGET_END_EVENT_ID);
-		fail("Expected exception for null process instance object");
 	}
 
 	@Test(expected = AssertionError.class)
