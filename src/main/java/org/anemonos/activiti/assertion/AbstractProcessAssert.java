@@ -16,8 +16,6 @@
 package org.anemonos.activiti.assertion;
 
 import java.text.MessageFormat;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 import org.junit.Assert;
 import org.slf4j.Logger;
@@ -35,7 +33,7 @@ public abstract class AbstractProcessAssert {
 	// Log to the ProcessAssert class' logger
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProcessAssert.class);
 
-	private static ResourceBundle bundle;
+	private static LogMessageProvider logMessageProvider = new LogMessageProvider();
 
 	protected AbstractProcessAssert() {
 		super();
@@ -98,26 +96,7 @@ public abstract class AbstractProcessAssert {
 	}
 
 	private static String getMessage(LogMessage message) {
-		return getBundle().getString(message.getBundleKey());
-	}
-
-	private static ResourceBundle getBundle() {
-		loadBundleIfRequired();
-		return bundle;
-	}
-
-	private static void loadBundleIfRequired() {
-		if (bundleLoadRequired()) {
-			loadBundle();
-		}
-	}
-
-	private static boolean bundleLoadRequired() {
-		return bundle == null || !bundle.getLocale().equals(Locale.getDefault());
-	}
-
-	private static void loadBundle() {
-		bundle = ResourceBundle.getBundle(Constants.LOG_MESSAGES_BUNDLE_NAME);
+		return logMessageProvider.getMessageByKey(message.getBundleKey());
 	}
 
 }

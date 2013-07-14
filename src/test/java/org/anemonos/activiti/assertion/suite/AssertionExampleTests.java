@@ -15,17 +15,16 @@
  ******************************************************************************/
 package org.anemonos.activiti.assertion.suite;
 
-import org.anemonos.activiti.assertion.example.MyProcessFailureTest;
 import org.anemonos.activiti.assertion.example.MyProcessTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 /**
- * Test suite for the org.anemonos.activiti.assertion.example package.
+ * Test suite for the assertion example tests.
  */
 @RunWith(Suite.class)
-@SuiteClasses({ MyProcessFailureTest.class, MyProcessTest.class })
+@SuiteClasses({ MyProcessTest.class })
 public class AssertionExampleTests {
 
 }

@@ -25,12 +25,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
-import org.anemonos.activiti.assertion.Constants;
-import org.anemonos.activiti.assertion.LogMessage;
 import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -40,6 +37,9 @@ import org.junit.Test;
  * 
  */
 public class LogMessageTest {
+
+	// TODO split this into Locale-specific and generic tests so it is not run
+	// for each Locale in the test suites.
 
 	private Locale originalLocale;
 
@@ -53,20 +53,28 @@ public class LogMessageTest {
 		Locale.setDefault(originalLocale);
 	}
 
+	// Locale specific test
 	@Test
 	public void testAllKeysDefined() throws Exception {
-
 		final List<LogMessage> missingEntries = checkForMissingEntries();
 
 		if (!missingEntries.isEmpty()) {
 			fail(buildAssertionErrorMessage(missingEntries));
 		}
-
 	}
 
+	// Generic test
+	@Test
+	public void testGetBundleKey() throws Exception {
+		for (final LogMessage logMessage : LogMessage.values()) {
+			final String expected = logMessage.name().replaceAll("_", ".").toLowerCase();
+			assertEquals(expected, logMessage.getBundleKey());
+		}
+	}
+
+	// Generic test
 	@Test
 	public void testInvalidLocaleHasMissingEntries() throws Exception {
-
 		Locale.setDefault(new Locale("xx", "YY"));
 
 		final List<LogMessage> missingEntries = checkForMissingEntries();
@@ -76,18 +84,6 @@ public class LogMessageTest {
 		}
 
 		assertEquals(LogMessage.values().length, missingEntries.size());
-
-	}
-
-	@Test
-	@Ignore
-	public void testFallback() throws Exception {
-
-		// TODO implement test for key fallback. First separate logic for
-		// resolving from ResourceBundle, then create test case
-
-		fail("Not yet implemented");
-
 	}
 
 	private List<LogMessage> checkForMissingEntries() throws Exception {
@@ -111,9 +107,7 @@ public class LogMessageTest {
 	}
 
 	private String getResourceBundlePathForLocale() {
-
 		final String localeSpecificPath = getLocaleSpecificPath();
-
 		return StringUtils.replace(Constants.LOG_MESSAGES_BUNDLE_NAME, ".", "/") + localeSpecificPath + ".properties";
 	}
 

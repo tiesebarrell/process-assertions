@@ -15,15 +15,17 @@
  ******************************************************************************/
 package org.anemonos.activiti.assertion.suite;
 
+import org.anemonos.activiti.assertion.LogMessageProviderTest;
+import org.anemonos.activiti.assertion.LogMessageTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 /**
- * Test suite for all test cases.
+ * Test suite for assertion utility tests.
  */
 @RunWith(Suite.class)
-@SuiteClasses({ AssertionTests.class, UtilityTests.class, AssertionExampleTests.class })
-public class AllTests {
+@SuiteClasses({ LogMessageTest.class, LogMessageProviderTest.class })
+public class UtilityTests {
 
 }
