@@ -65,7 +65,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 		debug(LogMessage.PROCESS_1, processInstanceId);
 		try {
 			ProcessInstanceAssert.processIsActive(rule, processInstanceId);
-		} catch (AssertionError ae) {
+		} catch (final AssertionError ae) {
 			fail(LogMessage.ERROR_PROCESS_1, processInstanceId);
 		}
 	}
@@ -102,7 +102,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 		debug(LogMessage.PROCESS_5, processInstanceId);
 		try {
 			ProcessInstanceAssert.processIsEnded(rule, processInstanceId);
-		} catch (AssertionError ae) {
+		} catch (final AssertionError ae) {
 			fail(LogMessage.ERROR_PROCESS_2, processInstanceId);
 		}
 	}
@@ -140,7 +140,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 		debug(LogMessage.TASK_2, taskId);
 		try {
 			TaskInstanceAssert.taskIsUncompleted(rule, taskId);
-		} catch (AssertionError ae) {
+		} catch (final AssertionError ae) {
 			fail(LogMessage.ERROR_TASK_2, taskId);
 		}
 	}
@@ -157,7 +157,8 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * @param taskDefinitionKey
 	 *            the task's definition key to check for
 	 */
-	public static final void assertTaskUncompleted(final ActivitiRule rule, final ProcessInstance processInstance, final String taskDefinitionKey) {
+	public static final void assertTaskUncompleted(final ActivitiRule rule, final ProcessInstance processInstance,
+			final String taskDefinitionKey) {
 		Validate.notNull(processInstance);
 		Validate.notNull(taskDefinitionKey);
 		assertTaskUncompleted(rule, processInstance.getId(), taskDefinitionKey);
@@ -175,19 +176,18 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * @param taskDefinitionKey
 	 *            the task's definition key to check for
 	 */
-	public static final void assertTaskUncompleted(final ActivitiRule rule, final String processInstanceId, final String taskDefinitionKey) {
+	public static final void assertTaskUncompleted(final ActivitiRule rule, final String processInstanceId,
+			final String taskDefinitionKey) {
 		Validate.notNull(processInstanceId);
 		Validate.notNull(taskDefinitionKey);
 
 		debug(LogMessage.TASK_1, taskDefinitionKey, processInstanceId);
 		try {
 			TaskInstanceAssert.taskIsUncompleted(rule, processInstanceId, taskDefinitionKey);
-		} catch (AssertionError ae) {
+		} catch (final AssertionError ae) {
 			fail(LogMessage.ERROR_TASK_1, taskDefinitionKey, processInstanceId);
 		}
 	}
-
-	// Marker
 
 	//
 	// Assertions for ended process instances and end events
@@ -229,8 +229,8 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * @param endEventId
 	 *            the end event's id to check for
 	 */
-	public static final void assertProcessEndedAndInExclusiveEndEvent(final ActivitiRule rule, final ProcessInstance processInstance,
-			final String endEventId) {
+	public static final void assertProcessEndedAndInExclusiveEndEvent(final ActivitiRule rule,
+			final ProcessInstance processInstance, final String endEventId) {
 		Validate.notNull(processInstance);
 		Validate.notNull(endEventId);
 		assertProcessEndedAndInExclusiveEndEvent(rule, processInstance.getId(), endEventId);
@@ -271,25 +271,28 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * @param endEventId
 	 *            the end event's id to check for
 	 */
-	public static void assertProcessEndedAndInExclusiveEndEvent(final ActivitiRule rule, final String processInstanceId, final String endEventId) {
+	public static void assertProcessEndedAndInExclusiveEndEvent(final ActivitiRule rule,
+			final String processInstanceId, final String endEventId) {
 		Validate.notNull(processInstanceId);
 		Validate.notNull(endEventId);
 
 		debug(LogMessage.PROCESS_9, processInstanceId, endEventId);
 		try {
 			EndEventAssert.processEndedAndInExclusiveEndEvent(rule, processInstanceId, endEventId);
-		} catch (AssertionError ae) {
+		} catch (final AssertionError ae) {
 			fail(LogMessage.ERROR_PROCESS_3, processInstanceId, endEventId);
 		}
 	}
 
-	public static final void assertProcessEndedAndReachedEndStateLast(final ActivitiRule rule, final ProcessInstance processInstance,
-			final String endStateKey) {
+	// Marker
+
+	public static final void assertProcessEndedAndReachedEndStateLast(final ActivitiRule rule,
+			final ProcessInstance processInstance, final String endStateKey) {
 		throw new UnsupportedOperationException("This process assertion has not been implemented yet");
 	}
 
-	public static final void assertProcessEndedAndReachedEndStateLast(final ActivitiRule rule, final String processInstanceId,
-			final String endStateKey) {
+	public static final void assertProcessEndedAndReachedEndStateLast(final ActivitiRule rule,
+			final String processInstanceId, final String endStateKey) {
 		throw new UnsupportedOperationException("This process assertion has not been implemented yet");
 	}
 
@@ -314,8 +317,8 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * @param endStateKeys
 	 *            the keys of the end states to check for
 	 */
-	public static final void assertProcessEndedAndInEndStates(final ActivitiRule rule, final ProcessInstance processInstance,
-			final String... endStateKeys) {
+	public static final void assertProcessEndedAndInEndStates(final ActivitiRule rule,
+			final ProcessInstance processInstance, final String... endStateKeys) {
 		assertProcessEndedAndInEndStates(rule, processInstance.getId(), endStateKeys);
 	}
 
@@ -340,7 +343,8 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * @param endStateKeys
 	 *            the keys of the end states to check for
 	 */
-	public static void assertProcessEndedAndInEndStates(final ActivitiRule rule, final String processInstanceId, final String... endStateKeys) {
+	public static void assertProcessEndedAndInEndStates(final ActivitiRule rule, final String processInstanceId,
+			final String... endStateKeys) {
 		// Assert.assertTrue(processEndedAndInEndStates(rule, processInstanceId,
 		// endStateKeys));
 	}
@@ -370,9 +374,10 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * @param expectedValue
 	 *            the expected value for the process variable
 	 */
-	public static void assertHistoricProcessVariableLatestValueEquals(final ActivitiRule rule, final ProcessInstance processInstance,
-			final String processVariableName, final Object expectedValue) {
-		assertHistoricProcessVariableLatestValueEquals(rule, processInstance.getId(), processVariableName, expectedValue);
+	public static void assertHistoricProcessVariableLatestValueEquals(final ActivitiRule rule,
+			final ProcessInstance processInstance, final String processVariableName, final Object expectedValue) {
+		assertHistoricProcessVariableLatestValueEquals(rule, processInstance.getId(), processVariableName,
+				expectedValue);
 	}
 
 	/**
@@ -396,8 +401,8 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * @param expectedValue
 	 *            the expected value for the process variable
 	 */
-	public static void assertHistoricProcessVariableLatestValueEquals(final ActivitiRule rule, final String processInstanceId,
-			final String processVariableName, final Object expectedValue) {
+	public static void assertHistoricProcessVariableLatestValueEquals(final ActivitiRule rule,
+			final String processInstanceId, final String processVariableName, final Object expectedValue) {
 
 		if (!AssertUtils.historyLevelIsFull(rule)) {
 			Assert.fail("To check for latest historic values of process variables, the history level of the Activiti ProcessEngine must be set to full.");

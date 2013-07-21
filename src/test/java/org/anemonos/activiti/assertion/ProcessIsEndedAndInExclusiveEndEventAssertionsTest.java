@@ -40,41 +40,84 @@ public class ProcessIsEndedAndInExclusiveEndEventAssertionsTest extends Abstract
 
 	@Test
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
-	public void testProcessEndedAndInExclusiveEndEventForObject() throws Exception {
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
+	public void testProcessEndedAndInExclusiveEndEventForProcessInstance() throws Exception {
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
 		assertProcessEndedAndInExclusiveEndEvent(activitiRule, processInstance, TARGET_END_EVENT_ID);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
-	public void testProcessEndedAndInExclusiveEndEventForNullObject() throws Exception {
+	public void testProcessEndedAndInExclusiveEndEventForNullProcessInstance() throws Exception {
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
-		ProcessInstance nullInstance = null;
+		final ProcessInstance nullInstance = null;
 		assertProcessEndedAndInExclusiveEndEvent(activitiRule, nullInstance, TARGET_END_EVENT_ID);
 	}
 
 	@Test(expected = AssertionError.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
-	public void testProcessEndedAndInExclusiveEndEventFailureForObjectNotEnded() throws Exception {
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
+	public void testProcessEndedAndInExclusiveEndEventFailureForProcessInstanceNotEnded() throws Exception {
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
 		assertProcessEndedAndInExclusiveEndEvent(activitiRule, processInstance, TARGET_END_EVENT_ID);
 	}
 
 	@Test(expected = AssertionError.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
-	public void testProcessEndedAndInExclusiveEndEventFailureForObjectIncorrectEndEvent() throws Exception {
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
+	public void testProcessEndedAndInExclusiveEndEventFailureForProcessInstanceIncorrectEndEvent() throws Exception {
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
 		assertProcessEndedAndInExclusiveEndEvent(activitiRule, processInstance, CONDITIONAL_END_PROCESS_EVENT_ID);
 	}
 
 	@Test(expected = AssertionError.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_CONDITIONAL_SUBPROCESSES_BPMN)
-	public void testProcessEndedAndInExclusiveEndEventFailureForObjectNotExclusive() throws Exception {
+	public void testProcessEndedAndInExclusiveEndEventFailureForProcessInstanceNotExclusive() throws Exception {
 		final Map<String, Object> variables = new HashMap<String, Object>();
 		variables.put("do2", true);
 		variables.put("do3", false);
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_CONDITIONAL_SUBPROCESSES, variables);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(
+				TEST_PROCESS_CONDITIONAL_SUBPROCESSES, variables);
 		assertProcessEndedAndInExclusiveEndEvent(activitiRule, processInstance, CONDITIONAL_END_PROCESS_EVENT_ID);
+	}
+
+	@Test
+	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
+	public void testProcessEndedAndInExclusiveEndEventForProcessInstanceId() throws Exception {
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
+		assertProcessEndedAndInExclusiveEndEvent(activitiRule, processInstance.getId(), TARGET_END_EVENT_ID);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
+	public void testProcessEndedAndInExclusiveEndEventForNullProcessInstanceId() throws Exception {
+		runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
+		final String nullProcessInstanceId = null;
+		assertProcessEndedAndInExclusiveEndEvent(activitiRule, nullProcessInstanceId, TARGET_END_EVENT_ID);
+	}
+
+	@Test(expected = AssertionError.class)
+	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
+	public void testProcessEndedAndInExclusiveEndEventFailureForProcessInstanceIdNotEnded() throws Exception {
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
+		assertProcessEndedAndInExclusiveEndEvent(activitiRule, processInstance.getId(), TARGET_END_EVENT_ID);
+	}
+
+	@Test(expected = AssertionError.class)
+	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
+	public void testProcessEndedAndInExclusiveEndEventFailureForProcessInstanceIdIncorrectEndEvent() throws Exception {
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
+		assertProcessEndedAndInExclusiveEndEvent(activitiRule, processInstance.getId(),
+				CONDITIONAL_END_PROCESS_EVENT_ID);
+	}
+
+	@Test(expected = AssertionError.class)
+	@Deployment(resources = DIAGRAMS_TEST_PROCESS_CONDITIONAL_SUBPROCESSES_BPMN)
+	public void testProcessEndedAndInExclusiveEndEventFailureForProcessInstanceIdNotExclusive() throws Exception {
+		final Map<String, Object> variables = new HashMap<String, Object>();
+		variables.put("do2", true);
+		variables.put("do3", false);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(
+				TEST_PROCESS_CONDITIONAL_SUBPROCESSES, variables);
+		assertProcessEndedAndInExclusiveEndEvent(activitiRule, processInstance.getId(),
+				CONDITIONAL_END_PROCESS_EVENT_ID);
 	}
 
 }
