@@ -47,6 +47,16 @@ public enum LogMessage {
 	PROCESS_10,
 
 	/**
+	 * The exact set of end events has been reached.
+	 */
+	PROCESS_11,
+
+	/**
+	 * The exact amount and set of end events has been reached.
+	 */
+	PROCESS_12,
+
+	/**
 	 * A task with definitionKey is uncompleted in process.
 	 */
 	TASK_1(),
@@ -73,6 +83,17 @@ public enum LogMessage {
 	ERROR_PROCESS_2(),
 
 	ERROR_PROCESS_3(),
+
+	/**
+	 * Not ended in the exact set of end event ids.
+	 */
+	ERROR_PROCESS_4(),
+
+	/**
+	 * Not ended in the exact set of end event ids. Lists detailed expectations
+	 * and actual end event ids.
+	 */
+	ERROR_PROCESS_5(),
 
 	ERROR_TASK_1(),
 

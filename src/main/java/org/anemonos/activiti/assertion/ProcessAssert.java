@@ -18,6 +18,7 @@ package org.anemonos.activiti.assertion;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.Validate;
 import org.junit.Assert;
 
@@ -284,6 +285,62 @@ public final class ProcessAssert extends AbstractProcessAssert {
 		}
 	}
 
+	/**
+	 * Asserts the provided process instance is ended and has reached
+	 * <strong>all</strong> end events with the provided ids.
+	 * 
+	 * <p>
+	 * <strong>Note:</strong> this assertion assumes the process has one or more
+	 * end events and that all of them have been reached (in other words, the
+	 * exact set of provided end event ids is checked against). The order of the
+	 * end events is not taken into consideration.
+	 * 
+	 * @param rule
+	 *            the {@link ActivitiRule} to access the process engine's
+	 *            services
+	 * @param processInstance
+	 *            the process instance to check for
+	 * @param endEventIds
+	 *            the end events' ids to check for
+	 */
+	public static final void assertProcessEndedAndInEndEvents(final ActivitiRule rule,
+			final ProcessInstance processInstance, final String... endEventIds) {
+		Validate.notNull(processInstance);
+		Validate.notNull(endEventIds);
+		assertProcessEndedAndInEndEvents(rule, processInstance.getId(), endEventIds);
+	}
+
+	/**
+	 * Asserts the process instance with the provided id is ended and has
+	 * reached <strong>all</strong> end events with the provided ids.
+	 * 
+	 * <p>
+	 * <strong>Note:</strong> this assertion assumes the process has one or more
+	 * end events and that all of them have been reached (in other words, the
+	 * exact set of provided end event ids is checked against). The order of the
+	 * end events is not taken into consideration.
+	 * 
+	 * @param rule
+	 *            the {@link ActivitiRule} to access the process engine's
+	 *            services
+	 * @param processInstanceId
+	 *            the process instance's id to check for
+	 * @param endEventIds
+	 *            the end events' ids to check for
+	 */
+	public static void assertProcessEndedAndInEndEvents(final ActivitiRule rule, final String processInstanceId,
+			final String... endEventIds) {
+		Validate.notNull(processInstanceId);
+		Validate.notNull(endEventIds);
+
+		debug(LogMessage.PROCESS_11, processInstanceId, ArrayUtils.toString(endEventIds));
+		try {
+			EndEventAssert.processEndedAndInEndEvents(rule, processInstanceId, endEventIds);
+		} catch (final AssertionError ae) {
+			fail(LogMessage.ERROR_PROCESS_4, processInstanceId, ArrayUtils.toString(endEventIds));
+		}
+	}
+
 	// Marker
 
 	public static final void assertProcessEndedAndReachedEndStateLast(final ActivitiRule rule,
@@ -294,59 +351,6 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	public static final void assertProcessEndedAndReachedEndStateLast(final ActivitiRule rule,
 			final String processInstanceId, final String endStateKey) {
 		throw new UnsupportedOperationException("This process assertion has not been implemented yet");
-	}
-
-	/**
-	 * Asserts the provided process instance is ended and has reached all end
-	 * states with the provided keys.
-	 * 
-	 * <p>
-	 * <strong>Note:</strong> this assertion assumes the process has one or more
-	 * endstates and that all of them have been reached (in other words, the
-	 * exact set of provided endstates is checked against).
-	 * </p>
-	 * 
-	 * @see #assertProcessEndedAndInExclusiveEndEvent(ActivitiRule,
-	 *      ProcessInstance, String)
-	 * 
-	 * @param rule
-	 *            the {@link ActivitiRule} to access the process engine's
-	 *            services
-	 * @param processInstance
-	 *            the process instance to check for
-	 * @param endStateKeys
-	 *            the keys of the end states to check for
-	 */
-	public static final void assertProcessEndedAndInEndStates(final ActivitiRule rule,
-			final ProcessInstance processInstance, final String... endStateKeys) {
-		assertProcessEndedAndInEndStates(rule, processInstance.getId(), endStateKeys);
-	}
-
-	/**
-	 * Asserts the provided process instance is ended and has reached all end
-	 * states with the provided keys.
-	 * 
-	 * <p>
-	 * <strong>Note:</strong> this assertion assumes the process has one or more
-	 * endstates and that all of them have been reached (in other words, the
-	 * exact set of provided endstates is checked against).
-	 * </p>
-	 * 
-	 * @see #assertProcessEndedAndInExclusiveEndEvent(ActivitiRule, String,
-	 *      String)
-	 * 
-	 * @param rule
-	 *            the {@link ActivitiRule} to access the process engine's
-	 *            services
-	 * @param processInstanceId
-	 *            the process instance id to check for
-	 * @param endStateKeys
-	 *            the keys of the end states to check for
-	 */
-	public static void assertProcessEndedAndInEndStates(final ActivitiRule rule, final String processInstanceId,
-			final String... endStateKeys) {
-		// Assert.assertTrue(processEndedAndInEndStates(rule, processInstanceId,
-		// endStateKeys));
 	}
 
 	//

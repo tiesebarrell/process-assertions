@@ -16,6 +16,7 @@
 package org.anemonos.activiti.assertion.suite;
 
 import org.anemonos.activiti.assertion.ProcessIsActiveAssertionsTest;
+import org.anemonos.activiti.assertion.ProcessIsEndedAndInEndEventsAssertionsTest;
 import org.anemonos.activiti.assertion.ProcessIsEndedAndInExclusiveEndEventAssertionsTest;
 import org.anemonos.activiti.assertion.ProcessIsEndedAssertionsTest;
 import org.anemonos.activiti.assertion.TaskIsUncompletedByProcessInstanceAndTaskDefinitionKeyAssertionsTest;
@@ -28,8 +29,10 @@ import org.junit.runners.Suite.SuiteClasses;
  * Test suite for process assertion tests.
  */
 @RunWith(Suite.class)
-@SuiteClasses({ ProcessIsActiveAssertionsTest.class, ProcessIsEndedAssertionsTest.class, TaskIsUncompletedByTaskAssertionsTest.class,
-		TaskIsUncompletedByProcessInstanceAndTaskDefinitionKeyAssertionsTest.class, ProcessIsEndedAndInExclusiveEndEventAssertionsTest.class, })
+@SuiteClasses({ ProcessIsActiveAssertionsTest.class, ProcessIsEndedAssertionsTest.class,
+		TaskIsUncompletedByTaskAssertionsTest.class,
+		TaskIsUncompletedByProcessInstanceAndTaskDefinitionKeyAssertionsTest.class,
+		ProcessIsEndedAndInExclusiveEndEventAssertionsTest.class, ProcessIsEndedAndInEndEventsAssertionsTest.class })
 public class AssertionTests {
 
 }

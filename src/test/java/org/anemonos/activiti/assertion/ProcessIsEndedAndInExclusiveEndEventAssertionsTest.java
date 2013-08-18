@@ -27,7 +27,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 /**
  * Tests for assertions that test a process is ended and has reached an
- * exclusive end state.
+ * exclusive end event.
  * 
  * @author Tiese Barrell
  * 

@@ -20,10 +20,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.activiti.engine.history.HistoricActivityInstance;
-import org.activiti.engine.history.HistoricProcessInstance;
-import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.test.ActivitiRule;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.junit.Assert;
 
 /**
@@ -31,7 +30,8 @@ import org.junit.Assert;
  */
 final class EndEventAssert extends AbstractProcessAssert {
 
-	static void processEndedAndInExclusiveEndEvent(final ActivitiRule rule, final String processInstanceId, final String endEventId) {
+	static void processEndedAndInExclusiveEndEvent(final ActivitiRule rule, final String processInstanceId,
+			final String endEventId) {
 
 		// Assert the process instance is ended
 		ProcessInstanceAssert.processIsEnded(rule, processInstanceId);
@@ -39,51 +39,45 @@ final class EndEventAssert extends AbstractProcessAssert {
 		// Assert that there is exactly one historic activity instance for end
 		// events and that it has the correct id
 		trace(LogMessage.PROCESS_10, processInstanceId, endEventId);
-		final List<HistoricActivityInstance> historicActivityInstances = rule.getHistoryService().createHistoricActivityInstanceQuery()
-				.activityType("endEvent").finished().list();
+		final List<HistoricActivityInstance> historicActivityInstances = rule.getHistoryService()
+				.createHistoricActivityInstanceQuery().processInstanceId(processInstanceId).activityType("endEvent")
+				.finished().list();
 
 		Assert.assertEquals(1, historicActivityInstances.size());
 		Assert.assertEquals(endEventId, historicActivityInstances.get(0).getActivityId());
 	}
 
-	private static boolean processEndedAndInEndStates(final ActivitiRule rule, final String processInstanceId, final String... endStateKeys) {
-		boolean result = false;
+	static void processEndedAndInEndEvents(final ActivitiRule rule, final String processInstanceId,
+			final String... endEventIds) {
 
+		// Assert the process instance is ended
 		ProcessInstanceAssert.processIsEnded(rule, processInstanceId);
 
-		try {
-			// Assert there is no running process instance.
-			final ProcessInstance processInstance = rule.getRuntimeService().createProcessInstanceQuery().processInstanceId(processInstanceId)
-					.singleResult();
+		// Assert that there are the exact amount of historic activity instances
+		// for end events and that ids match exactly
+		trace(LogMessage.PROCESS_12, endEventIds.length, processInstanceId, ArrayUtils.toString(endEventIds));
 
-			Assert.assertNull(processInstance);
+		final List<HistoricActivityInstance> historicActivityInstances = rule.getHistoryService()
+				.createHistoricActivityInstanceQuery().processInstanceId(processInstanceId).activityType("endEvent")
+				.finished().list();
 
-			// Assert there is a historic process instance and it is ended
-			final HistoricProcessInstance historicProcessInstance = rule.getHistoryService().createHistoricProcessInstanceQuery()
-					.processInstanceId(processInstanceId).singleResult();
-
-			Assert.assertNotNull(historicProcessInstance);
-
-			Assert.assertNotNull(historicProcessInstance.getEndTime());
-
-			// Assert in the provided endstates
-			final List<HistoricActivityInstance> historicActivityInstances = rule.getHistoryService().createHistoricActivityInstanceQuery()
-					.activityType("endEvent").list();
-
-			Assert.assertEquals(endStateKeys.length, historicActivityInstances.size());
-
-			final List<String> historicEndStateKeys = new ArrayList<String>();
-			for (final HistoricActivityInstance historicActivityInstance : historicActivityInstances) {
-				historicEndStateKeys.add(historicActivityInstance.getActivityId());
-			}
-
-			Assert.assertTrue(CollectionUtils.isEqualCollection(Arrays.asList(endStateKeys), historicEndStateKeys));
-
-			result = true;
-		} catch (final AssertionError ae) {
-			result = false;
+		final List<String> historicEndEventIds = new ArrayList<String>();
+		for (final HistoricActivityInstance historicActivityInstance : historicActivityInstances) {
+			historicEndEventIds.add(historicActivityInstance.getActivityId());
 		}
 
-		return result;
+		// Catch any exceptions so a detailed log message can be shown. The
+		// context of expected and actual end event ids is only available here.
+		try {
+			Assert.assertEquals(endEventIds.length, historicActivityInstances.size());
+
+			Assert.assertTrue(CollectionUtils.isEqualCollection(Arrays.asList(endEventIds), historicEndEventIds));
+		} catch (final AssertionError ae) {
+			debug(LogMessage.ERROR_PROCESS_5, endEventIds.length, historicEndEventIds.size(),
+					ArrayUtils.toString(endEventIds), ArrayUtils.toString(historicEndEventIds.toArray()));
+			// rethrow to ensure handled properly at higher level
+			throw ae;
+		}
+
 	}
 }
