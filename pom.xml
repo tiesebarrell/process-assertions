@@ -17,6 +17,8 @@
 		<jdk.version>1.7</jdk.version>
 		<junit.version>4.11</junit.version>
 		<log4j.version>1.2.17</log4j.version>
+		<maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
+		<maven.javadoc.plugin.version>2.9.1</maven.javadoc.plugin.version>
 		<slf4j.api.version>1.7.2</slf4j.api.version>
 		<slf4j.version>1.7.5</slf4j.version>
 		<spring.version>3.1.2.RELEASE</spring.version>
@@ -30,12 +32,18 @@
 			<url>http://maven.alfresco.com/nexus/content/groups/public</url>
 		</repository>
 	</repositories>
+	
+	<scm>
+        <connection>scm:git:ssh://github.com/tiesebarrell/activiti-process-assertions</connection>
+        <developerConnection>scm:git:ssh://github.com/tiesebarrell/activiti-process-assertions</developerConnection>
+    </scm>
 
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.plugin.version}</version>
 				<configuration>
 					<source>${jdk.version}</source>
 					<target>${jdk.version}</target>
@@ -46,6 +54,7 @@
 			<plugin>
         		<groupId>org.apache.maven.plugins</groupId>
         		<artifactId>maven-javadoc-plugin</artifactId>
+        		<version>${maven.javadoc.plugin.version}</version>
         		<configuration>
         			<stylesheetfile>src/main/javadoc/stylesheet.css</stylesheetfile>
 		        </configuration>
