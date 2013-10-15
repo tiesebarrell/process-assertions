@@ -4,7 +4,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.anemonos.activiti</groupId>
+	<groupId>org.toxos.activiti</groupId>
 	<artifactId>activiti-process-assertions</artifactId>
 	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
@@ -150,9 +150,9 @@
 
 	<organization>
 		<name>Tiese Barrell</name>
-		<url>http://www.anemonos.org</url>
+		<url>http://www.toxos.org</url>
 	</organization>
-	<url>http://processassertions.anemonos.org</url>
+	<url>http://toxos.org/activiti-process-assertions/</url>
 	<inceptionYear>2013</inceptionYear>
 	<description>Activiti Process Assertions provide assertions for use in JUnit test cases to test for specific business process conditions when executed with the Activiti BPM framework (http://www.activiti.org).</description>
 </project>

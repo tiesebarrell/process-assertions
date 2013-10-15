@@ -71,7 +71,7 @@ If you are using [Maven][linkMaven] and want to use [Log4j][linkLog4j] as loggin
 You can then configure logging as part of the regular Log4j configuration, in either a property file or XML file. To enable DEBUG logging on process assertions, use something similar to this:
 
 ```
-log4j.category.org.anemonos.activiti=DEBUG
+log4j.category.org.toxos.activiti=DEBUG
 ```
 
 You can find more information on configuring logging for SLF4J [here][linkSlf4jManual].
