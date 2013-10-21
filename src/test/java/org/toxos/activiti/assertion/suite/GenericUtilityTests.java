@@ -18,14 +18,14 @@ package org.toxos.activiti.assertion.suite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
+import org.toxos.activiti.assertion.LogMessageGenericTest;
 import org.toxos.activiti.assertion.LogMessageProviderTest;
-import org.toxos.activiti.assertion.LogMessageTest;
 
 /**
- * Test suite for assertion utility tests.
+ * Test suite for generic tests.
  */
 @RunWith(Suite.class)
-@SuiteClasses({ LogMessageTest.class, LogMessageProviderTest.class })
-public class UtilityTests {
+@SuiteClasses({ LogMessageGenericTest.class, LogMessageProviderTest.class })
+public class GenericUtilityTests {
 
 }

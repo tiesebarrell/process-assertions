@@ -22,12 +22,9 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.toxos.activiti.assertion.LogMessageProvider;
-
-;
 
 /**
- * Tests for {@link LogMessageProvider}..
+ * Tests for {@link LogMessageProvider}.
  * 
  * @author Tiese Barrell
  * 
@@ -51,7 +48,7 @@ public class LogMessageProviderTest {
 	}
 
 	@Test
-	public void testMutableLogMessageProviderUseDefaultLocale() {
+	public void testMutableLogMessageProviderUsesDefaultLocale() {
 		Locale.setDefault(new Locale("x1", "y1"));
 		classUnderTest = new LogMessageProvider(LOG_MESSAGES_TEST_BASENAME);
 		Assert.assertEquals("Message 1 (x1, y1)", classUnderTest.getMessageByKey("key1"));

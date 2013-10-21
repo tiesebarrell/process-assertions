@@ -21,18 +21,17 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
-import org.toxos.activiti.assertion.suite.AllTests;
 
 /**
  * Test suite for the nl-NL locale.
  */
 @RunWith(Suite.class)
-@SuiteClasses({ AllTests.class })
+@SuiteClasses({ AllLocaleSpecificTests.class })
 public class AllTestsWithLocaleNlNl {
 
-  @BeforeClass
-  public static void setUpClass() {
-    Locale.setDefault(new Locale("nl", "NL"));
-  }
+	@BeforeClass
+	public static void setUpClass() {
+		Locale.setDefault(new Locale("nl", "NL"));
+	}
 
 }

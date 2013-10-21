@@ -13,26 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.toxos.activiti.assertion.example;
+package org.toxos.activiti.assertion.suite.locale;
 
-import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.test.ActivitiRule;
-import org.activiti.engine.test.Deployment;
-import org.junit.Rule;
-import org.junit.Test;
-import org.toxos.activiti.assertion.ProcessAssert;
+import java.util.Locale;
 
-public class MyProcessTest {
+import org.junit.BeforeClass;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
-	@Rule
-	public ActivitiRule activitiRule = new ActivitiRule("example/activiti.cfg.xml");
+/**
+ * Test suite for the default locale.
+ */
+@RunWith(Suite.class)
+@SuiteClasses({ AllLocaleSpecificTests.class })
+public class AllTestsWithLocaleDefault {
 
-	@Test
-	@Deployment(resources = "example/MyProcess.bpmn")
-	public void testStartProcess() throws Exception {
-		final ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("myProcess");
-
-		ProcessAssert.assertProcessActive(activitiRule, processInstance);
+	@BeforeClass
+	public static void setUpClass() {
+		Locale.setDefault(Locale.getDefault());
 	}
 
 }

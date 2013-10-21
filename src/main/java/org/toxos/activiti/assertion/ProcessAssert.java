@@ -416,5 +416,17 @@ public final class ProcessAssert extends AbstractProcessAssert {
 		// processInstanceId, processVariableName,
 		// expectedValue));
 	}
+	
+	//assertProcessReachedEndState
+	
+	//assertProcessSuspended -> lookup implementation and usage
+	
+	//assertTaskUncompletedAndAssignedToUser
+	
+	//assertTaskUncompletedAndUnassigned
+	
+	//assertWaitingAtReceiveTask
+	
+	
 
 }

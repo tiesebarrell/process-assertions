@@ -18,13 +18,12 @@ package org.toxos.activiti.assertion.suite.locale;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
-import org.toxos.activiti.assertion.suite.AllTests;
 
 /**
  * Test suite for all tests in all locales, including the default locale.
  */
 @RunWith(Suite.class)
-@SuiteClasses({ AllTests.class, AllTestsWithLocaleNlNl.class })
+@SuiteClasses({ AllTestsWithLocaleDefault.class, AllTestsWithLocaleNlNl.class })
 public class AllTestsAllLocales {
 
 }

@@ -13,26 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.toxos.activiti.assertion.example;
+package org.toxos.activiti.assertion.suite;
 
-import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.test.ActivitiRule;
-import org.activiti.engine.test.Deployment;
-import org.junit.Rule;
-import org.junit.Test;
-import org.toxos.activiti.assertion.ProcessAssert;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
+import org.toxos.activiti.assertion.LogMessageLocaleTest;
 
-public class MyProcessTest {
-
-	@Rule
-	public ActivitiRule activitiRule = new ActivitiRule("example/activiti.cfg.xml");
-
-	@Test
-	@Deployment(resources = "example/MyProcess.bpmn")
-	public void testStartProcess() throws Exception {
-		final ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("myProcess");
-
-		ProcessAssert.assertProcessActive(activitiRule, processInstance);
-	}
+/**
+ * Test suite for assertion utility tests.
+ */
+@RunWith(Suite.class)
+@SuiteClasses({ LogMessageLocaleTest.class })
+public class LocaleUtilityTests {
 
 }

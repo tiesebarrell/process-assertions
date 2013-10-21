@@ -86,7 +86,8 @@ public abstract class AbstractProcessAssert {
 	 */
 	protected static void fail(final LogMessage message, final Object... objects) {
 		final String substitutedMessage = getFormattedMessage(message, objects);
-		final String failureMessage = getFormattedMessage(LogMessage.ERROR_ASSERTIONS_1, new String[] { substitutedMessage });
+		final String failureMessage = getFormattedMessage(LogMessage.ERROR_ASSERTIONS_1,
+				new String[] { substitutedMessage });
 		LOGGER.error(failureMessage);
 		Assert.fail(failureMessage);
 	}
@@ -95,7 +96,7 @@ public abstract class AbstractProcessAssert {
 		return MessageFormat.format(getMessage(message), objects);
 	}
 
-	private static String getMessage(LogMessage message) {
+	private static String getMessage(final LogMessage message) {
 		return logMessageProvider.getMessageByKey(message.getBundleKey());
 	}
 

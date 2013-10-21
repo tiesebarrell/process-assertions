@@ -23,7 +23,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * Test suite for all test cases.
  */
 @RunWith(Suite.class)
-@SuiteClasses({ AssertionTests.class, UtilityTests.class, AssertionExampleTests.class })
+@SuiteClasses({ AssertionTests.class, LocaleUtilityTests.class, AssertionExampleTests.class, GenericUtilityTests.class })
 public class AllTests {
 
 }
