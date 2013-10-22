@@ -22,7 +22,7 @@ import java.util.List;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.test.ActivitiRule;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Assert;
 
 /**

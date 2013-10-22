@@ -34,44 +34,44 @@ public class ProcessIsActiveAssertionsTest extends AbstractProcessAssertTest {
 	@Test
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
 	public void testProcessActiveForObject() throws Exception {
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
 		assertProcessActive(activitiRule, processInstance);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
 	public void testProcessActiveFailureForNullObject() throws Exception {
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
-		ProcessInstance nullInstance = null;
+		final ProcessInstance nullInstance = null;
 		assertProcessActive(activitiRule, nullInstance);
 	}
 
 	@Test(expected = AssertionError.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
 	public void testProcessActiveFailureForObject() throws Exception {
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
 		assertProcessActive(activitiRule, processInstance);
 	}
 
 	@Test
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
 	public void testProcessActiveForId() throws Exception {
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
 		assertProcessActive(activitiRule, processInstance.getId());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
 	public void testProcessActiveFailureForNullId() throws Exception {
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
-		String nullId = null;
+		final String nullId = null;
 		assertProcessActive(activitiRule, nullId);
 	}
 
 	@Test(expected = AssertionError.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
 	public void testProcessActiveFailureForId() throws Exception {
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
 		assertProcessActive(activitiRule, processInstance.getId());
 	}
 

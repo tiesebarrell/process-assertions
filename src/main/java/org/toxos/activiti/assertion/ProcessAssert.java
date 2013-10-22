@@ -18,8 +18,8 @@ package org.toxos.activiti.assertion;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.Validate;
 import org.junit.Assert;
 
 /**
@@ -416,17 +416,15 @@ public final class ProcessAssert extends AbstractProcessAssert {
 		// processInstanceId, processVariableName,
 		// expectedValue));
 	}
-	
-	//assertProcessReachedEndState
-	
-	//assertProcessSuspended -> lookup implementation and usage
-	
-	//assertTaskUncompletedAndAssignedToUser
-	
-	//assertTaskUncompletedAndUnassigned
-	
-	//assertWaitingAtReceiveTask
-	
-	
+
+	// assertProcessReachedEndState
+
+	// assertProcessSuspended -> lookup implementation and usage
+
+	// assertTaskUncompletedAndAssignedToUser
+
+	// assertTaskUncompletedAndUnassigned
+
+	// assertWaitingAtReceiveTask
 
 }

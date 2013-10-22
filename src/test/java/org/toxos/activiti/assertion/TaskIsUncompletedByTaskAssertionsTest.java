@@ -39,12 +39,14 @@ public class TaskIsUncompletedByTaskAssertionsTest extends AbstractProcessAssert
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_TWO_USER_TASKS_BPMN)
 	public void testTaskUncompletedForTaskObject() throws Exception {
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_TWO_USER_TASKS);
-		Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_1).singleResult();
+		final Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_1)
+				.singleResult();
 		assertTaskUncompleted(activitiRule, task1);
 
 		// Move on to task two and test
 		taskService.complete(task1.getId());
-		Task task2 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_2).singleResult();
+		final Task task2 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_2)
+				.singleResult();
 		assertTaskUncompleted(activitiRule, task2);
 	}
 
@@ -52,17 +54,18 @@ public class TaskIsUncompletedByTaskAssertionsTest extends AbstractProcessAssert
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_TWO_USER_TASKS_BPMN)
 	public void testTaskUncompletedForTaskObjectForCompletedTask() throws Exception {
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_TWO_USER_TASKS);
-		Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_1).singleResult();
+		final Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_1)
+				.singleResult();
 		taskService.complete(task1.getId());
 
 		assertTaskUncompleted(activitiRule, task1);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
 	public void testTaskUncompletedFailureForNullTaskObject() throws Exception {
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
-		Task nullTask = null;
+		final Task nullTask = null;
 		assertTaskUncompleted(activitiRule, nullTask);
 	}
 
@@ -70,12 +73,14 @@ public class TaskIsUncompletedByTaskAssertionsTest extends AbstractProcessAssert
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_TWO_USER_TASKS_BPMN)
 	public void testTaskUncompletedForTaskId() throws Exception {
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_TWO_USER_TASKS);
-		Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_1).singleResult();
+		final Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_1)
+				.singleResult();
 		assertTaskUncompleted(activitiRule, task1.getId());
 
 		// Move on to task two and test
 		taskService.complete(task1.getId());
-		Task task2 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_2).singleResult();
+		final Task task2 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_2)
+				.singleResult();
 		assertTaskUncompleted(activitiRule, task2.getId());
 	}
 
@@ -83,17 +88,18 @@ public class TaskIsUncompletedByTaskAssertionsTest extends AbstractProcessAssert
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_TWO_USER_TASKS_BPMN)
 	public void testTaskUncompletedForTaskIdForCompletedTask() throws Exception {
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_TWO_USER_TASKS);
-		Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_1).singleResult();
+		final Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_1)
+				.singleResult();
 		taskService.complete(task1.getId());
 
 		assertTaskUncompleted(activitiRule, task1.getId());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
 	public void testTaskUncompletedFailureForNullTaskId() throws Exception {
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
-		String nullString = null;
+		final String nullString = null;
 		assertTaskUncompleted(activitiRule, nullString);
 	}
 

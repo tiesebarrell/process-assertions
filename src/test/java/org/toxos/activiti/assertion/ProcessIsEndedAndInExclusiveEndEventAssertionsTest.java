@@ -45,7 +45,7 @@ public class ProcessIsEndedAndInExclusiveEndEventAssertionsTest extends Abstract
 		assertProcessEndedAndInExclusiveEndEvent(activitiRule, processInstance, TARGET_END_EVENT_ID);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
 	public void testProcessEndedAndInExclusiveEndEventForNullProcessInstance() throws Exception {
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
@@ -85,7 +85,7 @@ public class ProcessIsEndedAndInExclusiveEndEventAssertionsTest extends Abstract
 		assertProcessEndedAndInExclusiveEndEvent(activitiRule, processInstance.getId(), TARGET_END_EVENT_ID);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
 	public void testProcessEndedAndInExclusiveEndEventForNullProcessInstanceId() throws Exception {
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);

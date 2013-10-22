@@ -120,7 +120,7 @@ public class ProcessIsEndedAndInEndEventsAssertionsTest extends AbstractProcessA
 		assertProcessEndedAndInEndEvents(activitiRule, processInstance, CONDITIONAL_END_PROCESS_EVENT_ID);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
 	public void testProcessEndedAndInEndEventsFailureForNullProcessInstance() throws Exception {
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
@@ -206,7 +206,7 @@ public class ProcessIsEndedAndInEndEventsAssertionsTest extends AbstractProcessA
 		assertProcessEndedAndInEndEvents(activitiRule, processInstance.getId(), CONDITIONAL_END_PROCESS_EVENT_ID);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
 	public void testProcessEndedAndInEndEventsFailureForNullProcessInstanceId() throws Exception {
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);

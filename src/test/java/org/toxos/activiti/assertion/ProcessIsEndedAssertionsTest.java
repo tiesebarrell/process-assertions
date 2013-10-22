@@ -34,44 +34,44 @@ public class ProcessIsEndedAssertionsTest extends AbstractProcessAssertTest {
 	@Test
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
 	public void testProcessEndedForObject() throws Exception {
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
 		assertProcessEnded(activitiRule, processInstance);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
 	public void testProcessEndedFailureForNullObject() throws Exception {
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
-		ProcessInstance nullInstance = null;
+		final ProcessInstance nullInstance = null;
 		assertProcessEnded(activitiRule, nullInstance);
 	}
 
 	@Test(expected = AssertionError.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
 	public void testProcessEndedFailureForObject() throws Exception {
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
 		assertProcessEnded(activitiRule, processInstance);
 	}
 
 	@Test
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
 	public void testProcessEndedForId() throws Exception {
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
 		assertProcessEnded(activitiRule, processInstance.getId());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
 	public void testProcessEndedFailureForNullId() throws Exception {
 		runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
-		String nullId = null;
+		final String nullId = null;
 		assertProcessEnded(activitiRule, nullId);
 	}
 
 	@Test(expected = AssertionError.class)
 	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
 	public void testProcessEndedFailureForId() throws Exception {
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
 		assertProcessEnded(activitiRule, processInstance.getId());
 	}
 
