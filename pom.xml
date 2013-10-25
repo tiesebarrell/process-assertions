@@ -19,8 +19,10 @@
 		<junit.version>4.11</junit.version>
 		<log4j.version>1.2.17</log4j.version>
 		<maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
+		<maven.deploy.plugin.version>2.8.1</maven.deploy.plugin.version>
 		<maven.javadoc.plugin.version>2.9.1</maven.javadoc.plugin.version>
 		<maven.release.plugin.version>2.4.1</maven.release.plugin.version>
+		<maven.source.plugin.version>2.2.1</maven.source.plugin.version>
 		<maven.surefire.plugin.version>2.16</maven.surefire.plugin.version>
 		<slf4j.api.version>1.7.2</slf4j.api.version>
 		<slf4j.version>1.7.5</slf4j.version>
@@ -164,12 +166,35 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+      			<artifactId>maven-source-plugin</artifactId>
+      			<version>${maven.source.plugin.version}</version>
+			    <executions>
+			    	<execution>
+			        	<id>attach-sources</id>
+			        	<phase>deploy</phase>
+			        	<goals>
+			        		<goal>jar</goal>
+			        	</goals> 
+			        </execution>
+			    </executions>
+    		</plugin>
+			<plugin>
         		<groupId>org.apache.maven.plugins</groupId>
         		<artifactId>maven-javadoc-plugin</artifactId>
         		<version>${maven.javadoc.plugin.version}</version>
         		<configuration>
         			<stylesheetfile>src/main/javadoc/stylesheet.css</stylesheetfile>
 		        </configuration>
+		        <executions> 
+        			<execution> 
+          				<id>attach-javadocs</id>
+          				<phase>deploy</phase>
+          				<goals>
+          					<goal>jar</goal>
+          				</goals> 
+        			</execution> 
+      			</executions> 
       		</plugin>
       		<plugin>
             	<groupId>org.apache.maven.plugins</groupId>
@@ -189,6 +214,21 @@
 			        <pushChanges>false</pushChanges>
 			    </configuration>
 			</plugin>
+			<plugin> 
+      			<!-- explicitly define maven-deploy-plugin after other to force exec order -->
+      			<groupId>org.apache.maven.plugins</groupId>
+      			<artifactId>maven-deploy-plugin</artifactId>
+      			<version>${maven.deploy.plugin.version}</version>
+			    <executions> 
+			    	<execution> 
+			        	<id>deploy</id>
+			        	<phase>deploy</phase>
+			        	<goals>
+			        		<goal>deploy</goal>
+			        	</goals> 
+			        </execution> 
+			    </executions> 
+    		</plugin>
 		</plugins>
 	</build>
 
