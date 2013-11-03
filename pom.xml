@@ -53,8 +53,8 @@
 	</repositories>
 	
 	<scm>
-        <connection>scm:git:ssh://github.com/tiesebarrell/activiti-process-assertions</connection>
-        <developerConnection>scm:git:ssh://github.com/tiesebarrell/activiti-process-assertions</developerConnection>
+        <connection>scm:git:ssh://github.com/tiesebarrell/activiti-process-assertions.git</connection>
+        <developerConnection>scm:git:ssh://github.com/tiesebarrell/activiti-process-assertions.git</developerConnection>
     </scm>
     
 	<dependencyManagement>
