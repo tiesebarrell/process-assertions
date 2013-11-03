@@ -16,6 +16,7 @@
 package org.toxos.activiti.assertion.example;
 
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
 import org.activiti.engine.test.Deployment;
 import org.junit.Rule;
@@ -29,10 +30,23 @@ public class MyProcessTest {
 
 	@Test
 	@Deployment(resources = "example/MyProcess.bpmn")
-	public void testStartProcess() throws Exception {
+	public void testMyProcess() throws Exception {
 		final ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("myProcess");
 
+		// assert the process is still running
 		ProcessAssert.assertProcessActive(activitiRule, processInstance);
-	}
 
+		// assert the process is waiting for a UserTask to be completed
+		ProcessAssert.assertTaskUncompleted(activitiRule, processInstance, "usertask1");
+
+		// complete the task
+		final Task userTask1 = activitiRule.getTaskService().createTaskQuery()
+				.processInstanceId(processInstance.getProcessInstanceId()).taskDefinitionKey("usertask1")
+				.singleResult();
+		activitiRule.getTaskService().complete(userTask1.getId());
+
+		// assert the process is now ended
+		ProcessAssert.assertProcessEnded(activitiRule, processInstance);
+
+	}
 }
