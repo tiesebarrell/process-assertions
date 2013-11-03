@@ -231,6 +231,27 @@
     		</plugin>
 		</plugins>
 	</build>
+	
+	<profiles>
+		<profile>
+			<id>activiti-5.12</id>
+			<properties>
+				<activiti.version>5.12</activiti.version>
+			</properties>
+		</profile>
+		<profile>
+			<id>activiti-5.12.1</id>
+			<properties>
+				<activiti.version>5.12.1</activiti.version>
+			</properties>
+		</profile>
+		<profile>
+			<id>activiti-5.13</id>
+			<properties>
+				<activiti.version>5.13</activiti.version>
+			</properties>
+		</profile>
+	</profiles>
 
 	<organization>
 		<name>Tiese Barrell</name>
