@@ -6,7 +6,7 @@
 	<groupId>org.toxos.activiti</groupId>
 	<artifactId>process-assertions</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1.0</version>
+	<version>0.2.0-SNAPSHOT</version>
 	<name>Activiti Process Assertions</name>
 
 	<properties>
@@ -54,7 +54,7 @@
 	<scm>
         <connection>scm:git:ssh://github.com/tiesebarrell/activiti-process-assertions.git</connection>
         <developerConnection>scm:git:ssh://github.com/tiesebarrell/activiti-process-assertions.git</developerConnection>
-      <tag>process-assertions-0.1.0</tag>
+      <tag>HEAD</tag>
   </scm>
     
 	<dependencyManagement>
