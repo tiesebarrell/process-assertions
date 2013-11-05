@@ -21,4 +21,4 @@ limitations under the License.
 [linkJUnit]: https://github.com/junit-team/junit "JUnit test framework"
 [linkActiviti]: http://activiti.org/ "Activiti"
 [linkBpmn]: http://bpmn.org "Business Process Model and Notation"
-[linkProject]: http://toxos.org/activiti-process-assertions "Activiti Process Assertions project website"
+[linkProject]: http://toxos.org/activiti-process-assertions/ "Activiti Process Assertions project website"

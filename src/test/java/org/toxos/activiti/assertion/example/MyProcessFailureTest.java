@@ -30,15 +30,15 @@ import org.toxos.activiti.assertion.ProcessAssert;
  */
 public class MyProcessFailureTest {
 
-  @Rule
-  public ActivitiRule activitiRule = new ActivitiRule("example/activiti.cfg.xml");
+	@Rule
+	public ActivitiRule activitiRule = new ActivitiRule("example/activiti.cfg.xml");
 
-  @Test
-  @Deployment(resources = "example/MyProcess.bpmn")
-  @Ignore
-  public void testStartProcess() throws Exception {
-    ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("myProcess");
-    ProcessAssert.assertProcessEnded(activitiRule, processInstance);
-  }
+	@Test
+	@Deployment(resources = "example/MyProcess.bpmn")
+	@Ignore
+	public void testStartProcess() throws Exception {
+		final ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("myProcess");
+		ProcessAssert.assertProcessEnded(activitiRule, processInstance);
+	}
 
 }
