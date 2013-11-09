@@ -82,8 +82,6 @@ public class LogMessageProvider {
 	 * 
 	 * @param baseName
 	 *            the baseName for bundle resolution
-	 * @param locale
-	 *            the Locale to be used
 	 */
 	protected LogMessageProvider(final String baseName) {
 		super();

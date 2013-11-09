@@ -158,8 +158,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * @param taskDefinitionKey
 	 *            the task's definition key to check for
 	 */
-	public static final void assertTaskUncompleted(final ActivitiRule rule, final ProcessInstance processInstance,
-			final String taskDefinitionKey) {
+	public static final void assertTaskUncompleted(final ActivitiRule rule, final ProcessInstance processInstance, final String taskDefinitionKey) {
 		Validate.notNull(processInstance);
 		Validate.notNull(taskDefinitionKey);
 		assertTaskUncompleted(rule, processInstance.getId(), taskDefinitionKey);
@@ -177,8 +176,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * @param taskDefinitionKey
 	 *            the task's definition key to check for
 	 */
-	public static final void assertTaskUncompleted(final ActivitiRule rule, final String processInstanceId,
-			final String taskDefinitionKey) {
+	public static final void assertTaskUncompleted(final ActivitiRule rule, final String processInstanceId, final String taskDefinitionKey) {
 		Validate.notNull(processInstanceId);
 		Validate.notNull(taskDefinitionKey);
 
@@ -214,12 +212,12 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * 
 	 * <p>
 	 * To assert that a process ended in an exact set of end events, use
-	 * {@link #assertProcessEndedAndInEndStates(ActivitiRule, ProcessInstance, String...)}
+	 * {@link #assertProcessEndedAndInEndEvents(ActivitiRule, ProcessInstance, String...)}
 	 * instead.
 	 * 
 	 * @see #assertProcessEndedAndReachedEndStateLast(ActivitiRule,
 	 *      ProcessInstance, String)
-	 * @see #assertProcessEndedAndInEndStates(ActivitiRule, ProcessInstance,
+	 * @see #assertProcessEndedAndInEndEvents(ActivitiRule, ProcessInstance,
 	 *      String...)
 	 * 
 	 * @param rule
@@ -230,8 +228,8 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * @param endEventId
 	 *            the end event's id to check for
 	 */
-	public static final void assertProcessEndedAndInExclusiveEndEvent(final ActivitiRule rule,
-			final ProcessInstance processInstance, final String endEventId) {
+	public static final void assertProcessEndedAndInExclusiveEndEvent(final ActivitiRule rule, final ProcessInstance processInstance,
+			final String endEventId) {
 		Validate.notNull(processInstance);
 		Validate.notNull(endEventId);
 		assertProcessEndedAndInExclusiveEndEvent(rule, processInstance.getId(), endEventId);
@@ -257,12 +255,12 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * 
 	 * <p>
 	 * To assert that a process ended in an exact set of end events, use
-	 * {@link #assertProcessEndedAndInEndStates(ActivitiRule, String, String...)}
+	 * {@link #assertProcessEndedAndInEndEvents(ActivitiRule, String, String...)}
 	 * instead.
 	 * 
 	 * @see #assertProcessEndedAndReachedEndStateLast(ActivitiRule, String,
 	 *      String)
-	 * @see #assertProcessEndedAndInEndStates(ActivitiRule, String, String...)
+	 * @see #assertProcessEndedAndInEndEvents(ActivitiRule, String, String...)
 	 * 
 	 * @param rule
 	 *            the {@link ActivitiRule} to access the process engine's
@@ -272,8 +270,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * @param endEventId
 	 *            the end event's id to check for
 	 */
-	public static void assertProcessEndedAndInExclusiveEndEvent(final ActivitiRule rule,
-			final String processInstanceId, final String endEventId) {
+	public static void assertProcessEndedAndInExclusiveEndEvent(final ActivitiRule rule, final String processInstanceId, final String endEventId) {
 		Validate.notNull(processInstanceId);
 		Validate.notNull(endEventId);
 
@@ -303,8 +300,8 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * @param endEventIds
 	 *            the end events' ids to check for
 	 */
-	public static final void assertProcessEndedAndInEndEvents(final ActivitiRule rule,
-			final ProcessInstance processInstance, final String... endEventIds) {
+	public static final void assertProcessEndedAndInEndEvents(final ActivitiRule rule, final ProcessInstance processInstance,
+			final String... endEventIds) {
 		Validate.notNull(processInstance);
 		Validate.notNull(endEventIds);
 		assertProcessEndedAndInEndEvents(rule, processInstance.getId(), endEventIds);
@@ -328,8 +325,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * @param endEventIds
 	 *            the end events' ids to check for
 	 */
-	public static void assertProcessEndedAndInEndEvents(final ActivitiRule rule, final String processInstanceId,
-			final String... endEventIds) {
+	public static void assertProcessEndedAndInEndEvents(final ActivitiRule rule, final String processInstanceId, final String... endEventIds) {
 		Validate.notNull(processInstanceId);
 		Validate.notNull(endEventIds);
 
@@ -343,13 +339,13 @@ public final class ProcessAssert extends AbstractProcessAssert {
 
 	// Marker
 
-	public static final void assertProcessEndedAndReachedEndStateLast(final ActivitiRule rule,
-			final ProcessInstance processInstance, final String endStateKey) {
+	public static final void assertProcessEndedAndReachedEndStateLast(final ActivitiRule rule, final ProcessInstance processInstance,
+			final String endStateKey) {
 		throw new UnsupportedOperationException("This process assertion has not been implemented yet");
 	}
 
-	public static final void assertProcessEndedAndReachedEndStateLast(final ActivitiRule rule,
-			final String processInstanceId, final String endStateKey) {
+	public static final void assertProcessEndedAndReachedEndStateLast(final ActivitiRule rule, final String processInstanceId,
+			final String endStateKey) {
 		throw new UnsupportedOperationException("This process assertion has not been implemented yet");
 	}
 
@@ -378,10 +374,9 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * @param expectedValue
 	 *            the expected value for the process variable
 	 */
-	public static void assertHistoricProcessVariableLatestValueEquals(final ActivitiRule rule,
-			final ProcessInstance processInstance, final String processVariableName, final Object expectedValue) {
-		assertHistoricProcessVariableLatestValueEquals(rule, processInstance.getId(), processVariableName,
-				expectedValue);
+	public static void assertHistoricProcessVariableLatestValueEquals(final ActivitiRule rule, final ProcessInstance processInstance,
+			final String processVariableName, final Object expectedValue) {
+		assertHistoricProcessVariableLatestValueEquals(rule, processInstance.getId(), processVariableName, expectedValue);
 	}
 
 	/**
@@ -405,8 +400,8 @@ public final class ProcessAssert extends AbstractProcessAssert {
 	 * @param expectedValue
 	 *            the expected value for the process variable
 	 */
-	public static void assertHistoricProcessVariableLatestValueEquals(final ActivitiRule rule,
-			final String processInstanceId, final String processVariableName, final Object expectedValue) {
+	public static void assertHistoricProcessVariableLatestValueEquals(final ActivitiRule rule, final String processInstanceId,
+			final String processVariableName, final Object expectedValue) {
 
 		if (!AssertUtils.historyLevelIsFull(rule)) {
 			Assert.fail("To check for latest historic values of process variables, the history level of the Activiti ProcessEngine must be set to full.");
