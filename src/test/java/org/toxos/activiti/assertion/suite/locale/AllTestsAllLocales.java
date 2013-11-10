@@ -23,7 +23,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * Test suite for all tests in all locales, including the default locale.
  */
 @RunWith(Suite.class)
-@SuiteClasses({ AllTestsWithLocaleDefault.class, AllTestsWithLocaleNlNl.class })
+@SuiteClasses({ AllTestsWithLocaleEnUs.class, AllTestsWithLocaleNlNl.class })
 public class AllTestsAllLocales {
 
 }
