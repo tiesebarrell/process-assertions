@@ -31,7 +31,7 @@ public class AllTestsWithLocaleDefault {
 
 	@BeforeClass
 	public static void setUpClass() {
-		Locale.setDefault(Locale.getDefault());
+		Locale.setDefault(new Locale("en", "US"));
 	}
 
 }
