@@ -18,6 +18,9 @@ package org.toxos.activiti.assertion;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Provider for messages corresponding with {@link LogMessage}s for a specific
  * {@link Locale}. The provider can optionally be immutable, meaning the initial
@@ -28,6 +31,8 @@ import java.util.ResourceBundle;
  * 
  */
 public class LogMessageProvider {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(LogMessageProvider.class);
 
 	private final String baseName;
 
@@ -100,9 +105,12 @@ public class LogMessageProvider {
 	}
 
 	private void loadBundleIfRequired() {
+		LOGGER.trace("Loading bundle if required");
 		if (initialBundleLoadIsRequired()) {
+			LOGGER.trace("Initial bundle load required");
 			loadBundle();
 		} else if (bundleReloadIsRequired()) {
+			LOGGER.trace("Bundle reload is required");
 			this.locale = Locale.getDefault();
 			loadBundle();
 		}
@@ -113,10 +121,13 @@ public class LogMessageProvider {
 	}
 
 	private boolean bundleReloadIsRequired() {
+		LOGGER.trace("Determining if bundle reload is required - comparing Locale " + bundle.getLocale()
+				+ " to default Locale " + Locale.getDefault());
 		return immutable == false && !bundle.getLocale().equals(Locale.getDefault());
 	}
 
 	private void loadBundle() {
+		LOGGER.trace("Loading bundle from baseName " + baseName + " for Locale " + this.locale);
 		bundle = ResourceBundle.getBundle(baseName, this.locale);
 	}
 
