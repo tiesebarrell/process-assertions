@@ -36,7 +36,8 @@ public class ProcessIsActiveAssertionsTest extends AbstractProcessAssertTest {
 	@Test
 	@Deployment(resources = BPMN_SINGLE_USER_TASK)
 	public void testProcessActiveForObject() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
+		final ProcessInstance processInstance = runtimeService
+				.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
 		assertProcessActive(activitiRule, processInstance);
 	}
 
@@ -51,14 +52,16 @@ public class ProcessIsActiveAssertionsTest extends AbstractProcessAssertTest {
 	@Test(expected = AssertionError.class)
 	@Deployment(resources = BPMN_STRAIGHT_THROUGH)
 	public void testProcessActiveFailureForObject() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(StraightThroughProcessConstant.PROCESS_KEY.getValue());
+		final ProcessInstance processInstance = runtimeService
+				.startProcessInstanceByKey(StraightThroughProcessConstant.PROCESS_KEY.getValue());
 		assertProcessActive(activitiRule, processInstance);
 	}
 
 	@Test
 	@Deployment(resources = BPMN_SINGLE_USER_TASK)
 	public void testProcessActiveForId() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
+		final ProcessInstance processInstance = runtimeService
+				.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
 		assertProcessActive(activitiRule, processInstance.getId());
 	}
 
@@ -73,7 +76,8 @@ public class ProcessIsActiveAssertionsTest extends AbstractProcessAssertTest {
 	@Test(expected = AssertionError.class)
 	@Deployment(resources = BPMN_STRAIGHT_THROUGH)
 	public void testProcessActiveFailureForId() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(StraightThroughProcessConstant.PROCESS_KEY.getValue());
+		final ProcessInstance processInstance = runtimeService
+				.startProcessInstanceByKey(StraightThroughProcessConstant.PROCESS_KEY.getValue());
 		assertProcessActive(activitiRule, processInstance.getId());
 	}
 

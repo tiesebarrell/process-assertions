@@ -36,7 +36,8 @@ public class ProcessIsEndedAssertionsTest extends AbstractProcessAssertTest {
 	@Test
 	@Deployment(resources = BPMN_STRAIGHT_THROUGH)
 	public void testProcessEndedForObject() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(StraightThroughProcessConstant.PROCESS_KEY.getValue());
+		final ProcessInstance processInstance = runtimeService
+				.startProcessInstanceByKey(StraightThroughProcessConstant.PROCESS_KEY.getValue());
 		assertProcessEnded(activitiRule, processInstance);
 	}
 
@@ -51,14 +52,16 @@ public class ProcessIsEndedAssertionsTest extends AbstractProcessAssertTest {
 	@Test(expected = AssertionError.class)
 	@Deployment(resources = BPMN_SINGLE_USER_TASK)
 	public void testProcessEndedFailureForObject() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
+		final ProcessInstance processInstance = runtimeService
+				.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
 		assertProcessEnded(activitiRule, processInstance);
 	}
 
 	@Test
 	@Deployment(resources = BPMN_STRAIGHT_THROUGH)
 	public void testProcessEndedForId() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(StraightThroughProcessConstant.PROCESS_KEY.getValue());
+		final ProcessInstance processInstance = runtimeService
+				.startProcessInstanceByKey(StraightThroughProcessConstant.PROCESS_KEY.getValue());
 		assertProcessEnded(activitiRule, processInstance.getId());
 	}
 
@@ -73,7 +76,8 @@ public class ProcessIsEndedAssertionsTest extends AbstractProcessAssertTest {
 	@Test(expected = AssertionError.class)
 	@Deployment(resources = BPMN_SINGLE_USER_TASK)
 	public void testProcessEndedFailureForId() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
+		final ProcessInstance processInstance = runtimeService
+				.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
 		assertProcessEnded(activitiRule, processInstance.getId());
 	}
 

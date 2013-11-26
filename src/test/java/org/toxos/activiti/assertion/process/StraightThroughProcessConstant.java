@@ -16,20 +16,27 @@
 package org.toxos.activiti.assertion.process;
 
 /**
- *
+ * Constants for the straight through process.
  */
 public enum StraightThroughProcessConstant {
 
-    PROCESS_KEY("testProcessStraightThrough"),
-    END_EVENT_ID("endCompleted");
+	/**
+	 * The process' key.
+	 */
+	PROCESS_KEY("testProcessStraightThrough"),
 
-    private final String value;
+	/**
+	 * The id of the end event.
+	 */
+	END_EVENT_ID("endCompleted");
 
-    private StraightThroughProcessConstant(final String value) {
-        this.value = value;
-    }
+	private final String value;
 
-    public String getValue() {
-        return value;
-    }
+	private StraightThroughProcessConstant(final String value) {
+		this.value = value;
+	}
+
+	public String getValue() {
+		return value;
+	}
 }

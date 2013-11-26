@@ -37,14 +37,14 @@ public class TaskIsUncompletedByTaskAssertionsTest extends AbstractProcessAssert
 	@Deployment(resources = BPMN_TWO_USER_TASKS)
 	public void testTaskUncompletedForTaskObject() throws Exception {
 		runtimeService.startProcessInstanceByKey(TwoUserTasksProcessConstant.PROCESS_KEY.getValue());
-		final Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(TwoUserTasksProcessConstant.USER_TASK_1_ACTIVITY_ID.getValue())
-				.singleResult();
+		final Task task1 = activitiRule.getTaskService().createTaskQuery()
+				.taskDefinitionKey(TwoUserTasksProcessConstant.USER_TASK_1_ACTIVITY_ID.getValue()).singleResult();
 		assertTaskUncompleted(activitiRule, task1);
 
 		// Move on to task two and test
 		taskService.complete(task1.getId());
-		final Task task2 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(TwoUserTasksProcessConstant.USER_TASK_2_ACTIVITY_ID.getValue())
-				.singleResult();
+		final Task task2 = activitiRule.getTaskService().createTaskQuery()
+				.taskDefinitionKey(TwoUserTasksProcessConstant.USER_TASK_2_ACTIVITY_ID.getValue()).singleResult();
 		assertTaskUncompleted(activitiRule, task2);
 	}
 
@@ -52,8 +52,8 @@ public class TaskIsUncompletedByTaskAssertionsTest extends AbstractProcessAssert
 	@Deployment(resources = BPMN_TWO_USER_TASKS)
 	public void testTaskUncompletedForTaskObjectForCompletedTask() throws Exception {
 		runtimeService.startProcessInstanceByKey(TwoUserTasksProcessConstant.PROCESS_KEY.getValue());
-		final Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(TwoUserTasksProcessConstant.USER_TASK_1_ACTIVITY_ID.getValue())
-				.singleResult();
+		final Task task1 = activitiRule.getTaskService().createTaskQuery()
+				.taskDefinitionKey(TwoUserTasksProcessConstant.USER_TASK_1_ACTIVITY_ID.getValue()).singleResult();
 		taskService.complete(task1.getId());
 
 		assertTaskUncompleted(activitiRule, task1);
@@ -71,14 +71,14 @@ public class TaskIsUncompletedByTaskAssertionsTest extends AbstractProcessAssert
 	@Deployment(resources = BPMN_TWO_USER_TASKS)
 	public void testTaskUncompletedForTaskId() throws Exception {
 		runtimeService.startProcessInstanceByKey(TwoUserTasksProcessConstant.PROCESS_KEY.getValue());
-		final Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(TwoUserTasksProcessConstant.USER_TASK_1_ACTIVITY_ID.getValue())
-				.singleResult();
+		final Task task1 = activitiRule.getTaskService().createTaskQuery()
+				.taskDefinitionKey(TwoUserTasksProcessConstant.USER_TASK_1_ACTIVITY_ID.getValue()).singleResult();
 		assertTaskUncompleted(activitiRule, task1.getId());
 
 		// Move on to task two and test
 		taskService.complete(task1.getId());
-		final Task task2 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(TwoUserTasksProcessConstant.USER_TASK_2_ACTIVITY_ID.getValue())
-				.singleResult();
+		final Task task2 = activitiRule.getTaskService().createTaskQuery()
+				.taskDefinitionKey(TwoUserTasksProcessConstant.USER_TASK_2_ACTIVITY_ID.getValue()).singleResult();
 		assertTaskUncompleted(activitiRule, task2.getId());
 	}
 
@@ -86,8 +86,8 @@ public class TaskIsUncompletedByTaskAssertionsTest extends AbstractProcessAssert
 	@Deployment(resources = BPMN_TWO_USER_TASKS)
 	public void testTaskUncompletedForTaskIdForCompletedTask() throws Exception {
 		runtimeService.startProcessInstanceByKey(TwoUserTasksProcessConstant.PROCESS_KEY.getValue());
-		final Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(TwoUserTasksProcessConstant.USER_TASK_1_ACTIVITY_ID.getValue())
-				.singleResult();
+		final Task task1 = activitiRule.getTaskService().createTaskQuery()
+				.taskDefinitionKey(TwoUserTasksProcessConstant.USER_TASK_1_ACTIVITY_ID.getValue()).singleResult();
 		taskService.complete(task1.getId());
 
 		assertTaskUncompleted(activitiRule, task1.getId());

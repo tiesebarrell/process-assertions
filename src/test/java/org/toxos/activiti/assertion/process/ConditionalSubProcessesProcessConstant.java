@@ -16,42 +16,42 @@
 package org.toxos.activiti.assertion.process;
 
 /**
- *
+ * Constants for the conditional subprocess process.
  */
 public enum ConditionalSubProcessesProcessConstant {
 
-    /**
-     * The process' key.
-     */
-    PROCESS_KEY("testProcessConditionalSubProcesses"),
+	/**
+	 * The process' key.
+	 */
+	PROCESS_KEY("testProcessConditionalSubProcesses"),
 
-    /**
-     * The id of the end event for the whole process.
-     */
-    END_PROCESS_EVENT_ID("endProcess"),
+	/**
+	 * The id of the end event for the whole process.
+	 */
+	END_PROCESS_EVENT_ID("endProcess"),
 
-    /**
-     * The id of the end event for the first sub process.
-     */
-    END_SUBPROCESS_1_EVENT_ID("endSubProcess1"),
+	/**
+	 * The id of the end event for the first sub process.
+	 */
+	END_SUBPROCESS_1_EVENT_ID("endSubProcess1"),
 
-    /**
-     * The id of the end event for the second sub process.
-     */
-    END_SUBPROCESS_2_EVENT_ID("endSubProcess2"),
+	/**
+	 * The id of the end event for the second sub process.
+	 */
+	END_SUBPROCESS_2_EVENT_ID("endSubProcess2"),
 
-    /**
-     * The id of the end event for the third sub process.
-     */
-    END_SUBPROCESS_3_EVENT_ID("endSubProcess3");
+	/**
+	 * The id of the end event for the third sub process.
+	 */
+	END_SUBPROCESS_3_EVENT_ID("endSubProcess3");
 
-    private final String value;
+	private final String value;
 
-    private ConditionalSubProcessesProcessConstant(final String value) {
-        this.value = value;
-    }
+	private ConditionalSubProcessesProcessConstant(final String value) {
+		this.value = value;
+	}
 
-    public String getValue() {
-        return value;
-    }
+	public String getValue() {
+		return value;
+	}
 }

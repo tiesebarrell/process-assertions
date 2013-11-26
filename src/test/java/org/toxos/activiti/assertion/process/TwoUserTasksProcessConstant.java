@@ -20,17 +20,28 @@ package org.toxos.activiti.assertion.process;
  */
 public enum TwoUserTasksProcessConstant {
 
-    PROCESS_KEY("testProcessTwoUserTasks"),
-    USER_TASK_1_ACTIVITY_ID("userTask1"),
-    USER_TASK_2_ACTIVITY_ID("userTask2");
+	/**
+	 * The process' key.
+	 */
+	PROCESS_KEY("testProcessTwoUserTasks"),
 
-    private final String value;
+	/**
+	 * The id of the first usertask.
+	 */
+	USER_TASK_1_ACTIVITY_ID("userTask1"),
 
-    private TwoUserTasksProcessConstant(final String value) {
-        this.value = value;
-    }
+	/**
+	 * The id of the second usertask.
+	 */
+	USER_TASK_2_ACTIVITY_ID("userTask2");
 
-    public String getValue() {
-        return value;
-    }
+	private final String value;
+
+	private TwoUserTasksProcessConstant(final String value) {
+		this.value = value;
+	}
+
+	public String getValue() {
+		return value;
+	}
 }

@@ -16,21 +16,32 @@
 package org.toxos.activiti.assertion.process;
 
 /**
- *
+ * Constants for the single user task process.
  */
 public enum SingleUserTaskProcessConstant {
 
-    PROCESS_KEY("testProcessSingleUserTask"),
-    END_EVENT_ID("endCompleted"),
-    USER_TASK_ACTIVITY_ID("singleUserTask");
+	/**
+	 * The process' key.
+	 */
+	PROCESS_KEY("testProcessSingleUserTask"),
 
-    private final String value;
+	/**
+	 * The id of the end event.
+	 */
+	END_EVENT_ID("endCompleted"),
 
-    private SingleUserTaskProcessConstant(final String value) {
-        this.value = value;
-    }
+	/**
+	 * The id of the user task.
+	 */
+	USER_TASK_ACTIVITY_ID("singleUserTask");
 
-    public String getValue() {
-        return value;
-    }
+	private final String value;
+
+	private SingleUserTaskProcessConstant(final String value) {
+		this.value = value;
+	}
+
+	public String getValue() {
+		return value;
+	}
 }
