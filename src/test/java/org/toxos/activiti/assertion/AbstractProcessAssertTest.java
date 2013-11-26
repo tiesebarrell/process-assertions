@@ -31,25 +31,9 @@ import org.toxos.activiti.assertion.ProcessAssert;
  * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-public abstract class AbstractProcessAssertTest {
+public abstract class AbstractProcessAssertTest implements TestConstants {
 
-	protected static final String DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN = "diagrams/TestProcessStraightThrough.bpmn";
-
-	protected static final String DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN = "diagrams/TestProcessSingleUserTask.bpmn";
-
-	protected static final String DIAGRAMS_TEST_PROCESS_TWO_USER_TASKS_BPMN = "diagrams/TestProcessTwoUserTasks.bpmn";
-
-	protected static final String DIAGRAMS_TEST_PROCESS_CONDITIONAL_SUBPROCESSES_BPMN = "diagrams/TestProcessConditionalSubProcesses.bpmn";
-
-	protected static final String TEST_PROCESS_STRAIGHT_THROUGH = "testProcessStraightThrough";
-
-	protected static final String TEST_PROCESS_SINGLE_USER_TASK = "testProcessSingleUserTask";
-
-	protected static final String TEST_PROCESS_TWO_USER_TASKS = "testProcessTwoUserTasks";
-
-	protected static final String TEST_PROCESS_CONDITIONAL_SUBPROCESSES = "testProcessConditionalSubProcesses";
-
-	@Autowired
+    @Autowired
 	@Rule
 	public ActivitiRule activitiRule;
 

@@ -24,6 +24,9 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.test.Deployment;
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
+import org.toxos.activiti.assertion.process.ConditionalSubProcessesProcessConstant;
+import org.toxos.activiti.assertion.process.SingleUserTaskProcessConstant;
+import org.toxos.activiti.assertion.process.StraightThroughProcessConstant;
 
 /**
  * Tests for assertions that test a process is ended and has reached an exact
@@ -35,183 +38,176 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration("classpath:application-context.xml")
 public class ProcessIsEndedAndInEndEventsAssertionsTest extends AbstractProcessAssertTest {
 
-	private static final String SINGLE_USER_TASK_END_EVENT_ID = "endCompleted";
-	private static final String STRAIGHT_THROUGH_END_EVENT_ID = "endCompleted";
-	private static final String SUB_PROCESS_1_END_EVENT_ID = "endSubProcess1";
-	private static final String SUB_PROCESS_2_END_EVENT_ID = "endSubProcess2";
-	private static final String SUB_PROCESS_3_END_EVENT_ID = "endSubProcess3";
-	private static final String CONDITIONAL_END_PROCESS_EVENT_ID = "endProcess";
-
 	@Test(expected = AssertionError.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
+	@Deployment(resources = BPMN_SINGLE_USER_TASK)
 	public void testProcessEndedAndInEndEventsFailureForProcessInstanceNotEnded() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
-		assertProcessEndedAndInEndEvents(activitiRule, processInstance, SINGLE_USER_TASK_END_EVENT_ID);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
+		assertProcessEndedAndInEndEvents(activitiRule, processInstance, SingleUserTaskProcessConstant.END_EVENT_ID.getValue());
 	}
 
 	@Test
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
+	@Deployment(resources = BPMN_STRAIGHT_THROUGH)
 	public void testProcessEndedAndInSingleEndEventForProcessInstance() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
-		assertProcessEndedAndInEndEvents(activitiRule, processInstance, STRAIGHT_THROUGH_END_EVENT_ID);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(StraightThroughProcessConstant.PROCESS_KEY.getValue());
+		assertProcessEndedAndInEndEvents(activitiRule, processInstance, StraightThroughProcessConstant.END_EVENT_ID.getValue());
 	}
 
 	@Test
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_CONDITIONAL_SUBPROCESSES_BPMN)
+	@Deployment(resources = BPMN_CONDITIONAL_SUBPROCESSES)
 	public void testProcessEndedAndInEndEventsForProcessInstanceExactSet() throws Exception {
 		final Map<String, Object> variables2Not3 = new HashMap<String, Object>();
 		variables2Not3.put("do2", true);
 		variables2Not3.put("do3", false);
 		final ProcessInstance processInstance2Not3 = runtimeService.startProcessInstanceByKey(
-				TEST_PROCESS_CONDITIONAL_SUBPROCESSES, variables2Not3);
-		assertProcessEndedAndInEndEvents(activitiRule, processInstance2Not3, SUB_PROCESS_1_END_EVENT_ID,
-				SUB_PROCESS_2_END_EVENT_ID, CONDITIONAL_END_PROCESS_EVENT_ID);
+				ConditionalSubProcessesProcessConstant.PROCESS_KEY.getValue(), variables2Not3);
+		assertProcessEndedAndInEndEvents(activitiRule, processInstance2Not3, ConditionalSubProcessesProcessConstant.END_SUBPROCESS_1_EVENT_ID.getValue(),
+                ConditionalSubProcessesProcessConstant.END_SUBPROCESS_2_EVENT_ID.getValue(), ConditionalSubProcessesProcessConstant.END_PROCESS_EVENT_ID.getValue());
 
 		final Map<String, Object> variables3Not2 = new HashMap<String, Object>();
 		variables3Not2.put("do2", false);
 		variables3Not2.put("do3", true);
 		final ProcessInstance processInstance3Not2 = runtimeService.startProcessInstanceByKey(
-				TEST_PROCESS_CONDITIONAL_SUBPROCESSES, variables3Not2);
-		assertProcessEndedAndInEndEvents(activitiRule, processInstance3Not2, SUB_PROCESS_1_END_EVENT_ID,
-				SUB_PROCESS_3_END_EVENT_ID, CONDITIONAL_END_PROCESS_EVENT_ID);
+				ConditionalSubProcessesProcessConstant.PROCESS_KEY.getValue(), variables3Not2);
+		assertProcessEndedAndInEndEvents(activitiRule, processInstance3Not2, ConditionalSubProcessesProcessConstant.END_SUBPROCESS_1_EVENT_ID.getValue(),
+                ConditionalSubProcessesProcessConstant.END_SUBPROCESS_3_EVENT_ID.getValue(), ConditionalSubProcessesProcessConstant.END_PROCESS_EVENT_ID.getValue());
 
 		final Map<String, Object> variables2And3 = new HashMap<String, Object>();
 		variables2And3.put("do2", true);
 		variables2And3.put("do3", true);
 		final ProcessInstance processInstance2And3 = runtimeService.startProcessInstanceByKey(
-				TEST_PROCESS_CONDITIONAL_SUBPROCESSES, variables2And3);
-		assertProcessEndedAndInEndEvents(activitiRule, processInstance2And3, SUB_PROCESS_1_END_EVENT_ID,
-				SUB_PROCESS_2_END_EVENT_ID, SUB_PROCESS_3_END_EVENT_ID, CONDITIONAL_END_PROCESS_EVENT_ID);
+				ConditionalSubProcessesProcessConstant.PROCESS_KEY.getValue(), variables2And3);
+		assertProcessEndedAndInEndEvents(activitiRule, processInstance2And3, ConditionalSubProcessesProcessConstant.END_SUBPROCESS_1_EVENT_ID.getValue(),
+                ConditionalSubProcessesProcessConstant.END_SUBPROCESS_2_EVENT_ID.getValue(), ConditionalSubProcessesProcessConstant.END_SUBPROCESS_3_EVENT_ID.getValue(), ConditionalSubProcessesProcessConstant.END_PROCESS_EVENT_ID.getValue());
 	}
 
 	@Test(expected = AssertionError.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_CONDITIONAL_SUBPROCESSES_BPMN)
+	@Deployment(resources = BPMN_CONDITIONAL_SUBPROCESSES)
 	public void testProcessEndedAndInEndEventsFailureForOneMissingForProcessInstance() throws Exception {
 		final Map<String, Object> variables = new HashMap<String, Object>();
 		variables.put("do2", true);
 		variables.put("do3", false);
 		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(
-				TEST_PROCESS_CONDITIONAL_SUBPROCESSES, variables);
+				ConditionalSubProcessesProcessConstant.PROCESS_KEY.getValue(), variables);
 
 		// Missing: SUB_PROCESS_1_END_EVENT_ID
-		assertProcessEndedAndInEndEvents(activitiRule, processInstance, SUB_PROCESS_2_END_EVENT_ID,
-				CONDITIONAL_END_PROCESS_EVENT_ID);
+		assertProcessEndedAndInEndEvents(activitiRule, processInstance, ConditionalSubProcessesProcessConstant.END_SUBPROCESS_2_EVENT_ID.getValue(),
+				ConditionalSubProcessesProcessConstant.END_PROCESS_EVENT_ID.getValue());
 	}
 
 	@Test(expected = AssertionError.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_CONDITIONAL_SUBPROCESSES_BPMN)
+	@Deployment(resources = BPMN_CONDITIONAL_SUBPROCESSES)
 	public void testProcessEndedAndInEndEventsFailureForOneTooManyForProcessInstance() throws Exception {
 		final Map<String, Object> variables = new HashMap<String, Object>();
 		variables.put("do2", true);
 		variables.put("do3", false);
 		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(
-				TEST_PROCESS_CONDITIONAL_SUBPROCESSES, variables);
+				ConditionalSubProcessesProcessConstant.PROCESS_KEY.getValue(), variables);
 
 		// Should not be expected: SUB_PROCESS_3_END_EVENT_ID
-		assertProcessEndedAndInEndEvents(activitiRule, processInstance, SUB_PROCESS_1_END_EVENT_ID,
-				SUB_PROCESS_2_END_EVENT_ID, SUB_PROCESS_3_END_EVENT_ID, CONDITIONAL_END_PROCESS_EVENT_ID);
+		assertProcessEndedAndInEndEvents(activitiRule, processInstance, ConditionalSubProcessesProcessConstant.END_SUBPROCESS_1_EVENT_ID.getValue(),
+                ConditionalSubProcessesProcessConstant.END_SUBPROCESS_2_EVENT_ID.getValue(), ConditionalSubProcessesProcessConstant.END_SUBPROCESS_3_EVENT_ID.getValue(), ConditionalSubProcessesProcessConstant.END_PROCESS_EVENT_ID.getValue());
 	}
 
 	@Test(expected = AssertionError.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
+	@Deployment(resources = BPMN_STRAIGHT_THROUGH)
 	public void testProcessEndedAndInEndEventsFailureForCorrectAmountWrongIdsForProcessInstance() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(StraightThroughProcessConstant.PROCESS_KEY.getValue());
 
-		assertProcessEndedAndInEndEvents(activitiRule, processInstance, CONDITIONAL_END_PROCESS_EVENT_ID);
+		assertProcessEndedAndInEndEvents(activitiRule, processInstance, ConditionalSubProcessesProcessConstant.END_PROCESS_EVENT_ID.getValue());
 	}
 
 	@Test(expected = NullPointerException.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
+	@Deployment(resources = BPMN_STRAIGHT_THROUGH)
 	public void testProcessEndedAndInEndEventsFailureForNullProcessInstance() throws Exception {
-		runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
+		runtimeService.startProcessInstanceByKey(StraightThroughProcessConstant.PROCESS_KEY.getValue());
 		final ProcessInstance nullInstance = null;
-		assertProcessEndedAndInEndEvents(activitiRule, nullInstance, STRAIGHT_THROUGH_END_EVENT_ID);
+		assertProcessEndedAndInEndEvents(activitiRule, nullInstance, StraightThroughProcessConstant.END_EVENT_ID.getValue());
 	}
 
 	@Test(expected = AssertionError.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
+	@Deployment(resources = BPMN_SINGLE_USER_TASK)
 	public void testProcessEndedAndInEndEventsFailureForProcessInstanceIdNotEnded() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
-		assertProcessEndedAndInEndEvents(activitiRule, processInstance.getId(), SINGLE_USER_TASK_END_EVENT_ID);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
+		assertProcessEndedAndInEndEvents(activitiRule, processInstance.getId(), SingleUserTaskProcessConstant.END_EVENT_ID.getValue());
 	}
 
 	@Test
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
+	@Deployment(resources = BPMN_STRAIGHT_THROUGH)
 	public void testProcessEndedAndInSingleEndEventForProcessInstanceId() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
-		assertProcessEndedAndInEndEvents(activitiRule, processInstance.getId(), STRAIGHT_THROUGH_END_EVENT_ID);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(StraightThroughProcessConstant.PROCESS_KEY.getValue());
+		assertProcessEndedAndInEndEvents(activitiRule, processInstance.getId(), StraightThroughProcessConstant.END_EVENT_ID.getValue());
 	}
 
 	@Test
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_CONDITIONAL_SUBPROCESSES_BPMN)
+	@Deployment(resources = BPMN_CONDITIONAL_SUBPROCESSES)
 	public void testProcessEndedAndInEndEventsForProcessInstanceIdExactSet() throws Exception {
 		final Map<String, Object> variables2Not3 = new HashMap<String, Object>();
 		variables2Not3.put("do2", true);
 		variables2Not3.put("do3", false);
 		final ProcessInstance processInstance2Not3 = runtimeService.startProcessInstanceByKey(
-				TEST_PROCESS_CONDITIONAL_SUBPROCESSES, variables2Not3);
-		assertProcessEndedAndInEndEvents(activitiRule, processInstance2Not3.getId(), SUB_PROCESS_1_END_EVENT_ID,
-				SUB_PROCESS_2_END_EVENT_ID, CONDITIONAL_END_PROCESS_EVENT_ID);
+				ConditionalSubProcessesProcessConstant.PROCESS_KEY.getValue(), variables2Not3);
+		assertProcessEndedAndInEndEvents(activitiRule, processInstance2Not3.getId(), ConditionalSubProcessesProcessConstant.END_SUBPROCESS_1_EVENT_ID.getValue(),
+                ConditionalSubProcessesProcessConstant.END_SUBPROCESS_2_EVENT_ID.getValue(), ConditionalSubProcessesProcessConstant.END_PROCESS_EVENT_ID.getValue());
 
 		final Map<String, Object> variables3Not2 = new HashMap<String, Object>();
 		variables3Not2.put("do2", false);
 		variables3Not2.put("do3", true);
 		final ProcessInstance processInstance3Not2 = runtimeService.startProcessInstanceByKey(
-				TEST_PROCESS_CONDITIONAL_SUBPROCESSES, variables3Not2);
-		assertProcessEndedAndInEndEvents(activitiRule, processInstance3Not2.getId(), SUB_PROCESS_1_END_EVENT_ID,
-				SUB_PROCESS_3_END_EVENT_ID, CONDITIONAL_END_PROCESS_EVENT_ID);
+				ConditionalSubProcessesProcessConstant.PROCESS_KEY.getValue(), variables3Not2);
+		assertProcessEndedAndInEndEvents(activitiRule, processInstance3Not2.getId(), ConditionalSubProcessesProcessConstant.END_SUBPROCESS_1_EVENT_ID.getValue(),
+                ConditionalSubProcessesProcessConstant.END_SUBPROCESS_3_EVENT_ID.getValue(), ConditionalSubProcessesProcessConstant.END_PROCESS_EVENT_ID.getValue());
 
 		final Map<String, Object> variables2And3 = new HashMap<String, Object>();
 		variables2And3.put("do2", true);
 		variables2And3.put("do3", true);
 		final ProcessInstance processInstance2And3 = runtimeService.startProcessInstanceByKey(
-				TEST_PROCESS_CONDITIONAL_SUBPROCESSES, variables2And3);
-		assertProcessEndedAndInEndEvents(activitiRule, processInstance2And3.getId(), SUB_PROCESS_1_END_EVENT_ID,
-				SUB_PROCESS_2_END_EVENT_ID, SUB_PROCESS_3_END_EVENT_ID, CONDITIONAL_END_PROCESS_EVENT_ID);
+				ConditionalSubProcessesProcessConstant.PROCESS_KEY.getValue(), variables2And3);
+		assertProcessEndedAndInEndEvents(activitiRule, processInstance2And3.getId(), ConditionalSubProcessesProcessConstant.END_SUBPROCESS_1_EVENT_ID.getValue(),
+                ConditionalSubProcessesProcessConstant.END_SUBPROCESS_2_EVENT_ID.getValue(), ConditionalSubProcessesProcessConstant.END_SUBPROCESS_3_EVENT_ID.getValue(), ConditionalSubProcessesProcessConstant.END_PROCESS_EVENT_ID.getValue());
 	}
 
 	@Test(expected = AssertionError.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_CONDITIONAL_SUBPROCESSES_BPMN)
+	@Deployment(resources = BPMN_CONDITIONAL_SUBPROCESSES)
 	public void testProcessEndedAndInEndEventsFailureForOneMissingForProcessInstanceId() throws Exception {
 		final Map<String, Object> variables = new HashMap<String, Object>();
 		variables.put("do2", true);
 		variables.put("do3", false);
 		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(
-				TEST_PROCESS_CONDITIONAL_SUBPROCESSES, variables);
+				ConditionalSubProcessesProcessConstant.PROCESS_KEY.getValue(), variables);
 
 		// Missing: SUB_PROCESS_1_END_EVENT_ID
-		assertProcessEndedAndInEndEvents(activitiRule, processInstance.getId(), SUB_PROCESS_2_END_EVENT_ID,
-				CONDITIONAL_END_PROCESS_EVENT_ID);
+		assertProcessEndedAndInEndEvents(activitiRule, processInstance.getId(), ConditionalSubProcessesProcessConstant.END_SUBPROCESS_2_EVENT_ID.getValue(),
+				ConditionalSubProcessesProcessConstant.END_PROCESS_EVENT_ID.getValue());
 	}
 
 	@Test(expected = AssertionError.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_CONDITIONAL_SUBPROCESSES_BPMN)
+	@Deployment(resources = BPMN_CONDITIONAL_SUBPROCESSES)
 	public void testProcessEndedAndInEndEventsFailureForOneTooManyForProcessInstanceId() throws Exception {
 		final Map<String, Object> variables = new HashMap<String, Object>();
 		variables.put("do2", true);
 		variables.put("do3", false);
 		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(
-				TEST_PROCESS_CONDITIONAL_SUBPROCESSES, variables);
+				ConditionalSubProcessesProcessConstant.PROCESS_KEY.getValue(), variables);
 
 		// Should not be expected: SUB_PROCESS_3_END_EVENT_ID
-		assertProcessEndedAndInEndEvents(activitiRule, processInstance.getId(), SUB_PROCESS_1_END_EVENT_ID,
-				SUB_PROCESS_2_END_EVENT_ID, SUB_PROCESS_3_END_EVENT_ID, CONDITIONAL_END_PROCESS_EVENT_ID);
+		assertProcessEndedAndInEndEvents(activitiRule, processInstance.getId(), ConditionalSubProcessesProcessConstant.END_SUBPROCESS_1_EVENT_ID.getValue(),
+                ConditionalSubProcessesProcessConstant.END_SUBPROCESS_2_EVENT_ID.getValue(), ConditionalSubProcessesProcessConstant.END_SUBPROCESS_3_EVENT_ID.getValue(), ConditionalSubProcessesProcessConstant.END_PROCESS_EVENT_ID.getValue());
 	}
 
 	@Test(expected = AssertionError.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
+	@Deployment(resources = BPMN_STRAIGHT_THROUGH)
 	public void testProcessEndedAndInEndEventsFailureForCorrectAmountWrongIdsForProcessInstanceId() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(StraightThroughProcessConstant.PROCESS_KEY.getValue());
 
-		assertProcessEndedAndInEndEvents(activitiRule, processInstance.getId(), CONDITIONAL_END_PROCESS_EVENT_ID);
+		assertProcessEndedAndInEndEvents(activitiRule, processInstance.getId(), ConditionalSubProcessesProcessConstant.END_PROCESS_EVENT_ID.getValue());
 	}
 
 	@Test(expected = NullPointerException.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
+	@Deployment(resources = BPMN_STRAIGHT_THROUGH)
 	public void testProcessEndedAndInEndEventsFailureForNullProcessInstanceId() throws Exception {
-		runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
+		runtimeService.startProcessInstanceByKey(StraightThroughProcessConstant.PROCESS_KEY.getValue());
 		final String nullId = null;
-		assertProcessEndedAndInEndEvents(activitiRule, nullId, STRAIGHT_THROUGH_END_EVENT_ID);
+		assertProcessEndedAndInEndEvents(activitiRule, nullId, StraightThroughProcessConstant.END_EVENT_ID.getValue());
 	}
 
 }

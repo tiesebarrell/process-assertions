@@ -23,6 +23,9 @@ import org.activiti.engine.task.Task;
 import org.activiti.engine.test.Deployment;
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
+import org.toxos.activiti.assertion.process.SingleUserTaskProcessConstant;
+import org.toxos.activiti.assertion.process.StraightThroughProcessConstant;
+import org.toxos.activiti.assertion.process.TwoUserTasksProcessConstant;
 
 /**
  * Tests for assertions that test a task is uncompleted by the process instance
@@ -34,136 +37,130 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration("classpath:application-context.xml")
 public class TaskIsUncompletedByProcessInstanceAndTaskDefinitionKeyAssertionsTest extends AbstractProcessAssertTest {
 
-	private static final String SINGLE_USER_TASK = "singleUserTask";
-
-	private static final String USER_TASK_1 = "userTask1";
-
-	private static final String USER_TASK_2 = "userTask2";
-
 	@Test
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_TWO_USER_TASKS_BPMN)
+	@Deployment(resources = BPMN_TWO_USER_TASKS)
 	public void testTaskUncompletedForProcessInstanceObjectAndKey() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_TWO_USER_TASKS);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TwoUserTasksProcessConstant.PROCESS_KEY.getValue());
 		assertNotNull(processInstance);
-		assertTaskUncompleted(activitiRule, processInstance, USER_TASK_1);
+		assertTaskUncompleted(activitiRule, processInstance, TwoUserTasksProcessConstant.USER_TASK_1_ACTIVITY_ID.getValue());
 
 		// Move on to task two and test
-		final Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_1)
+		final Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(TwoUserTasksProcessConstant.USER_TASK_1_ACTIVITY_ID.getValue())
 				.singleResult();
 		taskService.complete(task1.getId());
 
-		assertTaskUncompleted(activitiRule, processInstance, USER_TASK_2);
+		assertTaskUncompleted(activitiRule, processInstance, TwoUserTasksProcessConstant.USER_TASK_2_ACTIVITY_ID.getValue());
 	}
 
 	@Test(expected = AssertionError.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_TWO_USER_TASKS_BPMN)
+	@Deployment(resources = BPMN_TWO_USER_TASKS)
 	public void testTaskUncompletedFailureForProcessInstanceObjectAndKeyForCompletedTask() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_TWO_USER_TASKS);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TwoUserTasksProcessConstant.PROCESS_KEY.getValue());
 
 		// Move on to task two and test
-		final Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_1)
+		final Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(TwoUserTasksProcessConstant.USER_TASK_1_ACTIVITY_ID.getValue())
 				.singleResult();
 		taskService.complete(task1.getId());
 
-		assertTaskUncompleted(activitiRule, processInstance, USER_TASK_1);
+		assertTaskUncompleted(activitiRule, processInstance, TwoUserTasksProcessConstant.USER_TASK_1_ACTIVITY_ID.getValue());
 	}
 
 	@Test(expected = AssertionError.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
+	@Deployment(resources = BPMN_SINGLE_USER_TASK)
 	public void testTaskUncompletedFailureForProcessInstanceObjectAndKeyForCompletedProcess() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
 
 		// Move on to task two and test
-		final Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(SINGLE_USER_TASK)
+		final Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(SingleUserTaskProcessConstant.USER_TASK_ACTIVITY_ID.getValue())
 				.singleResult();
 		taskService.complete(task1.getId());
 
-		assertTaskUncompleted(activitiRule, processInstance, SINGLE_USER_TASK);
+		assertTaskUncompleted(activitiRule, processInstance, SingleUserTaskProcessConstant.USER_TASK_ACTIVITY_ID.getValue());
 	}
 
 	@Test(expected = AssertionError.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
+	@Deployment(resources = BPMN_STRAIGHT_THROUGH)
 	public void testTaskUncompletedFailureForProcessInstanceObjectAndKeyForTaskThatNeverExisted() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
-		assertTaskUncompleted(activitiRule, processInstance, SINGLE_USER_TASK);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(StraightThroughProcessConstant.PROCESS_KEY.getValue());
+		assertTaskUncompleted(activitiRule, processInstance, SingleUserTaskProcessConstant.USER_TASK_ACTIVITY_ID.getValue());
 	}
 
 	@Test(expected = NullPointerException.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
+	@Deployment(resources = BPMN_SINGLE_USER_TASK)
 	public void testTaskUncompletedFailureForNullProcessInstanceObjectAndKey() throws Exception {
-		runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
+		runtimeService.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
 		final ProcessInstance nullProcessInstance = null;
-		assertTaskUncompleted(activitiRule, nullProcessInstance, SINGLE_USER_TASK);
+		assertTaskUncompleted(activitiRule, nullProcessInstance, SingleUserTaskProcessConstant.USER_TASK_ACTIVITY_ID.getValue());
 	}
 
 	@Test(expected = NullPointerException.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
+	@Deployment(resources = BPMN_SINGLE_USER_TASK)
 	public void testTaskUncompletedFailureForProcessInstanceObjectAndNullKey() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
 		final String nullTaskDefinitionKey = null;
 		assertTaskUncompleted(activitiRule, processInstance, nullTaskDefinitionKey);
 	}
 
 	@Test
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_TWO_USER_TASKS_BPMN)
+	@Deployment(resources = BPMN_TWO_USER_TASKS)
 	public void testTaskUncompletedForProcessInstanceIdAndKey() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_TWO_USER_TASKS);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TwoUserTasksProcessConstant.PROCESS_KEY.getValue());
 		assertNotNull(processInstance);
-		assertTaskUncompleted(activitiRule, processInstance.getId(), USER_TASK_1);
+		assertTaskUncompleted(activitiRule, processInstance.getId(), TwoUserTasksProcessConstant.USER_TASK_1_ACTIVITY_ID.getValue());
 
 		// Move on to task two and test
-		final Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_1)
+		final Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(TwoUserTasksProcessConstant.USER_TASK_1_ACTIVITY_ID.getValue())
 				.singleResult();
 		taskService.complete(task1.getId());
 
-		assertTaskUncompleted(activitiRule, processInstance.getId(), USER_TASK_2);
+		assertTaskUncompleted(activitiRule, processInstance.getId(), TwoUserTasksProcessConstant.USER_TASK_2_ACTIVITY_ID.getValue());
 	}
 
 	@Test(expected = AssertionError.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_TWO_USER_TASKS_BPMN)
+	@Deployment(resources = BPMN_TWO_USER_TASKS)
 	public void testTaskUncompletedFailureForProcessInstanceIdAndKeyForCompletedTask() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_TWO_USER_TASKS);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TwoUserTasksProcessConstant.PROCESS_KEY.getValue());
 
 		// Move on to task two and test
-		final Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(USER_TASK_1)
+		final Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(TwoUserTasksProcessConstant.USER_TASK_1_ACTIVITY_ID.getValue())
 				.singleResult();
 		taskService.complete(task1.getId());
 
-		assertTaskUncompleted(activitiRule, processInstance.getId(), USER_TASK_1);
+		assertTaskUncompleted(activitiRule, processInstance.getId(), TwoUserTasksProcessConstant.USER_TASK_1_ACTIVITY_ID.getValue());
 	}
 
 	@Test(expected = AssertionError.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
+	@Deployment(resources = BPMN_SINGLE_USER_TASK)
 	public void testTaskUncompletedFailureForProcessInstanceIdAndKeyForCompletedProcess() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
 
 		// Move on to task two and test
-		final Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(SINGLE_USER_TASK)
+		final Task task1 = activitiRule.getTaskService().createTaskQuery().taskDefinitionKey(SingleUserTaskProcessConstant.USER_TASK_ACTIVITY_ID.getValue())
 				.singleResult();
 		taskService.complete(task1.getId());
 
-		assertTaskUncompleted(activitiRule, processInstance.getId(), SINGLE_USER_TASK);
+		assertTaskUncompleted(activitiRule, processInstance.getId(), SingleUserTaskProcessConstant.USER_TASK_ACTIVITY_ID.getValue());
 	}
 
 	@Test(expected = AssertionError.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_STRAIGHT_THROUGH_BPMN)
+	@Deployment(resources = BPMN_STRAIGHT_THROUGH)
 	public void testTaskUncompletedFailureForProcessInstanceIdAndKeyForTaskThatNeverExisted() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_STRAIGHT_THROUGH);
-		assertTaskUncompleted(activitiRule, processInstance.getId(), SINGLE_USER_TASK);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(StraightThroughProcessConstant.PROCESS_KEY.getValue());
+		assertTaskUncompleted(activitiRule, processInstance.getId(), SingleUserTaskProcessConstant.USER_TASK_ACTIVITY_ID.getValue());
 	}
 
 	@Test(expected = NullPointerException.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
+	@Deployment(resources = BPMN_SINGLE_USER_TASK)
 	public void testTaskUncompletedFailureForNullProcessInstanceIdAndKey() throws Exception {
-		runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
+		runtimeService.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
 		final String nullProcessInstanceId = null;
-		assertTaskUncompleted(activitiRule, nullProcessInstanceId, SINGLE_USER_TASK);
+		assertTaskUncompleted(activitiRule, nullProcessInstanceId, SingleUserTaskProcessConstant.USER_TASK_ACTIVITY_ID.getValue());
 	}
 
 	@Test(expected = NullPointerException.class)
-	@Deployment(resources = DIAGRAMS_TEST_PROCESS_SINGLE_USER_TASK_BPMN)
+	@Deployment(resources = BPMN_SINGLE_USER_TASK)
 	public void testTaskUncompletedFailureForProcessInstanceIdAndNullKey() throws Exception {
-		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TEST_PROCESS_SINGLE_USER_TASK);
+		final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
 		final String nullTaskDefinitionKey = null;
 		assertTaskUncompleted(activitiRule, processInstance.getId(), nullTaskDefinitionKey);
 	}
