@@ -213,6 +213,7 @@
 			    <configuration>
 			        <pushChanges>false</pushChanges>
 			        <localCheckout>true</localCheckout>
+			        <pomFileName>pom.xml</pomFileName>
 			    </configuration>
 			</plugin>
 			<plugin> 
