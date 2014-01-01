@@ -18,11 +18,11 @@ package org.toxos.activiti.assertion;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.test.ActivitiRule;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.toxos.activiti.assertion.ProcessAssert;
 
 /**
  * Abstract base class for test classes that test {@link ProcessAssert}.
@@ -33,7 +33,7 @@ import org.toxos.activiti.assertion.ProcessAssert;
 @RunWith(SpringJUnit4ClassRunner.class)
 public abstract class AbstractProcessAssertTest implements TestConstants {
 
-    @Autowired
+	@Autowired
 	@Rule
 	public ActivitiRule activitiRule;
 
@@ -42,5 +42,11 @@ public abstract class AbstractProcessAssertTest implements TestConstants {
 
 	@Autowired
 	protected TaskService taskService;
+
+	@Before
+	public void before() {
+		final ProcessAssertConfiguration configuration = new DefaultProcessAssertConfiguration(activitiRule);
+		ProcessAssert.setConfiguration(configuration);
+	}
 
 }

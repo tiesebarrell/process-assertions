@@ -29,8 +29,8 @@ final class ProcessInstanceAssert extends AbstractProcessAssert {
 
 		// Assert there is a running process instance
 		trace(LogMessage.PROCESS_2, processInstanceId);
-		final ProcessInstance processInstance = rule.getRuntimeService().createProcessInstanceQuery().processInstanceId(processInstanceId)
-				.singleResult();
+		final ProcessInstance processInstance = ProcessAssert.getConfiguration().getEngineServices()
+				.getRuntimeService().createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
 		Assert.assertNotNull(processInstance);
 
 		trace(LogMessage.PROCESS_7, processInstanceId);
@@ -41,8 +41,9 @@ final class ProcessInstanceAssert extends AbstractProcessAssert {
 
 		// Assert that the historic process instance is not ended
 		trace(LogMessage.PROCESS_3, processInstanceId);
-		final HistoricProcessInstance historicProcessInstance = rule.getHistoryService().createHistoricProcessInstanceQuery()
-				.processInstanceId(processInstanceId).singleResult();
+		final HistoricProcessInstance historicProcessInstance = ProcessAssert.getConfiguration().getEngineServices()
+				.getHistoryService().createHistoricProcessInstanceQuery().processInstanceId(processInstanceId)
+				.singleResult();
 
 		historicProcessInstanceNotEnded(historicProcessInstance);
 
@@ -52,15 +53,15 @@ final class ProcessInstanceAssert extends AbstractProcessAssert {
 
 		// Assert there is no running process instance
 		trace(LogMessage.PROCESS_6, processInstanceId);
-		final ProcessInstance processInstance = rule.getRuntimeService().createProcessInstanceQuery().processInstanceId(processInstanceId)
-				.singleResult();
+		final ProcessInstance processInstance = rule.getRuntimeService().createProcessInstanceQuery()
+				.processInstanceId(processInstanceId).singleResult();
 
 		Assert.assertNull(processInstance);
 
 		// Assert there is a historic process instance and it is ended
 		trace(LogMessage.PROCESS_4, processInstanceId);
-		final HistoricProcessInstance historicProcessInstance = rule.getHistoryService().createHistoricProcessInstanceQuery()
-				.processInstanceId(processInstanceId).singleResult();
+		final HistoricProcessInstance historicProcessInstance = rule.getHistoryService()
+				.createHistoricProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
 
 		historicProcessInstanceEnded(historicProcessInstance);
 

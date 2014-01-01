@@ -36,63 +36,14 @@ public class LogMessageProvider {
 
 	private final String baseName;
 
-	private Locale locale;
-
 	private ResourceBundle bundle;
 
-	private boolean immutable = false;
-
 	/**
-	 * Constructs a mutable LogMessageProvider for the default Locale.
+	 * Constructs a LogMessageProvider.
 	 */
 	public LogMessageProvider() {
 		super();
 		this.baseName = Constants.LOG_MESSAGES_BUNDLE_NAME;
-		this.immutable = false;
-		this.locale = Locale.getDefault();
-	}
-
-	/**
-	 * Constructs an immutable LogMessageProvider for the provided Locale.
-	 * 
-	 * @param locale
-	 *            the Locale to be used
-	 */
-	protected LogMessageProvider(final Locale locale) {
-		super();
-		this.baseName = Constants.LOG_MESSAGES_BUNDLE_NAME;
-		this.immutable = true;
-		this.locale = locale;
-	}
-
-	/**
-	 * Constructs an immutable LogMessageProvider that uses the provided
-	 * baseName for the provided Locale.
-	 * 
-	 * @param baseName
-	 *            the baseName for bundle resolution
-	 * @param locale
-	 *            the Locale to be used
-	 */
-	protected LogMessageProvider(final String baseName, final Locale locale) {
-		super();
-		this.baseName = baseName;
-		this.immutable = true;
-		this.locale = locale;
-	}
-
-	/**
-	 * Constructs an mutable LogMessageProvider that uses the provided baseName
-	 * for the default Locale.
-	 * 
-	 * @param baseName
-	 *            the baseName for bundle resolution
-	 */
-	protected LogMessageProvider(final String baseName) {
-		super();
-		this.baseName = baseName;
-		this.immutable = false;
-		this.locale = Locale.getDefault();
 	}
 
 	public String getMessageByKey(final String key) {
@@ -109,10 +60,6 @@ public class LogMessageProvider {
 		if (initialBundleLoadIsRequired()) {
 			LOGGER.trace("Initial bundle load required");
 			loadBundle();
-		} else if (bundleReloadIsRequired()) {
-			LOGGER.trace("Bundle reload is required");
-			this.locale = Locale.getDefault();
-			loadBundle();
 		}
 	}
 
@@ -120,15 +67,10 @@ public class LogMessageProvider {
 		return bundle == null;
 	}
 
-	private boolean bundleReloadIsRequired() {
-		LOGGER.trace("Determining if bundle reload is required - comparing Locale " + bundle.getLocale()
-				+ " to default Locale " + Locale.getDefault());
-		return immutable == false && !bundle.getLocale().equals(Locale.getDefault());
-	}
-
 	private void loadBundle() {
-		LOGGER.trace("Loading bundle from baseName " + baseName + " for Locale " + this.locale);
-		bundle = ResourceBundle.getBundle(baseName, this.locale);
+		LOGGER.trace("Loading bundle from baseName " + baseName + " for Locale "
+				+ ProcessAssert.getConfiguration().getLocale());
+		bundle = ResourceBundle.getBundle(baseName, ProcessAssert.getConfiguration().getLocale());
 	}
 
 }

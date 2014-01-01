@@ -28,8 +28,18 @@ import org.junit.Assert;
  */
 public final class ProcessAssert extends AbstractProcessAssert {
 
+	static ProcessAssertConfiguration configuration;
+
 	private ProcessAssert() {
 		super();
+	}
+
+	public static final void setConfiguration(final ProcessAssertConfiguration processAssertConfiguration) {
+		configuration = processAssertConfiguration;
+	}
+
+	public static final ProcessAssertConfiguration getConfiguration() {
+		return configuration;
 	}
 
 	//
