@@ -18,9 +18,11 @@ package org.toxos.activiti.assertion.example;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.test.ActivitiRule;
 import org.activiti.engine.test.Deployment;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
+import org.toxos.activiti.assertion.DefaultProcessAssertConfiguration;
 import org.toxos.activiti.assertion.ProcessAssert;
 
 /**
@@ -30,15 +32,21 @@ import org.toxos.activiti.assertion.ProcessAssert;
  */
 public class MyProcessFailureTest {
 
-	@Rule
-	public ActivitiRule activitiRule = new ActivitiRule("example/activiti.cfg.xml");
+    @Rule
+    public ActivitiRule activitiRule = new ActivitiRule("example/activiti.cfg.xml");
 
-	@Test
-	@Deployment(resources = "example/MyProcess.bpmn")
-	@Ignore
-	public void testStartProcess() throws Exception {
-		final ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("myProcess");
-		ProcessAssert.assertProcessEnded(activitiRule, processInstance);
-	}
+    @Before
+    public void before() {
+        // set the configuration with the ActivitiRule
+        ProcessAssert.setConfiguration(new DefaultProcessAssertConfiguration(activitiRule));
+    }
+
+    @Test
+    @Deployment(resources = "example/MyProcess.bpmn")
+    @Ignore
+    public void testStartProcess() throws Exception {
+        final ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("myProcess");
+        ProcessAssert.assertProcessEnded(processInstance);
+    }
 
 }

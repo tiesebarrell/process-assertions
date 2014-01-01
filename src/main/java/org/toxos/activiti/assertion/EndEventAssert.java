@@ -30,54 +30,50 @@ import org.junit.Assert;
  */
 final class EndEventAssert extends AbstractProcessAssert {
 
-	static void processEndedAndInExclusiveEndEvent(final ActivitiRule rule, final String processInstanceId,
-			final String endEventId) {
+    static void processEndedAndInExclusiveEndEvent(final ActivitiRule rule, final String processInstanceId, final String endEventId) {
 
-		// Assert the process instance is ended
-		ProcessInstanceAssert.processIsEnded(rule, processInstanceId);
+        // Assert the process instance is ended
+        ProcessInstanceAssert.processIsEnded(processInstanceId);
 
-		// Assert that there is exactly one historic activity instance for end
-		// events and that it has the correct id
-		trace(LogMessage.PROCESS_10, processInstanceId, endEventId);
-		final List<HistoricActivityInstance> historicActivityInstances = rule.getHistoryService()
-				.createHistoricActivityInstanceQuery().processInstanceId(processInstanceId).activityType("endEvent")
-				.finished().list();
+        // Assert that there is exactly one historic activity instance for end
+        // events and that it has the correct id
+        trace(LogMessage.PROCESS_10, processInstanceId, endEventId);
+        final List<HistoricActivityInstance> historicActivityInstances = rule.getHistoryService().createHistoricActivityInstanceQuery()
+                .processInstanceId(processInstanceId).activityType("endEvent").finished().list();
 
-		Assert.assertEquals(1, historicActivityInstances.size());
-		Assert.assertEquals(endEventId, historicActivityInstances.get(0).getActivityId());
-	}
+        Assert.assertEquals(1, historicActivityInstances.size());
+        Assert.assertEquals(endEventId, historicActivityInstances.get(0).getActivityId());
+    }
 
-	static void processEndedAndInEndEvents(final ActivitiRule rule, final String processInstanceId,
-			final String... endEventIds) {
+    static void processEndedAndInEndEvents(final ActivitiRule rule, final String processInstanceId, final String... endEventIds) {
 
-		// Assert the process instance is ended
-		ProcessInstanceAssert.processIsEnded(rule, processInstanceId);
+        // Assert the process instance is ended
+        ProcessInstanceAssert.processIsEnded(processInstanceId);
 
-		// Assert that there are the exact amount of historic activity instances
-		// for end events and that ids match exactly
-		trace(LogMessage.PROCESS_12, endEventIds.length, processInstanceId, ArrayUtils.toString(endEventIds));
+        // Assert that there are the exact amount of historic activity instances
+        // for end events and that ids match exactly
+        trace(LogMessage.PROCESS_12, endEventIds.length, processInstanceId, ArrayUtils.toString(endEventIds));
 
-		final List<HistoricActivityInstance> historicActivityInstances = rule.getHistoryService()
-				.createHistoricActivityInstanceQuery().processInstanceId(processInstanceId).activityType("endEvent")
-				.finished().list();
+        final List<HistoricActivityInstance> historicActivityInstances = rule.getHistoryService().createHistoricActivityInstanceQuery()
+                .processInstanceId(processInstanceId).activityType("endEvent").finished().list();
 
-		final List<String> historicEndEventIds = new ArrayList<String>();
-		for (final HistoricActivityInstance historicActivityInstance : historicActivityInstances) {
-			historicEndEventIds.add(historicActivityInstance.getActivityId());
-		}
+        final List<String> historicEndEventIds = new ArrayList<String>();
+        for (final HistoricActivityInstance historicActivityInstance : historicActivityInstances) {
+            historicEndEventIds.add(historicActivityInstance.getActivityId());
+        }
 
-		// Catch any exceptions so a detailed log message can be shown. The
-		// context of expected and actual end event ids is only available here.
-		try {
-			Assert.assertEquals(endEventIds.length, historicActivityInstances.size());
+        // Catch any exceptions so a detailed log message can be shown. The
+        // context of expected and actual end event ids is only available here.
+        try {
+            Assert.assertEquals(endEventIds.length, historicActivityInstances.size());
 
-			Assert.assertTrue(CollectionUtils.isEqualCollection(Arrays.asList(endEventIds), historicEndEventIds));
-		} catch (final AssertionError ae) {
-			debug(LogMessage.ERROR_PROCESS_5, endEventIds.length, historicEndEventIds.size(),
-					ArrayUtils.toString(endEventIds), ArrayUtils.toString(historicEndEventIds.toArray()));
-			// rethrow to ensure handled properly at higher level
-			throw ae;
-		}
+            Assert.assertTrue(CollectionUtils.isEqualCollection(Arrays.asList(endEventIds), historicEndEventIds));
+        } catch (final AssertionError ae) {
+            debug(LogMessage.ERROR_PROCESS_5, endEventIds.length, historicEndEventIds.size(), ArrayUtils.toString(endEventIds),
+                    ArrayUtils.toString(historicEndEventIds.toArray()));
+            // rethrow to ensure handled properly at higher level
+            throw ae;
+        }
 
-	}
+    }
 }

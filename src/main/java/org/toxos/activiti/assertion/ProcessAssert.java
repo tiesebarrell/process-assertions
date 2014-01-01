@@ -34,11 +34,22 @@ public final class ProcessAssert extends AbstractProcessAssert {
         super();
     }
 
-    public static final void setConfiguration(final ProcessAssertConfiguration processAssertConfiguration) {
-        configuration = processAssertConfiguration;
+    /**
+     * Sets the active configuration to the one provided.
+     * 
+     * @param configuration
+     *            the configuration to be set
+     */
+    public static final void setConfiguration(final ProcessAssertConfiguration configuration) {
+        ProcessAssert.configuration = configuration;
         flush();
     }
 
+    /**
+     * Gets the currently active configuration.
+     * 
+     * @return the configuration
+     */
     public static final ProcessAssertConfiguration getConfiguration() {
         return configuration;
     }
@@ -51,32 +62,26 @@ public final class ProcessAssert extends AbstractProcessAssert {
      * Asserts the provided process instance is active, i.e. the process
      * instance is not ended.
      * 
-     * @param rule
-     *            the {@link ActivitiRule} to access the process engine's
-     *            services
      * @param processInstance
      *            the process instance to check for
      */
-    public static final void assertProcessActive(final ActivitiRule rule, final ProcessInstance processInstance) {
+    public static final void assertProcessActive(final ProcessInstance processInstance) {
         Validate.notNull(processInstance);
-        assertProcessActive(rule, processInstance.getId());
+        assertProcessActive(processInstance.getId());
     }
 
     /**
      * Asserts the process instance with the provided id is active, i.e. the
      * process instance is not ended.
      * 
-     * @param rule
-     *            the {@link ActivitiRule} to access the process engine's
-     *            services
      * @param processInstanceId
      *            the process instance's id to check for
      */
-    public static final void assertProcessActive(final ActivitiRule rule, final String processInstanceId) {
+    public static final void assertProcessActive(final String processInstanceId) {
         Validate.notNull(processInstanceId);
         debug(LogMessage.PROCESS_1, processInstanceId);
         try {
-            ProcessInstanceAssert.processIsActive(rule, processInstanceId);
+            ProcessInstanceAssert.processIsActive(processInstanceId);
         } catch (final AssertionError ae) {
             fail(LogMessage.ERROR_PROCESS_1, processInstanceId);
         }
@@ -89,31 +94,25 @@ public final class ProcessAssert extends AbstractProcessAssert {
     /**
      * Asserts the provided process instance is ended.
      * 
-     * @param rule
-     *            the {@link ActivitiRule} to access the process engine's
-     *            services
      * @param processInstance
      *            the process instance to check for
      */
-    public static final void assertProcessEnded(final ActivitiRule rule, final ProcessInstance processInstance) {
+    public static final void assertProcessEnded(final ProcessInstance processInstance) {
         Validate.notNull(processInstance);
-        assertProcessEnded(rule, processInstance.getId());
+        assertProcessEnded(processInstance.getId());
     }
 
     /**
      * Asserts the process instance with the provided id is ended.
      * 
-     * @param rule
-     *            the {@link ActivitiRule} to access the process engine's
-     *            services
      * @param processInstanceId
      *            the process instance's id to check for
      */
-    public static final void assertProcessEnded(final ActivitiRule rule, final String processInstanceId) {
+    public static final void assertProcessEnded(final String processInstanceId) {
         Validate.notNull(processInstanceId);
         debug(LogMessage.PROCESS_5, processInstanceId);
         try {
-            ProcessInstanceAssert.processIsEnded(rule, processInstanceId);
+            ProcessInstanceAssert.processIsEnded(processInstanceId);
         } catch (final AssertionError ae) {
             fail(LogMessage.ERROR_PROCESS_2, processInstanceId);
         }

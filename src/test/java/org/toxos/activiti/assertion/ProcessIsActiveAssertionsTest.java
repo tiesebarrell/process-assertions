@@ -33,52 +33,48 @@ import org.toxos.activiti.assertion.process.StraightThroughProcessConstant;
 @ContextConfiguration("classpath:application-context.xml")
 public class ProcessIsActiveAssertionsTest extends AbstractProcessAssertTest {
 
-	@Test
-	@Deployment(resources = BPMN_SINGLE_USER_TASK)
-	public void testProcessActiveForObject() throws Exception {
-		final ProcessInstance processInstance = runtimeService
-				.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
-		assertProcessActive(activitiRule, processInstance);
-	}
+    @Test
+    @Deployment(resources = BPMN_SINGLE_USER_TASK)
+    public void testProcessActiveForObject() throws Exception {
+        final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
+        assertProcessActive(processInstance);
+    }
 
-	@Test(expected = NullPointerException.class)
-	@Deployment(resources = BPMN_SINGLE_USER_TASK)
-	public void testProcessActiveFailureForNullObject() throws Exception {
-		runtimeService.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
-		final ProcessInstance nullInstance = null;
-		assertProcessActive(activitiRule, nullInstance);
-	}
+    @Test(expected = NullPointerException.class)
+    @Deployment(resources = BPMN_SINGLE_USER_TASK)
+    public void testProcessActiveFailureForNullObject() throws Exception {
+        runtimeService.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
+        final ProcessInstance nullInstance = null;
+        assertProcessActive(nullInstance);
+    }
 
-	@Test(expected = AssertionError.class)
-	@Deployment(resources = BPMN_STRAIGHT_THROUGH)
-	public void testProcessActiveFailureForObject() throws Exception {
-		final ProcessInstance processInstance = runtimeService
-				.startProcessInstanceByKey(StraightThroughProcessConstant.PROCESS_KEY.getValue());
-		assertProcessActive(activitiRule, processInstance);
-	}
+    @Test(expected = AssertionError.class)
+    @Deployment(resources = BPMN_STRAIGHT_THROUGH)
+    public void testProcessActiveFailureForObject() throws Exception {
+        final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(StraightThroughProcessConstant.PROCESS_KEY.getValue());
+        assertProcessActive(processInstance);
+    }
 
-	@Test
-	@Deployment(resources = BPMN_SINGLE_USER_TASK)
-	public void testProcessActiveForId() throws Exception {
-		final ProcessInstance processInstance = runtimeService
-				.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
-		assertProcessActive(activitiRule, processInstance.getId());
-	}
+    @Test
+    @Deployment(resources = BPMN_SINGLE_USER_TASK)
+    public void testProcessActiveForId() throws Exception {
+        final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
+        assertProcessActive(processInstance.getId());
+    }
 
-	@Test(expected = NullPointerException.class)
-	@Deployment(resources = BPMN_SINGLE_USER_TASK)
-	public void testProcessActiveFailureForNullId() throws Exception {
-		runtimeService.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
-		final String nullId = null;
-		assertProcessActive(activitiRule, nullId);
-	}
+    @Test(expected = NullPointerException.class)
+    @Deployment(resources = BPMN_SINGLE_USER_TASK)
+    public void testProcessActiveFailureForNullId() throws Exception {
+        runtimeService.startProcessInstanceByKey(SingleUserTaskProcessConstant.PROCESS_KEY.getValue());
+        final String nullId = null;
+        assertProcessActive(nullId);
+    }
 
-	@Test(expected = AssertionError.class)
-	@Deployment(resources = BPMN_STRAIGHT_THROUGH)
-	public void testProcessActiveFailureForId() throws Exception {
-		final ProcessInstance processInstance = runtimeService
-				.startProcessInstanceByKey(StraightThroughProcessConstant.PROCESS_KEY.getValue());
-		assertProcessActive(activitiRule, processInstance.getId());
-	}
+    @Test(expected = AssertionError.class)
+    @Deployment(resources = BPMN_STRAIGHT_THROUGH)
+    public void testProcessActiveFailureForId() throws Exception {
+        final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(StraightThroughProcessConstant.PROCESS_KEY.getValue());
+        assertProcessActive(processInstance.getId());
+    }
 
 }

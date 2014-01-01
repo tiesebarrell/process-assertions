@@ -17,6 +17,9 @@ package org.toxos.activiti.assertion;
 
 import java.text.MessageFormat;
 
+import org.activiti.engine.HistoryService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +47,33 @@ public abstract class AbstractProcessAssert {
      */
     protected static final void flush() {
         logMessageProvider.flush();
+    }
+
+    /**
+     * Gets the {@link RuntimeService} from the configuration.
+     * 
+     * @return the runtime service
+     */
+    protected static final RuntimeService getRuntimeService() {
+        return ProcessAssert.getConfiguration().getEngineServices().getRuntimeService();
+    }
+
+    /**
+     * Gets the {@link TaskService} from the configuration.
+     * 
+     * @return the task service
+     */
+    protected static final TaskService getTaskService() {
+        return ProcessAssert.getConfiguration().getEngineServices().getTaskService();
+    }
+
+    /**
+     * Gets the {@link HistoryService} from the configuration.
+     * 
+     * @return the history service
+     */
+    protected static final HistoryService getHistoryService() {
+        return ProcessAssert.getConfiguration().getEngineServices().getHistoryService();
     }
 
     /**

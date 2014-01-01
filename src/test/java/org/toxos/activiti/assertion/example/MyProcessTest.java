@@ -27,34 +27,33 @@ import org.toxos.activiti.assertion.ProcessAssert;
 
 public class MyProcessTest {
 
-	@Rule
-	public ActivitiRule activitiRule = new ActivitiRule("example/activiti.cfg.xml");
+    @Rule
+    public ActivitiRule activitiRule = new ActivitiRule("example/activiti.cfg.xml");
 
-	@Before
-	public void before() {
-		// set the configuration with the ActivitiRule
-		ProcessAssert.setConfiguration(new DefaultProcessAssertConfiguration(activitiRule));
-	}
+    @Before
+    public void before() {
+        // set the configuration with the ActivitiRule
+        ProcessAssert.setConfiguration(new DefaultProcessAssertConfiguration(activitiRule));
+    }
 
-	@Test
-	@Deployment(resources = "example/MyProcess.bpmn")
-	public void testMyProcess() throws Exception {
-		final ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("myProcess");
+    @Test
+    @Deployment(resources = "example/MyProcess.bpmn")
+    public void testMyProcess() throws Exception {
+        final ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("myProcess");
 
-		// assert the process is still running
-		ProcessAssert.assertProcessActive(activitiRule, processInstance);
+        // assert the process is still running
+        ProcessAssert.assertProcessActive(processInstance);
 
-		// assert the process is waiting for a UserTask to be completed
-		ProcessAssert.assertTaskUncompleted(activitiRule, processInstance, "usertask1");
+        // assert the process is waiting for a UserTask to be completed
+        ProcessAssert.assertTaskUncompleted(activitiRule, processInstance, "usertask1");
 
-		// complete the task
-		final Task userTask1 = activitiRule.getTaskService().createTaskQuery()
-				.processInstanceId(processInstance.getProcessInstanceId()).taskDefinitionKey("usertask1")
-				.singleResult();
-		activitiRule.getTaskService().complete(userTask1.getId());
+        // complete the task
+        final Task userTask1 = activitiRule.getTaskService().createTaskQuery().processInstanceId(processInstance.getProcessInstanceId())
+                .taskDefinitionKey("usertask1").singleResult();
+        activitiRule.getTaskService().complete(userTask1.getId());
 
-		// assert the process is now ended
-		ProcessAssert.assertProcessEnded(activitiRule, processInstance);
+        // assert the process is now ended
+        ProcessAssert.assertProcessEnded(processInstance);
 
-	}
+    }
 }
