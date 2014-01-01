@@ -33,20 +33,24 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 public abstract class AbstractProcessAssertTest implements TestConstants {
 
-	@Autowired
-	@Rule
-	public ActivitiRule activitiRule;
+    @Autowired
+    @Rule
+    public ActivitiRule activitiRule;
 
-	@Autowired
-	protected RuntimeService runtimeService;
+    @Autowired
+    protected RuntimeService runtimeService;
 
-	@Autowired
-	protected TaskService taskService;
+    @Autowired
+    protected TaskService taskService;
 
-	@Before
-	public void before() {
-		final ProcessAssertConfiguration configuration = new DefaultProcessAssertConfiguration(activitiRule);
-		ProcessAssert.setConfiguration(configuration);
-	}
+    @Before
+    public void before() {
+        // create a new configuration, keeping any Locales that are set intact
+        if (ProcessAssert.getConfiguration() == null) {
+            ProcessAssert.setConfiguration(new DefaultProcessAssertConfiguration(activitiRule));
+        } else {
+            ProcessAssert.setConfiguration(new DefaultProcessAssertConfiguration(ProcessAssert.getConfiguration().getLocale(), activitiRule));
+        }
+    }
 
 }

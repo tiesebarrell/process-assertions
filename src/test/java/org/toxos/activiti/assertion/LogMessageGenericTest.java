@@ -31,25 +31,25 @@ import org.junit.Test;
  */
 public class LogMessageGenericTest extends AbstractLogMessageTest {
 
-	@Test
-	public void testGetBundleKey() throws Exception {
-		for (final LogMessage logMessage : LogMessage.values()) {
-			final String expected = logMessage.name().replaceAll("_", ".").toLowerCase();
-			assertEquals(expected, logMessage.getBundleKey());
-		}
-	}
+    @Test
+    public void testGetBundleKey() throws Exception {
+        for (final LogMessage logMessage : LogMessage.values()) {
+            final String expected = logMessage.name().replaceAll("_", ".").toLowerCase();
+            assertEquals(expected, logMessage.getBundleKey());
+        }
+    }
 
-	@Test
-	public void testInvalidLocaleHasMissingEntries() throws Exception {
-		Locale.setDefault(new Locale("xx", "YY"));
+    @Test
+    public void testInvalidLocaleHasMissingEntries() throws Exception {
+        ProcessAssert.setConfiguration(new DefaultProcessAssertConfiguration(new Locale("xx", "YY")));
 
-		final List<LogMessage> missingEntries = checkForMissingEntries();
+        final List<LogMessage> missingEntries = checkForMissingEntries();
 
-		if (missingEntries.isEmpty()) {
-			fail("Expected invalid locale 'xx', 'YY' to have missing entries");
-		}
+        if (missingEntries.isEmpty()) {
+            fail("Expected invalid locale 'xx', 'YY' to have missing entries");
+        }
 
-		assertEquals(LogMessage.values().length, missingEntries.size());
-	}
+        assertEquals(LogMessage.values().length, missingEntries.size());
+    }
 
 }

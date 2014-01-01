@@ -30,74 +30,80 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractProcessAssert {
 
-	// Log to the ProcessAssert class' logger
-	private static final Logger LOGGER = LoggerFactory.getLogger(ProcessAssert.class);
+    // Log to the ProcessAssert class' logger
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProcessAssert.class);
 
-	private static LogMessageProvider logMessageProvider = new LogMessageProvider();
+    private static LogMessageProvider logMessageProvider = new LogMessageProvider();
 
-	protected AbstractProcessAssert() {
-		super();
-	}
+    protected AbstractProcessAssert() {
+        super();
+    }
 
-	/**
-	 * Logs the message and parameters at trace level.
-	 * 
-	 * @param message
-	 *            the log message
-	 * @param objects
-	 *            the parameters for substitution
-	 */
-	protected static void error(final LogMessage message, final Object... objects) {
-		LOGGER.error(getFormattedMessage(message, objects));
-	}
+    /**
+     * Flushes any cached information used when making assertions.
+     */
+    protected static final void flush() {
+        logMessageProvider.flush();
+    }
 
-	/**
-	 * Logs the message and parameters at debug level.
-	 * 
-	 * @param message
-	 *            the log message
-	 * @param objects
-	 *            the parameters for substitution
-	 */
-	protected static void debug(final LogMessage message, final Object... objects) {
-		LOGGER.debug(getFormattedMessage(message, objects));
-	}
+    /**
+     * Logs the message and parameters at trace level.
+     * 
+     * @param message
+     *            the log message
+     * @param objects
+     *            the parameters for substitution
+     */
+    protected static void error(final LogMessage message, final Object... objects) {
+        LOGGER.error(getFormattedMessage(message, objects));
+    }
 
-	/**
-	 * Logs the message and parameters at trace level.
-	 * 
-	 * @param message
-	 *            the log message
-	 * @param objects
-	 *            the parameters for substitution
-	 */
-	protected static void trace(final LogMessage message, final Object... objects) {
-		LOGGER.trace(getFormattedMessage(message, objects));
-	}
+    /**
+     * Logs the message and parameters at debug level.
+     * 
+     * @param message
+     *            the log message
+     * @param objects
+     *            the parameters for substitution
+     */
+    protected static void debug(final LogMessage message, final Object... objects) {
+        LOGGER.debug(getFormattedMessage(message, objects));
+    }
 
-	/**
-	 * Fails the assertions by throwing an AssertionError with the provided
-	 * message and parameters.
-	 * 
-	 * @param message
-	 *            the log message
-	 * @param objects
-	 *            the parameters for substitution
-	 */
-	protected static void fail(final LogMessage message, final Object... objects) {
-		final String substitutedMessage = getFormattedMessage(message, objects);
-		final String failureMessage = getFormattedMessage(LogMessage.ERROR_ASSERTIONS_1,
-				new String[] { substitutedMessage });
-		LOGGER.error(failureMessage);
-		Assert.fail(failureMessage);
-	}
+    /**
+     * Logs the message and parameters at trace level.
+     * 
+     * @param message
+     *            the log message
+     * @param objects
+     *            the parameters for substitution
+     */
+    protected static void trace(final LogMessage message, final Object... objects) {
+        LOGGER.trace(getFormattedMessage(message, objects));
+    }
 
-	private static String getFormattedMessage(final LogMessage message, final Object[] objects) {
-		return MessageFormat.format(getMessage(message), objects);
-	}
+    /**
+     * Fails the assertions by throwing an AssertionError with the provided
+     * message and parameters.
+     * 
+     * @param message
+     *            the log message
+     * @param objects
+     *            the parameters for substitution
+     */
+    protected static void fail(final LogMessage message, final Object... objects) {
+        final String substitutedMessage = getFormattedMessage(message, objects);
+        final String failureMessage = getFormattedMessage(LogMessage.ERROR_ASSERTIONS_1, new String[] { substitutedMessage });
+        LOGGER.error(failureMessage);
+        Assert.fail(failureMessage);
+    }
 
-	private static String getMessage(final LogMessage message) {
-		return logMessageProvider.getMessageByKey(message.getBundleKey());
-	}
+    private static String getFormattedMessage(final LogMessage message, final Object[] objects) {
+        return MessageFormat.format(getMessage(message), objects);
+    }
+
+    private static String getMessage(final LogMessage message) {
+        return logMessageProvider.getMessageByKey(message.getBundleKey());
+    }
 
 }

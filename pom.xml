@@ -190,7 +190,6 @@
 				<configuration>
 					<source>${jdk.version}</source>
 					<target>${jdk.version}</target>
-					<debug>true</debug>
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>

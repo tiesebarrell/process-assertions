@@ -19,7 +19,6 @@ import static org.junit.Assert.fail;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 
 import org.junit.Test;
 
@@ -31,25 +30,25 @@ import org.junit.Test;
  */
 public class LogMessageLocaleTest extends AbstractLogMessageTest {
 
-	@Test
-	public void testAllKeysDefined() throws Exception {
-		final List<LogMessage> missingEntries = checkForMissingEntries();
+    @Test
+    public void testAllKeysDefined() throws Exception {
+        final List<LogMessage> missingEntries = checkForMissingEntries();
 
-		if (!missingEntries.isEmpty()) {
-			fail(buildAssertionErrorMessage(missingEntries));
-		}
-	}
+        if (!missingEntries.isEmpty()) {
+            fail(buildAssertionErrorMessage(missingEntries));
+        }
+    }
 
-	private String buildAssertionErrorMessage(final Collection<LogMessage> missingEntries) {
-		final StringBuilder builder = new StringBuilder();
+    private String buildAssertionErrorMessage(final Collection<LogMessage> missingEntries) {
+        final StringBuilder builder = new StringBuilder();
 
-		builder.append("There are entries missing in the LogMessages bundle for locale ")
-				.append(Locale.getDefault().toString()).append(": \n");
-		for (final LogMessage logMessage : missingEntries) {
-			builder.append(logMessage.getBundleKey()).append("\n");
-		}
+        builder.append("There are entries missing in the LogMessages bundle for locale ").append(ProcessAssert.getConfiguration().getLocale().toString())
+                .append(": \n");
+        for (final LogMessage logMessage : missingEntries) {
+            builder.append(logMessage.getBundleKey()).append("\n");
+        }
 
-		return builder.toString();
-	}
+        return builder.toString();
+    }
 
 }

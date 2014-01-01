@@ -23,54 +23,56 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Provider for messages corresponding with {@link LogMessage}s for a specific
- * {@link Locale}. The provider can optionally be immutable, meaning the initial
- * Locale will not be changed to adhere to changes to the default Locale after
- * instantiation.
+ * {@link Locale}.
  * 
  * @author Tiese Barrell
  * 
  */
 public class LogMessageProvider {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(LogMessageProvider.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LogMessageProvider.class);
 
-	private final String baseName;
+    private final String baseName;
 
-	private ResourceBundle bundle;
+    private ResourceBundle bundle;
 
-	/**
-	 * Constructs a LogMessageProvider.
-	 */
-	public LogMessageProvider() {
-		super();
-		this.baseName = Constants.LOG_MESSAGES_BUNDLE_NAME;
-	}
+    /**
+     * Constructs a LogMessageProvider.
+     */
+    public LogMessageProvider() {
+        super();
+        this.baseName = Constants.LOG_MESSAGES_BUNDLE_NAME;
+    }
 
-	public String getMessageByKey(final String key) {
-		return getBundle().getString(key);
-	}
+    /**
+     * Flushes any bundle currently cached, forcing a reload on next request.
+     */
+    public void flush() {
+        this.bundle = null;
+    }
 
-	private ResourceBundle getBundle() {
-		loadBundleIfRequired();
-		return bundle;
-	}
+    public String getMessageByKey(final String key) {
+        return getBundle().getString(key);
+    }
 
-	private void loadBundleIfRequired() {
-		LOGGER.trace("Loading bundle if required");
-		if (initialBundleLoadIsRequired()) {
-			LOGGER.trace("Initial bundle load required");
-			loadBundle();
-		}
-	}
+    private ResourceBundle getBundle() {
+        loadBundleIfRequired();
+        return bundle;
+    }
 
-	private boolean initialBundleLoadIsRequired() {
-		return bundle == null;
-	}
+    private void loadBundleIfRequired() {
+        if (bundleLoadIsRequired()) {
+            loadBundle();
+        }
+    }
 
-	private void loadBundle() {
-		LOGGER.trace("Loading bundle from baseName " + baseName + " for Locale "
-				+ ProcessAssert.getConfiguration().getLocale());
-		bundle = ResourceBundle.getBundle(baseName, ProcessAssert.getConfiguration().getLocale());
-	}
+    private boolean bundleLoadIsRequired() {
+        return bundle == null;
+    }
+
+    private void loadBundle() {
+        LOGGER.trace("Loading bundle from baseName " + baseName + " for Locale " + ProcessAssert.getConfiguration().getLocale());
+        bundle = ResourceBundle.getBundle(baseName, ProcessAssert.getConfiguration().getLocale());
+    }
 
 }

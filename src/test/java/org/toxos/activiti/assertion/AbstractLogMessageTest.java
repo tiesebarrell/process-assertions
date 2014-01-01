@@ -18,12 +18,9 @@ package org.toxos.activiti.assertion;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.After;
-import org.junit.Before;
 
 /**
  * Abstract base class for log message tests.
@@ -33,50 +30,37 @@ import org.junit.Before;
  */
 public abstract class AbstractLogMessageTest {
 
-	private Locale originalLocale;
+    protected List<LogMessage> checkForMissingEntries() throws Exception {
+        final List<LogMessage> missingEntries = new ArrayList<LogMessage>();
 
-	@Before
-	public void setup() {
-		originalLocale = Locale.getDefault();
-	}
+        final Properties properties = new Properties();
 
-	@After
-	public void tearDown() {
-		Locale.setDefault(originalLocale);
-	}
+        final String resourceBundlePathForLocale = getResourceBundlePathForLocale();
 
-	protected List<LogMessage> checkForMissingEntries() throws Exception {
-		final List<LogMessage> missingEntries = new ArrayList<LogMessage>();
+        final InputStream is = getClass().getClassLoader().getResourceAsStream(resourceBundlePathForLocale);
+        properties.load(is);
 
-		final Properties properties = new Properties();
+        for (final LogMessage logMessage : LogMessage.values()) {
 
-		final String resourceBundlePathForLocale = getResourceBundlePathForLocale();
+            final String entry = properties.getProperty(logMessage.getBundleKey());
+            if (StringUtils.isBlank(entry)) {
+                missingEntries.add(logMessage);
+            }
+        }
+        return missingEntries;
+    }
 
-		final InputStream is = getClass().getClassLoader().getResourceAsStream(resourceBundlePathForLocale);
-		properties.load(is);
+    private String getResourceBundlePathForLocale() {
+        final String localeSpecificPath = getLocaleSpecificPath();
+        return StringUtils.replace(Constants.LOG_MESSAGES_BUNDLE_NAME, ".", "/") + localeSpecificPath + ".properties";
+    }
 
-		for (final LogMessage logMessage : LogMessage.values()) {
-
-			final String entry = properties.getProperty(logMessage.getBundleKey());
-			if (StringUtils.isBlank(entry)) {
-				missingEntries.add(logMessage);
-			}
-		}
-		return missingEntries;
-	}
-
-	private String getResourceBundlePathForLocale() {
-		final String localeSpecificPath = getLocaleSpecificPath();
-		return StringUtils.replace(Constants.LOG_MESSAGES_BUNDLE_NAME, ".", "/") + localeSpecificPath + ".properties";
-	}
-
-	private String getLocaleSpecificPath() {
-		final Locale fallBackLocale = new Locale("en", "US");
-		String result = "";
-		if (!Locale.getDefault().equals(fallBackLocale)) {
-			result = "_" + Locale.getDefault().toString();
-		}
-		return result;
-	}
+    private String getLocaleSpecificPath() {
+        String result = "";
+        if (ProcessAssert.getConfiguration() != null && !DefaultProcessAssertConfiguration.DEFAULT_LOCALE.equals(ProcessAssert.getConfiguration().getLocale())) {
+            result = "_" + ProcessAssert.getConfiguration().getLocale().toString();
+        }
+        return result;
+    }
 
 }

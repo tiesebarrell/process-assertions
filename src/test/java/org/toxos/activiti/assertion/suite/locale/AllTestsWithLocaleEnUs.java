@@ -17,10 +17,13 @@ package org.toxos.activiti.assertion.suite.locale;
 
 import java.util.Locale;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
+import org.toxos.activiti.assertion.DefaultProcessAssertConfiguration;
+import org.toxos.activiti.assertion.ProcessAssert;
 
 /**
  * Test suite for the default locale.
@@ -29,9 +32,14 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ AllLocaleSpecificTests.class })
 public class AllTestsWithLocaleEnUs {
 
-	@BeforeClass
-	public static void setUpClass() {
-		Locale.setDefault(new Locale("en", "US"));
-	}
+    @BeforeClass
+    public static void beforeClass() {
+        ProcessAssert.setConfiguration(new DefaultProcessAssertConfiguration(new Locale("en", "US")));
+    }
+
+    @AfterClass
+    public static void afterClass() {
+        ProcessAssert.setConfiguration(new DefaultProcessAssertConfiguration());
+    }
 
 }
