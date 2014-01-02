@@ -45,21 +45,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
 	</properties>
-	
-	<!-- 
-    <distributionManagement>
-        <repository>
-            <id>process.assertions.releases.repository</id>
-            <name>Process Assertions Releases Repository</name>
-            <url>http://maven.mazidea.com/content/repositories/process-assertions-releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>process.assertions.snapshots.repository</id>
-            <name>Process Assertions Snapshots Repository</name>
-            <url>http://maven.mazidea.com/content/repositories/process-assertions-snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
-     -->
 
 	<!-- Repositories are required because Activiti framework is only listed in Central from 5.14 upwards. -->
 	<repositories>
@@ -193,40 +178,12 @@
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
-			<!-- 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-      			<artifactId>maven-source-plugin</artifactId>
-      			<version>${maven.source.plugin.version}</version>
-			    <executions>
-			    	<execution>
-			        	<id>attach-sources</id>
-			        	<phase>package</phase>
-			        	<goals>
-			        		<goal>jar</goal>
-			        	</goals> 
-			        </execution>
-			    </executions>
-    		</plugin>
-    		 -->
 			<plugin>
         		<groupId>org.apache.maven.plugins</groupId>
         		<artifactId>maven-javadoc-plugin</artifactId>
-        		<!-- <version>${maven.javadoc.plugin.version}</version> -->
         		<configuration>
         			<stylesheetfile>src/main/javadoc/stylesheet.css</stylesheetfile>
 		        </configuration>
-		        <!-- 
-		        <executions> 
-        			<execution> 
-          				<id>attach-javadocs</id>
-          				<phase>package</phase>
-          				<goals>
-          					<goal>jar</goal>
-          				</goals> 
-        			</execution> 
-      			</executions>
-      			 --> 
       		</plugin>
       		<plugin>
             	<groupId>org.apache.maven.plugins</groupId>
@@ -269,11 +226,6 @@
     		</plugin>
     		 -->
 		</plugins>
-		<testResources>
-	        <testResource>
-	            <directory>src/test/resources</directory>
-	        </testResource>
-	    </testResources>
 	</build>
 	
 	<profiles>
