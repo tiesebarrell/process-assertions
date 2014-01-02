@@ -33,23 +33,23 @@ public class LogMessageProviderTest {
 
     @Test
     public void testLogMessageProviderUsesLocale() {
-        setupConfiguration(new Locale("x1", "y1"));
+        setupConfiguration(new Locale("vi", "VN"));
         classUnderTest = new LogMessageProvider();
-        Assert.assertEquals("Message 1 (x1, y1)", classUnderTest.getMessageByKey("key1"));
+        Assert.assertEquals("Message 1 (vi, vn)", classUnderTest.getMessageByKey("key1"));
 
-        setupConfiguration(new Locale("x2", "y2"));
+        setupConfiguration(new Locale("uk", "UA"));
         classUnderTest = new LogMessageProvider();
-        Assert.assertEquals("Message 1 (x2, y2)", classUnderTest.getMessageByKey("key1"));
+        Assert.assertEquals("Message 1 (uk, ua)", classUnderTest.getMessageByKey("key1"));
     }
 
     @Test
     public void testLogMessageProviderDoesntSwitchWhenSystemDefaultLocaleSwitches() {
-        setupConfiguration(new Locale("x1", "y1"));
+        setupConfiguration(new Locale("vi", "VN"));
         classUnderTest = new LogMessageProvider();
-        Assert.assertEquals("Message 1 (x1, y1)", classUnderTest.getMessageByKey("key1"));
+        Assert.assertEquals("Message 1 (vi, vn)", classUnderTest.getMessageByKey("key1"));
 
-        Locale.setDefault(new Locale("x2", "y2"));
-        Assert.assertEquals("Message 1 (x1, y1)", classUnderTest.getMessageByKey("key1"));
+        Locale.setDefault(new Locale("uk", "UA"));
+        Assert.assertEquals("Message 1 (vi, vn)", classUnderTest.getMessageByKey("key1"));
     }
 
     @Test
@@ -58,32 +58,36 @@ public class LogMessageProviderTest {
         classUnderTest = new LogMessageProvider();
         String message = classUnderTest.getMessageByKey("key1");
         Assert.assertNotNull(message);
-        Assert.assertEquals("Message 1 (vi1, vn1)", message);
+        Assert.assertEquals("Message 1 (vi, vn)", message);
 
         message = classUnderTest.getMessageByKey("key2");
         Assert.assertNotNull(message);
-        Assert.assertEquals("Message 2 (vi1, vn1)", message);
+        Assert.assertEquals("Message 2 (vi, vn)", message);
+
+        message = classUnderTest.getMessageByKey("key3");
+        Assert.assertNotNull(message);
+        Assert.assertEquals("Message 3 (vi, vn)", message);
 
     }
 
     @Test(expected = MissingResourceException.class)
     public void testGetMessageByKeyForMissingKey() {
-        setupConfiguration(new Locale("x1", "y1"));
+        setupConfiguration(new Locale("vi", "VN"));
         classUnderTest = new LogMessageProvider();
         classUnderTest.getMessageByKey("key4");
     }
 
     @Test
     public void testGetMessageByKeyWithFallback() {
-        setupConfiguration(new Locale("x2", "y2"));
+        setupConfiguration(new Locale("uk", "UA"));
         classUnderTest = new LogMessageProvider();
         String message = classUnderTest.getMessageByKey("key1");
         Assert.assertNotNull(message);
-        Assert.assertEquals("Message 1 (x2, y2)", message);
+        Assert.assertEquals("Message 1 (uk, ua)", message);
 
         message = classUnderTest.getMessageByKey("key2");
         Assert.assertNotNull(message);
-        Assert.assertEquals("Message 2 (x2, y2)", message);
+        Assert.assertEquals("Message 2 (uk, ua)", message);
 
         // Request by a key not in the bundle, but in the default bundle
         message = classUnderTest.getMessageByKey(LogMessage.PROCESS_1.getBundleKey());
