@@ -54,15 +54,15 @@ public class LogMessageProviderTest {
 
     @Test
     public void testGetMessageByKey() {
-        setupConfiguration(new Locale("x1", "y1"));
+        setupConfiguration(new Locale("vi", "VN"));
         classUnderTest = new LogMessageProvider();
         String message = classUnderTest.getMessageByKey("key1");
         Assert.assertNotNull(message);
-        Assert.assertEquals("Message 1 (x1, y1)", message);
+        Assert.assertEquals("Message 1 (vi1, vn1)", message);
 
         message = classUnderTest.getMessageByKey("key2");
         Assert.assertNotNull(message);
-        Assert.assertEquals("Message 2 (x1, y1)", message);
+        Assert.assertEquals("Message 2 (vi1, vn1)", message);
 
     }
 
