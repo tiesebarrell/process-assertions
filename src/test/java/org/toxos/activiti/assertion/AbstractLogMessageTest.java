@@ -36,6 +36,7 @@ public abstract class AbstractLogMessageTest {
         final Properties properties = new Properties();
 
         final String resourceBundlePathForLocale = getResourceBundlePathForLocale();
+        System.out.println("Loading bundle from path '" + resourceBundlePathForLocale + "'");
 
         final InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourceBundlePathForLocale);
         properties.load(is);
