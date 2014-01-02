@@ -41,12 +41,12 @@ public class LogMessageGenericTest extends AbstractLogMessageTest {
 
     @Test
     public void testInvalidLocaleHasMissingEntries() throws Exception {
-        ProcessAssert.setConfiguration(new DefaultProcessAssertConfiguration(new Locale("xx", "YY")));
+        ProcessAssert.setConfiguration(new DefaultProcessAssertConfiguration(new Locale("vi", "VN")));
 
         final List<LogMessage> missingEntries = checkForMissingEntries();
 
         if (missingEntries.isEmpty()) {
-            fail("Expected invalid locale 'xx', 'YY' to have missing entries");
+            fail("Expected invalid locale 'vi', 'VN' to have missing entries");
         }
 
         assertEquals(LogMessage.values().length, missingEntries.size());

@@ -37,7 +37,7 @@ public abstract class AbstractLogMessageTest {
 
         final String resourceBundlePathForLocale = getResourceBundlePathForLocale();
 
-        final InputStream is = getClass().getClassLoader().getResourceAsStream(resourceBundlePathForLocale);
+        final InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourceBundlePathForLocale);
         properties.load(is);
 
         for (final LogMessage logMessage : LogMessage.values()) {
