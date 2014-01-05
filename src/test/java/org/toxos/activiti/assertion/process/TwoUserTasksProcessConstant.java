@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2013 Tiese Barrell
+ * Copyright 2014 Tiese Barrell
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,28 +20,28 @@ package org.toxos.activiti.assertion.process;
  */
 public enum TwoUserTasksProcessConstant {
 
-	/**
-	 * The process' key.
-	 */
-	PROCESS_KEY("testProcessTwoUserTasks"),
+    /**
+     * The process' key.
+     */
+    PROCESS_KEY("testProcessTwoUserTasks"),
 
-	/**
-	 * The id of the first usertask.
-	 */
-	USER_TASK_1_ACTIVITY_ID("userTask1"),
+    /**
+     * The id of the first usertask.
+     */
+    USER_TASK_1_ACTIVITY_ID("userTask1"),
 
-	/**
-	 * The id of the second usertask.
-	 */
-	USER_TASK_2_ACTIVITY_ID("userTask2");
+    /**
+     * The id of the second usertask.
+     */
+    USER_TASK_2_ACTIVITY_ID("userTask2");
 
-	private final String value;
+    private final String value;
 
-	private TwoUserTasksProcessConstant(final String value) {
-		this.value = value;
-	}
+    private TwoUserTasksProcessConstant(final String value) {
+        this.value = value;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public String getValue() {
+        return value;
+    }
 }

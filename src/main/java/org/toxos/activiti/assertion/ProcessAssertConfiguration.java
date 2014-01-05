@@ -6,8 +6,8 @@ import org.activiti.engine.EngineServices;
 
 public interface ProcessAssertConfiguration {
 
-	Locale getLocale();
+    Locale getLocale();
 
-	EngineServices getEngineServices();
+    EngineServices getEngineServices();
 
 }

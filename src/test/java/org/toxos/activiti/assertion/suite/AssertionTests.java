@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2013 Tiese Barrell
+ * Copyright 2014 Tiese Barrell
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,10 +29,9 @@ import org.toxos.activiti.assertion.TaskIsUncompletedByTaskAssertionsTest;
  * Test suite for process assertion tests.
  */
 @RunWith(Suite.class)
-@SuiteClasses({ ProcessIsActiveAssertionsTest.class, ProcessIsEndedAssertionsTest.class,
-		TaskIsUncompletedByTaskAssertionsTest.class,
-		TaskIsUncompletedByProcessInstanceAndTaskDefinitionKeyAssertionsTest.class,
-		ProcessIsEndedAndInExclusiveEndEventAssertionsTest.class, ProcessIsEndedAndInEndEventsAssertionsTest.class })
+@SuiteClasses({ ProcessIsActiveAssertionsTest.class, ProcessIsEndedAssertionsTest.class, TaskIsUncompletedByTaskAssertionsTest.class,
+        TaskIsUncompletedByProcessInstanceAndTaskDefinitionKeyAssertionsTest.class, ProcessIsEndedAndInExclusiveEndEventAssertionsTest.class,
+        ProcessIsEndedAndInEndEventsAssertionsTest.class })
 public class AssertionTests {
 
 }

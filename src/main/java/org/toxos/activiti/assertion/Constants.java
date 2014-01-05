@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2013 Tiese Barrell
+ * Copyright 2014 Tiese Barrell
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,12 +23,12 @@ package org.toxos.activiti.assertion;
  */
 public final class Constants {
 
-	/**
-	 * The name for the bundle containing log messages.
-	 */
-	public static final String LOG_MESSAGES_BUNDLE_NAME = "messages.LogMessages";
+    /**
+     * The name for the bundle containing log messages.
+     */
+    public static final String LOG_MESSAGES_BUNDLE_NAME = "messages.LogMessages";
 
-	private Constants() {
-		super();
-	}
+    private Constants() {
+        super();
+    }
 }

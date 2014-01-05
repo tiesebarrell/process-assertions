@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2013 Tiese Barrell
+ * Copyright 2014 Tiese Barrell
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,23 +20,23 @@ package org.toxos.activiti.assertion.process;
  */
 public enum StraightThroughProcessConstant {
 
-	/**
-	 * The process' key.
-	 */
-	PROCESS_KEY("testProcessStraightThrough"),
+    /**
+     * The process' key.
+     */
+    PROCESS_KEY("testProcessStraightThrough"),
 
-	/**
-	 * The id of the end event.
-	 */
-	END_EVENT_ID("endCompleted");
+    /**
+     * The id of the end event.
+     */
+    END_EVENT_ID("endCompleted");
 
-	private final String value;
+    private final String value;
 
-	private StraightThroughProcessConstant(final String value) {
-		this.value = value;
-	}
+    private StraightThroughProcessConstant(final String value) {
+        this.value = value;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public String getValue() {
+        return value;
+    }
 }

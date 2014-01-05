@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2013 Tiese Barrell
+ * Copyright 2014 Tiese Barrell
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,90 +23,90 @@ package org.toxos.activiti.assertion;
  */
 public enum LogMessage {
 
-	PROCESS_1,
+    PROCESS_1,
 
-	PROCESS_2,
+    PROCESS_2,
 
-	PROCESS_3,
+    PROCESS_3,
 
-	PROCESS_4,
+    PROCESS_4,
 
-	PROCESS_5,
+    PROCESS_5,
 
-	PROCESS_6,
+    PROCESS_6,
 
-	PROCESS_7,
+    PROCESS_7,
 
-	PROCESS_8,
+    PROCESS_8,
 
-	PROCESS_9,
+    PROCESS_9,
 
-	/**
-	 * Exactly one historic activity instance of type endEvent and id matches.
-	 */
-	PROCESS_10,
+    /**
+     * Exactly one historic activity instance of type endEvent and id matches.
+     */
+    PROCESS_10,
 
-	/**
-	 * The exact set of end events has been reached.
-	 */
-	PROCESS_11,
+    /**
+     * The exact set of end events has been reached.
+     */
+    PROCESS_11,
 
-	/**
-	 * The exact amount and set of end events has been reached.
-	 */
-	PROCESS_12,
+    /**
+     * The exact amount and set of end events has been reached.
+     */
+    PROCESS_12,
 
-	/**
-	 * A task with definitionKey is uncompleted in process.
-	 */
-	TASK_1(),
+    /**
+     * A task with definitionKey is uncompleted in process.
+     */
+    TASK_1(),
 
-	/**
-	 * Task is uncompleted.
-	 */
-	TASK_2(),
+    /**
+     * Task is uncompleted.
+     */
+    TASK_2(),
 
-	/**
-	 * A task instance can be found.
-	 */
-	TASK_3(),
+    /**
+     * A task instance can be found.
+     */
+    TASK_3(),
 
-	/**
-	 * A task instance can be found with definitionKey in process.
-	 */
-	TASK_4(),
+    /**
+     * A task instance can be found with definitionKey in process.
+     */
+    TASK_4(),
 
-	ERROR_ASSERTIONS_1(),
+    ERROR_ASSERTIONS_1(),
 
-	ERROR_PROCESS_1(),
+    ERROR_PROCESS_1(),
 
-	ERROR_PROCESS_2(),
+    ERROR_PROCESS_2(),
 
-	ERROR_PROCESS_3(),
+    ERROR_PROCESS_3(),
 
-	/**
-	 * Not ended in the exact set of end event ids.
-	 */
-	ERROR_PROCESS_4(),
+    /**
+     * Not ended in the exact set of end event ids.
+     */
+    ERROR_PROCESS_4(),
 
-	/**
-	 * Not ended in the exact set of end event ids. Lists detailed expectations
-	 * and actual end event ids.
-	 */
-	ERROR_PROCESS_5(),
+    /**
+     * Not ended in the exact set of end event ids. Lists detailed expectations
+     * and actual end event ids.
+     */
+    ERROR_PROCESS_5(),
 
-	ERROR_TASK_1(),
+    ERROR_TASK_1(),
 
-	ERROR_TASK_2();
+    ERROR_TASK_2();
 
-	private final String bundleKey;
+    private final String bundleKey;
 
-	private LogMessage() {
-		this.bundleKey = name().replaceAll("_", ".").toLowerCase();
-	}
+    private LogMessage() {
+        this.bundleKey = name().replaceAll("_", ".").toLowerCase();
+    }
 
-	public String getBundleKey() {
-		return bundleKey;
-	}
+    public String getBundleKey() {
+        return bundleKey;
+    }
 
 }
