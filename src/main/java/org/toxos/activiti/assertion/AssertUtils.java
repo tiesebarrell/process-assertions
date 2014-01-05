@@ -23,81 +23,73 @@ import org.activiti.engine.history.HistoricDetail;
 import org.activiti.engine.history.HistoricVariableUpdate;
 import org.activiti.engine.impl.ProcessEngineImpl;
 import org.activiti.engine.impl.history.HistoryLevel;
-import org.activiti.engine.test.ActivitiRule;
 
 /**
  * Provides utilities for process assertions.
  */
-final class AssertUtils {
+final class AssertUtils extends AbstractProcessAssert {
 
-	private AssertUtils() {
-		super();
-	}
+    private AssertUtils() {
+        super();
+    }
 
-	/**
-	 * Determines whether the history level of the process engine is set to
-	 * {@link HistoryLevel.FULL}.
-	 * 
-	 * @param rule
-	 *            the {@link ActivitiRule} to access the process engine's
-	 *            services
-	 * @return true if the history level is set to full, false otherwise
-	 */
-	static boolean historyLevelIsFull(final ActivitiRule rule) {
+    /**
+     * Determines whether the history level of the process engine is set to
+     * {@link HistoryLevel.FULL}.
+     * 
+     * @return true if the history level is set to full, false otherwise
+     */
+    static boolean historyLevelIsFull() {
 
-		boolean result = false;
+        boolean result = false;
 
-		final ProcessEngine engine = rule.getProcessEngine();
+        final ProcessEngine engine = getProcessEngine();
 
-		if (engine instanceof ProcessEngineImpl) {
-			final ProcessEngineImpl engineImpl = (ProcessEngineImpl) engine;
-			result = HistoryLevel.FULL.equals(engineImpl.getProcessEngineConfiguration().getHistoryLevel());
-		}
+        if (engine instanceof ProcessEngineImpl) {
+            final ProcessEngineImpl engineImpl = (ProcessEngineImpl) engine;
+            result = HistoryLevel.FULL.equals(engineImpl.getProcessEngineConfiguration().getHistoryLevel());
+        }
 
-		return result;
-	}
+        return result;
+    }
 
-	/**
-	 * Gets a list of {@link HistoricVariableUpdate}s in descending order of
-	 * update time for the provided process instance id and the provided name
-	 * for the process variable.
-	 * 
-	 * @param rule
-	 *            the {@link ActivitiRule} to access the process engine's
-	 *            services
-	 * @param processInstanceId
-	 *            the process instance's id to get the variables for
-	 * @param processVariableName
-	 *            the name of the process variable to get the updates for
-	 * @return a list of variable updates, in descending order
-	 */
-	static List<HistoricVariableUpdate> getDescendingVariableUpdates(final ActivitiRule rule, final String processInstanceId,
-			final String processVariableName) {
+    /**
+     * Gets a list of {@link HistoricVariableUpdate}s in descending order of
+     * update time for the provided process instance id and the provided name
+     * for the process variable.
+     * 
+     * @param processInstanceId
+     *            the process instance's id to get the variables for
+     * @param processVariableName
+     *            the name of the process variable to get the updates for
+     * @return a list of variable updates, in descending order
+     */
+    static List<HistoricVariableUpdate> getDescendingVariableUpdates(final String processInstanceId, final String processVariableName) {
 
-		final List<HistoricVariableUpdate> result = new ArrayList<HistoricVariableUpdate>();
+        final List<HistoricVariableUpdate> result = new ArrayList<HistoricVariableUpdate>();
 
-		final List<HistoricDetail> historicDetails = rule.getHistoryService().createHistoricDetailQuery().variableUpdates()
-				.processInstanceId(processInstanceId).orderByVariableName().asc().orderByTime().desc().list();
+        final List<HistoricDetail> historicDetails = getHistoryService().createHistoricDetailQuery().variableUpdates().processInstanceId(processInstanceId)
+                .orderByVariableName().asc().orderByTime().desc().list();
 
-		boolean reachedTargetVariable = false;
+        boolean reachedTargetVariable = false;
 
-		for (final HistoricDetail historicDetail : historicDetails) {
+        for (final HistoricDetail historicDetail : historicDetails) {
 
-			if (historicDetail instanceof HistoricVariableUpdate) {
-				final HistoricVariableUpdate historicVariableUpdate = (HistoricVariableUpdate) historicDetail;
+            if (historicDetail instanceof HistoricVariableUpdate) {
+                final HistoricVariableUpdate historicVariableUpdate = (HistoricVariableUpdate) historicDetail;
 
-				if (processVariableName.equals(historicVariableUpdate.getVariableName()) && !reachedTargetVariable) {
-					reachedTargetVariable = true;
-					result.add(historicVariableUpdate);
-				} else if (processVariableName.equals(historicVariableUpdate.getVariableName())) {
-					result.add(historicVariableUpdate);
-				} else if (reachedTargetVariable) {
-					break;
-				}
-			}
-		}
+                if (processVariableName.equals(historicVariableUpdate.getVariableName()) && !reachedTargetVariable) {
+                    reachedTargetVariable = true;
+                    result.add(historicVariableUpdate);
+                } else if (processVariableName.equals(historicVariableUpdate.getVariableName())) {
+                    result.add(historicVariableUpdate);
+                } else if (reachedTargetVariable) {
+                    break;
+                }
+            }
+        }
 
-		return result;
-	}
+        return result;
+    }
 
 }

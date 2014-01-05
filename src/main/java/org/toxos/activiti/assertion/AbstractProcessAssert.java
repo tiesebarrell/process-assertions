@@ -18,6 +18,8 @@ package org.toxos.activiti.assertion;
 import java.text.MessageFormat;
 
 import org.activiti.engine.HistoryService;
+import org.activiti.engine.ProcessEngine;
+import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.junit.Assert;
@@ -74,6 +76,15 @@ public abstract class AbstractProcessAssert {
      */
     protected static final HistoryService getHistoryService() {
         return ProcessAssert.getConfiguration().getEngineServices().getHistoryService();
+    }
+
+    /**
+     * Gets the {@link ProcessEngine}.
+     * 
+     * @return the process engine
+     */
+    protected static final ProcessEngine getProcessEngine() {
+        return ProcessEngines.getDefaultProcessEngine();
     }
 
     /**

@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.activiti.engine.history.HistoricActivityInstance;
-import org.activiti.engine.test.ActivitiRule;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Assert;
@@ -30,7 +29,7 @@ import org.junit.Assert;
  */
 final class EndEventAssert extends AbstractProcessAssert {
 
-    static void processEndedAndInExclusiveEndEvent(final ActivitiRule rule, final String processInstanceId, final String endEventId) {
+    static void processEndedAndInExclusiveEndEvent(final String processInstanceId, final String endEventId) {
 
         // Assert the process instance is ended
         ProcessInstanceAssert.processIsEnded(processInstanceId);
@@ -38,14 +37,14 @@ final class EndEventAssert extends AbstractProcessAssert {
         // Assert that there is exactly one historic activity instance for end
         // events and that it has the correct id
         trace(LogMessage.PROCESS_10, processInstanceId, endEventId);
-        final List<HistoricActivityInstance> historicActivityInstances = rule.getHistoryService().createHistoricActivityInstanceQuery()
+        final List<HistoricActivityInstance> historicActivityInstances = getHistoryService().createHistoricActivityInstanceQuery()
                 .processInstanceId(processInstanceId).activityType("endEvent").finished().list();
 
         Assert.assertEquals(1, historicActivityInstances.size());
         Assert.assertEquals(endEventId, historicActivityInstances.get(0).getActivityId());
     }
 
-    static void processEndedAndInEndEvents(final ActivitiRule rule, final String processInstanceId, final String... endEventIds) {
+    static void processEndedAndInEndEvents(final String processInstanceId, final String... endEventIds) {
 
         // Assert the process instance is ended
         ProcessInstanceAssert.processIsEnded(processInstanceId);
@@ -54,7 +53,7 @@ final class EndEventAssert extends AbstractProcessAssert {
         // for end events and that ids match exactly
         trace(LogMessage.PROCESS_12, endEventIds.length, processInstanceId, ArrayUtils.toString(endEventIds));
 
-        final List<HistoricActivityInstance> historicActivityInstances = rule.getHistoryService().createHistoricActivityInstanceQuery()
+        final List<HistoricActivityInstance> historicActivityInstances = getHistoryService().createHistoricActivityInstanceQuery()
                 .processInstanceId(processInstanceId).activityType("endEvent").finished().list();
 
         final List<String> historicEndEventIds = new ArrayList<String>();

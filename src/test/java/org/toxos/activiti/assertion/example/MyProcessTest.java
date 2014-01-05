@@ -45,7 +45,7 @@ public class MyProcessTest {
         ProcessAssert.assertProcessActive(processInstance);
 
         // assert the process is waiting for a UserTask to be completed
-        ProcessAssert.assertTaskUncompleted(activitiRule, processInstance, "usertask1");
+        ProcessAssert.assertTaskUncompleted(processInstance, "usertask1");
 
         // complete the task
         final Task userTask1 = activitiRule.getTaskService().createTaskQuery().processInstanceId(processInstance.getProcessInstanceId())

@@ -18,7 +18,6 @@ package org.toxos.activiti.assertion;
 import java.util.List;
 
 import org.activiti.engine.task.Task;
-import org.activiti.engine.test.ActivitiRule;
 import org.junit.Assert;
 
 /**
@@ -26,11 +25,11 @@ import org.junit.Assert;
  */
 final class TaskInstanceAssert extends AbstractProcessAssert {
 
-    static void taskIsUncompleted(final ActivitiRule rule, final String taskId) {
+    static void taskIsUncompleted(final String taskId) {
 
         // Assert a task exists
         trace(LogMessage.TASK_3, taskId);
-        final Task task = rule.getTaskService().createTaskQuery().taskId(taskId).active().singleResult();
+        final Task task = getTaskService().createTaskQuery().taskId(taskId).active().singleResult();
         Assert.assertNotNull(task);
 
         // Assert the process is not completed
@@ -38,15 +37,14 @@ final class TaskInstanceAssert extends AbstractProcessAssert {
 
     }
 
-    static void taskIsUncompleted(final ActivitiRule rule, final String processInstanceId, final String taskDefinitionKey) {
+    static void taskIsUncompleted(final String processInstanceId, final String taskDefinitionKey) {
 
         // Assert the process is not completed
         ProcessInstanceAssert.processIsActive(processInstanceId);
 
         // Assert a task exists
         trace(LogMessage.TASK_4, taskDefinitionKey, processInstanceId);
-        final List<Task> tasks = rule.getTaskService().createTaskQuery().processInstanceId(processInstanceId).taskDefinitionKey(taskDefinitionKey).active()
-                .list();
+        final List<Task> tasks = getTaskService().createTaskQuery().processInstanceId(processInstanceId).taskDefinitionKey(taskDefinitionKey).active().list();
 
         Assert.assertNotNull(tasks);
         Assert.assertFalse(tasks.isEmpty());
