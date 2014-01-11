@@ -383,22 +383,4 @@ public final class ProcessAssert extends AbstractProcessAssert {
         // expectedValue));
     }
 
-    // assertProcessReachedEndState
-
-    // assertProcessSuspended -> lookup implementation and usage
-
-    // assertTaskUncompletedAndAssignedToUser
-
-    // assertTaskUncompletedAndUnassigned
-
-    // assertWaitingAtReceiveTask or
-    // assertProcessInstanceHasExecutionsWaitngForSignal
-
-    // hasHistoricProcessVariableEverHadValue
-
-    // assertProcessInstanceHasTriggeredErrorBoundaryEvent
-
-    // assertProcessReachedEndState(endStateKey) for single end state, ever
-    // reached in process
-
 }
