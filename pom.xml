@@ -6,7 +6,7 @@
 	<groupId>org.toxos.activiti</groupId>
 	<artifactId>process-assertions</artifactId>
 	<packaging>jar</packaging>
-	<version>0.4.0</version>
+	<version>0.4.1-SNAPSHOT</version>
 	<name>Activiti Process Assertions</name>
 	<description>Activiti Process Assertions provide assertions for use in JUnit test cases to test for specific business process conditions when executed with the Activiti BPM framework (http://www.activiti.org).</description>
 	<url>http://toxos.org/activiti-process-assertions/</url>
