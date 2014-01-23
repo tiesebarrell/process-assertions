@@ -7,9 +7,9 @@
 	<artifactId>process-assertions</artifactId>
 	<packaging>jar</packaging>
 	<version>0.4.1-SNAPSHOT</version>
-	<name>Activiti Process Assertions</name>
-	<description>Activiti Process Assertions provide assertions for use in JUnit test cases to test for specific business process conditions when executed with the Activiti BPM framework (http://www.activiti.org).</description>
-	<url>http://toxos.org/activiti-process-assertions/</url>
+	<name>Process Assertions</name>
+	<description>Process Assertions provide assertions for use in JUnit test cases to test for specific business process conditions when executed with the Activiti BPM framework (http://www.activiti.org).</description>
+	<url>http://toxos.org/process-assertions/</url>
 	
 	<parent>
     	<groupId>org.sonatype.oss</groupId>
@@ -59,9 +59,9 @@
 	</repositories>
 	
 	<scm>
-    	<connection>scm:git:git@github.com:tiesebarrell/activiti-process-assertions.git</connection>
-    	<developerConnection>scm:git:git@github.com:tiesebarrell/activiti-process-assertions.git</developerConnection>
-    	<url>git@github.com:tiesebarrell/activiti-process-assertions.git</url>
+    	<connection>scm:git:git@github.com:tiesebarrell/process-assertions.git</connection>
+    	<developerConnection>scm:git:git@github.com:tiesebarrell/process-assertions.git</developerConnection>
+    	<url>git@github.com:tiesebarrell/process-assertions.git</url>
   	</scm>
   	
   	<developers>
