@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.toxos.activiti.assertion;
+package org.toxos.activiti.assertion.internal;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,16 +23,23 @@ import org.activiti.engine.history.HistoricActivityInstance;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Assert;
+import org.toxos.activiti.assertion.LogMessage;
+import org.toxos.activiti.assertion.ProcessAssertConfiguration;
 
 /**
  * Provides assertions for end events.
  */
-final class EndEventAssert extends AbstractProcessAssert {
+final class EndEventAssert extends ProcessAssertableBase implements EndEventAssertable {
 
-    static void processEndedAndInExclusiveEndEvent(final String processInstanceId, final String endEventId) {
+    protected EndEventAssert(ProcessAssertConfiguration configuration) {
+        super(configuration);
+    }
+
+    @Override
+    public void processEndedAndInExclusiveEndEvent(final String processInstanceId, final String endEventId) {
 
         // Assert the process instance is ended
-        ProcessInstanceAssert.processIsEnded(processInstanceId);
+        new ProcessInstanceAssert(getConfiguration()).processIsEnded(processInstanceId);
 
         // Assert that there is exactly one historic activity instance for end
         // events and that it has the correct id
@@ -44,10 +51,11 @@ final class EndEventAssert extends AbstractProcessAssert {
         Assert.assertEquals(endEventId, historicActivityInstances.get(0).getActivityId());
     }
 
-    static void processEndedAndInEndEvents(final String processInstanceId, final String... endEventIds) {
+    @Override
+    public void processEndedAndInEndEvents(final String processInstanceId, final String... endEventIds) {
 
         // Assert the process instance is ended
-        ProcessInstanceAssert.processIsEnded(processInstanceId);
+        new ProcessInstanceAssert(getConfiguration()).processIsEnded(processInstanceId);
 
         // Assert that there are the exact amount of historic activity instances
         // for end events and that ids match exactly

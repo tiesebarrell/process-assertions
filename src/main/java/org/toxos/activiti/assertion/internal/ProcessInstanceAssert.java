@@ -13,18 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.toxos.activiti.assertion;
+package org.toxos.activiti.assertion.internal;
 
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.junit.Assert;
+import org.toxos.activiti.assertion.LogMessage;
+import org.toxos.activiti.assertion.ProcessAssertConfiguration;
 
 /**
  * Provides assertions for process instances.
  */
-final class ProcessInstanceAssert extends AbstractProcessAssert {
+final class ProcessInstanceAssert extends ProcessAssertableBase implements ProcessInstanceAssertable {
 
-    static void processIsActive(final String processInstanceId) {
+    protected ProcessInstanceAssert(ProcessAssertConfiguration configuration) {
+        super(configuration);
+    }
+
+    @Override
+    public void processIsActive(final String processInstanceId) {
 
         // Assert there is a running process instance
         trace(LogMessage.PROCESS_2, processInstanceId);
@@ -46,7 +53,8 @@ final class ProcessInstanceAssert extends AbstractProcessAssert {
 
     }
 
-    static void processIsEnded(final String processInstanceId) {
+    @Override
+    public void processIsEnded(final String processInstanceId) {
 
         // Assert there is no running process instance
         trace(LogMessage.PROCESS_6, processInstanceId);

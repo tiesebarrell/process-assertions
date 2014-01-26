@@ -58,7 +58,7 @@ public abstract class AbstractLogMessageTest {
 
     private String getLocaleSpecificPath() {
         String result = "";
-        if (ProcessAssert.getConfiguration() != null && !DefaultProcessAssertConfiguration.DEFAULT_LOCALE.equals(ProcessAssert.getConfiguration().getLocale())) {
+        if (ProcessAssert.getConfiguration() != null && !Constants.DEFAULT_LOCALE.equals(ProcessAssert.getConfiguration().getLocale())) {
             result = "_" + ProcessAssert.getConfiguration().getLocale().toString();
         }
         return result;

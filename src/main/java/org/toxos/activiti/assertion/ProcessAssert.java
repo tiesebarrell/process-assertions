@@ -19,7 +19,12 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.Validate;
-import org.junit.Assert;
+import org.toxos.activiti.assertion.internal.AssertFactory;
+import org.toxos.activiti.assertion.internal.AssertFactoryImpl;
+import org.toxos.activiti.assertion.internal.EndEventAssertable;
+import org.toxos.activiti.assertion.internal.FallbackProcessAssertConfiguration;
+import org.toxos.activiti.assertion.internal.ProcessInstanceAssertable;
+import org.toxos.activiti.assertion.internal.TaskInstanceAssertable;
 
 /**
  * Provides assertions for integration test cases that execute processes with
@@ -28,6 +33,8 @@ import org.junit.Assert;
 public final class ProcessAssert extends AbstractProcessAssert {
 
     static ProcessAssertConfiguration configuration;
+
+    static AssertFactory assertFactory = new AssertFactoryImpl();
 
     private ProcessAssert() {
         super();
@@ -50,6 +57,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
      * @return the configuration
      */
     public static final ProcessAssertConfiguration getConfiguration() {
+        initializeConfiguration();
         return configuration;
     }
 
@@ -80,7 +88,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
         Validate.notNull(processInstanceId);
         debug(LogMessage.PROCESS_1, processInstanceId);
         try {
-            ProcessInstanceAssert.processIsActive(processInstanceId);
+            getProcessInstanceAssertable().processIsActive(processInstanceId);
         } catch (final AssertionError ae) {
             fail(LogMessage.ERROR_PROCESS_1, processInstanceId);
         }
@@ -111,7 +119,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
         Validate.notNull(processInstanceId);
         debug(LogMessage.PROCESS_5, processInstanceId);
         try {
-            ProcessInstanceAssert.processIsEnded(processInstanceId);
+            getProcessInstanceAssertable().processIsEnded(processInstanceId);
         } catch (final AssertionError ae) {
             fail(LogMessage.ERROR_PROCESS_2, processInstanceId);
         }
@@ -143,7 +151,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 
         debug(LogMessage.TASK_2, taskId);
         try {
-            TaskInstanceAssert.taskIsUncompleted(taskId);
+            getTaskInstanceAssertable().taskIsUncompleted(taskId);
         } catch (final AssertionError ae) {
             fail(LogMessage.ERROR_TASK_2, taskId);
         }
@@ -179,7 +187,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 
         debug(LogMessage.TASK_1, taskDefinitionKey, processInstanceId);
         try {
-            TaskInstanceAssert.taskIsUncompleted(processInstanceId, taskDefinitionKey);
+            getTaskInstanceAssertable().taskIsUncompleted(processInstanceId, taskDefinitionKey);
         } catch (final AssertionError ae) {
             fail(LogMessage.ERROR_TASK_1, taskDefinitionKey, processInstanceId);
         }
@@ -262,7 +270,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 
         debug(LogMessage.PROCESS_9, processInstanceId, endEventId);
         try {
-            EndEventAssert.processEndedAndInExclusiveEndEvent(processInstanceId, endEventId);
+            getEndEventAssertable().processEndedAndInExclusiveEndEvent(processInstanceId, endEventId);
         } catch (final AssertionError ae) {
             fail(LogMessage.ERROR_PROCESS_3, processInstanceId, endEventId);
         }
@@ -310,7 +318,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 
         debug(LogMessage.PROCESS_11, processInstanceId, ArrayUtils.toString(endEventIds));
         try {
-            EndEventAssert.processEndedAndInEndEvents(processInstanceId, endEventIds);
+            getEndEventAssertable().processEndedAndInEndEvents(processInstanceId, endEventIds);
         } catch (final AssertionError ae) {
             fail(LogMessage.ERROR_PROCESS_4, processInstanceId, ArrayUtils.toString(endEventIds));
         }
@@ -374,13 +382,26 @@ public final class ProcessAssert extends AbstractProcessAssert {
     public static void assertHistoricProcessVariableLatestValueEquals(final String processInstanceId, final String processVariableName,
             final Object expectedValue) {
 
-        if (!AssertUtils.historyLevelIsFull()) {
-            Assert.fail("To check for latest historic values of process variables, the history level of the Activiti ProcessEngine must be set to full.");
-        }
-
         // Assert.assertTrue(historicProcessVariableLatestValueEquals(
         // processInstanceId, processVariableName,
         // expectedValue));
     }
 
+    private static void initializeConfiguration() {
+        if (configuration == null) {
+            configuration = new FallbackProcessAssertConfiguration();
+        }
+    }
+
+    private static ProcessInstanceAssertable getProcessInstanceAssertable() {
+        return assertFactory.getProcessInstanceAssertable(getConfiguration());
+    }
+
+    private static EndEventAssertable getEndEventAssertable() {
+        return assertFactory.getEndEventAssertable(getConfiguration());
+    }
+
+    private static TaskInstanceAssertable getTaskInstanceAssertable() {
+        return assertFactory.getTaskInstanceAssertable(getConfiguration());
+    }
 }

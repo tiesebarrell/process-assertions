@@ -13,19 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.toxos.activiti.assertion;
+package org.toxos.activiti.assertion.internal;
 
 import java.util.List;
 
 import org.activiti.engine.task.Task;
 import org.junit.Assert;
+import org.toxos.activiti.assertion.LogMessage;
+import org.toxos.activiti.assertion.ProcessAssertConfiguration;
 
 /**
  * Provides assertions for task instances.
  */
-final class TaskInstanceAssert extends AbstractProcessAssert {
+final class TaskInstanceAssert extends ProcessAssertableBase implements TaskInstanceAssertable {
 
-    static void taskIsUncompleted(final String taskId) {
+    protected TaskInstanceAssert(ProcessAssertConfiguration configuration) {
+        super(configuration);
+    }
+
+    @Override
+    public void taskIsUncompleted(final String taskId) {
 
         // Assert a task exists
         trace(LogMessage.TASK_3, taskId);
@@ -33,14 +40,15 @@ final class TaskInstanceAssert extends AbstractProcessAssert {
         Assert.assertNotNull(task);
 
         // Assert the process is not completed
-        ProcessInstanceAssert.processIsActive(task.getProcessInstanceId());
+        new ProcessInstanceAssert(getConfiguration()).processIsActive(task.getProcessInstanceId());
 
     }
 
-    static void taskIsUncompleted(final String processInstanceId, final String taskDefinitionKey) {
+    @Override
+    public void taskIsUncompleted(final String processInstanceId, final String taskDefinitionKey) {
 
         // Assert the process is not completed
-        ProcessInstanceAssert.processIsActive(processInstanceId);
+        new ProcessInstanceAssert(getConfiguration()).processIsActive(processInstanceId);
 
         // Assert a task exists
         trace(LogMessage.TASK_4, taskDefinitionKey, processInstanceId);

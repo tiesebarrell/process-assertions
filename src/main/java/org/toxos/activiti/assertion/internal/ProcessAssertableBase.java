@@ -13,24 +13,82 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.toxos.activiti.assertion;
+package org.toxos.activiti.assertion.internal;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.ProcessEngine;
+import org.activiti.engine.ProcessEngines;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricDetail;
 import org.activiti.engine.history.HistoricVariableUpdate;
 import org.activiti.engine.impl.ProcessEngineImpl;
 import org.activiti.engine.impl.history.HistoryLevel;
+import org.toxos.activiti.assertion.AbstractProcessAssert;
+import org.toxos.activiti.assertion.ProcessAssertConfiguration;
 
 /**
- * Provides utilities for process assertions.
+ * Base class for process assertables. Provides access to services from
+ * configuration.
+ * 
+ * @author Tiese Barrell
+ * 
  */
-final class AssertUtils extends AbstractProcessAssert {
+class ProcessAssertableBase extends AbstractProcessAssert {
 
-    private AssertUtils() {
+    private final ProcessAssertConfiguration configuration;
+
+    protected ProcessAssertableBase(final ProcessAssertConfiguration configuration) {
         super();
+        this.configuration = configuration;
+    }
+
+    /**
+     * Gets the {@link RuntimeService} from the configuration.
+     * 
+     * @return the runtime service
+     */
+    protected final RuntimeService getRuntimeService() {
+        return configuration.getEngineServices().getRuntimeService();
+    }
+
+    /**
+     * Gets the {@link TaskService} from the configuration.
+     * 
+     * @return the task service
+     */
+    protected final TaskService getTaskService() {
+        return configuration.getEngineServices().getTaskService();
+    }
+
+    /**
+     * Gets the {@link HistoryService} from the configuration.
+     * 
+     * @return the history service
+     */
+    protected final HistoryService getHistoryService() {
+        return configuration.getEngineServices().getHistoryService();
+    }
+
+    /**
+     * Gets the {@link ProcessEngine}.
+     * 
+     * @return the process engine
+     */
+    protected final ProcessEngine getProcessEngine() {
+        return ProcessEngines.getDefaultProcessEngine();
+    }
+
+    /**
+     * Gets the configuration for this assertable.
+     * 
+     * @return the process assert configuration
+     */
+    protected ProcessAssertConfiguration getConfiguration() {
+        return configuration;
     }
 
     /**
@@ -39,7 +97,7 @@ final class AssertUtils extends AbstractProcessAssert {
      * 
      * @return true if the history level is set to full, false otherwise
      */
-    static boolean historyLevelIsFull() {
+    protected final boolean historyLevelIsFull() {
 
         boolean result = false;
 
@@ -64,7 +122,7 @@ final class AssertUtils extends AbstractProcessAssert {
      *            the name of the process variable to get the updates for
      * @return a list of variable updates, in descending order
      */
-    static List<HistoricVariableUpdate> getDescendingVariableUpdates(final String processInstanceId, final String processVariableName) {
+    protected final List<HistoricVariableUpdate> getDescendingVariableUpdates(final String processInstanceId, final String processVariableName) {
 
         final List<HistoricVariableUpdate> result = new ArrayList<HistoricVariableUpdate>();
 

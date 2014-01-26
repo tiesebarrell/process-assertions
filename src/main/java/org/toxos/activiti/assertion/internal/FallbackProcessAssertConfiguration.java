@@ -13,34 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.toxos.activiti.assertion.suite.locale;
+package org.toxos.activiti.assertion.internal;
 
 import java.util.Locale;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.activiti.engine.EngineServices;
+import org.activiti.engine.ProcessEngines;
+import org.toxos.activiti.assertion.Constants;
 import org.toxos.activiti.assertion.DefaultProcessAssertConfiguration;
-import org.toxos.activiti.assertion.ProcessAssert;
-import org.toxos.activiti.assertion.internal.FallbackProcessAssertConfiguration;
+import org.toxos.activiti.assertion.ProcessAssertConfiguration;
 
 /**
- * Test suite for the nl-NL locale.
+ * Fallback implementation of {@link ProcessAssertConfiguration}.
+ * 
+ * @author Tiese Barrell
+ * 
  */
-@RunWith(Suite.class)
-@SuiteClasses({ AllLocaleSpecificTests.class })
-public class AllTestsWithLocaleNlNl {
+public class FallbackProcessAssertConfiguration extends DefaultProcessAssertConfiguration {
 
-    @BeforeClass
-    public static void beforeClass() {
-        ProcessAssert.setConfiguration(new DefaultProcessAssertConfiguration(new Locale("nl", "NL")));
+    public FallbackProcessAssertConfiguration() {
+        super();
+        this.locale = Constants.DEFAULT_LOCALE;
+        this.engineServices = ProcessEngines.getDefaultProcessEngine();
     }
 
-    @AfterClass
-    public static void afterClass() {
-        ProcessAssert.setConfiguration(new FallbackProcessAssertConfiguration());
+    @Override
+    public Locale getLocale() {
+        return locale;
+    }
+
+    @Override
+    public EngineServices getEngineServices() {
+        return engineServices;
     }
 
 }

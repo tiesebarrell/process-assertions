@@ -13,29 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.toxos.activiti.assertion;
+package org.toxos.activiti.assertion.internal;
 
-import java.util.Locale;
+import org.toxos.activiti.assertion.ProcessAssertConfiguration;
 
 /**
- * Constants for process assertions.
- * 
- * @author Tiese Barrell
- * 
+ * Provides utilities for process assertions.
  */
-public final class Constants {
+final class AssertUtils extends ProcessAssertableBase {
 
-    /**
-     * The default {@link Locale} used for logging messages.
-     */
-    public static final Locale DEFAULT_LOCALE = new Locale("en", "US");
-
-    /**
-     * The name for the bundle containing log messages.
-     */
-    static final String LOG_MESSAGES_BUNDLE_NAME = "messages.LogMessages";
-
-    private Constants() {
-        super();
+    protected AssertUtils(ProcessAssertConfiguration configuration) {
+        super(configuration);
     }
+
 }

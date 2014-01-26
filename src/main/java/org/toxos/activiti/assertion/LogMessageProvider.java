@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
  * @author Tiese Barrell
  * 
  */
-public class LogMessageProvider {
+class LogMessageProvider {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LogMessageProvider.class);
 
