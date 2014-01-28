@@ -16,7 +16,10 @@
 package org.toxos.activiti.assertion.process;
 
 /**
- *
+ * Constants for the two user tasks process.
+ * 
+ * @author Tiese Barrell
+ * 
  */
 public enum TwoUserTasksProcessConstant {
 

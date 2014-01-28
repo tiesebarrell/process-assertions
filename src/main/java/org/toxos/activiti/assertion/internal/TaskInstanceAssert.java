@@ -24,6 +24,8 @@ import org.toxos.activiti.assertion.ProcessAssertConfiguration;
 
 /**
  * Provides assertions for task instances.
+ * 
+ * @author Tiese Barrell
  */
 final class TaskInstanceAssert extends ProcessAssertableBase implements TaskInstanceAssertable {
 

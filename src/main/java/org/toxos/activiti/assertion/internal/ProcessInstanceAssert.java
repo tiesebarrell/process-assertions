@@ -23,6 +23,8 @@ import org.toxos.activiti.assertion.ProcessAssertConfiguration;
 
 /**
  * Provides assertions for process instances.
+ * 
+ * @author Tiese Barrell
  */
 final class ProcessInstanceAssert extends ProcessAssertableBase implements ProcessInstanceAssertable {
 

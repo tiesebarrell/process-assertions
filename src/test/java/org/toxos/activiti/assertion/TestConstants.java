@@ -17,6 +17,8 @@ package org.toxos.activiti.assertion;
 
 /**
  * Constants for test cases.
+ * 
+ * @author Tiese Barrell
  */
 public interface TestConstants {
     /**

@@ -22,6 +22,8 @@ import org.toxos.activiti.assertion.suite.locale.AllTestsAllLocales;
 
 /**
  * Test suite for running integration builds.
+ * 
+ * @author Tiese Barrell
  */
 @RunWith(Suite.class)
 @SuiteClasses({ AllTests.class, AllTestsAllLocales.class })

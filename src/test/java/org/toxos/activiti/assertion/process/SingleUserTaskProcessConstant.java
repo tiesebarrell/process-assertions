@@ -17,6 +17,8 @@ package org.toxos.activiti.assertion.process;
 
 /**
  * Constants for the single user task process.
+ * 
+ * @author Tiese Barrell
  */
 public enum SingleUserTaskProcessConstant {
 

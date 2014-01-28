@@ -27,6 +27,8 @@ import org.toxos.activiti.assertion.TaskIsUncompletedByTaskAssertionsTest;
 
 /**
  * Test suite for process assertion tests.
+ * 
+ * @author Tiese Barrell
  */
 @RunWith(Suite.class)
 @SuiteClasses({ ProcessIsActiveAssertionsTest.class, ProcessIsEndedAssertionsTest.class, TaskIsUncompletedByTaskAssertionsTest.class,

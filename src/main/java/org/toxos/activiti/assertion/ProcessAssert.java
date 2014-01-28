@@ -28,6 +28,8 @@ import org.toxos.activiti.assertion.internal.TaskInstanceAssertable;
 /**
  * Provides assertions for integration test cases that execute processes with
  * Activiti.
+ * 
+ * @author Tiese Barrell
  */
 public final class ProcessAssert extends AbstractProcessAssert {
 

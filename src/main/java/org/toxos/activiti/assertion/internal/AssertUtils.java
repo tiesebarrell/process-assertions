@@ -19,6 +19,8 @@ import org.toxos.activiti.assertion.ProcessAssertConfiguration;
 
 /**
  * Provides utilities for process assertions.
+ * 
+ * @author Tiese Barrell
  */
 final class AssertUtils extends ProcessAssertableBase {
 

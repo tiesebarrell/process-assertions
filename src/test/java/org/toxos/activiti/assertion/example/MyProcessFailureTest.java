@@ -29,6 +29,8 @@ import org.toxos.activiti.assertion.ProcessAssert;
  * Example test for MyProcess intended to generate a failure to illustrate
  * ProcessAssert's failure descriptions in the IDE.
  * 
+ * @author Tiese Barrell
+ * 
  */
 public class MyProcessFailureTest {
 

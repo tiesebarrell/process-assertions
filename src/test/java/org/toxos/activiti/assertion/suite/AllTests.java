@@ -21,6 +21,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Test suite for all test cases.
+ * 
+ * @author Tiese Barrell
  */
 @RunWith(Suite.class)
 @SuiteClasses({ AssertionTests.class, LocaleUtilityTests.class, AssertionExampleTests.class, GenericUtilityTests.class })

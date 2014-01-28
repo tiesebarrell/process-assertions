@@ -23,6 +23,8 @@ import org.toxos.activiti.assertion.LogMessageProviderTest;
 
 /**
  * Test suite for generic tests.
+ * 
+ * @author Tiese Barrell
  */
 @RunWith(Suite.class)
 @SuiteClasses({ LogMessageGenericTest.class, LogMessageProviderTest.class })

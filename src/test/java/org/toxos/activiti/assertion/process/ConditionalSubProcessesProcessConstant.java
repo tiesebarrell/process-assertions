@@ -17,6 +17,8 @@ package org.toxos.activiti.assertion.process;
 
 /**
  * Constants for the conditional subprocess process.
+ * 
+ * @author Tiese Barrell
  */
 public enum ConditionalSubProcessesProcessConstant {
 

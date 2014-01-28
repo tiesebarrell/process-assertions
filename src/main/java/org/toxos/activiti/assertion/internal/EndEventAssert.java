@@ -28,6 +28,8 @@ import org.toxos.activiti.assertion.ProcessAssertConfiguration;
 
 /**
  * Provides assertions for end events.
+ * 
+ * @author Tiese Barrell
  */
 final class EndEventAssert extends ProcessAssertableBase implements EndEventAssertable {
 

@@ -28,6 +28,8 @@ import org.toxos.activiti.assertion.ProcessAssert;
 
 /**
  * Test suite for the default locale.
+ * 
+ * @author Tiese Barrell
  */
 @RunWith(Suite.class)
 @SuiteClasses({ AllLocaleSpecificTests.class })

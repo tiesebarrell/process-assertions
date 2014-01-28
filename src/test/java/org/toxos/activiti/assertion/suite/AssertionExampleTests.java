@@ -22,6 +22,8 @@ import org.toxos.activiti.assertion.example.MyProcessTest;
 
 /**
  * Test suite for the assertion example tests.
+ * 
+ * @author Tiese Barrell
  */
 @RunWith(Suite.class)
 @SuiteClasses({ MyProcessTest.class })

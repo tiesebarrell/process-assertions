@@ -22,6 +22,8 @@ import org.toxos.activiti.assertion.LogMessageLocaleTest;
 
 /**
  * Test suite for assertion utility tests.
+ * 
+ * @author Tiese Barrell
  */
 @RunWith(Suite.class)
 @SuiteClasses({ LogMessageLocaleTest.class })

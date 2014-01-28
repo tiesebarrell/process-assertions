@@ -23,6 +23,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.toxos.activiti.assertion.ProcessAssert;
 
+/**
+ * Example test for a simple process checked using process assertions.
+ * 
+ * @author Tiese Barrell
+ * 
+ */
 public class MyProcessTest {
 
     @Rule

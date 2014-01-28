@@ -23,6 +23,8 @@ import org.toxos.activiti.assertion.ProcessAssertConfiguration;
 
 /**
  * Provides assertions for historic variable instances.
+ * 
+ * @author Tiese Barrell
  */
 final class HistoricVariableInstanceAssert extends ProcessAssertableBase implements HistoricVariableInstanceAssertable {
 

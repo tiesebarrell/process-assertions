@@ -24,6 +24,8 @@ import org.toxos.activiti.assertion.suite.LocaleUtilityTests;
 
 /**
  * Test suite for all test cases that are specific for locales.
+ * 
+ * @author Tiese Barrell
  */
 @RunWith(Suite.class)
 @SuiteClasses({ AssertionTests.class, LocaleUtilityTests.class, AssertionExampleTests.class })
