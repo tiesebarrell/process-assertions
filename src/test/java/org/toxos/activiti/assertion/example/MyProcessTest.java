@@ -19,22 +19,14 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
 import org.activiti.engine.test.Deployment;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.toxos.activiti.assertion.DefaultProcessAssertConfiguration;
 import org.toxos.activiti.assertion.ProcessAssert;
 
 public class MyProcessTest {
 
     @Rule
-    public ActivitiRule activitiRule = new ActivitiRule("example/activiti.cfg.xml");
-
-    @Before
-    public void before() {
-        // set the configuration with the ActivitiRule
-        ProcessAssert.setConfiguration(new DefaultProcessAssertConfiguration(activitiRule));
-    }
+    public ActivitiRule activitiRule = new ActivitiRule("application-context.xml");
 
     @Test
     @Deployment(resources = "example/MyProcess.bpmn")

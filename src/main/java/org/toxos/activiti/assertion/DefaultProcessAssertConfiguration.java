@@ -18,7 +18,11 @@ package org.toxos.activiti.assertion;
 import java.util.Locale;
 
 import org.activiti.engine.EngineServices;
+import org.activiti.engine.ProcessEngine;
+import org.activiti.engine.ProcessEngineConfiguration;
+import org.activiti.engine.ProcessEngineLifecycleListener;
 import org.activiti.engine.ProcessEngines;
+import org.activiti.engine.impl.ProcessEngineImpl;
 import org.activiti.engine.test.ActivitiRule;
 
 /**
@@ -37,7 +41,6 @@ public class DefaultProcessAssertConfiguration implements ProcessAssertConfigura
     protected DefaultProcessAssertConfiguration() {
         super();
         this.locale = Constants.DEFAULT_LOCALE;
-        this.engineServices = ProcessEngines.getDefaultProcessEngine();
     }
 
     public DefaultProcessAssertConfiguration(final Locale locale) {
@@ -68,6 +71,7 @@ public class DefaultProcessAssertConfiguration implements ProcessAssertConfigura
 
     @Override
     public EngineServices getEngineServices() {
+        initializeEngineServices();
         return engineServices;
     }
 
@@ -77,10 +81,44 @@ public class DefaultProcessAssertConfiguration implements ProcessAssertConfigura
 
     public void setEngineServices(final EngineServices engineServices) {
         this.engineServices = engineServices;
+        registerProcessEngineCloseListener();
     }
 
     public void setActivitiRule(final ActivitiRule activitiRule) {
-        this.engineServices = activitiRule.getProcessEngine();
+        setEngineServices(activitiRule.getProcessEngine());
+    }
+
+    private void initializeEngineServices() {
+        if (this.engineServices == null) {
+            setEngineServices(ProcessEngines.getDefaultProcessEngine());
+        }
+    }
+
+    private void registerProcessEngineCloseListener() {
+        ProcessEngineConfiguration configuration = null;
+
+        if (this.engineServices instanceof ProcessEngineConfiguration) {
+            configuration = (ProcessEngineConfiguration) this.engineServices;
+        } else if (this.engineServices instanceof ProcessEngineImpl) {
+            configuration = ((ProcessEngineImpl) this.engineServices).getProcessEngineConfiguration();
+        }
+
+        if (configuration != null) {
+            configuration.setProcessEngineLifecycleListener(new ProcessEngineCloseListener());
+        }
+    }
+
+    private final class ProcessEngineCloseListener implements ProcessEngineLifecycleListener {
+
+        @Override
+        public void onProcessEngineClosed(final ProcessEngine processEngine) {
+            engineServices = null;
+        }
+
+        @Override
+        public void onProcessEngineBuilt(final ProcessEngine processEngine) {
+            // no-op
+        }
     }
 
 }

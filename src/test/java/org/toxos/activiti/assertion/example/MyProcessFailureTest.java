@@ -33,7 +33,7 @@ import org.toxos.activiti.assertion.ProcessAssert;
 public class MyProcessFailureTest {
 
     @Rule
-    public ActivitiRule activitiRule = new ActivitiRule("example/activiti.cfg.xml");
+    public ActivitiRule activitiRule = new ActivitiRule("application-context.xml");
 
     @Before
     public void before() {

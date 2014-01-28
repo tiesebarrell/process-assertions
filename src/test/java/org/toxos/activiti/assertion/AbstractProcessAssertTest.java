@@ -18,7 +18,6 @@ package org.toxos.activiti.assertion;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.test.ActivitiRule;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,15 +41,5 @@ public abstract class AbstractProcessAssertTest implements TestConstants {
 
     @Autowired
     protected TaskService taskService;
-
-    @Before
-    public void before() {
-        // create a new configuration, keeping any Locales that are set intact
-        if (ProcessAssert.getConfiguration() == null) {
-            ProcessAssert.setConfiguration(new DefaultProcessAssertConfiguration(activitiRule));
-        } else {
-            ProcessAssert.setConfiguration(new DefaultProcessAssertConfiguration(ProcessAssert.getConfiguration().getLocale(), activitiRule));
-        }
-    }
 
 }

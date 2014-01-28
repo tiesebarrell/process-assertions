@@ -22,9 +22,9 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
+import org.toxos.activiti.assertion.Constants;
 import org.toxos.activiti.assertion.DefaultProcessAssertConfiguration;
 import org.toxos.activiti.assertion.ProcessAssert;
-import org.toxos.activiti.assertion.internal.FallbackProcessAssertConfiguration;
 
 /**
  * Test suite for the default locale.
@@ -40,7 +40,7 @@ public class AllTestsWithLocaleEnUs {
 
     @AfterClass
     public static void afterClass() {
-        ProcessAssert.setConfiguration(new FallbackProcessAssertConfiguration());
+        ProcessAssert.setConfiguration(new DefaultProcessAssertConfiguration(Constants.DEFAULT_LOCALE));
     }
 
 }

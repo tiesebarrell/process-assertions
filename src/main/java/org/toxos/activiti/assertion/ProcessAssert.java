@@ -22,7 +22,6 @@ import org.apache.commons.lang3.Validate;
 import org.toxos.activiti.assertion.internal.AssertFactory;
 import org.toxos.activiti.assertion.internal.AssertFactoryImpl;
 import org.toxos.activiti.assertion.internal.EndEventAssertable;
-import org.toxos.activiti.assertion.internal.FallbackProcessAssertConfiguration;
 import org.toxos.activiti.assertion.internal.ProcessInstanceAssertable;
 import org.toxos.activiti.assertion.internal.TaskInstanceAssertable;
 
@@ -389,7 +388,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
 
     private static void initializeConfiguration() {
         if (configuration == null) {
-            configuration = new FallbackProcessAssertConfiguration();
+            configuration = new DefaultProcessAssertConfiguration();
         }
     }
 
