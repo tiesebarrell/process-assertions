@@ -26,8 +26,7 @@ import org.toxos.activiti.assertion.internal.ProcessInstanceAssertable;
 import org.toxos.activiti.assertion.internal.TaskInstanceAssertable;
 
 /**
- * Provides assertions for integration test cases that execute processes with
- * Activiti.
+ * Provides assertions for integration test cases that execute processes with Activiti.
  * 
  * @author Tiese Barrell
  */
@@ -67,11 +66,10 @@ public final class ProcessAssert extends AbstractProcessAssert {
     //
 
     /**
-     * Asserts the provided process instance is active, i.e. the process
-     * instance is not ended.
+     * Asserts the provided process instance is active, i.e. the process instance is not ended.
      * 
      * @param processInstance
-     *            the process instance to check for
+     *            the process instance to check for. May not be <code>null</code>
      */
     public static final void assertProcessActive(final ProcessInstance processInstance) {
         Validate.notNull(processInstance);
@@ -79,11 +77,10 @@ public final class ProcessAssert extends AbstractProcessAssert {
     }
 
     /**
-     * Asserts the process instance with the provided id is active, i.e. the
-     * process instance is not ended.
+     * Asserts the process instance with the provided id is active, i.e. the process instance is not ended.
      * 
      * @param processInstanceId
-     *            the process instance's id to check for
+     *            the process instance's id to check for. May not be <code>null</code>
      */
     public static final void assertProcessActive(final String processInstanceId) {
         Validate.notNull(processInstanceId);
@@ -103,7 +100,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
      * Asserts the provided process instance is ended.
      * 
      * @param processInstance
-     *            the process instance to check for
+     *            the process instance to check for. May not be <code>null</code>
      */
     public static final void assertProcessEnded(final ProcessInstance processInstance) {
         Validate.notNull(processInstance);
@@ -114,7 +111,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
      * Asserts the process instance with the provided id is ended.
      * 
      * @param processInstanceId
-     *            the process instance's id to check for
+     *            the process instance's id to check for. May not be <code>null</code>
      */
     public static final void assertProcessEnded(final String processInstanceId) {
         Validate.notNull(processInstanceId);
@@ -134,7 +131,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
      * Asserts the provided task is pending completion.
      * 
      * @param task
-     *            the task to check for
+     *            the task to check for. May not be <code>null</code>
      */
     public static final void assertTaskUncompleted(final Task task) {
         Validate.notNull(task);
@@ -145,7 +142,7 @@ public final class ProcessAssert extends AbstractProcessAssert {
      * Asserts the task with the provided id is pending completion.
      * 
      * @param taskId
-     *            the task's id to check for
+     *            the task's id to check for. May not be <code>null</code>
      */
     public static final void assertTaskUncompleted(final String taskId) {
         Validate.notNull(taskId);
@@ -159,13 +156,12 @@ public final class ProcessAssert extends AbstractProcessAssert {
     }
 
     /**
-     * Asserts a task with the provided taskDefinitionKey is pending completion
-     * in the provided process instance.
+     * Asserts a task with the provided taskDefinitionKey is pending completion in the provided process instance.
      * 
      * @param processInstance
-     *            the process instance to check for
+     *            the process instance to check for. May not be <code>null</code>
      * @param taskDefinitionKey
-     *            the task's definition key to check for
+     *            the task's definition key to check for. May not be <code>null</code>
      */
     public static final void assertTaskUncompleted(final ProcessInstance processInstance, final String taskDefinitionKey) {
         Validate.notNull(processInstance);
@@ -174,13 +170,13 @@ public final class ProcessAssert extends AbstractProcessAssert {
     }
 
     /**
-     * Asserts a task with the provided taskDefinitionKey is pending completion
-     * in the process instance with the provided processInstanceId.
+     * Asserts a task with the provided taskDefinitionKey is pending completion in the process instance with the
+     * provided processInstanceId.
      * 
      * @param processInstanceId
-     *            the process instance's id to check for
+     *            the process instance's id to check for. May not be <code>null</code>
      * @param taskDefinitionKey
-     *            the task's definition key to check for
+     *            the task's definition key to check for. May not be <code>null</code>
      */
     public static final void assertTaskUncompleted(final String processInstanceId, final String taskDefinitionKey) {
         Validate.notNull(processInstanceId);
@@ -199,35 +195,30 @@ public final class ProcessAssert extends AbstractProcessAssert {
     //
 
     /**
-     * Asserts the provided process instance is ended and has reached
-     * <strong>only</strong> the end event with the provided id.
+     * Asserts the provided process instance is ended and has reached <strong>only</strong> the end event with the
+     * provided id.
      * 
      * <p>
-     * <strong>Note:</strong> this assertion should be used for processes that
-     * have exclusive end events and no intermediate end events. This generally
-     * only applies to simple processes. If the process definition branches into
-     * non-exclusive branches with distinct end events or the process
-     * potentially has multiple end events that are reached, this method should
-     * not be used.
+     * <strong>Note:</strong> this assertion should be used for processes that have exclusive end events and no
+     * intermediate end events. This generally only applies to simple processes. If the process definition branches into
+     * non-exclusive branches with distinct end events or the process potentially has multiple end events that are
+     * reached, this method should not be used.
      * 
      * <p>
-     * To test that a process ended in an end event and that particular end
-     * event was the final event reached, use
-     * {@link #assertProcessEndedAndReachedEndStateLast(ProcessInstance, String)}
-     * instead.
+     * To test that a process ended in an end event and that particular end event was the final event reached, use
+     * {@link #assertProcessEndedAndReachedEndStateLast(ProcessInstance, String)} instead.
      * 
      * <p>
      * To assert that a process ended in an exact set of end events, use
-     * {@link #assertProcessEndedAndInEndEvents(ProcessInstance, String...)}
-     * instead.
+     * {@link #assertProcessEndedAndInEndEvents(ProcessInstance, String...)} instead.
      * 
      * @see #assertProcessEndedAndReachedEndStateLast(ProcessInstance, String)
      * @see #assertProcessEndedAndInEndEvents(ProcessInstance, String...)
      * 
      * @param processInstance
-     *            the process instance to check for
+     *            the process instance to check for. May not be <code>null</code>
      * @param endEventId
-     *            the end event's id to check for
+     *            the end event's id to check for. May not be <code>null</code>
      */
     public static final void assertProcessEndedAndInExclusiveEndEvent(final ProcessInstance processInstance, final String endEventId) {
         Validate.notNull(processInstance);
@@ -236,22 +227,18 @@ public final class ProcessAssert extends AbstractProcessAssert {
     }
 
     /**
-     * Asserts the process instance with the provided id is ended and has
-     * reached <strong>only</strong> the end event with the provided id.
+     * Asserts the process instance with the provided id is ended and has reached <strong>only</strong> the end event
+     * with the provided id.
      * 
      * <p>
-     * <strong>Note:</strong> this assertion should be used for processes that
-     * have exclusive end events and no intermediate end events. This generally
-     * only applies to simple processes. If the process definition branches into
-     * non-exclusive branches with distinct end events or the process
-     * potentially has multiple end events that are reached, this method should
-     * not be used.
+     * <strong>Note:</strong> this assertion should be used for processes that have exclusive end events and no
+     * intermediate end events. This generally only applies to simple processes. If the process definition branches into
+     * non-exclusive branches with distinct end events or the process potentially has multiple end events that are
+     * reached, this method should not be used.
      * 
      * <p>
-     * To test that a process ended in an end event and that particular end
-     * event was the final event reached, use
-     * {@link #assertProcessEndedAndReachedEndStateLast(String, String)}
-     * instead.
+     * To test that a process ended in an end event and that particular end event was the final event reached, use
+     * {@link #assertProcessEndedAndReachedEndStateLast(String, String)} instead.
      * 
      * <p>
      * To assert that a process ended in an exact set of end events, use
@@ -261,9 +248,9 @@ public final class ProcessAssert extends AbstractProcessAssert {
      * @see #assertProcessEndedAndInEndEvents(String, String...)
      * 
      * @param processInstanceId
-     *            the process instance's id to check for
+     *            the process instance's id to check for. May not be <code>null</code>
      * @param endEventId
-     *            the end event's id to check for
+     *            the end event's id to check for. May not be <code>null</code>
      */
     public static void assertProcessEndedAndInExclusiveEndEvent(final String processInstanceId, final String endEventId) {
         Validate.notNull(processInstanceId);
@@ -278,19 +265,18 @@ public final class ProcessAssert extends AbstractProcessAssert {
     }
 
     /**
-     * Asserts the provided process instance is ended and has reached
-     * <strong>all</strong> end events with the provided ids.
+     * Asserts the provided process instance is ended and has reached <strong>all</strong> end events with the provided
+     * ids.
      * 
      * <p>
-     * <strong>Note:</strong> this assertion assumes the process has one or more
-     * end events and that all of them have been reached (in other words, the
-     * exact set of provided end event ids is checked against). The order of the
-     * end events is not taken into consideration.
+     * <strong>Note:</strong> this assertion assumes the process has one or more end events and that all of them have
+     * been reached (in other words, the exact set of provided end event ids is checked against). The order of the end
+     * events is not taken into consideration.
      * 
      * @param processInstance
-     *            the process instance to check for
+     *            the process instance to check for. May not be <code>null</code>
      * @param endEventIds
-     *            the end events' ids to check for
+     *            the end events' ids to check for. May not be <code>null</code>
      */
     public static final void assertProcessEndedAndInEndEvents(final ProcessInstance processInstance, final String... endEventIds) {
         Validate.notNull(processInstance);
@@ -299,19 +285,18 @@ public final class ProcessAssert extends AbstractProcessAssert {
     }
 
     /**
-     * Asserts the process instance with the provided id is ended and has
-     * reached <strong>all</strong> end events with the provided ids.
+     * Asserts the process instance with the provided id is ended and has reached <strong>all</strong> end events with
+     * the provided ids.
      * 
      * <p>
-     * <strong>Note:</strong> this assertion assumes the process has one or more
-     * end events and that all of them have been reached (in other words, the
-     * exact set of provided end event ids is checked against). The order of the
-     * end events is not taken into consideration.
+     * <strong>Note:</strong> this assertion assumes the process has one or more end events and that all of them have
+     * been reached (in other words, the exact set of provided end event ids is checked against). The order of the end
+     * events is not taken into consideration.
      * 
      * @param processInstanceId
-     *            the process instance's id to check for
+     *            the process instance's id to check for. May not be <code>null</code>
      * @param endEventIds
-     *            the end events' ids to check for
+     *            the end events' ids to check for. May not be <code>null</code>
      */
     public static void assertProcessEndedAndInEndEvents(final String processInstanceId, final String... endEventIds) {
         Validate.notNull(processInstanceId);
@@ -340,22 +325,20 @@ public final class ProcessAssert extends AbstractProcessAssert {
     //
 
     /**
-     * Asserts that the process variable with the provided name is available in
-     * the provided process instance's history and that the <em>latest</em>
-     * value of that variable matches the provided expected value.
+     * Asserts that the process variable with the provided name is available in the provided process instance's history
+     * and that the <em>latest</em> value of that variable matches the provided expected value.
      * 
      * <p>
-     * <strong>Note:</strong> the latest value for the variable is used to check
-     * against. This does not imply the variable has not had other values during
-     * the execution of the process.
+     * <strong>Note:</strong> the latest value for the variable is used to check against. This does not imply the
+     * variable has not had other values during the execution of the process.
      * </p>
      * 
      * @param processInstance
-     *            the process instance to check for
+     *            the process instance to check for. May not be <code>null</code>
      * @param processVariableName
-     *            the name of the process variable to check
+     *            the name of the process variable to check. May not be <code>null</code>
      * @param expectedValue
-     *            the expected value for the process variable
+     *            the expected value for the process variable. May not be <code>null</code>
      */
     public static void assertHistoricProcessVariableLatestValueEquals(final ProcessInstance processInstance, final String processVariableName,
             final Object expectedValue) {
@@ -363,22 +346,20 @@ public final class ProcessAssert extends AbstractProcessAssert {
     }
 
     /**
-     * Asserts that the process variable with the provided name is available in
-     * the provided process instance's history and that the <em>latest</em>
-     * value of that variable matches the provided expected value.
+     * Asserts that the process variable with the provided name is available in the provided process instance's history
+     * and that the <em>latest</em> value of that variable matches the provided expected value.
      * 
      * <p>
-     * <strong>Note:</strong> the latest value for the variable is used to check
-     * against. This does not imply the variable has not had other values during
-     * the execution of the process.
+     * <strong>Note:</strong> the latest value for the variable is used to check against. This does not imply the
+     * variable has not had other values during the execution of the process.
      * </p>
      * 
      * @param processInstanceId
-     *            the id of the process instance to check for
+     *            the id of the process instance to check for. May not be <code>null</code>
      * @param processVariableName
-     *            the name of the process variable to check
+     *            the name of the process variable to check. May not be <code>null</code>
      * @param expectedValue
-     *            the expected value for the process variable
+     *            the expected value for the process variable. May not be <code>null</code>
      */
     public static void assertHistoricProcessVariableLatestValueEquals(final String processInstanceId, final String processVariableName,
             final Object expectedValue) {
