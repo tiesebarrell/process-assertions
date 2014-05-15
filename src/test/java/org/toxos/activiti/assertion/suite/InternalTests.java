@@ -18,14 +18,17 @@ package org.toxos.activiti.assertion.suite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
+import org.toxos.activiti.assertion.internal.AssertFactoryImplTest;
+import org.toxos.activiti.assertion.internal.ProcessInstanceAssertProcessIsActiveTest;
+import org.toxos.activiti.assertion.internal.ProcessInstanceAssertProcessIsEndedTest;
 
 /**
- * Test suite for all test cases.
+ * Test suite for internal tests.
  * 
  * @author Tiese Barrell
  */
 @RunWith(Suite.class)
-@SuiteClasses({ AssertionTests.class, LocaleUtilityTests.class, AssertionExampleTests.class, GenericUtilityTests.class, InternalTests.class })
-public class AllTests {
+@SuiteClasses({ AssertFactoryImplTest.class, ProcessInstanceAssertProcessIsActiveTest.class, ProcessInstanceAssertProcessIsEndedTest.class })
+public class InternalTests {
 
 }
