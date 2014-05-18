@@ -21,6 +21,7 @@ import org.junit.runners.Suite.SuiteClasses;
 import org.toxos.activiti.assertion.internal.AssertFactoryImplTest;
 import org.toxos.activiti.assertion.internal.ProcessInstanceAssertProcessIsActiveTest;
 import org.toxos.activiti.assertion.internal.ProcessInstanceAssertProcessIsEndedTest;
+import org.toxos.activiti.assertion.internal.TaskInstanceAssertTaskIsUncompletedByDefinitionIdTest;
 import org.toxos.activiti.assertion.internal.TaskInstanceAssertTaskIsUncompletedByIdTest;
 
 /**
@@ -30,7 +31,7 @@ import org.toxos.activiti.assertion.internal.TaskInstanceAssertTaskIsUncompleted
  */
 @RunWith(Suite.class)
 @SuiteClasses({ AssertFactoryImplTest.class, ProcessInstanceAssertProcessIsActiveTest.class, ProcessInstanceAssertProcessIsEndedTest.class,
-        TaskInstanceAssertTaskIsUncompletedByIdTest.class })
+        TaskInstanceAssertTaskIsUncompletedByIdTest.class, TaskInstanceAssertTaskIsUncompletedByDefinitionIdTest.class })
 public class InternalTests {
 
 }

@@ -15,6 +15,8 @@
  ******************************************************************************/
 package org.toxos.activiti.assertion.internal;
 
+import static org.mockito.Mockito.when;
+
 import org.junit.Before;
 
 /**
@@ -30,6 +32,7 @@ public class TaskInstanceAssertTestBase extends AssertableTestBase {
     @Before
     public void beforeTaskInstanceAssertTest() throws Exception {
         classUnderTest = new TaskInstanceAssert(processAssertConfigurationMock);
+        when(processInstanceQueryMock.singleResult()).thenReturn(processInstanceMock);
     }
 
 }

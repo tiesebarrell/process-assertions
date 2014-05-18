@@ -17,39 +17,58 @@ package org.toxos.activiti.assertion.internal;
 
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.activiti.engine.task.Task;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 /**
- * Tests for {@link TaskInstanceAssert#taskIsUncompleted(String)}.
+ * Tests for {@link TaskInstanceAssert#taskIsUncompleted(String, String)}.
  * 
  * @author Tiese Barrell
  * 
  */
 @RunWith(MockitoJUnitRunner.class)
-public class TaskInstanceAssertTaskIsUncompletedByIdTest extends TaskInstanceAssertTestBase {
+public class TaskInstanceAssertTaskIsUncompletedByDefinitionIdTest extends TaskInstanceAssertTestBase {
+
+    private final String taskDefinitionKey = "testTask";
 
     @Before
     public void beforeTest() throws Exception {
+        when(taskQueryMock.processInstanceId(processInstanceId)).thenReturn(taskQueryMock);
+        when(taskQueryMock.taskDefinitionKey(taskDefinitionKey)).thenReturn(taskQueryMock);
+
+        final List<Task> tasks = new ArrayList<Task>(1);
+        tasks.add(taskMock);
+
+        when(taskQueryMock.list()).thenReturn(tasks);
     }
 
     @Test
     public void testTaskIsUncompleted() throws Exception {
-        classUnderTest.taskIsUncompleted(taskId);
+        classUnderTest.taskIsUncompleted(processInstanceId, taskDefinitionKey);
     }
 
     @Test(expected = AssertionError.class)
-    public void testTaskIsUncompleted_NoActiveTask() throws Exception {
-        when(taskQueryMock.singleResult()).thenReturn(null);
-        classUnderTest.taskIsUncompleted(taskId);
+    public void testTaskIsUncompleted_NullTasks() throws Exception {
+        when(taskQueryMock.list()).thenReturn(null);
+        classUnderTest.taskIsUncompleted(processInstanceId, taskDefinitionKey);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void testTaskIsUncompleted_NoActiveTasks() throws Exception {
+        when(taskQueryMock.list()).thenReturn(new ArrayList<Task>());
+        classUnderTest.taskIsUncompleted(processInstanceId, taskDefinitionKey);
     }
 
     @Test(expected = AssertionError.class)
     public void testTaskIsUncompleted_ProcessInstanceNotActive() throws Exception {
         when(processInstanceQueryMock.singleResult()).thenReturn(null);
-        classUnderTest.taskIsUncompleted(taskId);
+        classUnderTest.taskIsUncompleted(processInstanceId, taskDefinitionKey);
     }
 
 }
