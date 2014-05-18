@@ -13,24 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.toxos.activiti.assertion.suite;
+package org.toxos.activiti.assertion.internal;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
-import org.toxos.activiti.assertion.internal.AssertFactoryImplTest;
-import org.toxos.activiti.assertion.internal.ProcessInstanceAssertProcessIsActiveTest;
-import org.toxos.activiti.assertion.internal.ProcessInstanceAssertProcessIsEndedTest;
-import org.toxos.activiti.assertion.internal.TaskInstanceAssertTaskIsUncompletedByIdTest;
+import org.junit.Before;
 
 /**
- * Test suite for internal tests.
+ * Base class for {@link TaskInstanceAssert} tests.
  * 
  * @author Tiese Barrell
+ * 
  */
-@RunWith(Suite.class)
-@SuiteClasses({ AssertFactoryImplTest.class, ProcessInstanceAssertProcessIsActiveTest.class, ProcessInstanceAssertProcessIsEndedTest.class,
-        TaskInstanceAssertTaskIsUncompletedByIdTest.class })
-public class InternalTests {
+public class TaskInstanceAssertTestBase extends AssertableTestBase {
+
+    protected TaskInstanceAssertable classUnderTest;
+
+    @Before
+    public void beforeTaskInstanceAssertTest() throws Exception {
+        classUnderTest = new TaskInstanceAssert(processAssertConfigurationMock);
+    }
 
 }

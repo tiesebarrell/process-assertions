@@ -17,49 +17,40 @@ package org.toxos.activiti.assertion.internal;
 
 import static org.mockito.Mockito.when;
 
-import java.util.Date;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 /**
- * Tests for {@link ProcessInstanceAssert#processIsEnded(String)}.
+ * Tests for {@link TaskInstanceAssert#taskIsUncompleted(String)}.
  * 
  * @author Tiese Barrell
  * 
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ProcessInstanceAssertProcessIsEndedTest extends ProcessInstanceAssertTestBase {
+public class TaskInstanceAssertTaskIsUncompletedByIdTest extends TaskInstanceAssertTestBase {
 
     @Before
     public void beforeTest() throws Exception {
-        when(processInstanceQueryMock.singleResult()).thenReturn(null);
-        when(historicProcessInstanceMock.getEndTime()).thenReturn(new Date());
+        when(processInstanceQueryMock.singleResult()).thenReturn(processInstanceMock);
     }
 
     @Test
-    public void testProcessIsEnded() throws Exception {
-        classUnderTest.processIsEnded(processInstanceId);
+    public void testTaskIsUncompleted() throws Exception {
+        classUnderTest.taskIsUncompleted(taskId);
     }
 
     @Test(expected = AssertionError.class)
-    public void testProcessIsEnded_RuntimeProcessInstance() throws Exception {
-        when(processInstanceQueryMock.singleResult()).thenReturn(processInstanceMock);
-        classUnderTest.processIsEnded(processInstanceId);
+    public void testTaskIsUncompleted_NoActiveTask() throws Exception {
+        when(taskQueryMock.singleResult()).thenReturn(null);
+        classUnderTest.taskIsUncompleted(taskId);
     }
 
     @Test(expected = AssertionError.class)
-    public void testProcessIsEnded_HistoricProcessInstanceNull() throws Exception {
-        when(historicProcessInstanceQueryMock.singleResult()).thenReturn(null);
-        classUnderTest.processIsEnded(processInstanceId);
-    }
-
-    @Test(expected = AssertionError.class)
-    public void testProcessIsEnded_HistoricProcessInstanceNotEnded() throws Exception {
-        when(historicProcessInstanceMock.getEndTime()).thenReturn(null);
-        classUnderTest.processIsEnded(processInstanceId);
+    public void testTaskIsUncompleted_ProcessInstanceNotActive() throws Exception {
+        when(processInstanceQueryMock.singleResult()).thenReturn(null);
+        classUnderTest.taskIsUncompleted(taskId);
     }
 
 }

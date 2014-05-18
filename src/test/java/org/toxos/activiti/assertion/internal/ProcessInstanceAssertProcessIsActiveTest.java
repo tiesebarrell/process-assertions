@@ -31,7 +31,7 @@ import org.mockito.runners.MockitoJUnitRunner;
  * 
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ProcessInstanceAssertProcessIsActiveTest extends ProcessInstanceAssertTest {
+public class ProcessInstanceAssertProcessIsActiveTest extends ProcessInstanceAssertTestBase {
 
     @Before
     public void beforeTest() throws Exception {

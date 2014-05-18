@@ -20,23 +20,24 @@ import static org.mockito.Mockito.when;
 import org.activiti.engine.EngineServices;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricProcessInstanceQuery;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.runtime.ProcessInstanceQuery;
+import org.activiti.engine.task.Task;
+import org.activiti.engine.task.TaskQuery;
 import org.junit.Before;
 import org.mockito.Mock;
 import org.toxos.activiti.assertion.ProcessAssertConfiguration;
 
 /**
- * Base class for {@link ProcessInstanceAssert} tests.
+ * Base class for assertable tests.
  * 
  * @author Tiese Barrell
  * 
  */
-public class ProcessInstanceAssertTest {
-
-    protected ProcessInstanceAssertable classUnderTest;
+public class AssertableTestBase {
 
     @Mock
     protected ProcessAssertConfiguration processAssertConfigurationMock;
@@ -51,10 +52,16 @@ public class ProcessInstanceAssertTest {
     protected HistoryService historyServiceMock;
 
     @Mock
+    protected TaskService taskServiceMock;
+
+    @Mock
     protected ProcessInstanceQuery processInstanceQueryMock;
 
     @Mock
     protected HistoricProcessInstanceQuery historicProcessInstanceQueryMock;
+
+    @Mock
+    protected TaskQuery taskQueryMock;
 
     @Mock
     protected ProcessInstance processInstanceMock;
@@ -62,18 +69,30 @@ public class ProcessInstanceAssertTest {
     @Mock
     protected HistoricProcessInstance historicProcessInstanceMock;
 
+    @Mock
+    protected Task taskMock;
+
     protected final String processInstanceId = "123";
 
-    @Before
-    public void before() throws Exception {
-        classUnderTest = new ProcessInstanceAssert(processAssertConfigurationMock);
+    protected final String taskId = "456";
 
+    @Before
+    public void beforeAssertableTest() throws Exception {
         when(processAssertConfigurationMock.getEngineServices()).thenReturn(engineServicesMock);
+
         when(engineServicesMock.getRuntimeService()).thenReturn(runtimeServiceMock);
         when(engineServicesMock.getHistoryService()).thenReturn(historyServiceMock);
+        when(engineServicesMock.getTaskService()).thenReturn(taskServiceMock);
 
         when(runtimeServiceMock.createProcessInstanceQuery()).thenReturn(processInstanceQueryMock);
         when(processInstanceQueryMock.processInstanceId(processInstanceId)).thenReturn(processInstanceQueryMock);
+
+        when(taskServiceMock.createTaskQuery()).thenReturn(taskQueryMock);
+        when(taskQueryMock.taskId(taskId)).thenReturn(taskQueryMock);
+        when(taskQueryMock.active()).thenReturn(taskQueryMock);
+        when(taskQueryMock.singleResult()).thenReturn(taskMock);
+
+        when(taskMock.getProcessInstanceId()).thenReturn(processInstanceId);
 
         when(historyServiceMock.createHistoricProcessInstanceQuery()).thenReturn(historicProcessInstanceQueryMock);
         when(historicProcessInstanceQueryMock.processInstanceId(processInstanceId)).thenReturn(historicProcessInstanceQueryMock);
