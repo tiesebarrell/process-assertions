@@ -21,6 +21,8 @@ import org.activiti.engine.EngineServices;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.history.HistoricActivityInstance;
+import org.activiti.engine.history.HistoricActivityInstanceQuery;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricProcessInstanceQuery;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -61,6 +63,9 @@ public class AssertableTestBase {
     protected HistoricProcessInstanceQuery historicProcessInstanceQueryMock;
 
     @Mock
+    protected HistoricActivityInstanceQuery historicActivityInstanceQueryMock;
+
+    @Mock
     protected TaskQuery taskQueryMock;
 
     @Mock
@@ -71,6 +76,12 @@ public class AssertableTestBase {
 
     @Mock
     protected Task taskMock;
+
+    @Mock
+    protected HistoricActivityInstance historicActivityInstanceMock1;
+
+    @Mock
+    protected HistoricActivityInstance historicActivityInstanceMock2;
 
     protected final String processInstanceId = "123";
 
@@ -97,6 +108,11 @@ public class AssertableTestBase {
         when(historyServiceMock.createHistoricProcessInstanceQuery()).thenReturn(historicProcessInstanceQueryMock);
         when(historicProcessInstanceQueryMock.processInstanceId(processInstanceId)).thenReturn(historicProcessInstanceQueryMock);
         when(historicProcessInstanceQueryMock.singleResult()).thenReturn(historicProcessInstanceMock);
+
+        when(historyServiceMock.createHistoricActivityInstanceQuery()).thenReturn(historicActivityInstanceQueryMock);
+        when(historicActivityInstanceQueryMock.processInstanceId(processInstanceId)).thenReturn(historicActivityInstanceQueryMock);
+        when(historicActivityInstanceQueryMock.activityType("endEvent")).thenReturn(historicActivityInstanceQueryMock);
+        when(historicActivityInstanceQueryMock.finished()).thenReturn(historicActivityInstanceQueryMock);
     }
 
 }

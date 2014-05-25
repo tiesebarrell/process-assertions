@@ -15,17 +15,25 @@
  ******************************************************************************/
 package org.toxos.activiti.assertion.internal;
 
-import org.toxos.activiti.assertion.ProcessAssertConfiguration;
+import static org.mockito.Mockito.when;
+
+import java.util.Date;
+
+import org.junit.Before;
 
 /**
- * Provides utilities for process assertions.
+ * Base class for {@link EndEventAssert} tests.
  * 
  * @author Tiese Barrell
+ * 
  */
-final class AssertUtils extends ProcessAssertableBase {
+public class EndEventAssertTestBase extends AssertableTestBase {
 
-    protected AssertUtils(final ProcessAssertConfiguration configuration) {
-        super(configuration);
+    protected EndEventAssertable classUnderTest;
+
+    @Before
+    public void beforeTaskInstanceAssertTest() throws Exception {
+        classUnderTest = new EndEventAssert(processAssertConfigurationMock);
+        when(historicProcessInstanceMock.getEndTime()).thenReturn(new Date());
     }
-
 }
