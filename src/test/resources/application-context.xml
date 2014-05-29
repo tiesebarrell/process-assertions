@@ -26,6 +26,7 @@
     <property name="jpaHandleTransaction" value="true" />
     <property name="jpaCloseEntityManager" value="true" />
     <property name="jobExecutorActivate" value="true" />
+    <property name="history" value="full" />
   </bean>
   
   <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">

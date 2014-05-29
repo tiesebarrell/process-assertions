@@ -22,6 +22,7 @@ import org.apache.commons.lang3.Validate;
 import org.toxos.activiti.assertion.internal.AssertFactory;
 import org.toxos.activiti.assertion.internal.AssertFactoryImpl;
 import org.toxos.activiti.assertion.internal.EndEventAssertable;
+import org.toxos.activiti.assertion.internal.HistoricVariableInstanceAssertable;
 import org.toxos.activiti.assertion.internal.ProcessInstanceAssertable;
 import org.toxos.activiti.assertion.internal.TaskInstanceAssertable;
 
@@ -310,23 +311,18 @@ public final class ProcessAssert extends AbstractProcessAssert {
         }
     }
 
-    // Marker
-
-    public static final void assertProcessEndedAndReachedEndStateLast(final ProcessInstance processInstance, final String endStateKey) {
-        throw new UnsupportedOperationException("This process assertion has not been implemented yet");
-    }
-
-    public static final void assertProcessEndedAndReachedEndStateLast(final String processInstanceId, final String endStateKey) {
-        throw new UnsupportedOperationException("This process assertion has not been implemented yet");
-    }
-
     //
-    // Assertions for historic values of process variables
+    // Assertions for values of process variables
     //
 
     /**
-     * Asserts that the process variable with the provided name is available in the provided process instance's history
-     * and that the <em>latest</em> value of that variable matches the provided expected value.
+     * Asserts that the process variable with the provided name is available for the provided process instance and that
+     * the <em>latest</em> value of that variable matches the provided expected value.
+     * 
+     * <p>
+     * This assertion places no restrictions on whether the process is active or not. It may be running or may already
+     * have been completed; the results of the assertion are not affected by completion of the process.
+     * </p>
      * 
      * <p>
      * <strong>Note:</strong> the latest value for the variable is used to check against. This does not imply the
@@ -338,16 +334,23 @@ public final class ProcessAssert extends AbstractProcessAssert {
      * @param processVariableName
      *            the name of the process variable to check. May not be <code>null</code>
      * @param expectedValue
-     *            the expected value for the process variable. May not be <code>null</code>
+     *            the expected value for the process variable. May be <code>null</code>
      */
-    public static void assertHistoricProcessVariableLatestValueEquals(final ProcessInstance processInstance, final String processVariableName,
+    public static void assertProcessVariableLatestValueEquals(final ProcessInstance processInstance, final String processVariableName,
             final Object expectedValue) {
-        assertHistoricProcessVariableLatestValueEquals(processInstance.getId(), processVariableName, expectedValue);
+        Validate.notNull(processInstance);
+        Validate.notNull(processVariableName);
+        assertProcessVariableLatestValueEquals(processInstance.getId(), processVariableName, expectedValue);
     }
 
     /**
-     * Asserts that the process variable with the provided name is available in the provided process instance's history
-     * and that the <em>latest</em> value of that variable matches the provided expected value.
+     * Asserts that the process variable with the provided name is available for the process instance with the provided
+     * id and that the <em>latest</em> value of that variable matches the provided expected value.
+     * 
+     * <p>
+     * This assertion places no restrictions on whether the process is active or not. It may be running or may already
+     * have been completed; the results of the assertion are not affected by completion of the process.
+     * </p>
      * 
      * <p>
      * <strong>Note:</strong> the latest value for the variable is used to check against. This does not imply the
@@ -359,14 +362,27 @@ public final class ProcessAssert extends AbstractProcessAssert {
      * @param processVariableName
      *            the name of the process variable to check. May not be <code>null</code>
      * @param expectedValue
-     *            the expected value for the process variable. May not be <code>null</code>
+     *            the expected value for the process variable. May be <code>null</code>
      */
-    public static void assertHistoricProcessVariableLatestValueEquals(final String processInstanceId, final String processVariableName,
-            final Object expectedValue) {
+    public static void assertProcessVariableLatestValueEquals(final String processInstanceId, final String processVariableName, final Object expectedValue) {
+        Validate.notNull(processInstanceId);
+        Validate.notNull(processVariableName);
+        debug(LogMessage.VARIABLE_3, processVariableName, processInstanceId, expectedValue);
+        try {
+            getHistoricVariableInstanceAssertable().historicProcessVariableLatestValueEquals(processInstanceId, processVariableName, expectedValue);
+        } catch (final AssertionError ae) {
+            fail(LogMessage.ERROR_VARIABLE_1, processVariableName, processInstanceId, expectedValue);
+        }
+    }
 
-        // Assert.assertTrue(historicProcessVariableLatestValueEquals(
-        // processInstanceId, processVariableName,
-        // expectedValue));
+    // Marker
+
+    public static final void assertProcessEndedAndReachedEndStateLast(final ProcessInstance processInstance, final String endStateKey) {
+        throw new UnsupportedOperationException("This process assertion has not been implemented yet");
+    }
+
+    public static final void assertProcessEndedAndReachedEndStateLast(final String processInstanceId, final String endStateKey) {
+        throw new UnsupportedOperationException("This process assertion has not been implemented yet");
     }
 
     private static void initializeConfiguration() {
@@ -385,5 +401,9 @@ public final class ProcessAssert extends AbstractProcessAssert {
 
     private static TaskInstanceAssertable getTaskInstanceAssertable() {
         return assertFactory.getTaskInstanceAssertable(getConfiguration());
+    }
+
+    private static HistoricVariableInstanceAssertable getHistoricVariableInstanceAssertable() {
+        return assertFactory.getHistoricVariableInstanceAssertable(getConfiguration());
     }
 }

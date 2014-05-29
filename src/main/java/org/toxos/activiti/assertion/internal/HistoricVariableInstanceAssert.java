@@ -15,7 +15,6 @@
  ******************************************************************************/
 package org.toxos.activiti.assertion.internal;
 
-import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -45,7 +44,7 @@ final class HistoricVariableInstanceAssert extends ProcessAssertableBase impleme
     public void historicProcessVariableLatestValueEquals(final String processInstanceId, final String processVariableName, final Object expectedValue) {
 
         // Assert the history level is set to full
-        trace(LogMessage.CONFIGURATION_1, getConfiguration().getProcessEngineConfiguration().getHistoryLevel().name());
+        trace(LogMessage.CONFIGURATION_1, HistoryLevel.FULL.name());
         checkHistoryLevelIsFull();
 
         // Assert there is a historic process instance by the provided id
@@ -62,7 +61,7 @@ final class HistoricVariableInstanceAssert extends ProcessAssertableBase impleme
         // Assert the latest value of the variable is equal to the expected value
         trace(LogMessage.VARIABLE_2, processVariableName, expectedValue);
         final HistoricVariableUpdate latestValue = variableUpdates.get(0);
-        assertThat(latestValue.getValue(), allOf(notNullValue(), is(expectedValue)));
+        assertThat(latestValue.getValue(), is(expectedValue));
     }
 
     private void checkHistoryLevelIsFull() {

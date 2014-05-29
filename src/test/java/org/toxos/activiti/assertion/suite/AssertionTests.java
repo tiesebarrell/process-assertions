@@ -22,6 +22,7 @@ import org.toxos.activiti.assertion.ProcessIsActiveAssertionsTest;
 import org.toxos.activiti.assertion.ProcessIsEndedAndInEndEventsAssertionsTest;
 import org.toxos.activiti.assertion.ProcessIsEndedAndInExclusiveEndEventAssertionsTest;
 import org.toxos.activiti.assertion.ProcessIsEndedAssertionsTest;
+import org.toxos.activiti.assertion.ProcessVariableLatestValueEqualsAssertionsTest;
 import org.toxos.activiti.assertion.TaskIsUncompletedByProcessInstanceAndTaskDefinitionKeyAssertionsTest;
 import org.toxos.activiti.assertion.TaskIsUncompletedByTaskAssertionsTest;
 
@@ -33,7 +34,7 @@ import org.toxos.activiti.assertion.TaskIsUncompletedByTaskAssertionsTest;
 @RunWith(Suite.class)
 @SuiteClasses({ ProcessIsActiveAssertionsTest.class, ProcessIsEndedAssertionsTest.class, TaskIsUncompletedByTaskAssertionsTest.class,
         TaskIsUncompletedByProcessInstanceAndTaskDefinitionKeyAssertionsTest.class, ProcessIsEndedAndInExclusiveEndEventAssertionsTest.class,
-        ProcessIsEndedAndInEndEventsAssertionsTest.class })
+        ProcessIsEndedAndInEndEventsAssertionsTest.class, ProcessVariableLatestValueEqualsAssertionsTest.class })
 public class AssertionTests {
 
 }

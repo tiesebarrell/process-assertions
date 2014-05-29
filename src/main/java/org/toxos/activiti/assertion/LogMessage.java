@@ -165,9 +165,19 @@ public enum LogMessage {
     VARIABLE_1,
 
     /**
-     * Process variable has expected value
+     * Process variable has expected value.
      */
-    VARIABLE_2;
+    VARIABLE_2,
+
+    /**
+     * The process variable has the expected value.
+     */
+    VARIABLE_3,
+
+    /**
+     * The process variable does not have the expected value.
+     */
+    ERROR_VARIABLE_1;
 
     private final String bundleKey;
 

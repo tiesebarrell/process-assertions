@@ -72,6 +72,12 @@ public class HistoricVariableInstanceAssertHistoricProcessVariableLatestValueEqu
         classUnderTest.historicProcessVariableLatestValueEquals(processInstanceId, yetAnotherProcessVariableName, variableValue1);
     }
 
+    @Test
+    public void testHistoricProcessVariableLatestValueEquals_HistoricVariableUpdateValueNullEqualsNull() throws Exception {
+        when(historicVariableUpdateMock3.getValue()).thenReturn(null);
+        classUnderTest.historicProcessVariableLatestValueEquals(processInstanceId, targetProcessVariableName, null);
+    }
+
     @Test(expected = AssertionError.class)
     public void testHistoricProcessVariableLatestValueEquals_HistoryLevelNotFull() throws Exception {
         when(processEngineConfigurationMock.getHistoryLevel()).thenReturn(HistoryLevel.AUDIT);
