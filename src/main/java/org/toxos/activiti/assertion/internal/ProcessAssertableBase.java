@@ -20,12 +20,12 @@ import java.util.List;
 
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.ProcessEngine;
-import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricDetail;
 import org.activiti.engine.history.HistoricVariableUpdate;
+import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.history.HistoryLevel;
 import org.toxos.activiti.assertion.AbstractProcessAssert;
 import org.toxos.activiti.assertion.ProcessAssertConfiguration;
@@ -95,7 +95,7 @@ class ProcessAssertableBase extends AbstractProcessAssert {
      * 
      * @return true if the history level is set to full, false otherwise
      */
-    protected final boolean historyLevelIsFull(final ProcessEngineConfiguration processEngineConfiguration) {
+    protected final boolean historyLevelIsFull(final ProcessEngineConfigurationImpl processEngineConfiguration) {
         return HistoryLevel.FULL.equals(processEngineConfiguration.getHistoryLevel());
     }
 

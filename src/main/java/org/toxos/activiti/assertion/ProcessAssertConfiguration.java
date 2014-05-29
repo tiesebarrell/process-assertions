@@ -18,7 +18,7 @@ package org.toxos.activiti.assertion;
 import java.util.Locale;
 
 import org.activiti.engine.EngineServices;
-import org.activiti.engine.ProcessEngineConfiguration;
+import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 
 /**
  * Provides a configuration used when performing process assertions.
@@ -43,10 +43,10 @@ public interface ProcessAssertConfiguration {
     EngineServices getEngineServices();
 
     /**
-     * Gets the {@link ProcessEngineConfiguration} from the {@link EngineServices} configured.
+     * Gets the {@link ProcessEngineConfigurationImpl} from the {@link EngineServices} configured.
      * 
      * @return the process engine configuration
      */
-    ProcessEngineConfiguration getProcessEngineConfiguration();
+    ProcessEngineConfigurationImpl getProcessEngineConfiguration();
 
 }

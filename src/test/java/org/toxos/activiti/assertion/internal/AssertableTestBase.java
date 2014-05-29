@@ -19,7 +19,6 @@ import static org.mockito.Mockito.when;
 
 import org.activiti.engine.EngineServices;
 import org.activiti.engine.HistoryService;
-import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricActivityInstance;
@@ -27,6 +26,7 @@ import org.activiti.engine.history.HistoricActivityInstanceQuery;
 import org.activiti.engine.history.HistoricDetailQuery;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricProcessInstanceQuery;
+import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.history.HistoryLevel;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.runtime.ProcessInstanceQuery;
@@ -48,7 +48,7 @@ public class AssertableTestBase {
     protected ProcessAssertConfiguration processAssertConfigurationMock;
 
     @Mock
-    protected ProcessEngineConfiguration processEngineConfigurationMock;
+    protected ProcessEngineConfigurationImpl processEngineConfigurationImplMock;
 
     @Mock
     protected EngineServices engineServicesMock;
@@ -99,8 +99,8 @@ public class AssertableTestBase {
     @Before
     public void beforeAssertableTest() throws Exception {
         when(processAssertConfigurationMock.getEngineServices()).thenReturn(engineServicesMock);
-        when(processAssertConfigurationMock.getProcessEngineConfiguration()).thenReturn(processEngineConfigurationMock);
-        when(processEngineConfigurationMock.getHistoryLevel()).thenReturn(HistoryLevel.FULL);
+        when(processAssertConfigurationMock.getProcessEngineConfiguration()).thenReturn(processEngineConfigurationImplMock);
+        when(processEngineConfigurationImplMock.getHistoryLevel()).thenReturn(HistoryLevel.FULL);
 
         when(engineServicesMock.getRuntimeService()).thenReturn(runtimeServiceMock);
         when(engineServicesMock.getHistoryService()).thenReturn(historyServiceMock);
