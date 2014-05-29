@@ -18,6 +18,7 @@ package org.toxos.activiti.assertion;
 import java.util.Locale;
 
 import org.activiti.engine.EngineServices;
+import org.activiti.engine.ProcessEngineConfiguration;
 
 /**
  * Provides a configuration used when performing process assertions.
@@ -27,20 +28,25 @@ import org.activiti.engine.EngineServices;
 public interface ProcessAssertConfiguration {
 
     /**
-     * Gets the {@link Locale} configured. The locale is used to determine the
-     * messages displayed to users.
+     * Gets the {@link Locale} configured. The locale is used to determine the messages displayed to users.
      * 
      * @return the configured locale.
      */
     Locale getLocale();
 
     /**
-     * Gets the {@link EngineServices} configured. Engine services are used to
-     * get access to information and perform actions in a particular process
-     * engine.
+     * Gets the {@link EngineServices} configured. Engine services are used to get access to information and perform
+     * actions in a particular process engine.
      * 
      * @return the configured engine services
      */
     EngineServices getEngineServices();
+
+    /**
+     * Gets the {@link ProcessEngineConfiguration} from the {@link EngineServices} configured.
+     * 
+     * @return the process engine configuration
+     */
+    ProcessEngineConfiguration getProcessEngineConfiguration();
 
 }

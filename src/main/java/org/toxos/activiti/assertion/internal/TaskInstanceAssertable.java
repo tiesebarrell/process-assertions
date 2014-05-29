@@ -23,8 +23,22 @@ package org.toxos.activiti.assertion.internal;
  */
 public interface TaskInstanceAssertable {
 
+    /**
+     * Asserts the task is uncompleted.
+     * 
+     * @param taskId
+     *            the task's id to check for
+     */
     void taskIsUncompleted(final String taskId);
 
+    /**
+     * Asserts there is an uncompleted task.
+     * 
+     * @param processInstanceId
+     *            the process instance's id to check for
+     * @param taskDefinitionKey
+     *            the definition key of the task to check for
+     */
     void taskIsUncompleted(final String processInstanceId, final String taskDefinitionKey);
 
 }

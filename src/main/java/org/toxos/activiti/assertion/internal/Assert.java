@@ -15,24 +15,34 @@
  ******************************************************************************/
 package org.toxos.activiti.assertion.internal;
 
+import org.hamcrest.Matcher;
+import org.hamcrest.MatcherAssert;
+
 /**
- * Assertions for historic variable instances.
+ * Asserts conditions.
  * 
  * @author Tiese Barrell
  * 
  */
-public interface HistoricVariableInstanceAssertable {
+public final class Assert {
+
+    private Assert() {
+        super();
+    }
 
     /**
-     * Asserts the process variable has the expected value as its latest value.
+     * Asserts that <code>actual</code> satisfies the condition(s) specified by <code>matcher</code>. Throws an
+     * {@link AssertionError} if the matcher is not satisfied.
      * 
-     * @param processInstanceId
-     *            the process instance's id to check for
-     * @param processVariableName
-     *            the name of the process variable to check
-     * @param expectedValue
-     *            the expected value for the process variable
+     * @param <T>
+     *            the type the matcher handles
+     * @param actual
+     *            the value being compared
+     * @param matcher
+     *            the matcher to perform assertions with
      */
-    void historicProcessVariableLatestValueEquals(final String processInstanceId, final String processVariableName, final Object expectedValue);
+    public static <T> void assertThat(T actual, Matcher<? super T> matcher) {
+        MatcherAssert.assertThat(actual, matcher);
+    }
 
 }

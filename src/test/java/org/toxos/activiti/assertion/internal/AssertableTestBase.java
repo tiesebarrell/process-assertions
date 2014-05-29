@@ -19,12 +19,15 @@ import static org.mockito.Mockito.when;
 
 import org.activiti.engine.EngineServices;
 import org.activiti.engine.HistoryService;
+import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricActivityInstanceQuery;
+import org.activiti.engine.history.HistoricDetailQuery;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricProcessInstanceQuery;
+import org.activiti.engine.impl.history.HistoryLevel;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.runtime.ProcessInstanceQuery;
 import org.activiti.engine.task.Task;
@@ -43,6 +46,9 @@ public class AssertableTestBase {
 
     @Mock
     protected ProcessAssertConfiguration processAssertConfigurationMock;
+
+    @Mock
+    protected ProcessEngineConfiguration processEngineConfigurationMock;
 
     @Mock
     protected EngineServices engineServicesMock;
@@ -64,6 +70,9 @@ public class AssertableTestBase {
 
     @Mock
     protected HistoricActivityInstanceQuery historicActivityInstanceQueryMock;
+
+    @Mock
+    protected HistoricDetailQuery historicDetailQueryMock;
 
     @Mock
     protected TaskQuery taskQueryMock;
@@ -90,6 +99,8 @@ public class AssertableTestBase {
     @Before
     public void beforeAssertableTest() throws Exception {
         when(processAssertConfigurationMock.getEngineServices()).thenReturn(engineServicesMock);
+        when(processAssertConfigurationMock.getProcessEngineConfiguration()).thenReturn(processEngineConfigurationMock);
+        when(processEngineConfigurationMock.getHistoryLevel()).thenReturn(HistoryLevel.FULL);
 
         when(engineServicesMock.getRuntimeService()).thenReturn(runtimeServiceMock);
         when(engineServicesMock.getHistoryService()).thenReturn(historyServiceMock);
@@ -113,6 +124,14 @@ public class AssertableTestBase {
         when(historicActivityInstanceQueryMock.processInstanceId(processInstanceId)).thenReturn(historicActivityInstanceQueryMock);
         when(historicActivityInstanceQueryMock.activityType("endEvent")).thenReturn(historicActivityInstanceQueryMock);
         when(historicActivityInstanceQueryMock.finished()).thenReturn(historicActivityInstanceQueryMock);
+
+        when(historyServiceMock.createHistoricDetailQuery()).thenReturn(historicDetailQueryMock);
+        when(historicDetailQueryMock.processInstanceId(processInstanceId)).thenReturn(historicDetailQueryMock);
+        when(historicDetailQueryMock.variableUpdates()).thenReturn(historicDetailQueryMock);
+        when(historicDetailQueryMock.orderByVariableName()).thenReturn(historicDetailQueryMock);
+        when(historicDetailQueryMock.asc()).thenReturn(historicDetailQueryMock);
+        when(historicDetailQueryMock.orderByTime()).thenReturn(historicDetailQueryMock);
+        when(historicDetailQueryMock.desc()).thenReturn(historicDetailQueryMock);
     }
 
 }

@@ -18,16 +18,24 @@ package org.toxos.activiti.assertion;
 import java.util.Locale;
 
 import org.activiti.engine.EngineServices;
+import org.activiti.engine.FormService;
+import org.activiti.engine.HistoryService;
+import org.activiti.engine.IdentityService;
+import org.activiti.engine.ManagementService;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.ProcessEngineLifecycleListener;
 import org.activiti.engine.ProcessEngines;
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.impl.ProcessEngineImpl;
+import org.activiti.engine.impl.history.HistoryLevel;
 import org.activiti.engine.test.ActivitiRule;
 
 /**
- * Base implementation for {@link ProcessAssertConfiguration} that provides
- * defaults for unspecified configuration items.
+ * Base implementation for {@link ProcessAssertConfiguration} that provides defaults for unspecified configuration
+ * items.
  * 
  * @author Tiese Barrell
  * 
@@ -75,6 +83,12 @@ public class DefaultProcessAssertConfiguration implements ProcessAssertConfigura
         return engineServices;
     }
 
+    @Override
+    public ProcessEngineConfiguration getProcessEngineConfiguration() {
+        initializeEngineServices();
+        return doGetProcessEngineConfiguration();
+    }
+
     public void setLocale(final Locale locale) {
         this.locale = locale;
     }
@@ -95,17 +109,17 @@ public class DefaultProcessAssertConfiguration implements ProcessAssertConfigura
     }
 
     private void registerProcessEngineCloseListener() {
-        ProcessEngineConfiguration configuration = null;
+        getProcessEngineConfiguration().setProcessEngineLifecycleListener(new ProcessEngineCloseListener());
+    }
 
+    private ProcessEngineConfiguration doGetProcessEngineConfiguration() {
+        ProcessEngineConfiguration configuration = new ProcessEngineConfigurationStub();
         if (this.engineServices instanceof ProcessEngineConfiguration) {
             configuration = (ProcessEngineConfiguration) this.engineServices;
         } else if (this.engineServices instanceof ProcessEngineImpl) {
             configuration = ((ProcessEngineImpl) this.engineServices).getProcessEngineConfiguration();
         }
-
-        if (configuration != null) {
-            configuration.setProcessEngineLifecycleListener(new ProcessEngineCloseListener());
-        }
+        return configuration;
     }
 
     private final class ProcessEngineCloseListener implements ProcessEngineLifecycleListener {
@@ -118,6 +132,61 @@ public class DefaultProcessAssertConfiguration implements ProcessAssertConfigura
         @Override
         public void onProcessEngineBuilt(final ProcessEngine processEngine) {
             // no-op
+        }
+    }
+
+    private final class ProcessEngineConfigurationStub extends ProcessEngineConfiguration {
+
+        @Override
+        public RepositoryService getRepositoryService() {
+            return engineServices.getRepositoryService();
+        }
+
+        @Override
+        public RuntimeService getRuntimeService() {
+            return engineServices.getRuntimeService();
+        }
+
+        @Override
+        public FormService getFormService() {
+            return engineServices.getFormService();
+        }
+
+        @Override
+        public TaskService getTaskService() {
+            return engineServices.getTaskService();
+        }
+
+        @Override
+        public HistoryService getHistoryService() {
+            return engineServices.getHistoryService();
+        }
+
+        @Override
+        public IdentityService getIdentityService() {
+            return engineServices.getIdentityService();
+        }
+
+        @Override
+        public ManagementService getManagementService() {
+            return engineServices.getManagementService();
+        }
+
+        @Override
+        public ProcessEngine buildProcessEngine() {
+            return null;
+        }
+
+        @Override
+        public HistoryLevel getHistoryLevel() {
+            // Assume max level and allow Activiti engine or services to handle any problems
+            return HistoryLevel.FULL;
+        }
+
+        @Override
+        public ProcessEngineConfiguration setProcessEngineLifecycleListener(ProcessEngineLifecycleListener processEngineLifecycleListener) {
+            // Do nothing and return this
+            return this;
         }
     }
 

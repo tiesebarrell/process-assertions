@@ -24,8 +24,24 @@ package org.toxos.activiti.assertion.internal;
  */
 public interface EndEventAssertable {
 
+    /**
+     * Asserts the process is ended and in an exclusive end event.
+     * 
+     * @param processInstanceId
+     *            the process instance's id to check for
+     * @param endEventId
+     *            the id of the end event to check for
+     */
     void processEndedAndInExclusiveEndEvent(final String processInstanceId, final String endEventId);
 
+    /**
+     * Asserts the process is ended and in has reached a precise collection of end events.
+     * 
+     * @param processInstanceId
+     *            the process instance's id to check for
+     * @param endEventIds
+     *            the ids of the end events to check for
+     */
     void processEndedAndInEndEvents(final String processInstanceId, final String... endEventIds);
 
 }

@@ -15,24 +15,36 @@
  ******************************************************************************/
 package org.toxos.activiti.assertion.internal;
 
+import java.util.Collection;
+
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
+
 /**
- * Assertions for historic variable instances.
+ * Hamcrest {@link Matcher} implementation that provides a convenience for checking a collection is empty.
  * 
  * @author Tiese Barrell
  * 
  */
-public interface HistoricVariableInstanceAssertable {
+public class IsEmptyCollection extends TypeSafeMatcher<Collection<?>> {
+
+    @Override
+    protected boolean matchesSafely(final Collection<?> collection) {
+        return collection.isEmpty();
+    }
+
+    @Override
+    public void describeTo(final Description description) {
+        description.appendText("empty");
+    }
 
     /**
-     * Asserts the process variable has the expected value as its latest value.
+     * Returns a {@link IsEmptyCollection} {@link Matcher}.
      * 
-     * @param processInstanceId
-     *            the process instance's id to check for
-     * @param processVariableName
-     *            the name of the process variable to check
-     * @param expectedValue
-     *            the expected value for the process variable
+     * @return a matcher
      */
-    void historicProcessVariableLatestValueEquals(final String processInstanceId, final String processVariableName, final Object expectedValue);
-
+    public static Matcher<Collection<?>> empty() {
+        return new IsEmptyCollection();
+    }
 }

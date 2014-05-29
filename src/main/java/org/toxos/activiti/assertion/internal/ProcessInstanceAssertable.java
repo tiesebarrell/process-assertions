@@ -23,8 +23,20 @@ package org.toxos.activiti.assertion.internal;
  */
 public interface ProcessInstanceAssertable {
 
+    /**
+     * Asserts the process is active.
+     * 
+     * @param processInstanceId
+     *            the process instance's id to check for
+     */
     void processIsActive(final String processInstanceId);
 
+    /**
+     * Asserts the process is ended.
+     * 
+     * @param processInstanceId
+     *            the process instance's id to check for
+     */
     void processIsEnded(final String processInstanceId);
 
 }

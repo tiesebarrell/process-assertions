@@ -20,19 +20,18 @@ import java.util.List;
 
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.ProcessEngine;
+import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricDetail;
 import org.activiti.engine.history.HistoricVariableUpdate;
-import org.activiti.engine.impl.ProcessEngineImpl;
 import org.activiti.engine.impl.history.HistoryLevel;
 import org.toxos.activiti.assertion.AbstractProcessAssert;
 import org.toxos.activiti.assertion.ProcessAssertConfiguration;
 
 /**
- * Base class for process assertables. Provides access to services from
- * configuration.
+ * Base class for process assertables. Provides access to services from configuration.
  * 
  * @author Tiese Barrell
  * 
@@ -92,29 +91,17 @@ class ProcessAssertableBase extends AbstractProcessAssert {
     }
 
     /**
-     * Determines whether the history level of the process engine is set to
-     * {@link HistoryLevel.FULL}.
+     * Determines whether the history level of the process engine is set to {@link HistoryLevel.FULL}.
      * 
      * @return true if the history level is set to full, false otherwise
      */
-    protected final boolean historyLevelIsFull() {
-
-        boolean result = false;
-
-        final ProcessEngine engine = getProcessEngine();
-
-        if (engine instanceof ProcessEngineImpl) {
-            final ProcessEngineImpl engineImpl = (ProcessEngineImpl) engine;
-            result = HistoryLevel.FULL.equals(engineImpl.getProcessEngineConfiguration().getHistoryLevel());
-        }
-
-        return result;
+    protected final boolean historyLevelIsFull(final ProcessEngineConfiguration processEngineConfiguration) {
+        return HistoryLevel.FULL.equals(processEngineConfiguration.getHistoryLevel());
     }
 
     /**
-     * Gets a list of {@link HistoricVariableUpdate}s in descending order of
-     * update time for the provided process instance id and the provided name
-     * for the process variable.
+     * Gets a list of {@link HistoricVariableUpdate}s in descending order of update time for the provided process
+     * instance id and the provided name for the process variable.
      * 
      * @param processInstanceId
      *            the process instance's id to get the variables for
@@ -131,23 +118,30 @@ class ProcessAssertableBase extends AbstractProcessAssert {
 
         boolean reachedTargetVariable = false;
 
-        for (final HistoricDetail historicDetail : historicDetails) {
+        if (historicDetails != null && !historicDetails.isEmpty()) {
+            for (final HistoricDetail historicDetail : historicDetails) {
 
-            if (historicDetail instanceof HistoricVariableUpdate) {
-                final HistoricVariableUpdate historicVariableUpdate = (HistoricVariableUpdate) historicDetail;
+                if (historicDetail != null && historicDetail instanceof HistoricVariableUpdate) {
+                    final HistoricVariableUpdate historicVariableUpdate = (HistoricVariableUpdate) historicDetail;
+                    final boolean isForTarget = isHistoricVariableUpdateForTargetVariable(processVariableName, historicVariableUpdate);
 
-                if (processVariableName.equals(historicVariableUpdate.getVariableName()) && !reachedTargetVariable) {
-                    reachedTargetVariable = true;
-                    result.add(historicVariableUpdate);
-                } else if (processVariableName.equals(historicVariableUpdate.getVariableName())) {
-                    result.add(historicVariableUpdate);
-                } else if (reachedTargetVariable) {
-                    break;
+                    if (isForTarget && !reachedTargetVariable) {
+                        reachedTargetVariable = true;
+                        result.add(historicVariableUpdate);
+                    } else if (isForTarget) {
+                        result.add(historicVariableUpdate);
+                    } else if (reachedTargetVariable) {
+                        break;
+                    }
                 }
             }
         }
 
         return result;
+    }
+
+    private boolean isHistoricVariableUpdateForTargetVariable(final String processVariableName, final HistoricVariableUpdate historicVariableUpdate) {
+        return processVariableName.equals(historicVariableUpdate.getVariableName());
     }
 
 }

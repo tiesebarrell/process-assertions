@@ -15,10 +15,19 @@
  ******************************************************************************/
 package org.toxos.activiti.assertion.internal;
 
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.toxos.activiti.assertion.internal.Assert.assertThat;
+import static org.toxos.activiti.assertion.internal.IsEmptyCollection.empty;
+
 import java.util.List;
 
+import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricVariableUpdate;
-import org.junit.Assert;
+import org.activiti.engine.impl.history.HistoryLevel;
+import org.toxos.activiti.assertion.LogMessage;
 import org.toxos.activiti.assertion.ProcessAssertConfiguration;
 
 /**
@@ -32,31 +41,33 @@ final class HistoricVariableInstanceAssert extends ProcessAssertableBase impleme
         super(configuration);
     }
 
-    public boolean historicProcessVariableLatestValueEquals(final String processInstanceId, final String processVariableName, final Object expectedValue) {
+    @Override
+    public void historicProcessVariableLatestValueEquals(final String processInstanceId, final String processVariableName, final Object expectedValue) {
 
-        if (historyLevelIsFull()) {
-            Assert.fail("To check for latest historic values of process variables, the history level of the Activiti ProcessEngine must be set to full.");
+        // Assert the history level is set to full
+        trace(LogMessage.CONFIGURATION_1, getConfiguration().getProcessEngineConfiguration().getHistoryLevel().name());
+        checkHistoryLevelIsFull();
+
+        // Assert there is a historic process instance by the provided id
+        trace(LogMessage.PROCESS_13, processInstanceId);
+        final HistoricProcessInstance historicProcessInstance = getHistoryService().createHistoricProcessInstanceQuery().processInstanceId(processInstanceId)
+                .singleResult();
+        assertThat(historicProcessInstance, is(notNullValue()));
+
+        // Assert there is a variable by the provided name
+        trace(LogMessage.VARIABLE_1, processVariableName, processInstanceId);
+        final List<HistoricVariableUpdate> variableUpdates = getDescendingVariableUpdates(processInstanceId, processVariableName);
+        assertThat(variableUpdates, not(empty()));
+
+        // Assert the latest value of the variable is equal to the expected value
+        trace(LogMessage.VARIABLE_2, processVariableName, expectedValue);
+        final HistoricVariableUpdate latestValue = variableUpdates.get(0);
+        assertThat(latestValue.getValue(), allOf(notNullValue(), is(expectedValue)));
+    }
+
+    private void checkHistoryLevelIsFull() {
+        if (!historyLevelIsFull(getConfiguration().getProcessEngineConfiguration())) {
+            fail(LogMessage.ERROR_CONFIGURATION_1, HistoryLevel.FULL.name(), getConfiguration().getProcessEngineConfiguration().getHistoryLevel().name());
         }
-
-        boolean result = false;
-
-        try {
-            final List<HistoricVariableUpdate> variableUpdates = getDescendingVariableUpdates(processInstanceId, processVariableName);
-
-            if (variableUpdates.size() > 0) {
-                final HistoricVariableUpdate latest = variableUpdates.get(0);
-                Assert.assertNotNull(latest);
-                Assert.assertEquals(processVariableName, latest.getVariableName());
-                Assert.assertEquals(expectedValue, latest.getValue());
-                result = true;
-            } else {
-                result = false;
-            }
-
-        } catch (final AssertionError ae) {
-            result = false;
-        }
-
-        return result;
     }
 }
