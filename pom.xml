@@ -26,7 +26,7 @@
 
 	<properties>
 		<!-- Dependencies -->
-		<activiti.version>[5.12,5.15]</activiti.version>
+		<activiti.version>[5.12,5.16]</activiti.version>
 		<commons.collections.version>4.0</commons.collections.version>
 		<commons.lang.version>3.1</commons.lang.version>
 		<junit.version>4.11</junit.version>
@@ -236,6 +236,24 @@
 			<id>activiti-5.14</id>
 			<properties>
 				<activiti.version>5.14</activiti.version>
+			</properties>
+		</profile>
+		<profile>
+			<id>activiti-5.15</id>
+			<properties>
+				<activiti.version>5.15</activiti.version>
+			</properties>
+		</profile>
+		<profile>
+			<id>activiti-5.15.1</id>
+			<properties>
+				<activiti.version>5.15.1</activiti.version>
+			</properties>
+		</profile>
+		<profile>
+			<id>activiti-5.16</id>
+			<properties>
+				<activiti.version>5.16</activiti.version>
 			</properties>
 		</profile>
 	</profiles>
