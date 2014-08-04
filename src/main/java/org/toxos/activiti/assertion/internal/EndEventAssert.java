@@ -21,7 +21,6 @@ import java.util.List;
 
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Assert;
 import org.toxos.activiti.assertion.LogMessage;
 import org.toxos.activiti.assertion.ProcessAssertConfiguration;
@@ -61,7 +60,7 @@ final class EndEventAssert extends ProcessAssertableBase implements EndEventAsse
 
         // Assert that there are the exact amount of historic activity instances
         // for end events and that ids match exactly
-        trace(LogMessage.PROCESS_12, endEventIds.length, processInstanceId, ArrayUtils.toString(endEventIds));
+        trace(LogMessage.PROCESS_12, endEventIds.length, processInstanceId, AssertUtils.arrayToString(endEventIds));
 
         final List<HistoricActivityInstance> historicActivityInstances = getHistoryService().createHistoricActivityInstanceQuery()
                 .processInstanceId(processInstanceId).activityType("endEvent").finished().list();
@@ -78,8 +77,8 @@ final class EndEventAssert extends ProcessAssertableBase implements EndEventAsse
 
             Assert.assertTrue(CollectionUtils.isEqualCollection(Arrays.asList(endEventIds), historicEndEventIds));
         } catch (final AssertionError ae) {
-            debug(LogMessage.ERROR_PROCESS_5, endEventIds.length, historicEndEventIds.size(), ArrayUtils.toString(endEventIds),
-                    ArrayUtils.toString(historicEndEventIds.toArray()));
+            debug(LogMessage.ERROR_PROCESS_5, endEventIds.length, historicEndEventIds.size(), AssertUtils.arrayToString(endEventIds),
+                    AssertUtils.arrayToString(historicEndEventIds.toArray()));
             // rethrow to ensure handled properly at higher level
             throw ae;
         }

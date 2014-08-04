@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
+import org.toxos.activiti.assertion.internal.AssertUtils;
 
 /**
  * Abstract base class for log message tests.
@@ -44,7 +44,7 @@ public abstract class AbstractLogMessageTest {
         for (final LogMessage logMessage : LogMessage.values()) {
 
             final String entry = properties.getProperty(logMessage.getBundleKey());
-            if (StringUtils.isBlank(entry)) {
+            if (AssertUtils.stringIsBlank(entry)) {
                 missingEntries.add(logMessage);
             }
         }
@@ -53,7 +53,7 @@ public abstract class AbstractLogMessageTest {
 
     private String getResourceBundlePathForLocale() {
         final String localeSpecificPath = getLocaleSpecificPath();
-        return StringUtils.replace(Constants.LOG_MESSAGES_BUNDLE_NAME, ".", "/") + localeSpecificPath + ".properties";
+        return AssertUtils.replace(Constants.LOG_MESSAGES_BUNDLE_NAME, ".", "/") + localeSpecificPath + ".properties";
     }
 
     private String getLocaleSpecificPath() {
