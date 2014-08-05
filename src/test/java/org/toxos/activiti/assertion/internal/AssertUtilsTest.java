@@ -16,6 +16,7 @@
 package org.toxos.activiti.assertion.internal;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.toxos.activiti.assertion.internal.Assert.assertThat;
 
 import org.junit.Test;
@@ -127,6 +128,50 @@ public class AssertUtilsTest {
     @Test
     public void testArrayToString_EmptyArray() {
         assertThat(AssertUtils.arrayToString(new Object[] {}), is("{}"));
+    }
+
+    @Test
+    public void testReplaceStringInString() {
+        assertThat(AssertUtils.replaceStringInString("aaa", "a", "b"), is("bbb"));
+        assertThat(AssertUtils.replaceStringInString("aaa", "b", "a"), is("aaa"));
+        assertThat(AssertUtils.replaceStringInString("aba", "a", "b"), is("bbb"));
+        assertThat(AssertUtils.replaceStringInString("aba", "b", "a"), is("aaa"));
+        assertThat(AssertUtils.replaceStringInString("aaa bbb aba", "b", "a"), is("aaa aaa aaa"));
+    }
+
+    @Test
+    public void testReplaceStringInString_NullText() {
+        assertThat(AssertUtils.replaceStringInString(null, "a", "b"), is(nullValue()));
+    }
+
+    @Test
+    public void testReplaceStringInString_EmptyText() {
+        assertThat(AssertUtils.replaceStringInString("", "a", "b"), is(""));
+    }
+
+    @Test
+    public void testReplaceStringInString_BlankText() {
+        assertThat(AssertUtils.replaceStringInString(" ", "a", "b"), is(" "));
+    }
+
+    @Test
+    public void testReplaceStringInString_NullSearchString() {
+        assertThat(AssertUtils.replaceStringInString("aaa", null, "b"), is("aaa"));
+    }
+
+    @Test
+    public void testReplaceStringInString_EmptySearchString() {
+        assertThat(AssertUtils.replaceStringInString("aaa", "", "b"), is("aaa"));
+    }
+
+    @Test
+    public void testReplaceStringInString_BlankSearchString() {
+        assertThat(AssertUtils.replaceStringInString("aaa", " ", "b"), is("aaa"));
+    }
+
+    @Test
+    public void testReplaceStringInString_NullReplacement() {
+        assertThat(AssertUtils.replaceStringInString("aaa", "a", null), is("aaa"));
     }
 
     private static final class TestObject {

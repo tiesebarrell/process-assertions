@@ -53,7 +53,7 @@ public abstract class AbstractLogMessageTest {
 
     private String getResourceBundlePathForLocale() {
         final String localeSpecificPath = getLocaleSpecificPath();
-        return AssertUtils.replace(Constants.LOG_MESSAGES_BUNDLE_NAME, ".", "/") + localeSpecificPath + ".properties";
+        return AssertUtils.replaceStringInString(Constants.LOG_MESSAGES_BUNDLE_NAME, ".", "/") + localeSpecificPath + ".properties";
     }
 
     private String getLocaleSpecificPath() {

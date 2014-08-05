@@ -37,7 +37,7 @@ public final class AssertUtils {
      * Checks if the provided String is blank, meaning it is empty or contains whitespace only.
      *
      * @param string
-     *            the String to check, may be null
+     *            the String to check, may be {@code null}
      * @return {@code true} if the String is blank, false otherwise
      */
     public static final boolean stringIsBlank(final String string) {
@@ -66,52 +66,24 @@ public final class AssertUtils {
         final StringBuilder builder = new StringBuilder();
         builder.append(ARRAY_START);
         if (array != null && array.length > 0) {
-            for (int i = 0; i < array.length; i++) {
-                final String toAppend = array[i] == null ? NULL_VALUE : array[i].toString();
-                builder.append(toAppend);
-                if (i != array.length - 1) {
-                    builder.append(ARRAY_SEPARATOR);
-                }
-            }
+            appendNonEmptyArrayToString(array, builder);
         }
         builder.append(ARRAY_END);
         return builder.toString();
     }
 
     /**
-     * <p>
-     * Replaces a String with another String inside a larger String, for the first {@code max} values of the search
-     * String.
-     * </p>
-     *
-     * <p>
-     * A {@code null} reference passed to this method is a no-op.
-     * </p>
-     *
-     * <pre>
-     * StringUtils.replace(null, *, *, *)         = null
-     * StringUtils.replace("", *, *, *)           = ""
-     * StringUtils.replace("any", null, *, *)     = "any"
-     * StringUtils.replace("any", *, null, *)     = "any"
-     * StringUtils.replace("any", "", *, *)       = "any"
-     * StringUtils.replace("any", *, *, 0)        = "any"
-     * StringUtils.replace("abaa", "a", null, -1) = "abaa"
-     * StringUtils.replace("abaa", "a", "", -1)   = "b"
-     * StringUtils.replace("abaa", "a", "z", 0)   = "abaa"
-     * StringUtils.replace("abaa", "a", "z", 1)   = "zbaa"
-     * StringUtils.replace("abaa", "a", "z", 2)   = "zbza"
-     * StringUtils.replace("abaa", "a", "z", -1)  = "zbzz"
-     * </pre>
+     * Replaces all occurrences of a string within a larger string with a replacement string. </p>
      *
      * @param text
-     *            text to search and replace in, may be null
+     *            text to search and replace in, may be {@code null}
      * @param searchString
-     *            the String to search for, may be null
+     *            the String to search for, may be {@code null}
      * @param replacement
-     *            the String to replace it with, may be null
+     *            the String to replace it with, may be {@code null}
      * @return the text with any replacements processed, {@code null} if null String input
      */
-    public static String replace(final String text, final String searchString, final String replacement) {
+    public static String replaceStringInString(final String text, final String searchString, final String replacement) {
         if (stringIsBlank(text) || stringIsBlank(searchString) || replacement == null) {
             return text;
         }
@@ -132,6 +104,16 @@ public final class AssertUtils {
         }
         builder.append(text.substring(start));
         return builder.toString();
+    }
+
+    private static void appendNonEmptyArrayToString(final Object[] array, final StringBuilder builder) {
+        for (int i = 0; i < array.length; i++) {
+            final String toAppend = array[i] == null ? NULL_VALUE : array[i].toString();
+            builder.append(toAppend);
+            if (i != array.length - 1) {
+                builder.append(ARRAY_SEPARATOR);
+            }
+        }
     }
 
 }
