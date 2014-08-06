@@ -15,6 +15,8 @@
  ******************************************************************************/
 package org.toxos.activiti.assertion.internal;
 
+import java.util.Collection;
+
 /**
  * Provides utilities for process assertions.
  * 
@@ -106,6 +108,40 @@ public final class AssertUtils {
         return builder.toString();
     }
 
+    /**
+     * Determines whether the provided collections of strings are equal. Equality is considered:
+     * 
+     * <p>
+     * <li>Both lists are empty, or
+     * <li>Both lists are of the same size and contain the same elements.
+     *
+     * 
+     * @param list1
+     *            the first list, may not be {@code null}
+     * @param list2
+     *            the second list, may not be {@code null}
+     * @return true if the lists are equal, false otherwise
+     */
+    public static boolean isEqualCollection(Collection<String> list1, Collection<String> list2) {
+        Validate.notNull(list1);
+        Validate.notNull(list2);
+
+        boolean result = true;
+
+        if (list1.size() == list2.size()) {
+            for (final String currentString : list1) {
+                if (!list2.contains(currentString)) {
+                    result = false;
+                    break;
+                }
+            }
+        } else {
+            result = false;
+        }
+
+        return result;
+    }
+
     private static void appendNonEmptyArrayToString(final Object[] array, final StringBuilder builder) {
         for (int i = 0; i < array.length; i++) {
             final String toAppend = array[i] == null ? NULL_VALUE : array[i].toString();
@@ -115,5 +151,4 @@ public final class AssertUtils {
             }
         }
     }
-
 }

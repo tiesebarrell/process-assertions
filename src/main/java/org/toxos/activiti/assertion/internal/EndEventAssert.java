@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.activiti.engine.history.HistoricActivityInstance;
-import org.apache.commons.collections4.CollectionUtils;
 import org.junit.Assert;
 import org.toxos.activiti.assertion.LogMessage;
 import org.toxos.activiti.assertion.ProcessAssertConfiguration;
@@ -75,7 +74,7 @@ final class EndEventAssert extends ProcessAssertableBase implements EndEventAsse
         try {
             Assert.assertEquals(endEventIds.length, historicActivityInstances.size());
 
-            Assert.assertTrue(CollectionUtils.isEqualCollection(Arrays.asList(endEventIds), historicEndEventIds));
+            Assert.assertTrue(AssertUtils.isEqualCollection(Arrays.asList(endEventIds), historicEndEventIds));
         } catch (final AssertionError ae) {
             debug(LogMessage.ERROR_PROCESS_5, endEventIds.length, historicEndEventIds.size(), AssertUtils.arrayToString(endEventIds),
                     AssertUtils.arrayToString(historicEndEventIds.toArray()));

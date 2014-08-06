@@ -27,7 +27,6 @@
 	<properties>
 		<!-- Dependencies -->
 		<activiti.version>[5.12,5.16]</activiti.version>
-		<commons.collections.version>4.0</commons.collections.version>
 		<junit.version>4.11</junit.version>
 		<slf4j.api.version>1.7.2</slf4j.api.version>
 		
@@ -86,11 +85,6 @@
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-collections4</artifactId>
-				<version>${commons.collections.version}</version>
-			</dependency>
-			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
 				<version>${slf4j.api.version}</version>
@@ -144,10 +138,6 @@
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-engine</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-collections4</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
