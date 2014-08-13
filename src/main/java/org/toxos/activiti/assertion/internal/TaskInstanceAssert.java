@@ -15,10 +15,13 @@
  ******************************************************************************/
 package org.toxos.activiti.assertion.internal;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.toxos.activiti.assertion.internal.Assert.assertThat;
+
 import java.util.List;
 
 import org.activiti.engine.task.Task;
-import org.junit.Assert;
 import org.toxos.activiti.assertion.LogMessage;
 import org.toxos.activiti.assertion.ProcessAssertConfiguration;
 
@@ -39,7 +42,7 @@ final class TaskInstanceAssert extends ProcessAssertableBase implements TaskInst
         // Assert a task exists
         trace(LogMessage.TASK_3, taskId);
         final Task task = getTaskService().createTaskQuery().taskId(taskId).active().singleResult();
-        Assert.assertNotNull(task);
+        assertThat(task, is(notNullValue()));
 
         // Assert the process is not completed
         new ProcessInstanceAssert(getConfiguration()).processIsActive(task.getProcessInstanceId());
@@ -56,8 +59,8 @@ final class TaskInstanceAssert extends ProcessAssertableBase implements TaskInst
         trace(LogMessage.TASK_4, taskDefinitionKey, processInstanceId);
         final List<Task> tasks = getTaskService().createTaskQuery().processInstanceId(processInstanceId).taskDefinitionKey(taskDefinitionKey).active().list();
 
-        Assert.assertNotNull(tasks);
-        Assert.assertFalse(tasks.isEmpty());
+        assertThat(tasks, is(notNullValue()));
+        assertThat(tasks.isEmpty(), is(false));
 
     }
 

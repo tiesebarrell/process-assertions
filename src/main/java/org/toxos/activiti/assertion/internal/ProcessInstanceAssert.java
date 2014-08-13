@@ -15,9 +15,13 @@
  ******************************************************************************/
 package org.toxos.activiti.assertion.internal;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.toxos.activiti.assertion.internal.Assert.assertThat;
+
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.runtime.ProcessInstance;
-import org.junit.Assert;
 import org.toxos.activiti.assertion.LogMessage;
 import org.toxos.activiti.assertion.ProcessAssertConfiguration;
 
@@ -38,13 +42,13 @@ final class ProcessInstanceAssert extends ProcessAssertableBase implements Proce
         // Assert there is a running process instance
         trace(LogMessage.PROCESS_2, processInstanceId);
         final ProcessInstance processInstance = getRuntimeService().createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
-        Assert.assertNotNull(processInstance);
+        assertThat(processInstance, is(notNullValue()));
 
         trace(LogMessage.PROCESS_7, processInstanceId);
-        Assert.assertFalse(processInstance.isEnded());
+        assertThat(processInstance.isEnded(), is(false));
 
         trace(LogMessage.PROCESS_8, processInstanceId);
-        Assert.assertFalse(processInstance.isSuspended());
+        assertThat(processInstance.isSuspended(), is(false));
 
         // Assert that the historic process instance is not ended
         trace(LogMessage.PROCESS_3, processInstanceId);
@@ -62,7 +66,7 @@ final class ProcessInstanceAssert extends ProcessAssertableBase implements Proce
         trace(LogMessage.PROCESS_6, processInstanceId);
         final ProcessInstance processInstance = getRuntimeService().createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
 
-        Assert.assertNull(processInstance);
+        assertThat(processInstance, is(nullValue()));
 
         // Assert there is a historic process instance and it is ended
         trace(LogMessage.PROCESS_4, processInstanceId);
@@ -74,12 +78,12 @@ final class ProcessInstanceAssert extends ProcessAssertableBase implements Proce
     }
 
     private static void historicProcessInstanceNotEnded(final HistoricProcessInstance historicProcessInstance) {
-        Assert.assertNotNull(historicProcessInstance);
-        Assert.assertNull(historicProcessInstance.getEndTime());
+        assertThat(historicProcessInstance, is(notNullValue()));
+        assertThat(historicProcessInstance.getEndTime(), is(nullValue()));
     }
 
     private static void historicProcessInstanceEnded(final HistoricProcessInstance historicProcessInstance) {
-        Assert.assertNotNull(historicProcessInstance);
-        Assert.assertNotNull(historicProcessInstance.getEndTime());
+        assertThat(historicProcessInstance, is(notNullValue()));
+        assertThat(historicProcessInstance.getEndTime(), is(notNullValue()));
     }
 }
