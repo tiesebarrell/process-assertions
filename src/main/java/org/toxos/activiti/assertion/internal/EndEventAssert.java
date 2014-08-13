@@ -15,14 +15,15 @@
  ******************************************************************************/
 package org.toxos.activiti.assertion.internal;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.toxos.activiti.assertion.internal.Assert.assertThat;
+import static org.toxos.activiti.assertion.internal.Assert.equalList;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.activiti.engine.history.HistoricActivityInstance;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.ArrayUtils;
-import org.junit.Assert;
 import org.toxos.activiti.assertion.LogMessage;
 import org.toxos.activiti.assertion.ProcessAssertConfiguration;
 
@@ -49,8 +50,8 @@ final class EndEventAssert extends ProcessAssertableBase implements EndEventAsse
         final List<HistoricActivityInstance> historicActivityInstances = getHistoryService().createHistoricActivityInstanceQuery()
                 .processInstanceId(processInstanceId).activityType("endEvent").finished().list();
 
-        Assert.assertEquals(1, historicActivityInstances.size());
-        Assert.assertEquals(endEventId, historicActivityInstances.get(0).getActivityId());
+        assertThat(historicActivityInstances.size(), is(1));
+        assertThat(historicActivityInstances.get(0).getActivityId(), is(endEventId));
     }
 
     @Override
@@ -61,7 +62,7 @@ final class EndEventAssert extends ProcessAssertableBase implements EndEventAsse
 
         // Assert that there are the exact amount of historic activity instances
         // for end events and that ids match exactly
-        trace(LogMessage.PROCESS_12, endEventIds.length, processInstanceId, ArrayUtils.toString(endEventIds));
+        trace(LogMessage.PROCESS_12, endEventIds.length, processInstanceId, AssertUtils.arrayToString(endEventIds));
 
         final List<HistoricActivityInstance> historicActivityInstances = getHistoryService().createHistoricActivityInstanceQuery()
                 .processInstanceId(processInstanceId).activityType("endEvent").finished().list();
@@ -74,12 +75,12 @@ final class EndEventAssert extends ProcessAssertableBase implements EndEventAsse
         // Catch any exceptions so a detailed log message can be shown. The
         // context of expected and actual end event ids is only available here.
         try {
-            Assert.assertEquals(endEventIds.length, historicActivityInstances.size());
+            assertThat(historicActivityInstances.size(), is(endEventIds.length));
 
-            Assert.assertTrue(CollectionUtils.isEqualCollection(Arrays.asList(endEventIds), historicEndEventIds));
+            assertThat(historicEndEventIds, is(equalList(Arrays.asList(endEventIds))));
         } catch (final AssertionError ae) {
-            debug(LogMessage.ERROR_PROCESS_5, endEventIds.length, historicEndEventIds.size(), ArrayUtils.toString(endEventIds),
-                    ArrayUtils.toString(historicEndEventIds.toArray()));
+            debug(LogMessage.ERROR_PROCESS_5, endEventIds.length, historicEndEventIds.size(), AssertUtils.arrayToString(endEventIds),
+                    AssertUtils.arrayToString(historicEndEventIds.toArray()));
             // rethrow to ensure handled properly at higher level
             throw ae;
         }

@@ -20,6 +20,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import org.toxos.activiti.assertion.internal.AssertFactoryImplTest;
 import org.toxos.activiti.assertion.internal.AssertTest;
+import org.toxos.activiti.assertion.internal.AssertUtilsTest;
 import org.toxos.activiti.assertion.internal.EndEventAssertProcessEndedAndInEndEventsTest;
 import org.toxos.activiti.assertion.internal.EndEventAssertProcessEndedAndInExclusiveEndEventTest;
 import org.toxos.activiti.assertion.internal.HistoricVariableInstanceAssertHistoricProcessVariableLatestValueEqualsTest;
@@ -28,6 +29,7 @@ import org.toxos.activiti.assertion.internal.ProcessInstanceAssertProcessIsActiv
 import org.toxos.activiti.assertion.internal.ProcessInstanceAssertProcessIsEndedTest;
 import org.toxos.activiti.assertion.internal.TaskInstanceAssertTaskIsUncompletedByDefinitionIdTest;
 import org.toxos.activiti.assertion.internal.TaskInstanceAssertTaskIsUncompletedByIdTest;
+import org.toxos.activiti.assertion.internal.ValidateTest;
 
 /**
  * Test suite for internal tests.
@@ -38,7 +40,8 @@ import org.toxos.activiti.assertion.internal.TaskInstanceAssertTaskIsUncompleted
 @SuiteClasses({ AssertFactoryImplTest.class, ProcessInstanceAssertProcessIsActiveTest.class, ProcessInstanceAssertProcessIsEndedTest.class,
         TaskInstanceAssertTaskIsUncompletedByIdTest.class, TaskInstanceAssertTaskIsUncompletedByDefinitionIdTest.class,
         EndEventAssertProcessEndedAndInExclusiveEndEventTest.class, EndEventAssertProcessEndedAndInEndEventsTest.class,
-        HistoricVariableInstanceAssertHistoricProcessVariableLatestValueEqualsTest.class, AssertTest.class, IsEmptyCollectionTest.class })
+        HistoricVariableInstanceAssertHistoricProcessVariableLatestValueEqualsTest.class, AssertTest.class, IsEmptyCollectionTest.class, ValidateTest.class,
+        AssertUtilsTest.class })
 public class InternalTests {
 
 }

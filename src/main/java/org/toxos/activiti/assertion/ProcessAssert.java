@@ -17,14 +17,14 @@ package org.toxos.activiti.assertion;
 
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.Validate;
 import org.toxos.activiti.assertion.internal.AssertFactory;
 import org.toxos.activiti.assertion.internal.AssertFactoryImpl;
+import org.toxos.activiti.assertion.internal.AssertUtils;
 import org.toxos.activiti.assertion.internal.EndEventAssertable;
 import org.toxos.activiti.assertion.internal.HistoricVariableInstanceAssertable;
 import org.toxos.activiti.assertion.internal.ProcessInstanceAssertable;
 import org.toxos.activiti.assertion.internal.TaskInstanceAssertable;
+import org.toxos.activiti.assertion.internal.Validate;
 
 /**
  * Provides assertions for integration test cases that execute processes with Activiti.
@@ -303,11 +303,11 @@ public final class ProcessAssert extends AbstractProcessAssert {
         Validate.notNull(processInstanceId);
         Validate.notNull(endEventIds);
 
-        debug(LogMessage.PROCESS_11, processInstanceId, ArrayUtils.toString(endEventIds));
+        debug(LogMessage.PROCESS_11, processInstanceId, AssertUtils.arrayToString(endEventIds));
         try {
             getEndEventAssertable().processEndedAndInEndEvents(processInstanceId, endEventIds);
         } catch (final AssertionError ae) {
-            fail(LogMessage.ERROR_PROCESS_4, processInstanceId, ArrayUtils.toString(endEventIds));
+            fail(LogMessage.ERROR_PROCESS_4, processInstanceId, AssertUtils.arrayToString(endEventIds));
         }
     }
 
