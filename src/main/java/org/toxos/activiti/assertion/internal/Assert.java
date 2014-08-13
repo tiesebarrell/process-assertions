@@ -47,7 +47,14 @@ public final class Assert {
         MatcherAssert.assertThat(actual, matcher);
     }
 
-    public static final Matcher<Collection<String>> equalList(Collection<String> expected) {
+    /**
+     * Creates a matcher that validates the actual collection of Strings matches the expected collection of Strings.
+     * 
+     * @param expected
+     *            the expected collection of Strings. May not be {@code null}
+     * @return a new matcher
+     */
+    public static final Matcher<Collection<String>> equalCollection(Collection<String> expected) {
         return new EqualCollectionMatcher(expected);
     }
 

@@ -17,7 +17,7 @@ package org.toxos.activiti.assertion.internal;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.toxos.activiti.assertion.internal.Assert.assertThat;
-import static org.toxos.activiti.assertion.internal.Assert.equalList;
+import static org.toxos.activiti.assertion.internal.Assert.equalCollection;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -77,7 +77,7 @@ final class EndEventAssert extends ProcessAssertableBase implements EndEventAsse
         try {
             assertThat(historicActivityInstances.size(), is(endEventIds.length));
 
-            assertThat(historicEndEventIds, is(equalList(Arrays.asList(endEventIds))));
+            assertThat(historicEndEventIds, is(equalCollection(Arrays.asList(endEventIds))));
         } catch (final AssertionError ae) {
             debug(LogMessage.ERROR_PROCESS_5, endEventIds.length, historicEndEventIds.size(), AssertUtils.arrayToString(endEventIds),
                     AssertUtils.arrayToString(historicEndEventIds.toArray()));
