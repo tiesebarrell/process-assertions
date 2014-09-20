@@ -26,6 +26,7 @@ mvn clean test -P activiti-5.15;
 mvn clean test -P activiti-5.15.1;
 mvn clean test -P activiti-5.16;
 mvn clean test -P activiti-5.16.1;
+mvn clean test -P activiti-5.16.2;
 
 echo "****************************************";
 echo "* Running pre-release deploy           *";
