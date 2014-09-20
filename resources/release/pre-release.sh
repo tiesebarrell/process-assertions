@@ -30,17 +30,6 @@ do
    	mvn clean test -P activiti-${activitiVersion};
 done
 
-#mvn clean test -P activiti-5.12;
-#mvn clean test -P activiti-5.12.1;
-#mvn clean test -P activiti-5.13;
-#mvn clean test -P activiti-5.14;
-#mvn clean test -P activiti-5.15;
-#mvn clean test -P activiti-5.15.1;
-#mvn clean test -P activiti-5.16;
-#mvn clean test -P activiti-5.16.1;
-#mvn clean test -P activiti-5.16.2;
-#mvn clean test -P activiti-5.16.3;
-
 echo "****************************************";
 echo "* Running pre-release deploy           *";
 echo "****************************************";
