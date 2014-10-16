@@ -18,7 +18,7 @@ echo "* Running pre-release test profiles    *";
 echo "****************************************";
 echo "";
 
-activitiVersions=("5.12" "5.12.1" "5.13" "5.14" "5.15" "5.15.1" "5.16" "5.16.1" "5.16.2" "5.16.3")
+activitiVersions=("5.12" "5.12.1" "5.13" "5.14" "5.15" "5.15.1" "5.16" "5.16.1" "5.16.2" "5.16.3" "5.16.4")
 
 for activitiVersion in "${activitiVersions[@]}"
 do
@@ -27,7 +27,7 @@ do
 	echo "* Running test profile for ${activitiVersion} *";
 	echo "****************************************";
 	echo "";
-   	mvn clean test -P activiti-${activitiVersion};
+	mvn clean test -P activiti-${activitiVersion};
 done
 
 echo "****************************************";
