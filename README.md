@@ -3,6 +3,9 @@ This Java library provides an easy way to perform checks on expected [JUnit][lin
 
 More information is available on the [project's website][linkProject]
 
+## Build status
+Build status: ![Build status][buildStatus]
+
 ## License
 Copyright 2014 Tiese Barrell
 
@@ -22,3 +25,5 @@ limitations under the License.
 [linkActiviti]: http://activiti.org/ "Activiti"
 [linkBpmn]: http://bpmn.org "Business Process Model and Notation"
 [linkProject]: http://toxos.org/process-assertions/ "Process Assertions project website"
+[buildStatus]: https://travis-ci.org/tiesebarrell/process-assertions.svg?branch=develop  "Process Assertions Build Status"	
+
