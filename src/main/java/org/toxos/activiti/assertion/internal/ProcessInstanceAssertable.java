@@ -39,4 +39,6 @@ public interface ProcessInstanceAssertable {
      */
     void processIsEnded(final String processInstanceId);
 
+    void processIsInActivity(final String processInstanceId, final String activityId);
+
 }

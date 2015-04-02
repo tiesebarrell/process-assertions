@@ -89,6 +89,11 @@ public enum LogMessage {
     PROCESS_13,
 
     /**
+     * Process instance has exeuction in activity.
+     */
+    PROCESS_14,
+
+    /**
      * A task with definitionKey is uncompleted in process.
      */
     TASK_1,
