@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#Switch to the script's directory regardless of the path the script was invoked from
+cd $(dirname $0);
+
+source ../shared/prepare-profile-build.sh;
+
 echo "****************************************";
 echo "* Running pre-release checks           *";
 echo "****************************************";
