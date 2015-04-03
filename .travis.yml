@@ -1,6 +1,6 @@
 language: java
 sudo: false
-script: "mvn test -P activiti-${activiti_version}"
+script: "mvn install -P activiti-${activiti_version}"
 jdk:
   #- oraclejdk8
   #- oraclejdk7
@@ -10,11 +10,11 @@ env:
     - activiti_version=5.16.4
     - activiti_version=5.16.3
     - activiti_version=5.16.2
-    - activiti_version=5.16.1
-    - activiti_version=5.16
-    - activiti_version=5.15.1
-    - activiti_version=5.15
-    - activiti_version=5.14
-    - activiti_version=5.13
-    - activiti_version=5.12.1
-    - activiti_version=5.12
+    #- activiti_version=5.16.1
+    #- activiti_version=5.16
+    #- activiti_version=5.15.1
+    #- activiti_version=5.15
+    #- activiti_version=5.14
+    #- activiti_version=5.13
+    #- activiti_version=5.12.1
+    #- activiti_version=5.12
