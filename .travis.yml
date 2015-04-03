@@ -1,10 +1,10 @@
 language: java
-
+sudo: false
+script: "mvn test -P activiti-${activiti_version}"
 jdk:
   #- oraclejdk8
   #- oraclejdk7
   - openjdk7
-  
 env:
   matrix:
     - activiti_version=5.16.4
@@ -18,5 +18,3 @@ env:
     - activiti_version=5.13
     - activiti_version=5.12.1
     - activiti_version=5.12
-
-script: "mvn test -P activiti-${activiti_version}"
