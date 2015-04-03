@@ -1,20 +1,8 @@
 language: java
 sudo: false
-script: "mvn install -P activiti-${activiti_version}"
+#script: "mvn install -P activiti-${activiti_version}"
+script: ./resources/ci/ci.sh
 jdk:
   #- oraclejdk8
   #- oraclejdk7
   - openjdk7
-env:
-  matrix:
-    - activiti_version=5.16.4
-    - activiti_version=5.16.3
-    - activiti_version=5.16.2
-    #- activiti_version=5.16.1
-    #- activiti_version=5.16
-    #- activiti_version=5.15.1
-    #- activiti_version=5.15
-    #- activiti_version=5.14
-    #- activiti_version=5.13
-    #- activiti_version=5.12.1
-    #- activiti_version=5.12
