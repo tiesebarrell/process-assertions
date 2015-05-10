@@ -26,7 +26,7 @@
 
 	<properties>
 		<!-- Dependencies -->
-		<activiti.version>[5.12,5.16.4]</activiti.version>
+		<activiti.version>[5.12,5.17.0]</activiti.version>
 		<hamcrest.core.version>1.3</hamcrest.core.version>
 		<slf4j.api.version>1.7.2</slf4j.api.version>
 		
@@ -294,6 +294,12 @@
 			<id>activiti-5.16.4</id>
 			<properties>
 				<activiti.version>5.16.4</activiti.version>
+			</properties>
+		</profile>
+		<profile>
+			<id>activiti-5.17.0</id>
+			<properties>
+				<activiti.version>5.17.0</activiti.version>
 			</properties>
 		</profile>
 	</profiles>
