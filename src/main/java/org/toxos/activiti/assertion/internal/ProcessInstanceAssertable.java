@@ -39,6 +39,14 @@ public interface ProcessInstanceAssertable {
      */
     void processIsEnded(final String processInstanceId);
 
+    /**
+     * Asserts the process has at least one execution in the activity.
+     * 
+     * @param processInstanceId
+     *            the process instance's id to check for
+     * @param activityId
+     *            the activity's id to check for
+     */
     void processIsInActivity(final String processInstanceId, final String activityId);
 
 }
