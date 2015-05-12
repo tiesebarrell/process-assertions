@@ -1,0 +1,7 @@
+language: java
+sudo: false
+script: ./resources/scripts/ci/ci.sh
+jdk:
+  - oraclejdk8
+  - oraclejdk7
+  - openjdk7

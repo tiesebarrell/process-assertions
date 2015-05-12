@@ -17,14 +17,14 @@ package org.toxos.activiti.assertion;
 
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.Validate;
 import org.toxos.activiti.assertion.internal.AssertFactory;
 import org.toxos.activiti.assertion.internal.AssertFactoryImpl;
+import org.toxos.activiti.assertion.internal.AssertUtils;
 import org.toxos.activiti.assertion.internal.EndEventAssertable;
 import org.toxos.activiti.assertion.internal.HistoricVariableInstanceAssertable;
 import org.toxos.activiti.assertion.internal.ProcessInstanceAssertable;
 import org.toxos.activiti.assertion.internal.TaskInstanceAssertable;
+import org.toxos.activiti.assertion.internal.Validate;
 
 /**
  * Provides assertions for integration test cases that execute processes with Activiti.
@@ -121,6 +121,43 @@ public final class ProcessAssert extends AbstractProcessAssert {
             getProcessInstanceAssertable().processIsEnded(processInstanceId);
         } catch (final AssertionError ae) {
             fail(LogMessage.ERROR_PROCESS_2, processInstanceId);
+        }
+    }
+
+    //
+    // Assertions for processes in activities
+    //
+
+    /**
+     * Asserts the provided process instance is active and in (at lease) an activity with the provided id.
+     * 
+     * @param processInstance
+     *            the process instance to check for. May not be <code>null</code>
+     * @param activityId
+     *            the activity's id to check for. May not be <code>null</code>
+     */
+    public static final void assertProcessInActivity(final ProcessInstance processInstance, final String activityId) {
+        Validate.notNull(processInstance);
+        Validate.notNull(activityId);
+        assertProcessInActivity(processInstance.getId(), activityId);
+    }
+
+    /**
+     * Asserts the process instance with the provided id is active and in (at lease) an activity with the provided id.
+     * 
+     * @param processInstanceId
+     *            the process instance's id to check for. May not be <code>null</code>
+     * @param activityId
+     *            the activity's id to check for. May not be <code>null</code>
+     */
+    public static final void assertProcessInActivity(final String processInstanceId, final String activityId) {
+        Validate.notNull(processInstanceId);
+        Validate.notNull(activityId);
+        debug(LogMessage.PROCESS_15, processInstanceId, activityId);
+        try {
+            getProcessInstanceAssertable().processIsInActivity(processInstanceId, activityId);
+        } catch (final AssertionError ae) {
+            fail(LogMessage.ERROR_PROCESS_6, processInstanceId, activityId);
         }
     }
 
@@ -303,11 +340,11 @@ public final class ProcessAssert extends AbstractProcessAssert {
         Validate.notNull(processInstanceId);
         Validate.notNull(endEventIds);
 
-        debug(LogMessage.PROCESS_11, processInstanceId, ArrayUtils.toString(endEventIds));
+        debug(LogMessage.PROCESS_11, processInstanceId, AssertUtils.arrayToString(endEventIds));
         try {
             getEndEventAssertable().processEndedAndInEndEvents(processInstanceId, endEventIds);
         } catch (final AssertionError ae) {
-            fail(LogMessage.ERROR_PROCESS_4, processInstanceId, ArrayUtils.toString(endEventIds));
+            fail(LogMessage.ERROR_PROCESS_4, processInstanceId, AssertUtils.arrayToString(endEventIds));
         }
     }
 

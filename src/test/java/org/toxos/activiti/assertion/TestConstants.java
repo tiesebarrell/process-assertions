@@ -40,4 +40,9 @@ public interface TestConstants {
      * The BPMN process for the conditional subprocesses process.
      */
     String BPMN_CONDITIONAL_SUBPROCESSES = "diagrams/TestProcessConditionalSubProcesses.bpmn";
+
+    /**
+     * The BPMN process for the multi instance process.
+     */
+    String BPMN_MULTI_INSTANCE = "diagrams/TestProcessMultiInstance.bpmn";
 }

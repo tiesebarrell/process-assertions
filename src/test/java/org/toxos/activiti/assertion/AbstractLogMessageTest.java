@@ -20,7 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.toxos.activiti.assertion.internal.AssertUtils;
 
 /**
  * Abstract base class for log message tests.
@@ -30,13 +32,15 @@ import org.apache.commons.lang3.StringUtils;
  */
 public abstract class AbstractLogMessageTest {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractLogMessageTest.class);
+
     protected List<LogMessage> checkForMissingEntries() throws Exception {
         final List<LogMessage> missingEntries = new ArrayList<LogMessage>();
 
         final Properties properties = new Properties();
 
         final String resourceBundlePathForLocale = getResourceBundlePathForLocale();
-        System.out.println("Loading bundle from path '" + resourceBundlePathForLocale + "'");
+        LOGGER.info("Loading bundle from path '" + resourceBundlePathForLocale + "'");
 
         final InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourceBundlePathForLocale);
         properties.load(is);
@@ -44,7 +48,7 @@ public abstract class AbstractLogMessageTest {
         for (final LogMessage logMessage : LogMessage.values()) {
 
             final String entry = properties.getProperty(logMessage.getBundleKey());
-            if (StringUtils.isBlank(entry)) {
+            if (AssertUtils.stringIsBlank(entry)) {
                 missingEntries.add(logMessage);
             }
         }
@@ -53,7 +57,7 @@ public abstract class AbstractLogMessageTest {
 
     private String getResourceBundlePathForLocale() {
         final String localeSpecificPath = getLocaleSpecificPath();
-        return StringUtils.replace(Constants.LOG_MESSAGES_BUNDLE_NAME, ".", "/") + localeSpecificPath + ".properties";
+        return AssertUtils.replaceStringInString(Constants.LOG_MESSAGES_BUNDLE_NAME, ".", "/") + localeSpecificPath + ".properties";
     }
 
     private String getLocaleSpecificPath() {

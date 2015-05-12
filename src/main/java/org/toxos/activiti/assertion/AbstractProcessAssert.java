@@ -17,13 +17,11 @@ package org.toxos.activiti.assertion;
 
 import java.text.MessageFormat;
 
-import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Abstract base class for process assertions. Provides easy access to logger
- * for printing messages.
+ * Abstract base class for process assertions. Provides easy access to logger for printing messages.
  * 
  * @author Tiese Barrell
  * 
@@ -83,8 +81,7 @@ public abstract class AbstractProcessAssert {
     }
 
     /**
-     * Fails the assertions by throwing an AssertionError with the provided
-     * message and parameters.
+     * Fails the assertions by throwing an AssertionError with the provided message and parameters.
      * 
      * @param message
      *            the log message
@@ -95,7 +92,7 @@ public abstract class AbstractProcessAssert {
         final String substitutedMessage = getFormattedMessage(message, objects);
         final String failureMessage = getFormattedMessage(LogMessage.ERROR_ASSERTIONS_1, new String[] { substitutedMessage });
         LOGGER.error(failureMessage);
-        Assert.fail(failureMessage);
+        throw new AssertionError(failureMessage);
     }
 
     private static String getFormattedMessage(final LogMessage message, final Object[] objects) {

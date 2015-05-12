@@ -15,6 +15,8 @@
  ******************************************************************************/
 package org.toxos.activiti.assertion.internal;
 
+import java.util.Collection;
+
 import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
 
@@ -41,8 +43,19 @@ public final class Assert {
      * @param matcher
      *            the matcher to perform assertions with
      */
-    public static <T> void assertThat(T actual, Matcher<? super T> matcher) {
+    public static final <T> void assertThat(T actual, Matcher<? super T> matcher) {
         MatcherAssert.assertThat(actual, matcher);
+    }
+
+    /**
+     * Creates a matcher that validates the actual collection of Strings matches the expected collection of Strings.
+     * 
+     * @param expected
+     *            the expected collection of Strings. May not be {@code null}
+     * @return a new matcher
+     */
+    public static final Matcher<Collection<String>> equalCollection(Collection<String> expected) {
+        return new EqualCollectionMatcher(expected);
     }
 
 }

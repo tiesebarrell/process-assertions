@@ -28,6 +28,7 @@ import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricProcessInstanceQuery;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.history.HistoryLevel;
+import org.activiti.engine.runtime.ExecutionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.runtime.ProcessInstanceQuery;
 import org.activiti.engine.task.Task;
@@ -78,6 +79,9 @@ public class AssertableTestBase {
     protected TaskQuery taskQueryMock;
 
     @Mock
+    protected ExecutionQuery executionQueryMock;
+
+    @Mock
     protected ProcessInstance processInstanceMock;
 
     @Mock
@@ -96,6 +100,8 @@ public class AssertableTestBase {
 
     protected final String taskId = "456";
 
+    protected final String activityId = "789";
+
     @Before
     public void beforeAssertableTest() throws Exception {
         when(processAssertConfigurationMock.getEngineServices()).thenReturn(engineServicesMock);
@@ -108,6 +114,10 @@ public class AssertableTestBase {
 
         when(runtimeServiceMock.createProcessInstanceQuery()).thenReturn(processInstanceQueryMock);
         when(processInstanceQueryMock.processInstanceId(processInstanceId)).thenReturn(processInstanceQueryMock);
+
+        when(runtimeServiceMock.createExecutionQuery()).thenReturn(executionQueryMock);
+        when(executionQueryMock.processInstanceId(processInstanceId)).thenReturn(executionQueryMock);
+        when(executionQueryMock.activityId(activityId)).thenReturn(executionQueryMock);
 
         when(taskServiceMock.createTaskQuery()).thenReturn(taskQueryMock);
         when(taskQueryMock.taskId(taskId)).thenReturn(taskQueryMock);

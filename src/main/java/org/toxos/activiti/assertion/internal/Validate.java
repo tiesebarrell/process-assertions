@@ -16,37 +16,24 @@
 package org.toxos.activiti.assertion.internal;
 
 /**
- * Assertions for process instances.
+ * Validates input provided.
  * 
  * @author Tiese Barrell
- * 
+ *
  */
-public interface ProcessInstanceAssertable {
+public final class Validate {
 
     /**
-     * Asserts the process is active.
-     * 
-     * @param processInstanceId
-     *            the process instance's id to check for
+     * Validates that the provided argument is not {@code null}; otherwise throw an exception.
+     *
+     * @param object
+     *            the object to check
+     * @throws NullPointerException
+     *             if the object is {@code null}
      */
-    void processIsActive(final String processInstanceId);
-
-    /**
-     * Asserts the process is ended.
-     * 
-     * @param processInstanceId
-     *            the process instance's id to check for
-     */
-    void processIsEnded(final String processInstanceId);
-
-    /**
-     * Asserts the process has at least one execution in the activity.
-     * 
-     * @param processInstanceId
-     *            the process instance's id to check for
-     * @param activityId
-     *            the activity's id to check for
-     */
-    void processIsInActivity(final String processInstanceId, final String activityId);
-
+    public static final void notNull(final Object object) {
+        if (object == null) {
+            throw new NullPointerException("Validated object is null");
+        }
+    }
 }
