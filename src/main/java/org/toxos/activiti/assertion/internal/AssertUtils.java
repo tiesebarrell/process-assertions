@@ -75,7 +75,7 @@ public final class AssertUtils {
     }
 
     /**
-     * Replaces all occurrences of a string within a larger string with a replacement string. </p>
+     * Replaces all occurrences of a string within a larger string with a replacement string.
      *
      * @param text
      *            text to search and replace in, may be {@code null}
@@ -111,9 +111,10 @@ public final class AssertUtils {
     /**
      * Determines whether the provided collections of strings are equal. Equality is considered:
      * 
-     * <p>
-     * <li>Both lists are empty, or
-     * <li>Both lists are of the same size and contain the same elements.
+     * <ul>
+     * <li>Both lists are empty, or</li>
+     * <li>Both lists are of the same size and contain the same elements.</li>
+     * </ul>
      *
      * 
      * @param list1

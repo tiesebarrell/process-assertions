@@ -18,6 +18,9 @@ do
 	mvn clean test -P activiti-${activitiVersion};
 done
 
+echo "${prelude} Testing javadoc generation";
+mvn clean javadoc:javadoc;
+
 echo "${prelude} Running deploy";
 mvn clean deploy;
 
