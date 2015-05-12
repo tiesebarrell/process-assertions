@@ -125,6 +125,43 @@ public final class ProcessAssert extends AbstractProcessAssert {
     }
 
     //
+    // Assertions for processes in activities
+    //
+
+    /**
+     * Asserts the provided process instance is active and in (at lease) an activity with the provided id.
+     * 
+     * @param processInstance
+     *            the process instance to check for. May not be <code>null</code>
+     * @param activityId
+     *            the activity's id to check for. May not be <code>null</code>
+     */
+    public static final void assertProcessInActivity(final ProcessInstance processInstance, final String activityId) {
+        Validate.notNull(processInstance);
+        Validate.notNull(activityId);
+        assertProcessInActivity(processInstance.getId(), activityId);
+    }
+
+    /**
+     * Asserts the process instance with the provided id is active and in (at lease) an activity with the provided id.
+     * 
+     * @param processInstanceId
+     *            the process instance's id to check for. May not be <code>null</code>
+     * @param activityId
+     *            the activity's id to check for. May not be <code>null</code>
+     */
+    public static final void assertProcessInActivity(final String processInstanceId, final String activityId) {
+        Validate.notNull(processInstanceId);
+        Validate.notNull(activityId);
+        debug(LogMessage.PROCESS_15, processInstanceId, activityId);
+        try {
+            getProcessInstanceAssertable().processIsInActivity(processInstanceId, activityId);
+        } catch (final AssertionError ae) {
+            fail(LogMessage.ERROR_PROCESS_6, processInstanceId, activityId);
+        }
+    }
+
+    //
     // Assertions for tasks
     //
 

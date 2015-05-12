@@ -20,7 +20,10 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.toxos.activiti.assertion.internal.Assert.assertThat;
 
+import java.util.List;
+
 import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.toxos.activiti.assertion.LogMessage;
 import org.toxos.activiti.assertion.ProcessAssertConfiguration;
@@ -74,6 +77,20 @@ final class ProcessInstanceAssert extends ProcessAssertableBase implements Proce
                 .singleResult();
 
         historicProcessInstanceEnded(historicProcessInstance);
+
+    }
+
+    @Override
+    public void processIsInActivity(final String processInstanceId, final String activityId) {
+
+        // Assert there is a running process instance
+        processIsActive(processInstanceId);
+
+        // Assert there is at least one execution in the activity
+        trace(LogMessage.PROCESS_14, processInstanceId, activityId);
+
+        final List<Execution> executions = getRuntimeService().createExecutionQuery().processInstanceId(processInstanceId).activityId(activityId).list();
+        assertThat(executions.isEmpty(), is(false));
 
     }
 

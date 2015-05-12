@@ -89,6 +89,16 @@ public enum LogMessage {
     PROCESS_13,
 
     /**
+     * Process instance has execution in activity.
+     */
+    PROCESS_14,
+
+    /**
+     * Process instance is in activity.
+     */
+    PROCESS_15,
+
+    /**
      * A task with definitionKey is uncompleted in process.
      */
     TASK_1,
@@ -138,6 +148,11 @@ public enum LogMessage {
      * ids.
      */
     ERROR_PROCESS_5,
+
+    /**
+     * Process instance is not in activity.
+     */
+    ERROR_PROCESS_6,
 
     /**
      * No task instance pending completion.
