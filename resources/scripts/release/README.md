@@ -21,12 +21,11 @@ To be able to perform release in batch mode (as is the case for the release scri
     </profile> 
 
 ##Procedure
-1. Open pre-release.sh in an editor and make sure all profiles for supported Activiti versions are listed.
+1. Open prepare-profile-build.sh in an editor and make sure all profiles for supported Activiti versions are listed.
 2. Run pre-release.sh. 
-    This will run test profiles for all versions of Activiti that are supported and perform a mvn deploy on the latest version, to make sure all is well before actually releasing.
+    This will run test profiles for all versions of Activiti that are supported, perform a mvn javadoc build and perform a mvn deploy on the latest version, to make sure all is well before actually releasing.
     These checks are effectively a way of performing pre-release checks without having a CI server available to run the profiles one last time or without having to trigger a build on such a server.
-3. Open release.sh in an editor and change the values of the parameters at the top of the file to use the correct versions and comments.
-4. Run release.sh. This will perform the following actions:
+3. Run release.sh. It will prompt for the release version, new development version and release commit comment prefix and confirmation of the recorded values before actually performing the release. The release consists of the following actions:
     * Create a release branch according to gitflow's conventions;
     * Perform mvn release on the release branch;
     * Merge the commits performed on the release branch into develop and master, where master doesn't receive the final commit, so it sticks at the release version and not the next development version;
