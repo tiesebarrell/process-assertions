@@ -9,6 +9,17 @@ Based on suggestions from the following sources:
 * https://gist.github.com/nwinkler/9213085
 * https://gist.github.com/searls/1043970
 
+##Prerequisites
+To be able to perform release in batch mode (as is the case for the release script), the passphrase for signing artifacts is needed. This can be solved by configuring a profile with the passphrase in the Maven settings file. The profile must have the same id as the OSS release profile from the parent pom (sonatype-oss-release). For example:
+
+    <profile>
+        <id>sonatype-oss-release</id>
+        <properties>
+            <gpg.passphrase><!--passphrase goes here--></gpg.passphrase>
+            <gpg.keyname><!--keyname (e.g. email address) goes here--></gpg.keyname>
+        </properties>
+    </profile> 
+
 ##Procedure
 1. Open pre-release.sh in an editor and make sure all profiles for supported Activiti versions are listed.
 2. Run pre-release.sh. 
