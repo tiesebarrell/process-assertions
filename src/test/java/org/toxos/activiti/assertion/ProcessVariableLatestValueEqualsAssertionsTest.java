@@ -172,7 +172,7 @@ public class ProcessVariableLatestValueEqualsAssertionsTest extends AbstractProc
     }
 
     private Map<String, Object> createStartVariables() {
-        final Map<String, Object> variables = new HashMap<>(2);
+        final Map<String, Object> variables = new HashMap<String, Object>(2);
         variables.put(processVariableName1, expectedValue1);
         variables.put(processVariableName2, expectedValue2);
         return variables;

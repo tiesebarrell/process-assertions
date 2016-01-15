@@ -63,7 +63,7 @@ public class HistoricVariableInstanceAssertTestBase extends AssertableTestBase {
     public void beforeTaskInstanceAssertTest() throws Exception {
         classUnderTest = new HistoricVariableInstanceAssert(processAssertConfigurationMock);
 
-        historicDetails = new ArrayList<>(6);
+        historicDetails = new ArrayList<HistoricDetail>(6);
 
         when(historicDetailQueryMock.list()).thenReturn(historicDetails);
 

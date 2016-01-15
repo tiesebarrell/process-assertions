@@ -54,14 +54,14 @@ public class IsEmptyCollectionTest {
     @Before
     public void before() throws Exception {
         classUnderTest = new IsEmptyCollection();
-        collection = new ArrayList<>(1);
+        collection = new ArrayList<String>(1);
         collection.add("TestString");
     }
 
     @Test
     public void testMatchesSafely() {
-        assertThat(classUnderTest.matchesSafely(new ArrayList<>()), is(true));
-        assertThat(classUnderTest.matchesSafely(new HashSet<>()), is(true));
+        assertThat(classUnderTest.matchesSafely(new ArrayList<String>()), is(true));
+        assertThat(classUnderTest.matchesSafely(new HashSet<String>()), is(true));
         assertThat(classUnderTest.matchesSafely(collection), is(false));
     }
 

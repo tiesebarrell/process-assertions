@@ -47,7 +47,7 @@ public class EndEventAssertProcessEndedAndInEndEventsTest extends EndEventAssert
 
     @Before
     public void beforeTest() throws Exception {
-        historicActivityInstances = new ArrayList<>(1);
+        historicActivityInstances = new ArrayList<HistoricActivityInstance>(1);
         historicActivityInstances.add(historicActivityInstanceMock1);
         historicActivityInstances.add(historicActivityInstanceMock2);
 

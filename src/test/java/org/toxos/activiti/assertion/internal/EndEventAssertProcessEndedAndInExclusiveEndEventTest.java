@@ -42,7 +42,7 @@ public class EndEventAssertProcessEndedAndInExclusiveEndEventTest extends EndEve
 
     @Before
     public void beforeTest() throws Exception {
-        historicActivityInstances = new ArrayList<>(1);
+        historicActivityInstances = new ArrayList<HistoricActivityInstance>(1);
         historicActivityInstances.add(historicActivityInstanceMock1);
 
         when(historicActivityInstanceQueryMock.list()).thenReturn(historicActivityInstances);

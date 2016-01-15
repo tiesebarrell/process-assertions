@@ -179,10 +179,10 @@ public class AssertUtilsTest {
 
     @Test
     public void testIsEqualCollection_EqualSameOrder() {
-        final List<String> list1 = new ArrayList<>();
+        final List<String> list1 = new ArrayList<String>();
         list1.add("aaa");
         list1.add("bbb");
-        final List<String> list2 = new ArrayList<>();
+        final List<String> list2 = new ArrayList<String>();
         list2.add("aaa");
         list2.add("bbb");
         assertThat(AssertUtils.isEqualCollection(list1, list2), is(true));
@@ -190,10 +190,10 @@ public class AssertUtilsTest {
 
     @Test
     public void testIsEqualCollection_EqualDifferentOrder() {
-        final List<String> list1 = new ArrayList<>();
+        final List<String> list1 = new ArrayList<String>();
         list1.add("aaa");
         list1.add("bbb");
-        final List<String> list2 = new ArrayList<>();
+        final List<String> list2 = new ArrayList<String>();
         list2.add("bbb");
         list2.add("aaa");
         assertThat(AssertUtils.isEqualCollection(list1, list2), is(true));
@@ -202,56 +202,56 @@ public class AssertUtilsTest {
     @Test(expected = NullPointerException.class)
     public void testIsEqualCollection_NullFirst() {
         final List<String> list1 = null;
-        final List<String> list2 = new ArrayList<>();
+        final List<String> list2 = new ArrayList<String>();
         AssertUtils.isEqualCollection(list1, list2);
     }
 
     @Test(expected = NullPointerException.class)
     public void testIsEqualCollection_NullSecond() {
-        final List<String> list1 = new ArrayList<>();
+        final List<String> list1 = new ArrayList<String>();
         final List<String> list2 = null;
         AssertUtils.isEqualCollection(list1, list2);
     }
 
     @Test
     public void testIsEqualCollection_EmptyFirstNonEmptySecond() {
-        final List<String> list1 = new ArrayList<>();
-        final List<String> list2 = new ArrayList<>();
+        final List<String> list1 = new ArrayList<String>();
+        final List<String> list2 = new ArrayList<String>();
         list2.add("aaa");
         assertThat(AssertUtils.isEqualCollection(list1, list2), is(false));
     }
 
     @Test
     public void testIsEqualCollection_NonEmptyFirstEmptySecond() {
-        final List<String> list1 = new ArrayList<>();
+        final List<String> list1 = new ArrayList<String>();
         list1.add("aaa");
-        final List<String> list2 = new ArrayList<>();
+        final List<String> list2 = new ArrayList<String>();
         assertThat(AssertUtils.isEqualCollection(list1, list2), is(false));
     }
 
     @Test
     public void testIsEqualCollection_BothEmpty() {
-        final List<String> list1 = new ArrayList<>();
-        final List<String> list2 = new ArrayList<>();
+        final List<String> list1 = new ArrayList<String>();
+        final List<String> list2 = new ArrayList<String>();
         assertThat(AssertUtils.isEqualCollection(list1, list2), is(true));
     }
 
     @Test
     public void testIsEqualCollection_DifferentSize() {
-        final List<String> list1 = new ArrayList<>();
+        final List<String> list1 = new ArrayList<String>();
         list1.add("aaa");
         list1.add("bbb");
-        final List<String> list2 = new ArrayList<>();
+        final List<String> list2 = new ArrayList<String>();
         list2.add("ccc");
         assertThat(AssertUtils.isEqualCollection(list1, list2), is(false));
     }
 
     @Test
     public void testIsEqualCollection_SameSizeDifferentContent() {
-        final List<String> list1 = new ArrayList<>();
+        final List<String> list1 = new ArrayList<String>();
         list1.add("aaa");
         list1.add("bbb");
-        final List<String> list2 = new ArrayList<>();
+        final List<String> list2 = new ArrayList<String>();
         list2.add("ccc");
         list2.add("ddd");
         assertThat(AssertUtils.isEqualCollection(list1, list2), is(false));
@@ -259,10 +259,10 @@ public class AssertUtilsTest {
 
     @Test
     public void testIsEqualCollection_PartiallyOverlappingContent() {
-        final List<String> list1 = new ArrayList<>();
+        final List<String> list1 = new ArrayList<String>();
         list1.add("aaa");
         list1.add("bbb");
-        final List<String> list2 = new ArrayList<>();
+        final List<String> list2 = new ArrayList<String>();
         list2.add("aaa");
         list2.add("ccc");
         assertThat(AssertUtils.isEqualCollection(list1, list2), is(false));
