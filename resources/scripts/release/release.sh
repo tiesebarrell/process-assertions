@@ -6,7 +6,7 @@
 #Switch to the script's directory regardless of the path the script was invoked from
 cd $(dirname $0);
 
-source ../shared/prepare-profile-build.sh;
+source ../shared/shared.sh;
 
 prelude="[RELEASE]";
 

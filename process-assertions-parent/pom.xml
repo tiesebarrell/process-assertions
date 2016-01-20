@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.toxos.activiti.assertions</groupId>
+	<artifactId>process-assertions-parent</artifactId>
+	<packaging>pom</packaging>
+	<name>Process Assertions Parent</name>
+
+	<parent>
+		<groupId>org.toxos.activiti</groupId>
+		<artifactId>process-assertions</artifactId>
+		<version>0.6.1-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<!-- Dependencies -->
+		<activiti.version>[5.12,5.17.0]</activiti.version>
+		<hamcrest.core.version>1.3</hamcrest.core.version>
+		<slf4j.api.version>1.7.2</slf4j.api.version>
+
+		<!-- Test dependencies -->
+		<junit.version>4.11</junit.version>
+		<h2.version>1.3.168</h2.version>
+		<log4j.version>1.2.17</log4j.version>
+		<mockito.version>1.9.5</mockito.version>
+		<slf4j.version>1.7.5</slf4j.version>
+		<spring.version>3.1.2.RELEASE</spring.version>
+
+		<!-- Configuration -->
+		<javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
+		<jdk.version>1.6</jdk.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<surefire.run.integration.suite>**/IntegrationSuite.class</surefire.run.integration.suite>
+
+		<!-- Build paths for submodules -->
+		<sourceDirectory>../source/src/main/java</sourceDirectory>
+		<resourceDirectory>../source/src/main/resources</resourceDirectory>
+		<testSourceDirectory>../source/src/test/java</testSourceDirectory>
+		<testResourceDirectory>../source/src/test/resources</testResourceDirectory>
+
+		<projectNamePrefix>Process Assertions</projectNamePrefix>
+
+		<!-- Plugins -->
+		<maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
+		<maven.javadoc.plugin.version>2.9.1</maven.javadoc.plugin.version>
+		<maven.release.plugin.version>2.4.2</maven.release.plugin.version>
+		<maven.surefire.plugin.version>2.16</maven.surefire.plugin.version>
+	</properties>
+
+	<!-- Repositories are required because Activiti framework is only listed 
+		in Central from 5.14 upwards. -->
+	<pluginRepositories>
+		<pluginRepository>
+			<id>Activiti</id>
+			<url>http://maven.alfresco.com/nexus/content/groups/public</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-engine</artifactId>
+				<version>${activiti.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hamcrest</groupId>
+				<artifactId>hamcrest-core</artifactId>
+				<version>${hamcrest.core.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.api.version}</version>
+			</dependency>
+
+			<!-- Test dependencies -->
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-spring</artifactId>
+				<version>${activiti.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>${h2.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${spring.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${slf4j.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>${log4j.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>${mockito.version}</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-engine</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
+		<!-- Test dependencies -->
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-spring</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>${maven.release.plugin.version}</version>
+					<configuration>
+						<!-- Perform changes locally, push manually after release -->
+						<pushChanges>false</pushChanges>
+						<localCheckout>true</localCheckout>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven.compiler.plugin.version}</version>
+					<configuration>
+						<source>${jdk.version}</source>
+						<target>${jdk.version}</target>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${maven.javadoc.plugin.version}</version>
+				<configuration>
+					<stylesheetfile>src/main/javadoc/stylesheet.css</stylesheetfile>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven.surefire.plugin.version}</version>
+				<configuration>
+					<includes>
+						<include>${surefire.run.integration.suite}</include>
+					</includes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

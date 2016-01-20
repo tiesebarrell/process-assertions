@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>activiti-5_16_3-5_x</artifactId>
+	<name>${projectNamePrefix} for Activiti 5.16.3 - 5.x</name>
+	<description>${projectNamePrefix} that supports versions 5.16.3 up to and including 5.x of Activiti.</description>
+
+	<parent>
+		<groupId>org.toxos.activiti.assertions</groupId>
+		<artifactId>process-assertions-parent</artifactId>
+		<version>0.6.1-SNAPSHOT</version>
+		<relativePath>../process-assertions-parent/pom.xml</relativePath>
+	</parent>
+
+	<properties>
+		<activiti.version>5.17.0</activiti.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${sourceDirectory}</source>
+							</sources>
+							<test-sources>
+								<source>${testSourceDirectory}</source>
+							</test-sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<dependencies>
+					<dependency>
+						<groupId>org.activiti</groupId>
+						<artifactId>activiti-engine</artifactId>
+						<version>${activiti.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+		
+		<sourceDirectory>${sourceDirectory}</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>${resourceDirectory}</directory>
+			</resource>
+		</resources>
+		<testSourceDirectory>${testSourceDirectory}</testSourceDirectory>
+		<testResources>
+			<testResource>
+				<directory>${testResourceDirectory}</directory>
+			</testResource>
+		</testResources>
+	</build>
+	
+	<profiles>
+		<profile>
+			<id>activiti-5.16.3</id>
+			<properties>
+				<activiti.version>5.16.3</activiti.version>
+			</properties>
+		</profile>
+		<profile>
+			<id>activiti-5.16.4</id>
+			<properties>
+				<activiti.version>5.16.4</activiti.version>
+			</properties>
+		</profile>
+		<profile>
+			<id>activiti-5.17.0</id>
+			<properties>
+				<activiti.version>5.17.0</activiti.version>
+			</properties>
+		</profile>
+	</profiles>
+
+</project>
