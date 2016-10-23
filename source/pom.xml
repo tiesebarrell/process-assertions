@@ -8,7 +8,7 @@
 	<name>${projectNamePrefix} Source</name>
 
 	<parent>
-		<groupId>org.toxos.activiti.assertions</groupId>
+		<groupId>org.toxos.flowable.assertions</groupId>
 		<artifactId>process-assertions-parent</artifactId>
 		<version>0.6.1-SNAPSHOT</version>
 		<relativePath>../process-assertions-parent/pom.xml</relativePath>
@@ -16,9 +16,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>activiti-engine</artifactId>
-			<version>${activiti.version}</version>
+			<groupId>org.flowable</groupId>
+			<artifactId>flowable-engine</artifactId>
+			<version>${flowable.version}</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
