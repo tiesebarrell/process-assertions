@@ -4,20 +4,20 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.toxos.activiti.assertions</groupId>
+	<groupId>org.toxos.flowable.assertions</groupId>
 	<artifactId>process-assertions-parent</artifactId>
 	<packaging>pom</packaging>
 	<name>Process Assertions Parent</name>
 
 	<parent>
-		<groupId>org.toxos.activiti</groupId>
+		<groupId>org.toxos.flowable</groupId>
 		<artifactId>process-assertions</artifactId>
 		<version>0.6.1-SNAPSHOT</version>
 	</parent>
 
 	<properties>
 		<!-- Dependencies -->
-		<activiti.version>[5.12,5.17.0]</activiti.version>
+		<flowable.version>5.22.0</flowable.version>
 		<hamcrest.core.version>1.3</hamcrest.core.version>
 		<slf4j.api.version>1.7.2</slf4j.api.version>
 
@@ -62,9 +62,9 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>org.activiti</groupId>
-				<artifactId>activiti-engine</artifactId>
-				<version>${activiti.version}</version>
+				<groupId>org.flowable</groupId>
+				<artifactId>flowable-engine</artifactId>
+				<version>${flowable.version}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
@@ -85,9 +85,9 @@
 
 			<!-- Test dependencies -->
 			<dependency>
-				<groupId>org.activiti</groupId>
-				<artifactId>activiti-spring</artifactId>
-				<version>${activiti.version}</version>
+				<groupId>org.flowable</groupId>
+				<artifactId>flowable-spring</artifactId>
+				<version>${flowable.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
@@ -133,8 +133,8 @@
 			<artifactId>hamcrest-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>activiti-engine</artifactId>
+			<groupId>org.flowable</groupId>
+			<artifactId>flowable-engine</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -143,8 +143,8 @@
 
 		<!-- Test dependencies -->
 		<dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>activiti-spring</artifactId>
+			<groupId>org.flowable</groupId>
+			<artifactId>flowable-spring</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>

@@ -4,12 +4,12 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.toxos.activiti</groupId>
+	<groupId>org.toxos.flowable</groupId>
 	<artifactId>process-assertions</artifactId>
 	<packaging>pom</packaging>
 	<version>0.6.1-SNAPSHOT</version>
 	<name>Process Assertions</name>
-	<description>Process Assertions provide assertions for use in test cases to test for specific business process conditions when executed with the Activiti BPM framework (http://www.activiti.org).</description>
+	<description>Process Assertions provide assertions for use in test cases to test for specific business process conditions when executed with the Activiti BPM framework (http://www.flowable.org).</description>
 	<url>http://toxos.org/process-assertions/</url>
 
 	<parent>
@@ -45,8 +45,6 @@
 	<modules>
 		<module>process-assertions-parent</module>
 		<module>source</module>
-		<module>activiti-5_12-5_16_2</module>
-		<module>activiti-5_16_3-5_x</module>
 	</modules>
 
 </project>
