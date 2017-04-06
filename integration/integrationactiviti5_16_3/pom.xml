@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>process-assertions-parent</artifactId>
+        <groupId>org.toxos.process-assertions</groupId>
+        <version>0.6.1-SNAPSHOT</version>
+        <relativePath>../../process-assertions-parent/pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.toxos.process-assertions.integration</groupId>
+    <artifactId>integration-activiti-5_16_3</artifactId>
+
+    <properties>
+        <activiti.version>5.16.3</activiti.version>
+    </properties>
+
+
+    <dependencies>
+        <!--<dependency>-->
+        <!--<groupId>org.toxos.process-assertions.activiti</groupId>-->
+        <!--<artifactId>activiti-5_16_3</artifactId>-->
+        <!--<version>${project.version}</version>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.toxos.process-assertions.activiti</groupId>
+            <artifactId>activiti-5_14</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-spring</artifactId>
+            <version>${activiti.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.toxos.process-assertions.integration</groupId>
+            <artifactId>common-integration</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+
+</project>

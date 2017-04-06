@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.toxos.activiti.assertion.internal;
+package org.toxos.processassertions.api.internal;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -24,7 +24,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.toxos.activiti.assertion.ProcessAssertConfiguration;
+import org.toxos.processassertions.api.ProcessAssertConfiguration;
 
 /**
  * Tests for {@link AssertFactoryImpl}.
