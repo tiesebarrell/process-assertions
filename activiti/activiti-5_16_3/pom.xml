@@ -11,6 +11,7 @@
 
     <groupId>org.toxos.process-assertions.activiti</groupId>
     <artifactId>activiti-5_16_3</artifactId>
+    <name>${projectNamePrefix} Activiti ${activiti.version}</name>
 
     <properties>
         <activiti.version>5.16.3</activiti.version>

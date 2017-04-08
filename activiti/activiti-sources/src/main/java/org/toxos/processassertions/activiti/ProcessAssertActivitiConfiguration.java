@@ -1,6 +1,5 @@
 package org.toxos.processassertions.activiti;
 
-import org.activiti.engine.EngineServices;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngineLifecycleListener;
 import org.activiti.engine.ProcessEngines;
@@ -19,41 +18,41 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
 
     static ProcessAssertActivitiConfiguration INSTANCE;
 
-    private EngineServices engineServices;
+    private ProcessEngine processEngine;
 
     private AssertFactory assertFactory = new AssertFactoryImpl();
 
-    public ProcessAssertActivitiConfiguration(final EngineServices engineServices) {
+    public ProcessAssertActivitiConfiguration(final ProcessEngine processEngine) {
         super();
-        this.engineServices = engineServices;
+        this.processEngine = processEngine;
         INSTANCE = this;
     }
 
     public ProcessAssertActivitiConfiguration(final ActivitiRule activitiRule) {
         super();
-        this.engineServices = activitiRule.getProcessEngine();
+        this.processEngine = activitiRule.getProcessEngine();
         INSTANCE = this;
     }
 
     public ProcessAssertActivitiConfiguration(final Locale locale, final ActivitiRule activitiRule) {
         super();
         this.locale = locale;
-        this.engineServices = activitiRule.getProcessEngine();
+        this.processEngine = activitiRule.getProcessEngine();
         INSTANCE = this;
     }
 
-    public EngineServices getEngineServices() {
+    public ProcessEngine getProcessEngine() {
         initializeEngineServices();
-        return engineServices;
+        return processEngine;
     }
 
-    public void setEngineServices(final EngineServices engineServices) {
-        this.engineServices = engineServices;
+    public void setProcessEngine(final ProcessEngine processEngine) {
+        this.processEngine = processEngine;
         registerProcessEngineCloseListener();
     }
 
     public void setActivitiRule(final ActivitiRule activitiRule) {
-        setEngineServices(activitiRule.getProcessEngine());
+        setProcessEngine(activitiRule.getProcessEngine());
     }
 
     private void registerProcessEngineCloseListener() {
@@ -67,31 +66,34 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
 
     private ProcessEngineConfigurationImpl doGetProcessEngineConfiguration() {
         ProcessEngineConfigurationImpl configuration = null;
-        if (this.engineServices instanceof ProcessEngineConfigurationImpl) {
-            configuration = (ProcessEngineConfigurationImpl) this.engineServices;
-        } else if (this.engineServices instanceof ProcessEngineImpl) {
-            configuration = ((ProcessEngineImpl) this.engineServices).getProcessEngineConfiguration();
+        if (this.processEngine instanceof ProcessEngineConfigurationImpl) {
+            configuration = (ProcessEngineConfigurationImpl) this.processEngine;
+        } else if (this.processEngine instanceof ProcessEngineImpl) {
+            configuration = ((ProcessEngineImpl) this.processEngine).getProcessEngineConfiguration();
         }
         return configuration;
     }
 
     private void initializeEngineServices() {
-        if (this.engineServices == null) {
-            setEngineServices(ProcessEngines.getDefaultProcessEngine());
+        if (this.processEngine == null) {
+            setProcessEngine(ProcessEngines.getDefaultProcessEngine());
         }
     }
 
-    @Override public AssertFactory getAssertFactory() {
+    @Override
+    public AssertFactory getAssertFactory() {
         return assertFactory;
     }
 
     private final class ProcessEngineCloseListener implements ProcessEngineLifecycleListener {
 
-        @Override public void onProcessEngineClosed(final ProcessEngine processEngine) {
-            engineServices = null;
+        @Override
+        public void onProcessEngineClosed(final ProcessEngine processEngine) {
+            ProcessAssertActivitiConfiguration.this.processEngine = null;
         }
 
-        @Override public void onProcessEngineBuilt(final ProcessEngine processEngine) {
+        @Override
+        public void onProcessEngineBuilt(final ProcessEngine processEngine) {
             // no-op
         }
     }

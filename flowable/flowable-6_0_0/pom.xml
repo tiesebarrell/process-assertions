@@ -11,6 +11,7 @@
 
     <groupId>org.toxos.process-assertions.flowable</groupId>
     <artifactId>flowable-6_0_0</artifactId>
+    <name>${projectNamePrefix} Flowable 6.0.0</name>
 
     <properties>
         <flowable.version>6.0.0</flowable.version>

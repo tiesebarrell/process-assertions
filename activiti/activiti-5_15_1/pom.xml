@@ -11,9 +11,10 @@
 
     <groupId>org.toxos.process-assertions.activiti</groupId>
     <artifactId>activiti-5_15_1</artifactId>
+    <name>${projectNamePrefix} Activiti ${activiti.version}</name>
 
     <properties>
-        <activiti.version>5.15</activiti.version>
+        <activiti.version>5.15.1</activiti.version>
     </properties>
 
 </project>

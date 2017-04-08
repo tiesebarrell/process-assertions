@@ -14,4 +14,38 @@
     <artifactId>activiti-integration</artifactId>
     <name>${projectNamePrefix} Activiti Integration</name>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <!-- Skip deployment of this module -->
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>activiti-5.16.3</id>
+            <properties>
+                <activiti.version>5.16.3</activiti.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>activiti-5.16.4</id>
+            <properties>
+                <activiti.version>5.16.4</activiti.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>activiti-5.17.0</id>
+            <properties>
+                <activiti.version>5.17.0</activiti.version>
+            </properties>
+        </profile>
+    </profiles>
+
 </project>

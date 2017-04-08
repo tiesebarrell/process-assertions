@@ -12,6 +12,7 @@
 
     <packaging>pom</packaging>
     <artifactId>flowable</artifactId>
+    <name>${projectNamePrefix} Flowable</name>
 
     <modules>
         <module>flowable-6_0_0</module>

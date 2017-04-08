@@ -18,7 +18,7 @@
 
 	<properties>
 		<!-- Dependencies -->
-		<activiti.version>[5.12,5.17.0]</activiti.version>
+		<activiti.version>[5.12,6.0.0.Beta4]</activiti.version>
         <flowable.version>6.0.0</flowable.version>
 		<hamcrest.core.version>1.3</hamcrest.core.version>
 		<slf4j.api.version>1.7.2</slf4j.api.version>
@@ -33,7 +33,8 @@
 
 		<!-- Configuration -->
 		<javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
-        <jdk.version>1.7</jdk.version>
+        <jdk.source.version>1.7</jdk.source.version>
+		<jdk.target.version>1.7</jdk.target.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<surefire.run.integration.suite>**/IntegrationSuite.class</surefire.run.integration.suite>
 
@@ -180,8 +181,8 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>${maven.compiler.plugin.version}</version>
 					<configuration>
-						<source>${jdk.version}</source>
-						<target>${jdk.version}</target>
+						<source>${jdk.source.version}</source>
+						<target>${jdk.target.version}</target>
 						<encoding>${project.build.sourceEncoding}</encoding>
 					</configuration>
 				</plugin>

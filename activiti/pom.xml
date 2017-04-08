@@ -12,10 +12,11 @@
 
     <packaging>pom</packaging>
     <artifactId>activiti</artifactId>
+    <name>${projectNamePrefix} Activiti</name>
 
     <properties>
         <!-- Activate for development purposes on source -->
-        <!--<activiti.version>5.13</activiti.version>-->
+        <!--<activiti.version>6.0.0.Beta1</activiti.version>-->
     </properties>
 
     <dependencies>
@@ -63,7 +64,18 @@
         <module>activiti-5_16_3</module>
         <module>activiti-5_16_4</module>
         <module>activiti-5_17_0</module>
+        <module>activiti-5_18_0</module>
+        <module>activiti-5_19_0</module>
+        <module>activiti-5_19_0_1</module>
+        <module>activiti-5_19_0_2</module>
+        <module>activiti-5_19_0_3</module>
+        <module>activiti-5_20_0</module>
+        <module>activiti-5_21_0</module>
         <module>activiti-5_22_0</module>
+        <module>activiti-6_0_0_Beta1</module>
+        <module>activiti-6_0_0_Beta2</module>
+        <module>activiti-6_0_0_Beta3</module>
+        <module>activiti-6_0_0_Beta4</module>
     </modules>
 
 </project>

@@ -18,15 +18,15 @@ public abstract class AbstractProcessAssertable {
     }
 
     protected RuntimeService getRuntimeService() {
-        return ProcessAssertActivitiConfiguration.INSTANCE.getEngineServices().getRuntimeService();
+        return ProcessAssertActivitiConfiguration.INSTANCE.getProcessEngine().getRuntimeService();
     }
 
     protected HistoryService getHistoryService() {
-        return ProcessAssertActivitiConfiguration.INSTANCE.getEngineServices().getHistoryService();
+        return ProcessAssertActivitiConfiguration.INSTANCE.getProcessEngine().getHistoryService();
     }
 
     protected TaskService getTaskService() {
-        return ProcessAssertActivitiConfiguration.INSTANCE.getEngineServices().getTaskService();
+        return ProcessAssertActivitiConfiguration.INSTANCE.getProcessEngine().getTaskService();
     }
 
     protected ProcessEngineConfigurationImpl getProcessEngineConfiguration() {

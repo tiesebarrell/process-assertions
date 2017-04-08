@@ -16,7 +16,8 @@ import static org.toxos.processassertions.api.internal.Assert.assertThat;
  *
  * @author Tiese Barrell
  */
-@RunWith(MockitoJUnitRunner.class) public class ProcessAssertTest {
+@RunWith(MockitoJUnitRunner.class)
+public class ProcessAssertTest {
 
     private final String processInstanceId = "process-instance-123";
     private final String activityId = "activity-234";
