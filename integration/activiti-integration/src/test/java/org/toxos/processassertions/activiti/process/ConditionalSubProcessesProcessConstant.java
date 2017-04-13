@@ -13,33 +13,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.toxos.activiti.assertion.process;
+package org.toxos.processassertions.activiti.process;
 
 /**
- * Constants for the single user task process.
+ * Constants for the conditional subprocess process.
  * 
  * @author Tiese Barrell
  */
-public enum SingleUserTaskProcessConstant {
+public enum ConditionalSubProcessesProcessConstant {
 
     /**
      * The process' key.
      */
-    PROCESS_KEY("testProcessSingleUserTask"),
+    PROCESS_KEY("testProcessConditionalSubProcesses"),
 
     /**
-     * The id of the end event.
+     * The id of the end event for the whole process.
      */
-    END_EVENT_ID("endCompleted"),
+    END_PROCESS_EVENT_ID("endProcess"),
 
     /**
-     * The id of the user task.
+     * The id of the end event for the first sub process.
      */
-    USER_TASK_ACTIVITY_ID("singleUserTask");
+    END_SUBPROCESS_1_EVENT_ID("endSubProcess1"),
+
+    /**
+     * The id of the end event for the second sub process.
+     */
+    END_SUBPROCESS_2_EVENT_ID("endSubProcess2"),
+
+    /**
+     * The id of the end event for the third sub process.
+     */
+    END_SUBPROCESS_3_EVENT_ID("endSubProcess3");
 
     private final String value;
 
-    private SingleUserTaskProcessConstant(final String value) {
+    private ConditionalSubProcessesProcessConstant(final String value) {
         this.value = value;
     }
 

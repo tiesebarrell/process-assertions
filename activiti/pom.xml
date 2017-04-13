@@ -14,11 +14,6 @@
     <artifactId>activiti</artifactId>
     <name>${projectNamePrefix} Activiti</name>
 
-    <properties>
-        <!-- Activate for development purposes on source -->
-        <!--<activiti.version>6.0.0.Beta1</activiti.version>-->
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.activiti</groupId>
@@ -52,6 +47,7 @@
     </build>
 
     <modules>
+        <module>activiti-sources</module>
         <module>activiti-5_12</module>
         <module>activiti-5_12_1</module>
         <module>activiti-5_13</module>

@@ -28,7 +28,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  * @author Tiese Barrell
  */
-@RunWith(SpringJUnit4ClassRunner.class) public abstract class AbstractProcessAssertTest {
+@RunWith(SpringJUnit4ClassRunner.class) public abstract class AbstractProcessAssertTest implements TestConstants {
 
     @Autowired @Rule public ActivitiRule activitiRule;
 
@@ -37,7 +37,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     @Autowired protected TaskService taskService;
 
     @Before public void before() {
-        taskService.createTaskQuery().taskAssignee("johndoe").list();
+        ProcessAssert.setConfiguration(new ProcessAssertActivitiConfiguration(activitiRule));
     }
 
 }

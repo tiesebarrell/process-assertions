@@ -1,8 +1,11 @@
 package org.toxos.processassertions.activiti;
 
-import org.activiti.engine.*;
+import org.activiti.engine.HistoryService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.toxos.processassertions.api.internal.ApiCallback;
+import org.toxos.processassertions.api.internal.AssertFactory;
 
 /**
  * Base class for Activiti process assertables. Provides access to services from configuration.
@@ -12,34 +15,31 @@ import org.toxos.processassertions.api.internal.ApiCallback;
 public abstract class AbstractProcessAssertable {
 
     protected final ApiCallback callback;
+    protected final ProcessAssertActivitiConfiguration configuration;
 
-    AbstractProcessAssertable(ApiCallback callback) {
+    AbstractProcessAssertable(final ApiCallback callback, final ProcessAssertActivitiConfiguration configuration) {
         this.callback = callback;
+        this.configuration = configuration;
     }
 
     protected RuntimeService getRuntimeService() {
-        return ProcessAssertActivitiConfiguration.INSTANCE.getProcessEngine().getRuntimeService();
+        return configuration.getProcessEngine().getRuntimeService();
     }
 
     protected HistoryService getHistoryService() {
-        return ProcessAssertActivitiConfiguration.INSTANCE.getProcessEngine().getHistoryService();
+        return configuration.getProcessEngine().getHistoryService();
     }
 
     protected TaskService getTaskService() {
-        return ProcessAssertActivitiConfiguration.INSTANCE.getProcessEngine().getTaskService();
+        return configuration.getProcessEngine().getTaskService();
     }
 
     protected ProcessEngineConfigurationImpl getProcessEngineConfiguration() {
-        return ProcessAssertActivitiConfiguration.INSTANCE.getProcessEngineConfiguration();
+        return configuration.getProcessEngineConfiguration();
     }
 
-    /**
-     * Gets the {@link ProcessEngine}.
-     *
-     * @return the process engine
-     */
-    protected final ProcessEngine getProcessEngine() {
-        return ProcessEngines.getDefaultProcessEngine();
+    protected AssertFactory getAssertFactory() {
+        return configuration.getAssertFactory();
     }
 
 }

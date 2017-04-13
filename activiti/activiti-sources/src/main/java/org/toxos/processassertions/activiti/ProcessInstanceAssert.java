@@ -34,8 +34,8 @@ import static org.hamcrest.CoreMatchers.*;
  */
 final class ProcessInstanceAssert extends AbstractProcessAssertable implements ProcessInstanceAssertable {
 
-    ProcessInstanceAssert(ApiCallback callback) {
-        super(callback);
+    ProcessInstanceAssert(ApiCallback callback, final ProcessAssertActivitiConfiguration configuration) {
+        super(callback, configuration);
     }
 
     @Override public void processIsActive(final String processInstanceId) {
@@ -70,9 +70,7 @@ final class ProcessInstanceAssert extends AbstractProcessAssertable implements P
 
         // Assert there is a historic process instance and it is ended
         callback.trace(LogMessage.PROCESS_4, processInstanceId);
-        final HistoricProcessInstance historicProcessInstance = getHistoryService().createHistoricProcessInstanceQuery().processInstanceId(processInstanceId)
-                .singleResult();
-
+        final HistoricProcessInstance historicProcessInstance = getHistoryService().createHistoricProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
         historicProcessInstanceEnded(historicProcessInstance);
 
     }

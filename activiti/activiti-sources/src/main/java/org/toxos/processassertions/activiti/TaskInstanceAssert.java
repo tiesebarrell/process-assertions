@@ -33,8 +33,8 @@ import static org.hamcrest.CoreMatchers.notNullValue;
  */
 final class TaskInstanceAssert extends AbstractProcessAssertable implements TaskInstanceAssertable {
 
-    TaskInstanceAssert(ApiCallback callback) {
-        super(callback);
+    TaskInstanceAssert(ApiCallback callback, final ProcessAssertActivitiConfiguration configuration) {
+        super(callback, configuration);
     }
 
     @Override public void taskIsUncompleted(final String taskId) {
@@ -45,14 +45,14 @@ final class TaskInstanceAssert extends AbstractProcessAssertable implements Task
         Assert.assertThat(task, is(notNullValue()));
 
         // Assert the process is not completed
-        new ProcessInstanceAssert(callback).processIsActive(task.getProcessInstanceId());
+        new ProcessInstanceAssert(callback, configuration).processIsActive(task.getProcessInstanceId());
 
     }
 
     @Override public void taskIsUncompleted(final String processInstanceId, final String taskDefinitionKey) {
 
         // Assert the process is not completed
-        new ProcessInstanceAssert(callback).processIsActive(processInstanceId);
+        new ProcessInstanceAssert(callback, configuration).processIsActive(processInstanceId);
 
         // Assert a task exists
         callback.trace(LogMessage.TASK_4, taskDefinitionKey, processInstanceId);

@@ -13,38 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.toxos.activiti.assertion.process;
+package org.toxos.processassertions.activiti;
 
 /**
- * Constants for the two user tasks process.
- * 
+ * Constants for test cases.
+ *
  * @author Tiese Barrell
- * 
  */
-public enum TwoUserTasksProcessConstant {
+public interface TestConstants {
+    /**
+     * The BPMN process for the straight through process.
+     */
+    String BPMN_STRAIGHT_THROUGH = "diagrams/TestProcessStraightThrough.bpmn";
 
     /**
-     * The process' key.
+     * The BPMN process for the single usertask process.
      */
-    PROCESS_KEY("testProcessTwoUserTasks"),
+    String BPMN_SINGLE_USER_TASK = "diagrams/TestProcessSingleUserTask.bpmn";
 
     /**
-     * The id of the first usertask.
+     * The BPMN process for the two usertask process.
      */
-    USER_TASK_1_ACTIVITY_ID("userTask1"),
+    String BPMN_TWO_USER_TASKS = "diagrams/TestProcessTwoUserTasks.bpmn";
 
     /**
-     * The id of the second usertask.
+     * The BPMN process for the conditional subprocesses process.
      */
-    USER_TASK_2_ACTIVITY_ID("userTask2");
+    String BPMN_CONDITIONAL_SUBPROCESSES = "diagrams/TestProcessConditionalSubProcesses.bpmn";
 
-    private final String value;
-
-    private TwoUserTasksProcessConstant(final String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
+    /**
+     * The BPMN process for the multi instance process.
+     */
+    String BPMN_MULTI_INSTANCE = "diagrams/TestProcessMultiInstance.bpmn";
 }

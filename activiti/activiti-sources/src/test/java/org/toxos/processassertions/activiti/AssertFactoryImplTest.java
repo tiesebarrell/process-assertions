@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.toxos.processassertions.api.internal;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
+package org.toxos.processassertions.activiti;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.toxos.processassertions.api.ProcessAssertConfiguration;
+import org.toxos.processassertions.api.internal.*;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.toxos.processassertions.api.internal.Assert.assertThat;
 
 /**
  * Tests for {@link AssertFactoryImpl}.
@@ -35,10 +35,10 @@ import org.toxos.processassertions.api.ProcessAssertConfiguration;
 @RunWith(MockitoJUnitRunner.class)
 public class AssertFactoryImplTest {
 
-    private AssertFactory classUnderTest;
+    private AssertFactoryImpl classUnderTest;
 
     @Mock
-    private ProcessAssertConfiguration processAssertConfigurationMock;
+    private ApiCallback apiCallbackMock;
 
     @Before
     public void before() throws Exception {
@@ -47,25 +47,25 @@ public class AssertFactoryImplTest {
 
     @Test
     public void testGetProcessInstanceAssertable() throws Exception {
-        final ProcessInstanceAssertable result = classUnderTest.getProcessInstanceAssertable(processAssertConfigurationMock);
+        final ProcessInstanceAssertable result = classUnderTest.getProcessInstanceAssertable(apiCallbackMock);
         assertThat(result, is(notNullValue()));
     }
 
     @Test
     public void testGetTaskInstanceAssertable() throws Exception {
-        final TaskInstanceAssertable result = classUnderTest.getTaskInstanceAssertable(processAssertConfigurationMock);
+        final TaskInstanceAssertable result = classUnderTest.getTaskInstanceAssertable(apiCallbackMock);
         assertThat(result, is(notNullValue()));
     }
 
     @Test
     public void testGetEndEventInstanceAssertable() throws Exception {
-        final EndEventAssertable result = classUnderTest.getEndEventAssertable(processAssertConfigurationMock);
+        final EndEventAssertable result = classUnderTest.getEndEventAssertable(apiCallbackMock);
         assertThat(result, is(notNullValue()));
     }
 
     @Test
     public void testGetHistoricVariableInstanceAssertable() throws Exception {
-        final HistoricVariableInstanceAssertable result = classUnderTest.getHistoricVariableInstanceAssertable(processAssertConfigurationMock);
+        final HistoricVariableInstanceAssertable result = classUnderTest.getHistoricVariableInstanceAssertable(apiCallbackMock);
         assertThat(result, is(notNullValue()));
     }
 

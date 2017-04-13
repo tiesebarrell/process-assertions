@@ -39,8 +39,8 @@ import static org.hamcrest.CoreMatchers.notNullValue;
  */
 final class HistoricVariableInstanceAssert extends AbstractProcessAssertable implements HistoricVariableInstanceAssertable {
 
-    HistoricVariableInstanceAssert(ApiCallback callback) {
-        super(callback);
+    HistoricVariableInstanceAssert(ApiCallback callback, final ProcessAssertActivitiConfiguration configuration) {
+        super(callback, configuration);
     }
 
     @Override public void historicProcessVariableLatestValueEquals(final String processInstanceId, final String processVariableName,
