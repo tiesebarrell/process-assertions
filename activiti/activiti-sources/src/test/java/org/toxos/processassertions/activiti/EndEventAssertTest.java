@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.toxos.processassertions.api.LogMessage;
 import org.toxos.processassertions.api.internal.ApiCallback;
+import org.toxos.processassertions.api.internal.AssertUtils;
 import org.toxos.processassertions.api.internal.ProcessInstanceAssertable;
 
 import java.util.ArrayList;
@@ -38,9 +39,16 @@ public class EndEventAssertTest {
     @Mock
     private HistoricActivityInstance historicActivityInstanceMock1;
 
+    @Mock
+    private HistoricActivityInstance historicActivityInstanceMock2;
+
     private final String processInstanceId = "process-instance-123";
 
-    private final String endEventId = "end-event-234";
+    private final String endEventId1 = "end-event-234";
+    private final String endEventId2 = "end-event-345";
+    private final String endEventId3 = "end-event-456";
+
+    private String[] endEventIds = new String[]{endEventId1, endEventId2};;
 
     private List<HistoricActivityInstance> historicActivityInstances;
 
@@ -49,7 +57,8 @@ public class EndEventAssertTest {
         historicActivityInstances = new ArrayList<>();
         historicActivityInstances.add(historicActivityInstanceMock1);
 
-        when(historicActivityInstanceMock1.getActivityId()).thenReturn(endEventId);
+        when(historicActivityInstanceMock1.getActivityId()).thenReturn(endEventId1);
+        when(historicActivityInstanceMock2.getActivityId()).thenReturn(endEventId2);
 
         when(configurationMock
                 .getAssertFactory()
@@ -79,31 +88,64 @@ public class EndEventAssertTest {
 
     @Test
     public void processEndedAndInExclusiveEndEvent() {
-        classUnderTest.processEndedAndInExclusiveEndEvent(processInstanceId, endEventId);
-        verify(apiCallbackMock, times(1)).trace(LogMessage.PROCESS_10, processInstanceId, endEventId);
+        classUnderTest.processEndedAndInExclusiveEndEvent(processInstanceId, endEventId1);
+        verify(apiCallbackMock, times(1)).trace(LogMessage.PROCESS_10, processInstanceId, endEventId1);
     }
 
     @Test(expected = AssertionError.class)
     public void processEndedAndInExclusiveEndEventFailsForNonEndedProcessInstance() {
         doThrow(AssertionError.class).when(processInstanceAssertableMock).processIsEnded(processInstanceId);
-        classUnderTest.processEndedAndInExclusiveEndEvent(processInstanceId, endEventId);
+        classUnderTest.processEndedAndInExclusiveEndEvent(processInstanceId, endEventId1);
     }
 
     @Test(expected = AssertionError.class)
     public void processEndedAndInExclusiveEndEventFailsForNoEndEvents() {
         historicActivityInstances.clear();
-        classUnderTest.processEndedAndInExclusiveEndEvent(processInstanceId, endEventId);
+        classUnderTest.processEndedAndInExclusiveEndEvent(processInstanceId, endEventId1);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void processEndedAndInExclusiveEndEventFailsForTooManyEndEvents() {
+        historicActivityInstances.add(historicActivityInstanceMock2);
+        classUnderTest.processEndedAndInExclusiveEndEvent(processInstanceId, endEventId1);
     }
 
     @Test(expected = AssertionError.class)
     public void processEndedAndInExclusiveEndEventFailsForOtherEndEventId() {
         when(historicActivityInstanceMock1.getActivityId()).thenReturn("otherEventId");
-        classUnderTest.processEndedAndInExclusiveEndEvent(processInstanceId, endEventId);
+        classUnderTest.processEndedAndInExclusiveEndEvent(processInstanceId, endEventId1);
     }
 
     @Test
     public void processEndedAndInEndEvents() {
-
+        historicActivityInstances.add(historicActivityInstanceMock2);
+        classUnderTest.processEndedAndInEndEvents(processInstanceId, endEventId1, endEventId2);
+        verify(apiCallbackMock, times(1)).trace(LogMessage.PROCESS_12, 2, processInstanceId, AssertUtils.arrayToString(endEventIds));
     }
+
+    @Test(expected = AssertionError.class)
+    public void processEndedAndInEndEventsFailsForNonEndedProcessInstance() {
+        doThrow(AssertionError.class).when(processInstanceAssertableMock).processIsEnded(processInstanceId);
+        classUnderTest.processEndedAndInEndEvents(processInstanceId, endEventId1, endEventId2);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void processEndedAndInEndEventsFailsForNoEndEvents() {
+        historicActivityInstances.clear();
+        classUnderTest.processEndedAndInEndEvents(processInstanceId, endEventId1, endEventId2);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void processEndedAndInEndEventsFailsForTooManyEndEvents() {
+        historicActivityInstances.add(historicActivityInstanceMock2);
+        classUnderTest.processEndedAndInEndEvents(processInstanceId, endEventId2);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void processEndedAndInEndEventsFailsForNonMatchingEndEvents() {
+        historicActivityInstances.add(historicActivityInstanceMock2);
+        classUnderTest.processEndedAndInEndEvents(processInstanceId, endEventId1, endEventId3);
+    }
+
 
 }

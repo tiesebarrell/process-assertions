@@ -60,7 +60,7 @@ final class EndEventAssert extends AbstractProcessAssertable implements EndEvent
     public void processEndedAndInEndEvents(final String processInstanceId, final String... endEventIds) {
 
         // Assert the process instance is ended
-        new ProcessInstanceAssert(callback, configuration).processIsEnded(processInstanceId);
+        getAssertFactory().getProcessInstanceAssertable(callback).processIsEnded(processInstanceId);
 
         // Assert that there are the exact amount of historic activity instances
         // for end events and that ids match exactly
