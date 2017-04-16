@@ -13,6 +13,8 @@
     <artifactId>activiti-5_13</artifactId>
     <name>${projectNamePrefix} Activiti ${activiti.version}</name>
 
+    <!-- Repositories are required because Activiti framework is only listed
+		in Central from 5.14 upwards. -->
     <repositories>
         <repository>
             <id>Activiti</id>

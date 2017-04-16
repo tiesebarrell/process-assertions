@@ -38,7 +38,8 @@ final class ProcessInstanceAssert extends AbstractProcessAssertable implements P
         super(callback, configuration);
     }
 
-    @Override public void processIsActive(final String processInstanceId) {
+    @Override
+    public void processIsActive(final String processInstanceId) {
 
         // Assert there is a running process instance
         callback.trace(LogMessage.PROCESS_2, processInstanceId);
@@ -60,7 +61,8 @@ final class ProcessInstanceAssert extends AbstractProcessAssertable implements P
 
     }
 
-    @Override public void processIsEnded(final String processInstanceId) {
+    @Override
+    public void processIsEnded(final String processInstanceId) {
 
         // Assert there is no running process instance
         callback.trace(LogMessage.PROCESS_6, processInstanceId);
@@ -75,7 +77,8 @@ final class ProcessInstanceAssert extends AbstractProcessAssertable implements P
 
     }
 
-    @Override public void processIsInActivity(final String processInstanceId, final String activityId) {
+    @Override
+    public void processIsInActivity(final String processInstanceId, final String activityId) {
 
         // Assert there is a running process instance
         processIsActive(processInstanceId);

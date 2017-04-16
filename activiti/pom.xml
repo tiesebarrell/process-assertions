@@ -39,11 +39,6 @@
     <build>
         <sourceDirectory>../activiti-sources/src/main/java</sourceDirectory>
         <testSourceDirectory>../activiti-sources/src/test/java</testSourceDirectory>
-        <testResources>
-            <testResource>
-                <directory>../activiti-sources/src/test/resources</directory>
-            </testResource>
-        </testResources>
     </build>
 
     <modules>

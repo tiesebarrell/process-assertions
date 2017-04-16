@@ -47,15 +47,6 @@
 		<maven.surefire.plugin.version>2.16</maven.surefire.plugin.version>
 	</properties>
 
-	<!-- Repositories are required because Activiti framework is only listed 
-		in Central from 5.14 upwards. -->
-	<pluginRepositories>
-		<pluginRepository>
-			<id>Activiti</id>
-			<url>http://maven.alfresco.com/nexus/content/groups/public</url>
-		</pluginRepository>
-	</pluginRepositories>
-
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
