@@ -3,7 +3,7 @@ package org.toxos.processassertions.activiti;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
+import org.activiti.engine.impl.history.HistoryLevel;
 import org.toxos.processassertions.api.internal.ApiCallback;
 import org.toxos.processassertions.api.internal.AssertFactory;
 
@@ -34,8 +34,8 @@ public abstract class AbstractProcessAssertable {
         return configuration.getProcessEngine().getTaskService();
     }
 
-    protected ProcessEngineConfigurationImpl getProcessEngineConfiguration() {
-        return configuration.getProcessEngineConfiguration();
+    protected HistoryLevel getConfiguredHistoryLevel() {
+        return configuration.getConfiguredHistoryLevel();
     }
 
     protected AssertFactory getAssertFactory() {

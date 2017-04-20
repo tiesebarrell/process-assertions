@@ -26,14 +26,10 @@ public final class ProcessAssert {
 
     static ProcessAssertConfiguration configuration;
 
-    static ApiCallback apiCallback = new ApiCallbackImpl();
+    static ApiCallback apiCallback;
 
     private ProcessAssert() {
         super();
-    }
-
-    static void setApiCallback(final ApiCallback apiCallback) {
-        ProcessAssert.apiCallback = apiCallback;
     }
 
     /**
@@ -44,8 +40,7 @@ public final class ProcessAssert {
      */
     public static final void setConfiguration(final ProcessAssertConfiguration configuration) {
         ProcessAssert.configuration = configuration;
-        //TODO check for usage in LogMessageProvider
-        //flush();
+        apiCallback = new ApiCallbackImpl(configuration);
     }
 
     //
@@ -285,4 +280,5 @@ public final class ProcessAssert {
     private static HistoricVariableInstanceAssertable getHistoricVariableInstanceAssertable() {
         return configuration.getAssertFactory().getHistoricVariableInstanceAssertable(apiCallback);
     }
+
 }

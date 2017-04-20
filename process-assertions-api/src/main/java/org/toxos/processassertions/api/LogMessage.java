@@ -170,6 +170,16 @@ public enum LogMessage {
     CONFIGURATION_1,
 
     /**
+     * Process Assertions configuration is initialized.
+     */
+    CONFIGURATION_2,
+
+    /**
+     * Deinitialized configuration because of process engine closing down.
+     */
+    CONFIGURATION_3,
+
+    /**
      * History level not set to full.
      */
     ERROR_CONFIGURATION_1,

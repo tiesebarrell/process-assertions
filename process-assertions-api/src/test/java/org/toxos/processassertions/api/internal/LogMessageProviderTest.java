@@ -15,92 +15,60 @@
  ******************************************************************************/
 package org.toxos.processassertions.api.internal;
 
-import org.junit.Assert;
 import org.junit.Test;
-import org.toxos.processassertions.api.LogMessage;
-import org.toxos.processassertions.api.ProcessAssert;
-import org.toxos.processassertions.api.ProcessAssertConfiguration;
-import org.toxos.processassertions.api.TestProcessAssertConfiguration;
+import org.toxos.processassertions.api.SupportedLocale;
 
 import java.util.Locale;
 import java.util.MissingResourceException;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.toxos.processassertions.api.internal.Assert.assertThat;
+
 /**
- * Tests for {@link LogMessageProvider}.
+ * Test cases for {@link LogMessageProvider}.
  * 
  * @author Tiese Barrell
  * 
  */
 public class LogMessageProviderTest {
 
+    public static final String TEST_MESSAGES = "org.toxos.processassertions.messages.TestMessages";
     private LogMessageProvider classUnderTest;
 
     @Test
     public void testLogMessageProviderUsesLocale() {
-        setupConfiguration(new Locale("vi", "VN"));
-        classUnderTest = new LogMessageProvider();
-        Assert.assertEquals("Message 1 (vi, vn)", classUnderTest.getMessageByKey("key1"));
+        classUnderTest = new LogMessageProvider(TEST_MESSAGES, SupportedLocale.ENGLISH_US.getLocale());
+        assertThat(classUnderTest.getMessageByKey("key1"), is("Message 1 (en, US)"));
 
-        setupConfiguration(new Locale("uk", "UA"));
-        classUnderTest = new LogMessageProvider();
-        Assert.assertEquals("Message 1 (uk, ua)", classUnderTest.getMessageByKey("key1"));
+        classUnderTest = new LogMessageProvider(TEST_MESSAGES, SupportedLocale.DUTCH_NL.getLocale());
+        assertThat(classUnderTest.getMessageByKey("key1"), is("Message 1 (nl, NL)"));
     }
 
     @Test
     public void testLogMessageProviderDoesntSwitchWhenSystemDefaultLocaleSwitches() {
-        setupConfiguration(new Locale("vi", "VN"));
-        classUnderTest = new LogMessageProvider();
-        Assert.assertEquals("Message 1 (vi, vn)", classUnderTest.getMessageByKey("key1"));
+        classUnderTest = new LogMessageProvider(TEST_MESSAGES, SupportedLocale.ENGLISH_US.getLocale());
+        assertThat(classUnderTest.getMessageByKey("key1"), is("Message 1 (en, US)"));
 
-        Locale.setDefault(new Locale("uk", "UA"));
-        Assert.assertEquals("Message 1 (vi, vn)", classUnderTest.getMessageByKey("key1"));
-    }
+        final Locale defaultLocale = Locale.getDefault();
+        Locale.setDefault(new Locale("nl", "NL"));
 
-    @Test
-    public void testGetMessageByKey() {
-        setupConfiguration(new Locale("vi", "VN"));
-        classUnderTest = new LogMessageProvider();
-        String message = classUnderTest.getMessageByKey("key1");
-        Assert.assertNotNull(message);
-        Assert.assertEquals("Message 1 (vi, vn)", message);
+        assertThat(classUnderTest.getMessageByKey("key1"), is("Message 1 (en, US)"));
 
-        message = classUnderTest.getMessageByKey("key2");
-        Assert.assertNotNull(message);
-        Assert.assertEquals("Message 2 (vi, vn)", message);
-
-        message = classUnderTest.getMessageByKey("key3");
-        Assert.assertNotNull(message);
-        Assert.assertEquals("Message 3 (vi, vn)", message);
-
+        Locale.setDefault(defaultLocale);
     }
 
     @Test(expected = MissingResourceException.class)
     public void testGetMessageByKeyForMissingKey() {
-        setupConfiguration(new Locale("vi", "VN"));
-        classUnderTest = new LogMessageProvider();
+        classUnderTest = new LogMessageProvider(TEST_MESSAGES, SupportedLocale.ENGLISH_US.getLocale());
         classUnderTest.getMessageByKey("key4");
     }
 
     @Test
     public void testGetMessageByKeyWithFallback() {
-        setupConfiguration(new Locale("uk", "UA"));
-        classUnderTest = new LogMessageProvider();
-        String message = classUnderTest.getMessageByKey("key1");
-        Assert.assertNotNull(message);
-        Assert.assertEquals("Message 1 (uk, ua)", message);
-
-        message = classUnderTest.getMessageByKey("key2");
-        Assert.assertNotNull(message);
-        Assert.assertEquals("Message 2 (uk, ua)", message);
-
-        // Request by a key not in the bundle, but in the default bundle
-        message = classUnderTest.getMessageByKey(LogMessage.PROCESS_1.getBundleKey());
-        Assert.assertNotNull(message);
-    }
-
-    private void setupConfiguration(final Locale locale) {
-        final ProcessAssertConfiguration configuration = new TestProcessAssertConfiguration(locale);
-        ProcessAssert.setConfiguration(configuration);
+        classUnderTest = new LogMessageProvider(TEST_MESSAGES, SupportedLocale.DUTCH_NL.getLocale());
+        assertThat(classUnderTest.getMessageByKey("key1"), is("Message 1 (nl, NL)"));
+        assertThat(classUnderTest.getMessageByKey("key2"), is("Message 2 (nl, NL)"));
+        assertThat(classUnderTest.getMessageByKey("key3"), is("Message 3 (en, US)"));
     }
 
 }

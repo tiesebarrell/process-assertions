@@ -14,19 +14,22 @@ import static org.toxos.processassertions.api.internal.Assert.assertThat;
  */
 public class DefaultProcessAssertConfigurationTest {
 
-    @Test public void defaultConstructorHasDefaultLocale() {
-        assertThat(new TestProcessAssertConfiguration().getLocale(), is(Constants.DEFAULT_LOCALE));
+    @Test
+    public void defaultConstructorHasDefaultLocale() {
+        assertThat(new TestProcessAssertConfiguration().getLocale(), is(SupportedLocale.DEFAULT.getLocale()));
     }
 
-    @Test public void localeConstructorHasSpecifiedLocale() {
-        assertThat(new TestProcessAssertConfiguration(new Locale("uk", "ua")).getLocale(), is(new Locale("uk", "ua")));
+    @Test
+    public void localeConstructorHasSpecifiedLocale() {
+        assertThat(new TestProcessAssertConfiguration(SupportedLocale.DEFAULT).getLocale(), is(new Locale("en", "us")));
     }
 
-    @Test public void settingLocaleChangesToSpecifiedLocale() {
+    @Test
+    public void settingLocaleChangesToSpecifiedLocale() {
         final DefaultProcessAssertConfiguration classUnderTest = new TestProcessAssertConfiguration();
-        assertThat(classUnderTest.getLocale(), is(Constants.DEFAULT_LOCALE));
-        classUnderTest.setLocale(new Locale("uk", "ua"));
-        assertThat(classUnderTest.getLocale(), is(new Locale("uk", "ua")));
+        assertThat(classUnderTest.getLocale(), is(SupportedLocale.DEFAULT.getLocale()));
+        classUnderTest.setLocale(SupportedLocale.DUTCH_NL);
+        assertThat(classUnderTest.getLocale(), is(new Locale("nl", "NL")));
     }
 
 }

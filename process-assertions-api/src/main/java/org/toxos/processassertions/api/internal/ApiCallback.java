@@ -8,6 +8,14 @@ import org.toxos.processassertions.api.LogMessage;
 public interface ApiCallback {
 
     /**
+     * Logs the message and parameters at info level.
+     *
+     * @param message the log message
+     * @param objects the parameters for substitution
+     */
+    public void info(final LogMessage message, final Object... objects);
+
+    /**
      * Logs the message and parameters at trace level.
      *
      * @param message the log message

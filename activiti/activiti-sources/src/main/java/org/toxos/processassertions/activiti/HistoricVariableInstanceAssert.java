@@ -69,7 +69,7 @@ final class HistoricVariableInstanceAssert extends AbstractProcessAssertable imp
 
     private void checkHistoryLevelIsFull() {
         if (!historyLevelIsFull()) {
-            callback.fail(LogMessage.ERROR_CONFIGURATION_1, HistoryLevel.FULL.name(), getProcessEngineConfiguration().getHistoryLevel().name());
+            callback.fail(LogMessage.ERROR_CONFIGURATION_1, HistoryLevel.FULL.name(), getConfiguredHistoryLevel().name());
         }
     }
 
@@ -117,6 +117,6 @@ final class HistoricVariableInstanceAssert extends AbstractProcessAssertable imp
     }
 
     private final boolean historyLevelIsFull() {
-        return HistoryLevel.FULL.equals(getProcessEngineConfiguration().getHistoryLevel());
+        return HistoryLevel.FULL.equals(getConfiguredHistoryLevel());
     }
 }

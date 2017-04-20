@@ -5,16 +5,25 @@ import org.activiti.engine.ProcessEngineLifecycleListener;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.impl.ProcessEngineImpl;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
+import org.activiti.engine.impl.history.HistoryLevel;
 import org.activiti.engine.test.ActivitiRule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.toxos.processassertions.api.DefaultProcessAssertConfiguration;
+import org.toxos.processassertions.api.SupportedLocale;
 import org.toxos.processassertions.api.internal.AssertFactory;
-
-import java.util.Locale;
+import org.toxos.processassertions.api.internal.MessageLogger;
 
 /**
- * Created by tiesebarrell on 21/02/2017.
+ * Configuration for Process Assertions with the Activiti Process Engine.
+ *
+ * @author Tiese Barrell
  */
 public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConfiguration {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProcessAssertActivitiConfiguration.class);
+
+    private static final String LOG_MESSAGES_BUNDLE_NAME = "org.toxos.processassertions.activiti.messages.LogMessages";
 
     static ProcessAssertActivitiConfiguration INSTANCE;
 
@@ -22,46 +31,71 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
 
     private AssertFactory assertFactory = new AssertFactoryImpl();
 
+    private MessageLogger messageLogger;
+
     public ProcessAssertActivitiConfiguration(final ProcessEngine processEngine) {
         super();
         this.processEngine = processEngine;
         INSTANCE = this;
+        initializeConfiguration();
     }
 
     public ProcessAssertActivitiConfiguration(final ActivitiRule activitiRule) {
         super();
         this.processEngine = activitiRule.getProcessEngine();
         INSTANCE = this;
+        initializeConfiguration();
     }
 
-    public ProcessAssertActivitiConfiguration(final Locale locale, final ActivitiRule activitiRule) {
-        super();
-        this.locale = locale;
+    public ProcessAssertActivitiConfiguration(final SupportedLocale supportedLocale, final ProcessEngine processEngine) {
+        super(supportedLocale);
+        this.processEngine = processEngine;
+        INSTANCE = this;
+        initializeConfiguration();
+    }
+
+    public ProcessAssertActivitiConfiguration(final SupportedLocale supportedLocale, final ActivitiRule activitiRule) {
+        super(supportedLocale);
         this.processEngine = activitiRule.getProcessEngine();
         INSTANCE = this;
+        initializeConfiguration();
     }
 
     public ProcessEngine getProcessEngine() {
-        initializeEngineServices();
         return processEngine;
     }
 
     public void setProcessEngine(final ProcessEngine processEngine) {
         this.processEngine = processEngine;
-        registerProcessEngineCloseListener();
+        initializeConfiguration();
+    }
+
+    @Override
+    public AssertFactory getAssertFactory() {
+        return assertFactory;
     }
 
     public void setActivitiRule(final ActivitiRule activitiRule) {
         setProcessEngine(activitiRule.getProcessEngine());
     }
 
-    private void registerProcessEngineCloseListener() {
-        getProcessEngineConfiguration().setProcessEngineLifecycleListener(new ProcessEngineCloseListener());
+    public HistoryLevel getConfiguredHistoryLevel() {
+        return doGetProcessEngineConfiguration().getHistoryLevel();
     }
 
-    public ProcessEngineConfigurationImpl getProcessEngineConfiguration() {
-        initializeEngineServices();
-        return doGetProcessEngineConfiguration();
+    private void initializeConfiguration() {
+        this.messageLogger = new MessageLogger(LOG_MESSAGES_BUNDLE_NAME, getLocale());
+
+        if (this.processEngine == null) {
+            this.processEngine = ProcessEngines.getDefaultProcessEngine();
+        }
+        registerProcessEngineCloseListener();
+
+        this.messageLogger.logInfo(LOGGER, LogMessage.CONFIGURATION_1.getBundleKey(), this.processEngine.getName());
+    }
+
+    private void registerProcessEngineCloseListener() {
+        doGetProcessEngineConfiguration().setProcessEngineLifecycleListener(new ProcessEngineCloseListener());
     }
 
     private ProcessEngineConfigurationImpl doGetProcessEngineConfiguration() {
@@ -74,22 +108,12 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
         return configuration;
     }
 
-    private void initializeEngineServices() {
-        if (this.processEngine == null) {
-            setProcessEngine(ProcessEngines.getDefaultProcessEngine());
-        }
-    }
-
-    @Override
-    public AssertFactory getAssertFactory() {
-        return assertFactory;
-    }
-
     private final class ProcessEngineCloseListener implements ProcessEngineLifecycleListener {
 
         @Override
         public void onProcessEngineClosed(final ProcessEngine processEngine) {
             ProcessAssertActivitiConfiguration.this.processEngine = null;
+            messageLogger.logInfo(LOGGER, LogMessage.CONFIGURATION_2.getBundleKey(), processEngine.getName());
         }
 
         @Override

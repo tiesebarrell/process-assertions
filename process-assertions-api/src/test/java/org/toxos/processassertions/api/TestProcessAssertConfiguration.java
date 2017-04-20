@@ -2,8 +2,6 @@ package org.toxos.processassertions.api;
 
 import org.toxos.processassertions.api.internal.AssertFactory;
 
-import java.util.Locale;
-
 /**
  * Created by tiesebarrell on 05/04/2017.
  */
@@ -11,7 +9,7 @@ public class TestProcessAssertConfiguration extends DefaultProcessAssertConfigur
 
     private AssertFactory assertFactory;
 
-    public TestProcessAssertConfiguration(Locale locale) {
+    public TestProcessAssertConfiguration(SupportedLocale locale) {
         super(locale);
     }
 

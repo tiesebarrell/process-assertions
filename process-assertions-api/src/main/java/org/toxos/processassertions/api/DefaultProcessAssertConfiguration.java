@@ -30,12 +30,19 @@ public abstract class DefaultProcessAssertConfiguration implements ProcessAssert
 
     protected DefaultProcessAssertConfiguration() {
         super();
-        this.locale = Constants.DEFAULT_LOCALE;
+        this.locale = SupportedLocale.DEFAULT.getLocale();
     }
 
-    public DefaultProcessAssertConfiguration(final Locale locale) {
-        this();
-        this.locale = locale;
+    public DefaultProcessAssertConfiguration(final SupportedLocale supportedLocale) {
+        super();
+        this.locale = supportedLocale.getLocale();
+    }
+
+    /**
+     * Registers the current configuration as the active configuration for Process Assertions.
+     */
+    public void register() {
+        ProcessAssert.setConfiguration(this);
     }
 
     @Override
@@ -43,8 +50,8 @@ public abstract class DefaultProcessAssertConfiguration implements ProcessAssert
         return locale;
     }
 
-    public void setLocale(final Locale locale) {
-        this.locale = locale;
+    public void setLocale(final SupportedLocale supportedLocale) {
+        this.locale = supportedLocale.getLocale();
     }
 
 }

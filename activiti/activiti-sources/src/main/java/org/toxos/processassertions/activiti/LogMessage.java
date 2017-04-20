@@ -13,24 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.toxos.processassertions.api;
-
-import java.util.Locale;
+package org.toxos.processassertions.activiti;
 
 /**
- * Constants for process assertions.
+ * Messages used in log statements.
  * 
  * @author Tiese Barrell
  * 
  */
-public final class Constants {
+public enum LogMessage {
 
     /**
-     * The default {@link Locale} used for logging messages.
+     * Configuration is initialized.
      */
-    public static final Locale DEFAULT_LOCALE = new Locale("en", "US");
+    CONFIGURATION_1,
 
-    private Constants() {
-        super();
+    /**
+     * Configuration is deinitialized due to engine close down.
+     */
+    CONFIGURATION_2;
+
+    private final String bundleKey;
+
+    private LogMessage() {
+        this.bundleKey = name().replaceAll("_", ".").toLowerCase();
     }
+
+    /**
+     * Gets the bundle key for the LogMessage.
+     * 
+     * @return the bundle key
+     */
+    public String getBundleKey() {
+        return bundleKey;
+    }
+
 }
