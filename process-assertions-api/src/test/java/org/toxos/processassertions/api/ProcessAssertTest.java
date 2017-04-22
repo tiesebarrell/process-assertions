@@ -29,11 +29,16 @@ public class ProcessAssertTest {
     private final String[] endEventIds = { endEventId1, endEventId2 };
     private final String variableName = "variable-name-789";
     private final String variableValue = "variable-value-890";
-    @Mock private AssertFactory assertFactoryMock;
-    @Mock private ProcessInstanceAssertable processInstanceAssertableMock;
-    @Mock private TaskInstanceAssertable taskInstanceAssertableMock;
-    @Mock private EndEventAssertable endEventAssertableMock;
-    @Mock private HistoricVariableInstanceAssertable historicVariableInstanceAssertableMock;
+    @Mock
+    private AssertFactory assertFactoryMock;
+    @Mock
+    private ProcessInstanceAssertable processInstanceAssertableMock;
+    @Mock
+    private TaskInstanceAssertable taskInstanceAssertableMock;
+    @Mock
+    private EndEventAssertable endEventAssertableMock;
+    @Mock
+    private HistoricVariableInstanceAssertable historicVariableInstanceAssertableMock;
 
     @Before
     public void before() {
@@ -44,7 +49,8 @@ public class ProcessAssertTest {
         when(assertFactoryMock.getHistoricVariableInstanceAssertable(isA(ApiCallback.class))).thenReturn(historicVariableInstanceAssertableMock);
     }
 
-    @Test public void setConfigurationHasNewConfiguration() {
+    @Test
+    public void setConfigurationHasNewConfiguration() {
         final ProcessAssertConfiguration initial = ProcessAssert.getConfiguration();
         assertThat(initial, is(notNullValue()));
         ProcessAssert.setConfiguration(new TestProcessAssertConfiguration());
@@ -113,7 +119,7 @@ public class ProcessAssertTest {
         verify(taskInstanceAssertableMock, times(1)).taskIsUncompleted(taskId);
     }
 
-    @Test (expected = AssertionError.class)
+    @Test(expected = AssertionError.class)
     public void assertTaskUncompletedByTaskIdFailsFromAssertable() {
         doThrow(AssertionError.class).when(taskInstanceAssertableMock).taskIsUncompleted(taskId);
         ProcessAssert.assertTaskUncompleted(taskId);
@@ -124,7 +130,8 @@ public class ProcessAssertTest {
         ProcessAssert.assertTaskUncompleted(null);
     }
 
-    @Test public void assertTaskUncompletedByTaskKey() {
+    @Test
+    public void assertTaskUncompletedByTaskKey() {
         ProcessAssert.assertTaskUncompleted(processInstanceId, taskKey);
         verify(taskInstanceAssertableMock, times(1)).taskIsUncompleted(processInstanceId, taskKey);
     }
@@ -135,11 +142,13 @@ public class ProcessAssertTest {
         ProcessAssert.assertTaskUncompleted(processInstanceId, taskKey);
     }
 
-    @Test(expected = NullPointerException.class) public void assertTaskUncompletedByTaskKeyExceptionForNullProcessInstanceId() {
+    @Test(expected = NullPointerException.class)
+    public void assertTaskUncompletedByTaskKeyExceptionForNullProcessInstanceId() {
         ProcessAssert.assertTaskUncompleted(null, taskKey);
     }
 
-    @Test(expected = NullPointerException.class) public void assertTaskUncompletedByTaskKeyExceptionForNullTaskKey() {
+    @Test(expected = NullPointerException.class)
+    public void assertTaskUncompletedByTaskKeyExceptionForNullTaskKey() {
         ProcessAssert.assertTaskUncompleted(processInstanceId, null);
     }
 
@@ -200,15 +209,18 @@ public class ProcessAssertTest {
         ProcessAssert.assertProcessVariableLatestValueEquals(processInstanceId, variableName, variableValue);
     }
 
-    @Test(expected = NullPointerException.class) public void assertProcessVariableLatestValueEqualsExceptionForNullProcessInstanceId() {
+    @Test(expected = NullPointerException.class)
+    public void assertProcessVariableLatestValueEqualsExceptionForNullProcessInstanceId() {
         ProcessAssert.assertProcessVariableLatestValueEquals(null, variableName, variableValue);
     }
 
-    @Test(expected = NullPointerException.class) public void assertProcessVariableLatestValueEqualsExceptionForNullVariableName() {
+    @Test(expected = NullPointerException.class)
+    public void assertProcessVariableLatestValueEqualsExceptionForNullVariableName() {
         ProcessAssert.assertProcessVariableLatestValueEquals(processInstanceId, null, variableValue);
     }
 
-    @Test(expected = UnsupportedOperationException.class) public void assertProcessEndedAndReachedEndStateLastException() {
+    @Test(expected = UnsupportedOperationException.class)
+    public void assertProcessEndedAndReachedEndStateLastException() {
         ProcessAssert.assertProcessEndedAndReachedEndStateLast(processInstanceId, endEventId1);
     }
 

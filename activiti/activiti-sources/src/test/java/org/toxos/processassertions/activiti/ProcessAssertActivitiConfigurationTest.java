@@ -3,6 +3,7 @@ package org.toxos.processassertions.activiti;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.impl.ProcessEngineImpl;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
+import org.activiti.engine.impl.history.HistoryLevel;
 import org.activiti.engine.test.ActivitiRule;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,10 +14,9 @@ import org.toxos.processassertions.api.SupportedLocale;
 
 import java.util.Locale;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.CoreMatchers.*;
+import static org.mockito.Mockito.isA;
+import static org.mockito.Mockito.*;
 import static org.toxos.processassertions.api.internal.Assert.assertThat;
 
 /**
@@ -44,6 +44,8 @@ public class ProcessAssertActivitiConfigurationTest {
     public void before() {
         when(activitiRuleMock.getProcessEngine()).thenReturn(processEngineMock);
         when(processEngineMock.getProcessEngineConfiguration()).thenReturn(processEngineConfigurationMock);
+        when(processEngineMock.getName()).thenReturn("Unit test mock engine");
+        when(processEngineConfigurationMock.getHistoryLevel()).thenReturn(HistoryLevel.FULL);
     }
 
     @Test
@@ -51,6 +53,7 @@ public class ProcessAssertActivitiConfigurationTest {
         classUnderTest = new ProcessAssertActivitiConfiguration(processEngineMock);
         assertThat(classUnderTest.getProcessEngine(), is(sameInstance((ProcessEngine) processEngineMock)));
         assertThat(ProcessAssertActivitiConfiguration.INSTANCE, is(sameInstance(classUnderTest)));
+        verify(processEngineConfigurationMock, times(1)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
     }
 
     @Test
@@ -58,6 +61,7 @@ public class ProcessAssertActivitiConfigurationTest {
         classUnderTest = new ProcessAssertActivitiConfiguration(activitiRuleMock);
         assertThat(classUnderTest.getProcessEngine(), is(sameInstance((ProcessEngine) processEngineMock)));
         assertThat(ProcessAssertActivitiConfiguration.INSTANCE, is(sameInstance(classUnderTest)));
+        verify(processEngineConfigurationMock, times(1)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
     }
 
     @Test
@@ -66,6 +70,7 @@ public class ProcessAssertActivitiConfigurationTest {
         assertThat(classUnderTest.getLocale(), is(locale));
         assertThat(classUnderTest.getProcessEngine(), is(sameInstance((ProcessEngine) processEngineMock)));
         assertThat(ProcessAssertActivitiConfiguration.INSTANCE, is(sameInstance(classUnderTest)));
+        verify(processEngineConfigurationMock, times(1)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
     }
 
     @Test
@@ -74,6 +79,7 @@ public class ProcessAssertActivitiConfigurationTest {
         assertThat(classUnderTest.getLocale(), is(locale));
         assertThat(classUnderTest.getProcessEngine(), is(sameInstance((ProcessEngine) processEngineMock)));
         assertThat(ProcessAssertActivitiConfiguration.INSTANCE, is(sameInstance(classUnderTest)));
+        verify(processEngineConfigurationMock, times(1)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
     }
 
     @Test
@@ -82,14 +88,39 @@ public class ProcessAssertActivitiConfigurationTest {
         assertThat(classUnderTest.getProcessEngine(), is(sameInstance((ProcessEngine) processEngineMock)));
         final ProcessEngineImpl otherEngine = mock(ProcessEngineImpl.class);
         when(otherEngine.getProcessEngineConfiguration()).thenReturn(processEngineConfigurationMock);
+        when(otherEngine.getName()).thenReturn("Unit test alternative mock engine");
         classUnderTest.setProcessEngine(otherEngine);
         assertThat(classUnderTest.getProcessEngine(), is(sameInstance((ProcessEngine) otherEngine)));
+        verify(processEngineConfigurationMock, times(2)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
     }
 
-//    @Test
-//    public void settingProcessEngineToNullHasDefaultProcessEngine() {
-//        classUnderTest = new ProcessAssertActivitiConfiguration(processEngineMock);
-//        classUnderTest.setProcessEngine(null);
-//        assertThat(classUnderTest.getProcessEngine(), is(sameInstance(null)));
-//    }
+    @Test
+    public void settingActivitiRuleChangesEngine() {
+        classUnderTest = new ProcessAssertActivitiConfiguration(processEngineMock);
+        assertThat(classUnderTest.getProcessEngine(), is(sameInstance((ProcessEngine) processEngineMock)));
+        classUnderTest.setActivitiRule(activitiRuleMock);
+        assertThat(classUnderTest.getProcessEngine(), is(sameInstance((ProcessEngine) processEngineMock)));
+        verify(processEngineConfigurationMock, times(2)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
+    }
+
+    @Test
+    public void assertFactoryIsCreated() {
+        classUnderTest = new ProcessAssertActivitiConfiguration(processEngineMock);
+        assertThat(classUnderTest.getAssertFactory(), is(instanceOf(AssertFactoryImpl.class)));
+    }
+
+    @Test
+    public void deInitializeResetsProcessEngine() {
+        classUnderTest = new ProcessAssertActivitiConfiguration(processEngineMock);
+        classUnderTest.deInitialize();
+        assertThat(classUnderTest.getProcessEngine(), is(nullValue()));
+    }
+
+    @Test
+    public void configuredHistoryLevelIsReturned() {
+        classUnderTest = new ProcessAssertActivitiConfiguration(processEngineMock);
+        assertThat(classUnderTest.getConfiguredHistoryLevel(), is(HistoryLevel.FULL));
+    }
+
+
 }

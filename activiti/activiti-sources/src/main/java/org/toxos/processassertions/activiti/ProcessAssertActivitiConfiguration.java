@@ -1,7 +1,6 @@
 package org.toxos.processassertions.activiti;
 
 import org.activiti.engine.ProcessEngine;
-import org.activiti.engine.ProcessEngineLifecycleListener;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.impl.ProcessEngineImpl;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -75,12 +74,20 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
         return assertFactory;
     }
 
+    /**
+     *
+     * @param activitiRule
+     */
     public void setActivitiRule(final ActivitiRule activitiRule) {
         setProcessEngine(activitiRule.getProcessEngine());
     }
 
-    public HistoryLevel getConfiguredHistoryLevel() {
+    HistoryLevel getConfiguredHistoryLevel() {
         return doGetProcessEngineConfiguration().getHistoryLevel();
+    }
+
+    void deInitialize() {
+        this.processEngine = null;
     }
 
     private void initializeConfiguration() {
@@ -95,31 +102,15 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
     }
 
     private void registerProcessEngineCloseListener() {
-        doGetProcessEngineConfiguration().setProcessEngineLifecycleListener(new ProcessEngineCloseListener());
+        doGetProcessEngineConfiguration().setProcessEngineLifecycleListener(new ProcessEngineCloseListener(this, messageLogger));
     }
 
     private ProcessEngineConfigurationImpl doGetProcessEngineConfiguration() {
         ProcessEngineConfigurationImpl configuration = null;
-        if (this.processEngine instanceof ProcessEngineConfigurationImpl) {
-            configuration = (ProcessEngineConfigurationImpl) this.processEngine;
-        } else if (this.processEngine instanceof ProcessEngineImpl) {
+        if (this.processEngine instanceof ProcessEngineImpl) {
             configuration = ((ProcessEngineImpl) this.processEngine).getProcessEngineConfiguration();
         }
         return configuration;
-    }
-
-    private final class ProcessEngineCloseListener implements ProcessEngineLifecycleListener {
-
-        @Override
-        public void onProcessEngineClosed(final ProcessEngine processEngine) {
-            ProcessAssertActivitiConfiguration.this.processEngine = null;
-            messageLogger.logInfo(LOGGER, LogMessage.CONFIGURATION_2.getBundleKey(), processEngine.getName());
-        }
-
-        @Override
-        public void onProcessEngineBuilt(final ProcessEngine processEngine) {
-            // no-op
-        }
     }
 
 }
