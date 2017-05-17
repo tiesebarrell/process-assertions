@@ -35,6 +35,9 @@ public enum LogMessage {
 
     private final String bundleKey;
 
+    /**
+     * Constructs a new LogMessage.
+     */
     private LogMessage() {
         this.bundleKey = name().replaceAll("_", ".").toLowerCase();
     }
