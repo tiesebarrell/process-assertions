@@ -43,7 +43,8 @@ final class HistoricVariableInstanceAssert extends AbstractProcessAssertable imp
         super(callback, configuration);
     }
 
-    @Override public void historicProcessVariableLatestValueEquals(final String processInstanceId, final String processVariableName,
+    @Override
+    public void historicProcessVariableLatestValueEquals(final String processInstanceId, final String processVariableName,
             final Object expectedValue) {
 
         // Assert the history level is set to full

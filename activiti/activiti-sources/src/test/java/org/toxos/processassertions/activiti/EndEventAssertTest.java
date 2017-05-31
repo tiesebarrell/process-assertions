@@ -48,7 +48,7 @@ public class EndEventAssertTest {
     private final String endEventId2 = "end-event-345";
     private final String endEventId3 = "end-event-456";
 
-    private String[] endEventIds = new String[]{endEventId1, endEventId2};;
+    private String[] endEventIds = new String[]{endEventId1, endEventId2};
 
     private List<HistoricActivityInstance> historicActivityInstances;
 
