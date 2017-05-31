@@ -56,12 +56,22 @@ public class ProcessAssertActivitiConfigurationTest {
         verify(processEngineConfigurationMock, times(1)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
     }
 
+    @Test(expected = NullPointerException.class)
+    public void engineConstructorFailsForNullEngine() {
+        classUnderTest = new ProcessAssertActivitiConfiguration((ProcessEngine) null);
+    }
+
     @Test
     public void ruleConstructorSetsEngineAndInstance() {
         classUnderTest = new ProcessAssertActivitiConfiguration(activitiRuleMock);
         assertThat(classUnderTest.getProcessEngine(), is(sameInstance((ProcessEngine) processEngineMock)));
         assertThat(ProcessAssertActivitiConfiguration.INSTANCE, is(sameInstance(classUnderTest)));
         verify(processEngineConfigurationMock, times(1)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void ruleConstructorFailsForNullEngine() {
+        classUnderTest = new ProcessAssertActivitiConfiguration((ActivitiRule) null);
     }
 
     @Test
@@ -73,6 +83,16 @@ public class ProcessAssertActivitiConfigurationTest {
         verify(processEngineConfigurationMock, times(1)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
     }
 
+    @Test(expected = NullPointerException.class)
+    public void engineAndLocaleConstructorFailsForNullEngine() {
+        classUnderTest = new ProcessAssertActivitiConfiguration(SupportedLocale.ENGLISH_US, (ProcessEngine) null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void engineAndLocaleConstructorFailsForNullLocale() {
+        classUnderTest = new ProcessAssertActivitiConfiguration(null, processEngineMock);
+    }
+
     @Test
     public void ruleAndLocaleConstructorSetsEngineLocalAndInstance() {
         classUnderTest = new ProcessAssertActivitiConfiguration(SupportedLocale.ENGLISH_US, activitiRuleMock);
@@ -80,6 +100,16 @@ public class ProcessAssertActivitiConfigurationTest {
         assertThat(classUnderTest.getProcessEngine(), is(sameInstance((ProcessEngine) processEngineMock)));
         assertThat(ProcessAssertActivitiConfiguration.INSTANCE, is(sameInstance(classUnderTest)));
         verify(processEngineConfigurationMock, times(1)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void ruleAndLocaleConstructorFailsForNullEngine() {
+        classUnderTest = new ProcessAssertActivitiConfiguration(SupportedLocale.ENGLISH_US, (ActivitiRule) null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void ruleAndLocaleConstructorFailsForNullLocale() {
+        classUnderTest = new ProcessAssertActivitiConfiguration(null, activitiRuleMock);
     }
 
     @Test
@@ -94,6 +124,12 @@ public class ProcessAssertActivitiConfigurationTest {
         verify(processEngineConfigurationMock, times(2)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
     }
 
+    @Test(expected = NullPointerException.class)
+    public void settingProcessEngineFailsForNullEngine() {
+        classUnderTest = new ProcessAssertActivitiConfiguration(processEngineMock);
+        classUnderTest.setProcessEngine(null);
+    }
+
     @Test
     public void settingActivitiRuleChangesEngine() {
         classUnderTest = new ProcessAssertActivitiConfiguration(processEngineMock);
@@ -101,6 +137,12 @@ public class ProcessAssertActivitiConfigurationTest {
         classUnderTest.setActivitiRule(activitiRuleMock);
         assertThat(classUnderTest.getProcessEngine(), is(sameInstance((ProcessEngine) processEngineMock)));
         verify(processEngineConfigurationMock, times(2)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void settingActivitiRuleFailsForNullRule() {
+        classUnderTest = new ProcessAssertActivitiConfiguration(processEngineMock);
+        classUnderTest.setActivitiRule(null);
     }
 
     @Test

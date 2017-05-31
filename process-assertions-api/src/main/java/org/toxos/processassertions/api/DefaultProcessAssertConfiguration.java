@@ -15,6 +15,8 @@
  ******************************************************************************/
 package org.toxos.processassertions.api;
 
+import org.toxos.processassertions.api.internal.Validate;
+
 import java.util.Locale;
 
 /**
@@ -35,6 +37,7 @@ public abstract class DefaultProcessAssertConfiguration implements ProcessAssert
 
     public DefaultProcessAssertConfiguration(final SupportedLocale supportedLocale) {
         super();
+        Validate.notNull(supportedLocale);
         this.locale = supportedLocale.getLocale();
     }
 
@@ -51,6 +54,7 @@ public abstract class DefaultProcessAssertConfiguration implements ProcessAssert
     }
 
     public void setLocale(final SupportedLocale supportedLocale) {
+        Validate.notNull(supportedLocale);
         this.locale = supportedLocale.getLocale();
     }
 

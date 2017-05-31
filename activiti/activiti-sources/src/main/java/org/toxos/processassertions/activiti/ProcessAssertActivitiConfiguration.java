@@ -12,6 +12,7 @@ import org.toxos.processassertions.api.DefaultProcessAssertConfiguration;
 import org.toxos.processassertions.api.SupportedLocale;
 import org.toxos.processassertions.api.internal.AssertFactory;
 import org.toxos.processassertions.api.internal.MessageLogger;
+import org.toxos.processassertions.api.internal.Validate;
 
 /**
  * Configuration for Process Assertions with the Activiti Process Engine.
@@ -34,6 +35,7 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
 
     public ProcessAssertActivitiConfiguration(final ProcessEngine processEngine) {
         super();
+        Validate.notNull(processEngine);
         this.processEngine = processEngine;
         INSTANCE = this;
         initializeConfiguration();
@@ -41,6 +43,7 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
 
     public ProcessAssertActivitiConfiguration(final ActivitiRule activitiRule) {
         super();
+        Validate.notNull(activitiRule);
         this.processEngine = activitiRule.getProcessEngine();
         INSTANCE = this;
         initializeConfiguration();
@@ -48,6 +51,7 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
 
     public ProcessAssertActivitiConfiguration(final SupportedLocale supportedLocale, final ProcessEngine processEngine) {
         super(supportedLocale);
+        Validate.notNull(processEngine);
         this.processEngine = processEngine;
         INSTANCE = this;
         initializeConfiguration();
@@ -55,6 +59,7 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
 
     public ProcessAssertActivitiConfiguration(final SupportedLocale supportedLocale, final ActivitiRule activitiRule) {
         super(supportedLocale);
+        Validate.notNull(activitiRule);
         this.processEngine = activitiRule.getProcessEngine();
         INSTANCE = this;
         initializeConfiguration();
@@ -65,6 +70,7 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
     }
 
     public void setProcessEngine(final ProcessEngine processEngine) {
+        Validate.notNull(processEngine);
         this.processEngine = processEngine;
         initializeConfiguration();
     }
@@ -79,6 +85,7 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
      * @param activitiRule
      */
     public void setActivitiRule(final ActivitiRule activitiRule) {
+        Validate.notNull(activitiRule);
         setProcessEngine(activitiRule.getProcessEngine());
     }
 
