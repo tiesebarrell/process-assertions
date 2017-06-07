@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.toxos.activiti.assertion.process;
+package org.toxos.processassertions.integration.common.process;
 
 /**
  * Constants for the conditional subprocess process.

@@ -7,12 +7,17 @@
         <groupId>org.toxos.process-assertions</groupId>
         <version>0.6.1-SNAPSHOT</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
 
     <groupId>org.toxos.process-assertions.integration</groupId>
     <artifactId>activiti-integration</artifactId>
     <name>${projectNamePrefix} Activiti Integration</name>
+
+    <properties>
+        <activiti.version>5.22.0</activiti.version>
+        <module.engine.version>5_22_0</module.engine.version>
+    </properties>
 
     <build>
         <plugins>
@@ -32,20 +37,50 @@
             <id>activiti-5.16.3</id>
             <properties>
                 <activiti.version>5.16.3</activiti.version>
+                <module.engine.version>5_16_3</module.engine.version>
             </properties>
         </profile>
         <profile>
             <id>activiti-5.16.4</id>
             <properties>
                 <activiti.version>5.16.4</activiti.version>
+                <module.engine.version>5_16_4</module.engine.version>
             </properties>
         </profile>
         <profile>
             <id>activiti-5.17.0</id>
             <properties>
                 <activiti.version>5.17.0</activiti.version>
+                <module.engine.version>5_17_0</module.engine.version>
             </properties>
         </profile>
     </profiles>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.toxos.process-assertions.integration</groupId>
+            <artifactId>common-integration</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.toxos.process-assertions.activiti</groupId>
+            <artifactId>activiti-${module.engine.version}</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-spring</artifactId>
+            <version>${activiti.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Comment for release -->
+        <dependency>
+            <groupId>org.toxos.process-assertions.activiti</groupId>
+            <artifactId>activiti-sources</artifactId>
+            <version>0.6.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

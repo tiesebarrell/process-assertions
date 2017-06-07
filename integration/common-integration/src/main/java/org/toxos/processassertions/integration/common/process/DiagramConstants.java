@@ -13,47 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.toxos.processassertions.activiti.process;
+package org.toxos.processassertions.integration.common.process;
 
 /**
- * Constants for the conditional subprocess process.
- * 
+ * Constants for test cases.
+ *
  * @author Tiese Barrell
  */
-public enum ConditionalSubProcessesProcessConstant {
+public interface DiagramConstants {
+    /**
+     * The BPMN process for the straight through process.
+     */
+    String BPMN_STRAIGHT_THROUGH = "diagrams/TestProcessStraightThrough.bpmn";
 
     /**
-     * The process' key.
+     * The BPMN process for the single usertask process.
      */
-    PROCESS_KEY("testProcessConditionalSubProcesses"),
+    String BPMN_SINGLE_USER_TASK = "diagrams/TestProcessSingleUserTask.bpmn";
 
     /**
-     * The id of the end event for the whole process.
+     * The BPMN process for the two usertask process.
      */
-    END_PROCESS_EVENT_ID("endProcess"),
+    String BPMN_TWO_USER_TASKS = "diagrams/TestProcessTwoUserTasks.bpmn";
 
     /**
-     * The id of the end event for the first sub process.
+     * The BPMN process for the conditional subprocesses process.
      */
-    END_SUBPROCESS_1_EVENT_ID("endSubProcess1"),
+    String BPMN_CONDITIONAL_SUBPROCESSES = "diagrams/TestProcessConditionalSubProcesses.bpmn";
 
     /**
-     * The id of the end event for the second sub process.
+     * The BPMN process for the multi instance process.
      */
-    END_SUBPROCESS_2_EVENT_ID("endSubProcess2"),
-
-    /**
-     * The id of the end event for the third sub process.
-     */
-    END_SUBPROCESS_3_EVENT_ID("endSubProcess3");
-
-    private final String value;
-
-    private ConditionalSubProcessesProcessConstant(final String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
+    String BPMN_MULTI_INSTANCE = "diagrams/TestProcessMultiInstance.bpmn";
 }

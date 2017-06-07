@@ -13,33 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.toxos.activiti.assertion.process;
+package org.toxos.processassertions.integration.common.process;
 
 /**
- * Constants for the single user task process.
+ * Constants for the straight through process.
  * 
  * @author Tiese Barrell
  */
-public enum SingleUserTaskProcessConstant {
+public enum StraightThroughProcessConstant {
 
     /**
      * The process' key.
      */
-    PROCESS_KEY("testProcessSingleUserTask"),
+    PROCESS_KEY("testProcessStraightThrough"),
 
     /**
      * The id of the end event.
      */
-    END_EVENT_ID("endCompleted"),
-
-    /**
-     * The id of the user task.
-     */
-    USER_TASK_ACTIVITY_ID("singleUserTask");
+    END_EVENT_ID("endCompleted");
 
     private final String value;
 
-    private SingleUserTaskProcessConstant(final String value) {
+    private StraightThroughProcessConstant(final String value) {
         this.value = value;
     }
 

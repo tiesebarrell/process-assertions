@@ -13,34 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.toxos.activiti.assertion.process;
+package org.toxos.processassertions.integration.common.process;
 
 /**
- * Constants for the two user tasks process.
+ * Constants for the single user task process.
  * 
  * @author Tiese Barrell
- * 
  */
-public enum TwoUserTasksProcessConstant {
+public enum SingleUserTaskProcessConstant {
 
     /**
      * The process' key.
      */
-    PROCESS_KEY("testProcessTwoUserTasks"),
+    PROCESS_KEY("testProcessSingleUserTask"),
 
     /**
-     * The id of the first usertask.
+     * The id of the end event.
      */
-    USER_TASK_1_ACTIVITY_ID("userTask1"),
+    END_EVENT_ID("endCompleted"),
 
     /**
-     * The id of the second usertask.
+     * The id of the user task.
      */
-    USER_TASK_2_ACTIVITY_ID("userTask2");
+    USER_TASK_ACTIVITY_ID("singleUserTask");
 
     private final String value;
 
-    private TwoUserTasksProcessConstant(final String value) {
+    private SingleUserTaskProcessConstant(final String value) {
         this.value = value;
     }
 

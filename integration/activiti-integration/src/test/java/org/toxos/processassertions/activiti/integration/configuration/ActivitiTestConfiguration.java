@@ -1,5 +1,6 @@
 package org.toxos.processassertions.activiti.integration.configuration;
 
+import org.activiti.engine.*;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.history.HistoryLevel;
 import org.activiti.engine.test.ActivitiRule;

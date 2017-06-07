@@ -21,22 +21,33 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.toxos.processassertions.activiti.ProcessAssertActivitiConfiguration;
+import org.toxos.processassertions.api.ProcessAssert;
+import org.toxos.processassertions.integration.common.process.DiagramConstants;
 
 /**
  * Abstract base class for test classes that test {@link ProcessAssert}.
  *
  * @author Tiese Barrell
  */
-@RunWith(SpringJUnit4ClassRunner.class) public abstract class AbstractProcessAssertTest implements TestConstants {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = ActivitiTestConfiguration.class)
+public abstract class AbstractProcessAssertTest implements DiagramConstants {
 
-    @Autowired @Rule public ActivitiRule activitiRule;
+    @Autowired
+    @Rule
+    public ActivitiRule activitiRule;
 
-    @Autowired protected RuntimeService runtimeService;
+    @Autowired
+    protected RuntimeService runtimeService;
 
-    @Autowired protected TaskService taskService;
+    @Autowired
+    protected TaskService taskService;
 
-    @Before public void before() {
+    @Before
+    public void before() {
         ProcessAssert.setConfiguration(new ProcessAssertActivitiConfiguration(activitiRule));
     }
 
