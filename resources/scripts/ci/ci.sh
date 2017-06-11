@@ -9,11 +9,12 @@ prelude="[CIBUILD]";
 
 echo "${prelude} Running CI build";
 
-source $(dirname $0)/ci-activiti-5_12-5_16_2.sh;
-source $(dirname $0)/ci-activiti-5_16_3-5_x.sh;
-
 echo "${prelude} Running default test profile for project";
 
-mvn clean test;
+mvn clean test -T 2C;
+
+source resources/scripts/ci/activiti-integration.sh;
+
+source resources/scripts/ci/flowable-integration.sh;
 
 echo "${prelude} Completed CI build";

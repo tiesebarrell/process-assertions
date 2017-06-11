@@ -15,9 +15,11 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
-@Configuration public class ActivitiTestConfiguration {
+@Configuration
+public class ActivitiTestConfiguration {
 
-    @Bean public DataSource dataSource() {
+    @Bean
+    public DataSource dataSource() {
         final SimpleDriverDataSource result = new SimpleDriverDataSource();
         result.setDriverClass(Driver.class);
         result.setUrl("jdbc:h2:mem:flowable;DB_CLOSE_DELAY=1000");
@@ -26,11 +28,13 @@ import javax.sql.DataSource;
         return result;
     }
 
-    @Bean public PlatformTransactionManager transactionManager() {
+    @Bean
+    public PlatformTransactionManager transactionManager() {
         return new DataSourceTransactionManager(dataSource());
     }
 
-    @Bean public ProcessEngineConfigurationImpl processEngineConfiguration() {
+    @Bean
+    public ProcessEngineConfigurationImpl processEngineConfiguration() {
         final SpringProcessEngineConfiguration result = new SpringProcessEngineConfiguration();
         result.setDataSource(dataSource());
         result.setTransactionManager(transactionManager());
@@ -40,34 +44,47 @@ import javax.sql.DataSource;
         return result;
     }
 
-    @Bean public ProcessEngineFactoryBean processEngine() {
+    @Bean
+    public ProcessEngineFactoryBean processEngine() {
         final ProcessEngineFactoryBean result = new ProcessEngineFactoryBean();
         result.setProcessEngineConfiguration(processEngineConfiguration());
         return result;
     }
 
-    @Bean public RepositoryService repositoryService() throws Exception {
+    @Bean
+    public RepositoryService repositoryService() throws Exception {
         return processEngine().getObject().getRepositoryService();
     }
 
-    @Bean public RuntimeService runtimeService() throws Exception {
+    @Bean
+    public RuntimeService runtimeService() throws Exception {
         return processEngine().getObject().getRuntimeService();
     }
 
-    @Bean public TaskService taskService() throws Exception {
+    @Bean
+    public TaskService taskService() throws Exception {
         return processEngine().getObject().getTaskService();
     }
 
-    @Bean public HistoryService historyService() throws Exception {
+    @Bean
+    public HistoryService historyService() throws Exception {
         return processEngine().getObject().getHistoryService();
     }
 
-    @Bean public ManagementService managementService() throws Exception {
+    @Bean
+    public ManagementService managementService() throws Exception {
         return processEngine().getObject().getManagementService();
     }
 
-    @Bean public ActivitiRule activitiRule() throws Exception {
-        return new ActivitiRule(processEngine().getObject());
+    @Bean
+    public ActivitiRule activitiRule() throws Exception {
+        // Workaround for quirk in earlier Activiti versions where an ActivitiRule
+        // instantiated using a ProcessEngine does not correctly configure the
+        // services from the ProcessEngine, resulting in NPEs when retrieving
+        // services from the rule.
+        final ActivitiRule result = new ActivitiRule();
+        result.setProcessEngine(processEngine().getObject());
+        return result;
     }
 
 }

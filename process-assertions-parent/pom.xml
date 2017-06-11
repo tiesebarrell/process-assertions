@@ -30,6 +30,7 @@
 		<mockito.version>1.9.5</mockito.version>
 		<slf4j.version>1.7.5</slf4j.version>
 		<spring.version>3.1.2.RELEASE</spring.version>
+		<cglib.version>2.2</cglib.version>
 
 		<!-- Configuration -->
 		<javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
@@ -43,6 +44,7 @@
 		<!-- Plugins -->
 		<maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
 		<maven.javadoc.plugin.version>2.9.1</maven.javadoc.plugin.version>
+		<maven.deploy.plugin.version>2.8.2</maven.deploy.plugin.version>
 		<maven.release.plugin.version>2.4.2</maven.release.plugin.version>
 		<maven.surefire.plugin.version>2.16</maven.surefire.plugin.version>
 	</properties>
@@ -53,7 +55,6 @@
 				<groupId>org.activiti</groupId>
 				<artifactId>activiti-engine</artifactId>
 				<version>${activiti.version}</version>
-				<scope>provided</scope>
 			</dependency>
             <dependency>
                 <groupId>org.flowable</groupId>
@@ -95,6 +96,11 @@
 				<artifactId>spring-test</artifactId>
 				<version>${spring.version}</version>
 				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>cglib</groupId>
+				<artifactId>cglib</artifactId>
+				<version>${cglib.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.slf4j</groupId>
@@ -177,6 +183,11 @@
 						<encoding>${project.build.sourceEncoding}</encoding>
 					</configuration>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>${maven.deploy.plugin.version}</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 
@@ -189,18 +200,6 @@
                     <stylesheetfile>resources/javadoc/stylesheet.css</stylesheetfile>
 				</configuration>
 			</plugin>
-            <!--
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven.surefire.plugin.version}</version>
-                <configuration>
-                    <includes>
-                        <include>${surefire.run.integration.suite}</include>
-                    </includes>
-                </configuration>
-            </plugin>
-            -->
 		</plugins>
 	</build>
 </project>
