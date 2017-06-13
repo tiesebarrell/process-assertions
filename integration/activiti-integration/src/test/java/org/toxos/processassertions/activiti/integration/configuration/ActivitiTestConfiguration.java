@@ -36,11 +36,13 @@ public class ActivitiTestConfiguration {
     @Bean
     public ProcessEngineConfigurationImpl processEngineConfiguration() {
         final SpringProcessEngineConfiguration result = new SpringProcessEngineConfiguration();
+        result.setProcessEngineName("activiti-integration-test-engine");
         result.setDataSource(dataSource());
         result.setTransactionManager(transactionManager());
         result.setDatabaseSchemaUpdate("true");
         result.setJobExecutorActivate(false);
         result.setHistoryLevel(HistoryLevel.FULL);
+        result.setHistory(HistoryLevel.FULL.getKey());
         return result;
     }
 

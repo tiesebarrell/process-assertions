@@ -18,6 +18,9 @@
         <activiti.version>5.22.0</activiti.version>
         <module.engine.version>5_22_0</module.engine.version>
         <spring.version>4.1.5.RELEASE</spring.version>
+        <!--<activiti.version>5.14</activiti.version>-->
+        <!--<module.engine.version>5_14</module.engine.version>-->
+        <!--<spring.version>3.1.2.RELEASE</spring.version>-->
     </properties>
 
     <repositories>

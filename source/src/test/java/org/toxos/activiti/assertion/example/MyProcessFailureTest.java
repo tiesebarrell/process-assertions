@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.toxos.activiti.assertion.example;
+package org.toxos.processassertions.activiti.example;
 
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.test.ActivitiRule;
@@ -22,8 +22,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
-import org.toxos.activiti.assertion.DefaultProcessAssertConfiguration;
-import org.toxos.activiti.assertion.ProcessAssert;
 
 /**
  * Example test for MyProcess intended to generate a failure to illustrate
@@ -32,6 +30,7 @@ import org.toxos.activiti.assertion.ProcessAssert;
  * @author Tiese Barrell
  * 
  */
+@Ignore
 public class MyProcessFailureTest {
 
     @Rule
@@ -40,15 +39,15 @@ public class MyProcessFailureTest {
     @Before
     public void before() {
         // set the configuration with the ActivitiRule
-        ProcessAssert.setConfiguration(new DefaultProcessAssertConfiguration(activitiRule));
+        //ProcessAssert.setConfiguration(new DefaultProcessAssertConfiguration(activitiRule));
     }
 
     @Test
-    @Deployment(resources = "example/MyProcess.bpmn")
+    @Deployment(resources = "source/src/test/resources/example/MyProcess.bpmn")
     @Ignore
     public void testStartProcess() throws Exception {
         final ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("myProcess");
-        ProcessAssert.assertProcessEnded(processInstance);
+        //ProcessAssert.assertProcessEnded(processInstance);
     }
 
 }
