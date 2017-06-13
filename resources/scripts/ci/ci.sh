@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SECONDS=0
+
 #Switch to the script's directory regardless of the path the script was invoked from
 cd $(dirname $0);
 
@@ -17,4 +19,7 @@ source resources/scripts/ci/activiti-integration.sh;
 
 source resources/scripts/ci/flowable-integration.sh;
 
-echo "${prelude} Completed CI build";
+duration=$SECONDS
+durationDisplay="$(($duration / 60)) minutes and $(($duration % 60)) seconds."
+
+echo "${prelude} Completed CI build in ${durationDisplay}";

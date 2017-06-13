@@ -22,6 +22,13 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.toxos.processassertions.activiti.ProcessAssertActivitiConfiguration;
+import org.toxos.processassertions.activiti.integration.configuration.ActivitiTestConfiguration;
+import org.toxos.processassertions.api.ProcessAssert;
 
 /**
  * Example test for MyProcess intended to generate a failure to illustrate
@@ -30,24 +37,25 @@ import org.junit.Test;
  * @author Tiese Barrell
  * 
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = ActivitiTestConfiguration.class)
 @Ignore
 public class MyProcessFailureTest {
 
+    @Autowired
     @Rule
-    public ActivitiRule activitiRule = new ActivitiRule("application-context.xml");
+    public ActivitiRule activitiRule;
 
     @Before
     public void before() {
-        // set the configuration with the ActivitiRule
-        //ProcessAssert.setConfiguration(new DefaultProcessAssertConfiguration(activitiRule));
+        ProcessAssert.setConfiguration(new ProcessAssertActivitiConfiguration(activitiRule));
     }
 
     @Test
-    @Deployment(resources = "source/src/test/resources/example/MyProcess.bpmn")
-    @Ignore
-    public void testStartProcess() throws Exception {
+    @Deployment(resources = "example/MyProcess.bpmn")
+    public void testMyProcess() throws Exception {
         final ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("myProcess");
-        //ProcessAssert.assertProcessEnded(processInstance);
+        ProcessAssert.assertProcessEnded(processInstance.getProcessInstanceId());
     }
 
 }

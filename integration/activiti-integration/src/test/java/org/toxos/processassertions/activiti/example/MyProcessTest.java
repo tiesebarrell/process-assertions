@@ -19,9 +19,16 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
 import org.activiti.engine.test.Deployment;
-import org.junit.Ignore;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.toxos.processassertions.activiti.ProcessAssertActivitiConfiguration;
+import org.toxos.processassertions.activiti.integration.configuration.ActivitiTestConfiguration;
+import org.toxos.processassertions.api.ProcessAssert;
 
 /**
  * Example test for a simple process checked using process assertions.
@@ -29,22 +36,29 @@ import org.junit.Test;
  * @author Tiese Barrell
  * 
  */
-@Ignore
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = ActivitiTestConfiguration.class)
 public class MyProcessTest {
 
+    @Autowired
     @Rule
-    public ActivitiRule activitiRule = new ActivitiRule("application-context.xml");
+    public ActivitiRule activitiRule;
+
+    @Before
+    public void before() {
+        ProcessAssert.setConfiguration(new ProcessAssertActivitiConfiguration(activitiRule));
+    }
 
     @Test
-    @Deployment(resources = "source/src/test/resources/example/MyProcess.bpmn")
+    @Deployment(resources = "example/MyProcess.bpmn")
     public void testMyProcess() throws Exception {
         final ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("myProcess");
 
         // assert the process is still running
-        //ProcessAssert.assertProcessActive(processInstance);
+        ProcessAssert.assertProcessActive(processInstance.getProcessInstanceId());
 
         // assert the process is waiting for a UserTask to be completed
-        //ProcessAssert.assertTaskUncompleted(processInstance, "usertask1");
+        ProcessAssert.assertTaskUncompleted(processInstance.getProcessInstanceId(), "usertask1");
 
         // complete the task
         final Task userTask1 = activitiRule.getTaskService().createTaskQuery().processInstanceId(processInstance.getProcessInstanceId())
@@ -52,7 +66,7 @@ public class MyProcessTest {
         activitiRule.getTaskService().complete(userTask1.getId());
 
         // assert the process is now ended
-        //ProcessAssert.assertProcessEnded(processInstance);
+        ProcessAssert.assertProcessEnded(processInstance.getProcessInstanceId());
 
     }
 }
