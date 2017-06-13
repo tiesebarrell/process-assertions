@@ -39,11 +39,24 @@ public class ApiCallbackImpl implements ApiCallback {
         messageLogger.logDebug(LOGGER, message.getBundleKey(), objects);
     }
 
-    public void fail(final LogMessage message, final Object... objects) {
+    public void fail(final AssertionError originalError, final LogMessage message, final Object... objects) {
         final String detailMessage = messageLogger.getMessage(message.getBundleKey(), objects);
         final String failureMessage = messageLogger.getMessage(LogMessage.ERROR_ASSERTIONS_1.getBundleKey(), detailMessage);
         LOGGER.error(failureMessage);
-        throw new AssertionError(failureMessage);
+        throw new AssertionError(failureMessage, originalError);
+    }
+
+    public void fail(Class<? extends ProcessAssertionsException> exceptionClass, final LogMessage message, final Object... objects) {
+        final String detailMessage = messageLogger.getMessage(message.getBundleKey(), objects);
+        final String failureMessage = messageLogger.getMessage(LogMessage.ERROR_ASSERTIONS_1.getBundleKey(), detailMessage);
+        LOGGER.error(failureMessage);
+        ProcessAssertionsException exception = null;
+        try {
+            exception = exceptionClass.getDeclaredConstructor(String.class).newInstance(failureMessage);
+        } catch (Exception e) {
+            throw new AssertionError(e);
+        }
+        throw exception;
     }
 
 }

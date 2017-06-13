@@ -42,9 +42,19 @@ public interface ApiCallback {
     /**
      * Fails the assertions by throwing an AssertionError with the provided message and parameters.
      *
+     * @param originalError the original error that prompted the failure
      * @param message the log message
      * @param objects the parameters for substitution
      */
-    public void fail(final LogMessage message, final Object... objects);
+    public void fail(final AssertionError originalError, final LogMessage message, final Object... objects);
+
+    /**
+     * Fails the assertions by throwing an AssertionError based on the exceptionClass with the provided message and parameters.
+     *
+     * @param exceptionClass the {@link ProcessAssertionsException} classto be created
+     * @param message the log message
+     * @param objects the parameters for substitution
+     */
+    public void fail(Class<? extends ProcessAssertionsException> exceptionClass, final LogMessage message, final Object... objects);
 
 }

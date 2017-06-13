@@ -58,7 +58,6 @@ final class ProcessInstanceAssert extends AbstractProcessAssertable implements P
                 .singleResult();
 
         historicProcessInstanceNotEnded(historicProcessInstance);
-
     }
 
     @Override
@@ -74,7 +73,6 @@ final class ProcessInstanceAssert extends AbstractProcessAssertable implements P
         callback.trace(LogMessage.PROCESS_4, processInstanceId);
         final HistoricProcessInstance historicProcessInstance = getHistoryService().createHistoricProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
         historicProcessInstanceEnded(historicProcessInstance);
-
     }
 
     @Override
@@ -88,7 +86,6 @@ final class ProcessInstanceAssert extends AbstractProcessAssertable implements P
 
         final List<Execution> executions = getRuntimeService().createExecutionQuery().processInstanceId(processInstanceId).activityId(activityId).list();
         Assert.assertThat(executions.isEmpty(), is(false));
-
     }
 
     private static void historicProcessInstanceNotEnded(final HistoricProcessInstance historicProcessInstance) {

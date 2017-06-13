@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.toxos.processassertions.api.LogMessage;
 import org.toxos.processassertions.api.internal.ApiCallback;
+import org.toxos.processassertions.api.internal.ConfigurationException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,7 +128,7 @@ public class HistoricVariableInstanceAssertTest {
                 .getConfiguredHistoryLevel())
                 .thenReturn(HistoryLevel.AUDIT);
         classUnderTest.historicProcessVariableLatestValueEquals(processInstanceId, processVariableName1, processVariableValue1);
-        verify(apiCallbackMock, times(1)).fail(LogMessage.ERROR_CONFIGURATION_1, HistoryLevel.FULL.name(), HistoryLevel.AUDIT.name());
+        verify(apiCallbackMock, times(1)).fail(ConfigurationException.class, LogMessage.ERROR_CONFIGURATION_1, HistoryLevel.FULL.name(), HistoryLevel.AUDIT.name());
     }
 
     @Test(expected = AssertionError.class)

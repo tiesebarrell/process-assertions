@@ -21,10 +21,7 @@ import org.activiti.engine.history.HistoricVariableUpdate;
 import org.activiti.engine.impl.history.HistoryLevel;
 import org.hamcrest.CoreMatchers;
 import org.toxos.processassertions.api.LogMessage;
-import org.toxos.processassertions.api.internal.ApiCallback;
-import org.toxos.processassertions.api.internal.Assert;
-import org.toxos.processassertions.api.internal.HistoricVariableInstanceAssertable;
-import org.toxos.processassertions.api.internal.IsEmptyCollection;
+import org.toxos.processassertions.api.internal.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +67,7 @@ final class HistoricVariableInstanceAssert extends AbstractProcessAssertable imp
 
     private void checkHistoryLevelIsFull() {
         if (!historyLevelIsFull()) {
-            callback.fail(LogMessage.ERROR_CONFIGURATION_1, HistoryLevel.FULL.name(), getConfiguredHistoryLevel().name());
+            callback.fail(ConfigurationException.class, LogMessage.ERROR_CONFIGURATION_1, HistoryLevel.FULL.name(), getConfiguredHistoryLevel().name());
         }
     }
 

@@ -60,7 +60,7 @@ public final class ProcessAssert {
         try {
             getProcessInstanceAssertable().processIsActive(processInstanceId);
         } catch (final AssertionError ae) {
-            apiCallback.fail(LogMessage.ERROR_PROCESS_1, processInstanceId);
+            apiCallback.fail(ae, LogMessage.ERROR_PROCESS_1, processInstanceId);
         }
     }
 
@@ -81,7 +81,7 @@ public final class ProcessAssert {
         try {
             getProcessInstanceAssertable().processIsEnded(processInstanceId);
         } catch (final AssertionError ae) {
-            apiCallback.fail(LogMessage.ERROR_PROCESS_2, processInstanceId);
+            apiCallback.fail(ae, LogMessage.ERROR_PROCESS_2, processInstanceId);
         }
     }
 
@@ -105,7 +105,7 @@ public final class ProcessAssert {
         try {
             getProcessInstanceAssertable().processIsInActivity(processInstanceId, activityId);
         } catch (final AssertionError ae) {
-            apiCallback.fail(LogMessage.ERROR_PROCESS_6, processInstanceId, activityId);
+            apiCallback.fail(ae, LogMessage.ERROR_PROCESS_6, processInstanceId, activityId);
         }
     }
 
@@ -126,7 +126,7 @@ public final class ProcessAssert {
         try {
             getTaskInstanceAssertable().taskIsUncompleted(taskId);
         } catch (final AssertionError ae) {
-            apiCallback.fail(LogMessage.ERROR_TASK_2, taskId);
+            apiCallback.fail(ae, LogMessage.ERROR_TASK_2, taskId);
         }
     }
 
@@ -147,7 +147,7 @@ public final class ProcessAssert {
         try {
             getTaskInstanceAssertable().taskIsUncompleted(processInstanceId, taskDefinitionKey);
         } catch (final AssertionError ae) {
-            apiCallback.fail(LogMessage.ERROR_TASK_1, taskDefinitionKey, processInstanceId);
+            apiCallback.fail(ae, LogMessage.ERROR_TASK_1, taskDefinitionKey, processInstanceId);
         }
     }
 
@@ -189,7 +189,7 @@ public final class ProcessAssert {
         try {
             getEndEventAssertable().processEndedAndInExclusiveEndEvent(processInstanceId, endEventId);
         } catch (final AssertionError ae) {
-            apiCallback.fail(LogMessage.ERROR_PROCESS_3, processInstanceId, endEventId);
+            apiCallback.fail(ae, LogMessage.ERROR_PROCESS_3, processInstanceId, endEventId);
         }
     }
 
@@ -215,7 +215,7 @@ public final class ProcessAssert {
         try {
             getEndEventAssertable().processEndedAndInEndEvents(processInstanceId, endEventIds);
         } catch (final AssertionError ae) {
-            apiCallback.fail(LogMessage.ERROR_PROCESS_4, processInstanceId, AssertUtils.arrayToString(endEventIds));
+            apiCallback.fail(ae, LogMessage.ERROR_PROCESS_4, processInstanceId, AssertUtils.arrayToString(endEventIds));
         }
     }
 
@@ -250,8 +250,10 @@ public final class ProcessAssert {
         apiCallback.debug(LogMessage.VARIABLE_3, processVariableName, processInstanceId, expectedValue);
         try {
             getHistoricVariableInstanceAssertable().historicProcessVariableLatestValueEquals(processInstanceId, processVariableName, expectedValue);
+        } catch (final ProcessAssertionsException processAssertionsException) {
+            throw new AssertionError(processAssertionsException);
         } catch (final AssertionError ae) {
-            apiCallback.fail(LogMessage.ERROR_VARIABLE_1, processVariableName, processInstanceId, expectedValue);
+            apiCallback.fail(ae, LogMessage.ERROR_VARIABLE_1, processVariableName, processInstanceId, expectedValue);
         }
     }
 
