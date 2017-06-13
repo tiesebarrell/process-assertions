@@ -51,7 +51,7 @@ public interface ApiCallback {
     /**
      * Fails the assertions by throwing an AssertionError based on the exceptionClass with the provided message and parameters.
      *
-     * @param exceptionClass the {@link ProcessAssertionsException} classto be created
+     * @param exceptionClass the {@link ProcessAssertionsException} class to be created
      * @param message the log message
      * @param objects the parameters for substitution
      */
