@@ -18,9 +18,6 @@
         <activiti.version>5.22.0</activiti.version>
         <module.engine.version>5_22_0</module.engine.version>
         <spring.version>4.1.5.RELEASE</spring.version>
-        <!--<activiti.version>5.14</activiti.version>-->
-        <!--<module.engine.version>5_14</module.engine.version>-->
-        <!--<spring.version>3.1.2.RELEASE</spring.version>-->
     </properties>
 
     <repositories>
@@ -225,12 +222,13 @@
             <version>${activiti.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- TODO Comment for release -->
+        <!-- TODO Comment for release
         <dependency>
             <groupId>org.toxos.process-assertions.activiti</groupId>
             <artifactId>activiti-sources</artifactId>
             <version>0.6.1-SNAPSHOT</version>
         </dependency>
+        -->
     </dependencies>
 
 </project>

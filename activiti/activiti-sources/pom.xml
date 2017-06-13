@@ -14,8 +14,9 @@
     <name>${projectNamePrefix} Activiti Sources</name>
 
     <properties>
-        <!-- Activate for development purposes on source -->
+        <!-- Activate for development purposes on source
         <activiti.version>5.22.0</activiti.version>
+        -->
     </properties>
 
     <build>
