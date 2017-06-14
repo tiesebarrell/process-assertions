@@ -18,7 +18,7 @@ for flowableVersion in "${flowableVersions[@]}"
 do
    	:
 	echo "${prelude} Running test profile for Flowable version ${flowableVersion}";
-	#mvn clean dependency:tree test -P flowable-${flowableVersion};
+	mvn clean dependency:tree test -P flowable-${flowableVersion};
 done
 
 cd ../../;

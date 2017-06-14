@@ -34,9 +34,7 @@
     <modules>
         <module>common-integration</module>
         <module>activiti-integration</module>
-        <!--
         <module>flowable-integration</module>
-        -->
     </modules>
 
 </project>

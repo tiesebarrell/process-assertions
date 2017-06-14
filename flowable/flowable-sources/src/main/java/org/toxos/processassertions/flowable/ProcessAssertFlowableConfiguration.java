@@ -15,7 +15,7 @@ import org.toxos.processassertions.api.internal.MessageLogger;
 import org.toxos.processassertions.api.internal.Validate;
 
 /**
- * Configuration for Process Assertions with the Activiti Process Engine.
+ * Configuration for Process Assertions with the Flowable Process Engine.
  *
  * @author Tiese Barrell
  */
@@ -84,7 +84,7 @@ public class ProcessAssertFlowableConfiguration extends DefaultProcessAssertConf
      *
      * @param flowableRule
      */
-    public void setActivitiRule(final FlowableRule flowableRule) {
+    public void setFlowableRule(final FlowableRule flowableRule) {
         Validate.notNull(flowableRule);
         setProcessEngine(flowableRule.getProcessEngine());
     }

@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.toxos.processassertions.activiti;
+package org.toxos.processassertions.flowable;
 
-import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.task.Task;
-import org.activiti.engine.test.Deployment;
+import org.flowable.engine.runtime.ProcessInstance;
+import org.flowable.engine.task.Task;
+import org.flowable.engine.test.Deployment;
 import org.junit.Test;
-import org.toxos.processassertions.activiti.integration.configuration.AbstractProcessAssertTest;
+import org.toxos.processassertions.flowable.integration.configuration.AbstractProcessAssertTest;
 import org.toxos.processassertions.integration.common.process.SingleUserTaskProcessConstant;
 import org.toxos.processassertions.integration.common.process.StraightThroughProcessConstant;
 import org.toxos.processassertions.integration.common.process.TwoUserTasksProcessConstant;

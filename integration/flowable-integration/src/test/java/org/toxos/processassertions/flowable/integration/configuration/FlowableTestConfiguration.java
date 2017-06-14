@@ -1,5 +1,6 @@
-package org.toxos.processassertions.test.configuration.flowable;
+package org.toxos.processassertions.flowable.integration.configuration;
 
+import org.flowable.engine.*;
 import org.flowable.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.flowable.engine.impl.history.HistoryLevel;
 import org.flowable.engine.test.FlowableRule;
