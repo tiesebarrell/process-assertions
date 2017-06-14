@@ -3,9 +3,7 @@ echo "${prelude} Running Flowable integration tests";
 
 cd integration/flowable-integration;
 
-declare -a flowableVersions=("5.22.0"
-                "5.23.0"
-                "6.0.0"
+declare -a flowableVersions=("6.0.0"
                 "6.0.1"
                 )
 
