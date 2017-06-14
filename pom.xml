@@ -48,11 +48,8 @@
 		<module>process-assertions-parent</module>
         <module>process-assertions-api</module>
         <module>activiti</module>
-		<!--
         <module>flowable</module>
-        -->
         <module>integration</module>
-
     </modules>
 
 </project>

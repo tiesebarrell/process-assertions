@@ -36,14 +36,15 @@ import static org.hamcrest.CoreMatchers.is;
  */
 final class EndEventAssert extends AbstractProcessAssertable implements EndEventAssertable {
 
-    EndEventAssert(ApiCallback callback) {
-        super(callback);
+    EndEventAssert(final ApiCallback callback, final ProcessAssertFlowableConfiguration configuration) {
+        super(callback, configuration);
     }
 
-    @Override public void processEndedAndInExclusiveEndEvent(final String processInstanceId, final String endEventId) {
+    @Override
+    public void processEndedAndInExclusiveEndEvent(final String processInstanceId, final String endEventId) {
 
         // Assert the process instance is ended
-        new ProcessInstanceAssert(callback).processIsEnded(processInstanceId);
+        getAssertFactory().getProcessInstanceAssertable(callback).processIsEnded(processInstanceId);
 
         // Assert that there is exactly one historic activity instance for end
         // events and that it has the correct id
@@ -55,10 +56,11 @@ final class EndEventAssert extends AbstractProcessAssertable implements EndEvent
         Assert.assertThat(historicActivityInstances.get(0).getActivityId(), is(endEventId));
     }
 
-    @Override public void processEndedAndInEndEvents(final String processInstanceId, final String... endEventIds) {
+    @Override
+    public void processEndedAndInEndEvents(final String processInstanceId, final String... endEventIds) {
 
         // Assert the process instance is ended
-        new ProcessInstanceAssert(callback).processIsEnded(processInstanceId);
+        getAssertFactory().getProcessInstanceAssertable(callback).processIsEnded(processInstanceId);
 
         // Assert that there are the exact amount of historic activity instances
         // for end events and that ids match exactly

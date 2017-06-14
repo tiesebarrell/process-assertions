@@ -14,8 +14,42 @@
     <artifactId>flowable</artifactId>
     <name>${projectNamePrefix} Flowable</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-engine</artifactId>
+            <version>${flowable.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.toxos.process-assertions</groupId>
+            <artifactId>process-assertions-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Test scoped dependencies -->
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-spring</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <sourceDirectory>../flowable-sources/src/main/java</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>../flowable-sources/src/main/resources</directory>
+            </resource>
+        </resources>
+        <testSourceDirectory>../flowable-sources/src/test/java</testSourceDirectory>
+    </build>
+
     <modules>
+        <module>flowable-sources</module>
         <module>flowable-6_0_0</module>
+        <module>flowable-6_0_1</module>
     </modules>
 
 </project>

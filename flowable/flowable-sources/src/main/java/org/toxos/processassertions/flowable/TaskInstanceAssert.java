@@ -33,11 +33,12 @@ import static org.hamcrest.CoreMatchers.notNullValue;
  */
 final class TaskInstanceAssert extends AbstractProcessAssertable implements TaskInstanceAssertable {
 
-    TaskInstanceAssert(ApiCallback callback) {
-        super(callback);
+    TaskInstanceAssert(ApiCallback callback, final ProcessAssertFlowableConfiguration configuration) {
+        super(callback, configuration);
     }
 
-    @Override public void taskIsUncompleted(final String taskId) {
+    @Override
+    public void taskIsUncompleted(final String taskId) {
 
         // Assert a task exists
         callback.trace(LogMessage.TASK_3, taskId);
@@ -45,14 +46,14 @@ final class TaskInstanceAssert extends AbstractProcessAssertable implements Task
         Assert.assertThat(task, is(notNullValue()));
 
         // Assert the process is not completed
-        new ProcessInstanceAssert(callback).processIsActive(task.getProcessInstanceId());
-
+        getAssertFactory().getProcessInstanceAssertable(callback).processIsActive(task.getProcessInstanceId());
     }
 
-    @Override public void taskIsUncompleted(final String processInstanceId, final String taskDefinitionKey) {
+    @Override
+    public void taskIsUncompleted(final String processInstanceId, final String taskDefinitionKey) {
 
         // Assert the process is not completed
-        new ProcessInstanceAssert(callback).processIsActive(processInstanceId);
+        getAssertFactory().getProcessInstanceAssertable(callback).processIsActive(processInstanceId);
 
         // Assert a task exists
         callback.trace(LogMessage.TASK_4, taskDefinitionKey, processInstanceId);
@@ -60,7 +61,6 @@ final class TaskInstanceAssert extends AbstractProcessAssertable implements Task
 
         Assert.assertThat(tasks, is(notNullValue()));
         Assert.assertThat(tasks.isEmpty(), is(false));
-
     }
 
 }

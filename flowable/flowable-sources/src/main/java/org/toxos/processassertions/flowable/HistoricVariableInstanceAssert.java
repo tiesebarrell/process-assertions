@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2014 Tiese Barrell
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,10 +21,7 @@ import org.flowable.engine.history.HistoricVariableUpdate;
 import org.flowable.engine.impl.history.HistoryLevel;
 import org.hamcrest.CoreMatchers;
 import org.toxos.processassertions.api.LogMessage;
-import org.toxos.processassertions.api.internal.ApiCallback;
-import org.toxos.processassertions.api.internal.Assert;
-import org.toxos.processassertions.api.internal.HistoricVariableInstanceAssertable;
-import org.toxos.processassertions.api.internal.IsEmptyCollection;
+import org.toxos.processassertions.api.internal.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,16 +31,17 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 
 /**
  * Provides assertions for historic variable instances.
- * 
+ *
  * @author Tiese Barrell
  */
 final class HistoricVariableInstanceAssert extends AbstractProcessAssertable implements HistoricVariableInstanceAssertable {
 
-    HistoricVariableInstanceAssert(ApiCallback callback) {
-        super(callback);
+    HistoricVariableInstanceAssert(ApiCallback callback, final ProcessAssertFlowableConfiguration configuration) {
+        super(callback, configuration);
     }
 
-    @Override public void historicProcessVariableLatestValueEquals(final String processInstanceId, final String processVariableName,
+    @Override
+    public void historicProcessVariableLatestValueEquals(final String processInstanceId, final String processVariableName,
             final Object expectedValue) {
 
         // Assert the history level is set to full
@@ -69,7 +67,7 @@ final class HistoricVariableInstanceAssert extends AbstractProcessAssertable imp
 
     private void checkHistoryLevelIsFull() {
         if (!historyLevelIsFull()) {
-            callback.fail(LogMessage.ERROR_CONFIGURATION_1, HistoryLevel.FULL.name(), getProcessEngineConfiguration().getHistoryLevel().name());
+            callback.fail(ConfigurationException.class, LogMessage.ERROR_CONFIGURATION_1, HistoryLevel.FULL.name(), getConfiguredHistoryLevel().name());
         }
     }
 
@@ -77,10 +75,8 @@ final class HistoricVariableInstanceAssert extends AbstractProcessAssertable imp
      * Gets a list of {@link HistoricVariableUpdate}s in descending order of update time for the provided process
      * instance id and the provided name for the process variable.
      *
-     * @param processInstanceId
-     *            the process instance's id to get the variables for
-     * @param processVariableName
-     *            the name of the process variable to get the updates for
+     * @param processInstanceId   the process instance's id to get the variables for
+     * @param processVariableName the name of the process variable to get the updates for
      * @return a list of variable updates, in descending order
      */
     protected final List<HistoricVariableUpdate> getDescendingVariableUpdates(final String processInstanceId, final String processVariableName) {
@@ -119,6 +115,6 @@ final class HistoricVariableInstanceAssert extends AbstractProcessAssertable imp
     }
 
     private final boolean historyLevelIsFull() {
-        return HistoryLevel.FULL.equals(getProcessEngineConfiguration().getHistoryLevel());
+        return HistoryLevel.FULL.equals(getConfiguredHistoryLevel());
     }
 }

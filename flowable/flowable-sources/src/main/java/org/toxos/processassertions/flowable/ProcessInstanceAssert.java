@@ -34,11 +34,12 @@ import static org.hamcrest.CoreMatchers.*;
  */
 final class ProcessInstanceAssert extends AbstractProcessAssertable implements ProcessInstanceAssertable {
 
-    ProcessInstanceAssert(ApiCallback callback) {
-        super(callback);
+    ProcessInstanceAssert(ApiCallback callback, final ProcessAssertFlowableConfiguration configuration) {
+        super(callback, configuration);
     }
 
-    @Override public void processIsActive(final String processInstanceId) {
+    @Override
+    public void processIsActive(final String processInstanceId) {
 
         // Assert there is a running process instance
         callback.trace(LogMessage.PROCESS_2, processInstanceId);
@@ -57,10 +58,10 @@ final class ProcessInstanceAssert extends AbstractProcessAssertable implements P
                 .singleResult();
 
         historicProcessInstanceNotEnded(historicProcessInstance);
-
     }
 
-    @Override public void processIsEnded(final String processInstanceId) {
+    @Override
+    public void processIsEnded(final String processInstanceId) {
 
         // Assert there is no running process instance
         callback.trace(LogMessage.PROCESS_6, processInstanceId);
@@ -70,14 +71,12 @@ final class ProcessInstanceAssert extends AbstractProcessAssertable implements P
 
         // Assert there is a historic process instance and it is ended
         callback.trace(LogMessage.PROCESS_4, processInstanceId);
-        final HistoricProcessInstance historicProcessInstance = getHistoryService().createHistoricProcessInstanceQuery().processInstanceId(processInstanceId)
-                .singleResult();
-
+        final HistoricProcessInstance historicProcessInstance = getHistoryService().createHistoricProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
         historicProcessInstanceEnded(historicProcessInstance);
-
     }
 
-    @Override public void processIsInActivity(final String processInstanceId, final String activityId) {
+    @Override
+    public void processIsInActivity(final String processInstanceId, final String activityId) {
 
         // Assert there is a running process instance
         processIsActive(processInstanceId);
@@ -87,7 +86,6 @@ final class ProcessInstanceAssert extends AbstractProcessAssertable implements P
 
         final List<Execution> executions = getRuntimeService().createExecutionQuery().processInstanceId(processInstanceId).activityId(activityId).list();
         Assert.assertThat(executions.isEmpty(), is(false));
-
     }
 
     private static void historicProcessInstanceNotEnded(final HistoricProcessInstance historicProcessInstance) {

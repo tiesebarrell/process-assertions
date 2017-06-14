@@ -18,26 +18,30 @@ package org.toxos.processassertions.flowable;
 import org.toxos.processassertions.api.internal.*;
 
 /**
- * Default implementation of {@link AssertFactory}.
+ * Implementation of {@link AssertFactory} for Flowable.
  *
  * @author Tiese Barrell
  */
 public class AssertFactoryImpl implements AssertFactory {
 
-    @Override public ProcessInstanceAssertable getProcessInstanceAssertable(final ApiCallback callback) {
-        return new ProcessInstanceAssert(callback);
+    @Override
+    public ProcessInstanceAssertable getProcessInstanceAssertable(final ApiCallback callback) {
+        return new ProcessInstanceAssert(callback, ProcessAssertFlowableConfiguration.INSTANCE);
     }
 
-    @Override public EndEventAssertable getEndEventAssertable(final ApiCallback callback) {
-        return new EndEventAssert(callback);
+    @Override
+    public EndEventAssertable getEndEventAssertable(final ApiCallback callback) {
+        return new EndEventAssert(callback, ProcessAssertFlowableConfiguration.INSTANCE);
     }
 
-    @Override public TaskInstanceAssertable getTaskInstanceAssertable(final ApiCallback callback) {
-        return new TaskInstanceAssert(callback);
+    @Override
+    public TaskInstanceAssertable getTaskInstanceAssertable(final ApiCallback callback) {
+        return new TaskInstanceAssert(callback, ProcessAssertFlowableConfiguration.INSTANCE);
     }
 
-    @Override public HistoricVariableInstanceAssertable getHistoricVariableInstanceAssertable(final ApiCallback callback) {
-        return new HistoricVariableInstanceAssert(callback);
+    @Override
+    public HistoricVariableInstanceAssertable getHistoricVariableInstanceAssertable(final ApiCallback callback) {
+        return new HistoricVariableInstanceAssert(callback, ProcessAssertFlowableConfiguration.INSTANCE);
     }
 
 }

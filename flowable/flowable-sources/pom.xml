@@ -10,11 +10,25 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.toxos.process-assertions.flowable</groupId>
-    <artifactId>flowable-6_0_0</artifactId>
-    <name>${projectNamePrefix} Flowable ${flowable.version}</name>
+    <artifactId>flowable-sources</artifactId>
+    <name>${projectNamePrefix} Flowable Sources</name>
 
     <properties>
+        <!-- Activate for development purposes on source -->
         <flowable.version>6.0.0</flowable.version>
     </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <!-- Skip deployment of this module -->
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
