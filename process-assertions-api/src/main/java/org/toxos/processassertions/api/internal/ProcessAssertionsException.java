@@ -5,7 +5,7 @@ package org.toxos.processassertions.api.internal;
  *
  * Created by tiesebarrell on 13/06/2017.
  */
-public class ProcessAssertionsException extends RuntimeException {
+public class ProcessAssertionsException extends Exception {
 
     public ProcessAssertionsException(String message) {
         super(message);

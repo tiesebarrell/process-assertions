@@ -33,6 +33,6 @@ public interface HistoricVariableInstanceAssertable {
      * @param expectedValue
      *            the expected value for the process variable
      */
-    void historicProcessVariableLatestValueEquals(final String processInstanceId, final String processVariableName, final Object expectedValue);
+    void historicProcessVariableLatestValueEquals(final String processInstanceId, final String processVariableName, final Object expectedValue) throws ProcessAssertionsException;
 
 }

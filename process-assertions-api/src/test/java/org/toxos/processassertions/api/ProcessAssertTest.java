@@ -197,13 +197,13 @@ public class ProcessAssertTest {
     }
 
     @Test
-    public void assertProcessVariableLatestValueEquals() {
+    public void assertProcessVariableLatestValueEquals() throws Exception {
         ProcessAssert.assertProcessVariableLatestValueEquals(processInstanceId, variableName, variableValue);
         verify(historicVariableInstanceAssertableMock, times(1)).historicProcessVariableLatestValueEquals(processInstanceId, variableName, variableValue);
     }
 
     @Test(expected = AssertionError.class)
-    public void assertProcessVariableLatestValueEqualsFailsFromAssertable() {
+    public void assertProcessVariableLatestValueEqualsFailsFromAssertable() throws Exception {
         doThrow(AssertionError.class).when(historicVariableInstanceAssertableMock)
                 .historicProcessVariableLatestValueEquals(processInstanceId, variableName, variableValue);
         ProcessAssert.assertProcessVariableLatestValueEquals(processInstanceId, variableName, variableValue);
