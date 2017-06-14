@@ -209,6 +209,13 @@ public class ProcessAssertTest {
         ProcessAssert.assertProcessVariableLatestValueEquals(processInstanceId, variableName, variableValue);
     }
 
+    @Test(expected = AssertionError.class)
+    public void assertProcessVariableLatestValueEqualsFailsFromAssertableProcessAssertionsException() throws Exception {
+        doThrow(ProcessAssertionsException.class).when(historicVariableInstanceAssertableMock)
+                .historicProcessVariableLatestValueEquals(processInstanceId, variableName, variableValue);
+        ProcessAssert.assertProcessVariableLatestValueEquals(processInstanceId, variableName, variableValue);
+    }
+
     @Test(expected = NullPointerException.class)
     public void assertProcessVariableLatestValueEqualsExceptionForNullProcessInstanceId() {
         ProcessAssert.assertProcessVariableLatestValueEquals(null, variableName, variableValue);
