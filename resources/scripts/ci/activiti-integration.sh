@@ -3,7 +3,8 @@ echo "${prelude} Running Activiti integration tests";
 
 cd integration/activiti-integration;
 
-declare -a activitiVersions=("5.12"
+declare -a activitiVersions=(
+                "5.12"
                 "5.12.1"
                 "5.13"
                 "5.14"
@@ -23,6 +24,7 @@ declare -a activitiVersions=("5.12"
                 "5.20.0"
                 "5.21.0"
                 "5.22.0"
+                "6.0.0"
                 )
 
 echo "${prelude} Supported Activiti versions:";

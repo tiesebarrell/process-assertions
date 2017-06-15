@@ -15,9 +15,10 @@
     <name>${projectNamePrefix} Activiti Integration</name>
 
     <properties>
-        <activiti.version>5.22.0</activiti.version>
-        <module.engine.version>5_22_0</module.engine.version>
-        <spring.version>4.1.5.RELEASE</spring.version>
+        <activiti.version>6.0.0</activiti.version>
+        <module.engine.version>6_0_0</module.engine.version>
+        <spring.version>4.2.5.RELEASE</spring.version>
+        <activiti.version.range>activiti-6_x</activiti.version.range>
     </properties>
 
     <repositories>
@@ -37,7 +38,27 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <!-- TODO dependency management + version-->
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${basedir}/src/test/profiles/${activiti.version.range}/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
+
     </build>
 
     <profiles>
@@ -47,6 +68,7 @@
                 <activiti.version>5.12</activiti.version>
                 <module.engine.version>5_12</module.engine.version>
                 <spring.version>3.1.2.RELEASE</spring.version>
+                <activiti.version.range>activiti-5_x</activiti.version.range>
             </properties>
         </profile>
         <profile>
@@ -55,6 +77,7 @@
                 <activiti.version>5.12.1</activiti.version>
                 <module.engine.version>5_12_1</module.engine.version>
                 <spring.version>3.1.2.RELEASE</spring.version>
+                <activiti.version.range>activiti-5_x</activiti.version.range>
             </properties>
         </profile>
         <profile>
@@ -63,6 +86,7 @@
                 <activiti.version>5.13</activiti.version>
                 <module.engine.version>5_13</module.engine.version>
                 <spring.version>3.1.2.RELEASE</spring.version>
+                <activiti.version.range>activiti-5_x</activiti.version.range>
             </properties>
         </profile>
         <profile>
@@ -71,6 +95,7 @@
                 <activiti.version>5.14</activiti.version>
                 <module.engine.version>5_14</module.engine.version>
                 <spring.version>3.1.2.RELEASE</spring.version>
+                <activiti.version.range>activiti-5_x</activiti.version.range>
             </properties>
         </profile>
         <profile>
@@ -79,6 +104,7 @@
                 <activiti.version>5.15</activiti.version>
                 <module.engine.version>5_15</module.engine.version>
                 <spring.version>3.2.7.RELEASE</spring.version>
+                <activiti.version.range>activiti-5_x</activiti.version.range>
             </properties>
         </profile>
         <profile>
@@ -87,6 +113,7 @@
                 <activiti.version>5.15.1</activiti.version>
                 <module.engine.version>5_15_1</module.engine.version>
                 <spring.version>3.2.7.RELEASE</spring.version>
+                <activiti.version.range>activiti-5_x</activiti.version.range>
             </properties>
         </profile>
         <profile>
@@ -95,6 +122,7 @@
                 <activiti.version>5.16</activiti.version>
                 <module.engine.version>5_16</module.engine.version>
                 <spring.version>4.0.6.RELEASE</spring.version>
+                <activiti.version.range>activiti-5_x</activiti.version.range>
             </properties>
         </profile>
         <profile>
@@ -103,6 +131,7 @@
                 <activiti.version>5.16.1</activiti.version>
                 <module.engine.version>5_16_1</module.engine.version>
                 <spring.version>4.0.6.RELEASE</spring.version>
+                <activiti.version.range>activiti-5_x</activiti.version.range>
             </properties>
         </profile>
         <profile>
@@ -111,6 +140,7 @@
                 <activiti.version>5.16.2</activiti.version>
                 <module.engine.version>5_16_2</module.engine.version>
                 <spring.version>4.0.6.RELEASE</spring.version>
+                <activiti.version.range>activiti-5_x</activiti.version.range>
             </properties>
         </profile>
         <profile>
@@ -119,6 +149,7 @@
                 <activiti.version>5.16.3</activiti.version>
                 <module.engine.version>5_16_3</module.engine.version>
                 <spring.version>4.0.6.RELEASE</spring.version>
+                <activiti.version.range>activiti-5_x</activiti.version.range>
             </properties>
         </profile>
         <profile>
@@ -127,6 +158,7 @@
                 <activiti.version>5.16.4</activiti.version>
                 <module.engine.version>5_16_4</module.engine.version>
                 <spring.version>4.0.6.RELEASE</spring.version>
+                <activiti.version.range>activiti-5_x</activiti.version.range>
             </properties>
         </profile>
         <profile>
@@ -135,6 +167,7 @@
                 <activiti.version>5.17.0</activiti.version>
                 <module.engine.version>5_17_0</module.engine.version>
                 <spring.version>4.0.6.RELEASE</spring.version>
+                <activiti.version.range>activiti-5_x</activiti.version.range>
             </properties>
         </profile>
         <profile>
@@ -143,6 +176,7 @@
                 <activiti.version>5.18.0</activiti.version>
                 <module.engine.version>5_18_0</module.engine.version>
                 <spring.version>4.1.5.RELEASE</spring.version>
+                <activiti.version.range>activiti-5_x</activiti.version.range>
             </properties>
         </profile>
         <profile>
@@ -151,6 +185,7 @@
                 <activiti.version>5.19.0</activiti.version>
                 <module.engine.version>5_19_0</module.engine.version>
                 <spring.version>4.1.5.RELEASE</spring.version>
+                <activiti.version.range>activiti-5_x</activiti.version.range>
             </properties>
         </profile>
         <profile>
@@ -159,6 +194,7 @@
                 <activiti.version>5.19.0.1</activiti.version>
                 <module.engine.version>5_19_0_1</module.engine.version>
                 <spring.version>4.1.5.RELEASE</spring.version>
+                <activiti.version.range>activiti-5_x</activiti.version.range>
             </properties>
         </profile>
         <profile>
@@ -167,6 +203,7 @@
                 <activiti.version>5.19.0.2</activiti.version>
                 <module.engine.version>5_19_0_2</module.engine.version>
                 <spring.version>4.1.5.RELEASE</spring.version>
+                <activiti.version.range>activiti-5_x</activiti.version.range>
             </properties>
         </profile>
         <profile>
@@ -175,6 +212,7 @@
                 <activiti.version>5.19.0.3</activiti.version>
                 <module.engine.version>5_19_0_3</module.engine.version>
                 <spring.version>4.1.5.RELEASE</spring.version>
+                <activiti.version.range>activiti-5_x</activiti.version.range>
             </properties>
         </profile>
         <profile>
@@ -183,6 +221,7 @@
                 <activiti.version>5.20.0</activiti.version>
                 <module.engine.version>5_20_0</module.engine.version>
                 <spring.version>4.1.5.RELEASE</spring.version>
+                <activiti.version.range>activiti-5_x</activiti.version.range>
             </properties>
         </profile>
         <profile>
@@ -191,6 +230,7 @@
                 <activiti.version>5.21.0</activiti.version>
                 <module.engine.version>5_21_0</module.engine.version>
                 <spring.version>4.1.5.RELEASE</spring.version>
+                <activiti.version.range>activiti-5_x</activiti.version.range>
             </properties>
         </profile>
         <profile>
@@ -199,6 +239,16 @@
                 <activiti.version>5.22.0</activiti.version>
                 <module.engine.version>5_22_0</module.engine.version>
                 <spring.version>4.1.5.RELEASE</spring.version>
+                <activiti.version.range>activiti-5_x</activiti.version.range>
+            </properties>
+        </profile>
+        <profile>
+            <id>activiti-6.0.0</id>
+            <properties>
+                <activiti.version>6.0.0</activiti.version>
+                <module.engine.version>6_0_0</module.engine.version>
+                <spring.version>4.2.5.RELEASE</spring.version>
+                <activiti.version.range>activiti-6_x</activiti.version.range>
             </properties>
         </profile>
     </profiles>

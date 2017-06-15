@@ -33,7 +33,7 @@ import org.toxos.processassertions.integration.common.process.DiagramConstants;
  * @author Tiese Barrell
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = ActivitiTestConfiguration.class)
+@ContextConfiguration(classes = {ActivitiBootstrapConfiguration.class})
 public abstract class AbstractProcessAssertTest implements DiagramConstants {
 
     @Autowired

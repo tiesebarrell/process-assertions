@@ -8,15 +8,13 @@ import org.activiti.spring.ProcessEngineFactoryBean;
 import org.activiti.spring.SpringProcessEngineConfiguration;
 import org.h2.Driver;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
-@Configuration
-public class ActivitiTestConfiguration {
+public abstract class AbstractActivitiTestConfiguration {
 
     @Bean
     public DataSource dataSource() {
@@ -40,11 +38,12 @@ public class ActivitiTestConfiguration {
         result.setDataSource(dataSource());
         result.setTransactionManager(transactionManager());
         result.setDatabaseSchemaUpdate("true");
-        result.setJobExecutorActivate(false);
         result.setHistoryLevel(HistoryLevel.FULL);
         result.setHistory(HistoryLevel.FULL.getKey());
-        return result;
+        return enrichProcessEngineConfigurationImpl(result);
     }
+
+    protected abstract ProcessEngineConfigurationImpl enrichProcessEngineConfigurationImpl(final SpringProcessEngineConfiguration result);
 
     @Bean
     public ProcessEngineFactoryBean processEngine() {

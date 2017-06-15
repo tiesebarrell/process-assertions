@@ -68,10 +68,7 @@
         <module>activiti-5_20_0</module>
         <module>activiti-5_21_0</module>
         <module>activiti-5_22_0</module>
-        <module>activiti-6_0_0_Beta1</module>
-        <module>activiti-6_0_0_Beta2</module>
-        <module>activiti-6_0_0_Beta3</module>
-        <module>activiti-6_0_0_Beta4</module>
+        <module>activiti-6_0_0</module>
     </modules>
 
 </project>

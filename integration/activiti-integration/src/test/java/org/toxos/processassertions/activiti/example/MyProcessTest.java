@@ -27,7 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.toxos.processassertions.activiti.ProcessAssertActivitiConfiguration;
-import org.toxos.processassertions.activiti.integration.configuration.ActivitiTestConfiguration;
+import org.toxos.processassertions.activiti.integration.configuration.ActivitiBootstrapConfiguration;
 import org.toxos.processassertions.api.ProcessAssert;
 
 /**
@@ -37,7 +37,7 @@ import org.toxos.processassertions.api.ProcessAssert;
  * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = ActivitiTestConfiguration.class)
+@ContextConfiguration(classes = ActivitiBootstrapConfiguration.class)
 public class MyProcessTest {
 
     @Autowired
