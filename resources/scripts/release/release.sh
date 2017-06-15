@@ -42,15 +42,15 @@ function performRelease {
 }
 
 # The version to be released
-echo "${prelude} Type the version to release (e.g.: 0.6.0) and press [ENTER]: "
+echo "${prelude} Type the version to release (e.g.: 0.7.0) and press [ENTER]: "
 read releaseVersion;
 
 # The next development version
-echo "${prelude} Type the development version to switch to after release (e.g.: 0.6.1-SNAPSHOT) and press [ENTER]: "
+echo "${prelude} Type the development version to switch to after release (e.g.: 0.7.0-SNAPSHOT) and press [ENTER]: "
 read developmentVersion;
 
 # Release comment prefix
-echo "${prelude} Type the release comment prefix for the release (e.g.: issue-18: Release 0.6.0) and press [ENTER]: "
+echo "${prelude} Type the release comment prefix for the release (e.g.: issue-18: Release 0.7.0) and press [ENTER]: "
 read scmCommentPrefix;
 
 echo "${prelude} You provided: '$releaseVersion' -> '$developmentVersion' with '$scmCommentPrefix'";
