@@ -1,5 +1,5 @@
 # Process Assertions
-This Java library provides an easy way to perform checks on expected integration test results when testing [BPMN][linkBpmn] processes with the [Activiti][linkActiviti] and [Flowable][linkFlowable] BPM frameworks. Instead of coding the checks against your process engine's API, you perform simple functional assertions as you would with other test cases. For instance, you often wish to check whether a process has been started, it is waiting in a `UserTask` or has reached a certain end state.
+This Java library provides an easy way to perform checks on expected integration test results when testing [BPMN][linkBpmn] processes with the [Activiti][linkActiviti] and [Flowable][linkFlowable] BPM frameworks. Instead of coding your own checks against your process engine's API, you perform simple functional assertions as you would with other test cases. For instance, you often wish to check whether a process has been started, it is waiting in a `UserTask` or has reached a certain end state.
 
 More information is available on the [project's website][linkProject]
 
