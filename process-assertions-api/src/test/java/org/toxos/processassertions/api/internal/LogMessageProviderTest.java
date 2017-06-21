@@ -60,7 +60,7 @@ public class LogMessageProviderTest {
     @Test(expected = MissingResourceException.class)
     public void testGetMessageByKeyForMissingKey() {
         classUnderTest = new LogMessageProvider(TEST_MESSAGES, SupportedLocale.ENGLISH_US.getLocale());
-        classUnderTest.getMessageByKey("key4");
+        classUnderTest.getMessageByKey("invalidKey");
     }
 
     @Test

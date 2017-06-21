@@ -69,7 +69,7 @@ public class LogMessageProvider {
     }
 
     private void loadBundle() {
-        LOGGER.trace("Loading bundle from baseName " + baseName + " for Locale " + locale);
+        LOGGER.trace("Loading bundle from baseName " + baseName + " for locale " + locale);
         bundle = ResourceBundle.getBundle(baseName, locale);
     }
 
