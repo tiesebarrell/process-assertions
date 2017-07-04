@@ -3,7 +3,9 @@ package org.toxos.processassertions.api;
 import java.util.Locale;
 
 /**
- * Created by tiesebarrell on 20/04/2017.
+ * Supported locales for assertion logging.
+ *
+ * @author Tiese Barrell
  */
 public enum SupportedLocale {
 
@@ -19,6 +21,11 @@ public enum SupportedLocale {
         this.country = country;
     }
 
+    /**
+     * Gets the {@link Locale} for this supported locale.
+     *
+     * @return the Locale
+     */
     public Locale getLocale() {
         return new Locale(language, country);
     }

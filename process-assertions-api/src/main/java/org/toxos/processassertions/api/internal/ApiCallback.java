@@ -3,7 +3,8 @@ package org.toxos.processassertions.api.internal;
 import org.toxos.processassertions.api.LogMessage;
 
 /**
- * Created by tiesebarrell on 21/02/2017.
+ * Callback interface to the API module. Provides access to logging features and failing of assertions.
+ *
  */
 public interface ApiCallback {
 
@@ -16,7 +17,7 @@ public interface ApiCallback {
     public void info(final LogMessage message, final Object... objects);
 
     /**
-     * Logs the message and parameters at trace level.
+     * Logs the message and parameters at error level.
      *
      * @param message the log message
      * @param objects the parameters for substitution

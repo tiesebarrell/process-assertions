@@ -33,6 +33,11 @@ public interface ProcessAssertConfiguration {
      */
     Locale getLocale();
 
+    /**
+     * Gets the {@link AssertFactory} configured. The factory provides assertables to be performed.
+     *
+     * @return the configured AssertFactory
+     */
     AssertFactory getAssertFactory();
 
 }

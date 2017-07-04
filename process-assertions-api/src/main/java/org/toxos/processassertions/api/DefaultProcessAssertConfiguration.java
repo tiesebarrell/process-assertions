@@ -30,11 +30,19 @@ public abstract class DefaultProcessAssertConfiguration implements ProcessAssert
 
     protected Locale locale;
 
+    /**
+     * Constructs a new {@link DefaultProcessAssertConfiguration} with the default Locale.
+     */
     protected DefaultProcessAssertConfiguration() {
         super();
         this.locale = SupportedLocale.DEFAULT.getLocale();
     }
 
+    /**
+     * Constructs a new {@link DefaultProcessAssertConfiguration} with the provided {@link SupportedLocale}.
+     *
+     * @param supportedLocale the locale to use. May not be {@code null}
+     */
     public DefaultProcessAssertConfiguration(final SupportedLocale supportedLocale) {
         super();
         Validate.notNull(supportedLocale);
@@ -53,6 +61,11 @@ public abstract class DefaultProcessAssertConfiguration implements ProcessAssert
         return locale;
     }
 
+    /**
+     * Sets the locale to the provided {@link SupportedLocale}.
+     *
+     * @param supportedLocale the SupportedLocale to set. May not be {@code null}
+     */
     public void setLocale(final SupportedLocale supportedLocale) {
         Validate.notNull(supportedLocale);
         this.locale = supportedLocale.getLocale();

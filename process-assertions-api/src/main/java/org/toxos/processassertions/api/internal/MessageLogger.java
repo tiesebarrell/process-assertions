@@ -24,18 +24,42 @@ public class MessageLogger {
         this.logMessageProvider = new LogMessageProvider(bundleBaseName, locale);
     }
 
+    /**
+     * Logs a message by the provided key to the provided {@link Logger} at info level after substituting the parameters in the message by the provided objects.
+     * @param logger the logger to log to
+     * @param messageKey the key of the message in the bundle
+     * @param objects the substitution parameters
+     */
     public final void logInfo(final Logger logger, final String messageKey, final Object... objects) {
         logger.info(getMessage(messageKey, objects));
     }
 
+    /**
+     * Logs a message by the provided key to the provided {@link Logger} at trace level after substituting the parameters in the message by the provided objects.
+     * @param logger the logger to log to
+     * @param messageKey the key of the message in the bundle
+     * @param objects the substitution parameters
+     */
     public final void logTrace(final Logger logger, final String messageKey, final Object... objects) {
         logger.trace(getMessage(messageKey, objects));
     }
 
+    /**
+     * Logs a message by the provided key to the provided {@link Logger} at error level after substituting the parameters in the message by the provided objects.
+     * @param logger the logger to log to
+     * @param messageKey the key of the message in the bundle
+     * @param objects the substitution parameters
+     */
     public final void logError(final Logger logger, final String messageKey, final Object... objects) {
         logger.error(getMessage(messageKey, objects));
     }
 
+    /**
+     * Logs a message by the provided key to the provided {@link Logger} at debug level after substituting the parameters in the message by the provided objects.
+     * @param logger the logger to log to
+     * @param messageKey the key of the message in the bundle
+     * @param objects the substitution parameters
+     */
     public final void logDebug(final Logger logger, final String messageKey, final Object... objects) {
         logger.debug(getMessage(messageKey, objects));
     }

@@ -49,6 +49,11 @@ public class LogMessageProvider {
         this.locale = locale;
     }
 
+    /**
+     * Gets a message by the provided key.
+     * @param key the key in the bundle
+     * @return the value of the entry in the bundle
+     */
     public String getMessageByKey(final String key) {
         return getBundle().getString(key);
     }

@@ -18,6 +18,7 @@ package org.toxos.processassertions.api.internal;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -29,13 +30,18 @@ public class EqualCollectionMatcher extends TypeSafeDiagnosingMatcher<Collection
 
     private final Collection<String> expectedValues;
 
+    /**
+     * Constructs a new {@link EqualCollectionMatcher} with the expected values.
+     *
+     * @param expectedValues the expected values
+     */
     public EqualCollectionMatcher(final Collection<String> expectedValues) {
         this.expectedValues = expectedValues;
     }
 
     @Override
     public void describeTo(Description description) {
-        // TODO Auto-generated method stub
+        description.appendText(Arrays.toString(expectedValues.toArray()));
     }
 
     @Override
