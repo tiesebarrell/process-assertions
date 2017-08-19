@@ -11,9 +11,9 @@ prelude="[CIBUILD]";
 
 echo "${prelude} Running CI sources build";
 
-echo "${prelude} Running default test profile for project";
+echo "${prelude} Running default test profile for project and installing to local repository";
 
-mvn clean test -T 2C;
+mvn clean install -T 2C;
 
 duration=$SECONDS
 durationDisplay="$(($duration / 60)) minutes and $(($duration % 60)) seconds."

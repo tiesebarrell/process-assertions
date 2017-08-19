@@ -50,6 +50,30 @@
                 <spring.version>4.2.5.RELEASE</spring.version>
             </properties>
         </profile>
+        <profile>
+            <id>flowable-6.1.0</id>
+            <properties>
+                <flowable.version>6.1.0</flowable.version>
+                <module.engine.version>6_1_0</module.engine.version>
+                <spring.version>4.3.9.RELEASE</spring.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>flowable-6.1.1</id>
+            <properties>
+                <flowable.version>6.1.1</flowable.version>
+                <module.engine.version>6_1_1</module.engine.version>
+                <spring.version>4.3.9.RELEASE</spring.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>flowable-6.1.2</id>
+            <properties>
+                <flowable.version>6.1.2</flowable.version>
+                <module.engine.version>6_1_2</module.engine.version>
+                <spring.version>4.3.9.RELEASE</spring.version>
+            </properties>
+        </profile>
     </profiles>
 
     <dependencies>
