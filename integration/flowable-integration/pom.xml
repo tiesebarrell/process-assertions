@@ -71,21 +71,14 @@
             <version>${flowable.version}</version>
             <scope>test</scope>
         </dependency>
-        <!--
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        -->
+
         <!-- TODO Comment for release
         <dependency>
             <groupId>org.toxos.process-assertions.flowable</groupId>
             <artifactId>flowable-sources</artifactId>
             <version>0.7.0-SNAPSHOT</version>
         </dependency>
-         -->
+        -->
 
     </dependencies>
 

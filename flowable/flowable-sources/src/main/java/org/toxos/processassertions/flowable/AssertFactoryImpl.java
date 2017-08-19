@@ -24,24 +24,30 @@ import org.toxos.processassertions.api.internal.*;
  */
 public class AssertFactoryImpl implements AssertFactory {
 
+    private final ProcessAssertFlowableConfiguration configuration;
+
+    AssertFactoryImpl(final ProcessAssertFlowableConfiguration configuration) {
+        this.configuration = configuration;
+    }
+
     @Override
     public ProcessInstanceAssertable getProcessInstanceAssertable(final ApiCallback callback) {
-        return new ProcessInstanceAssert(callback, ProcessAssertFlowableConfiguration.INSTANCE);
+        return new ProcessInstanceAssert(callback, configuration);
     }
 
     @Override
     public EndEventAssertable getEndEventAssertable(final ApiCallback callback) {
-        return new EndEventAssert(callback, ProcessAssertFlowableConfiguration.INSTANCE);
+        return new EndEventAssert(callback, configuration);
     }
 
     @Override
     public TaskInstanceAssertable getTaskInstanceAssertable(final ApiCallback callback) {
-        return new TaskInstanceAssert(callback, ProcessAssertFlowableConfiguration.INSTANCE);
+        return new TaskInstanceAssert(callback, configuration);
     }
 
     @Override
     public HistoricVariableInstanceAssertable getHistoricVariableInstanceAssertable(final ApiCallback callback) {
-        return new HistoricVariableInstanceAssert(callback, ProcessAssertFlowableConfiguration.INSTANCE);
+        return new HistoricVariableInstanceAssert(callback, configuration);
     }
 
 }

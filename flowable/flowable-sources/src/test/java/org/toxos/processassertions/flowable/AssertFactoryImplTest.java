@@ -40,9 +40,13 @@ public class AssertFactoryImplTest {
     @Mock
     private ApiCallback apiCallbackMock;
 
+    @Mock
+    private ProcessAssertFlowableConfiguration processAssertFlowableConfigurationMock;
+
+
     @Before
     public void before() throws Exception {
-        classUnderTest = new AssertFactoryImpl();
+        classUnderTest = new AssertFactoryImpl(processAssertFlowableConfigurationMock);
     }
 
     @Test

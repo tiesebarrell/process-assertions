@@ -25,11 +25,9 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
 
     private static final String LOG_MESSAGES_BUNDLE_NAME = "org.toxos.processassertions.activiti.messages.LogMessages";
 
-    static ProcessAssertActivitiConfiguration INSTANCE;
-
     private ProcessEngine processEngine;
 
-    private AssertFactory assertFactory = new AssertFactoryImpl();
+    private AssertFactory assertFactory;
 
     private MessageLogger messageLogger;
 
@@ -37,33 +35,46 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
         super();
         Validate.notNull(processEngine);
         this.processEngine = processEngine;
-        INSTANCE = this;
         initializeConfiguration();
+    }
+
+    public static final ProcessAssertActivitiConfiguration from(final ProcessEngine processEngine) {
+        return new ProcessAssertActivitiConfiguration(processEngine);
     }
 
     public ProcessAssertActivitiConfiguration(final ActivitiRule activitiRule) {
         super();
         Validate.notNull(activitiRule);
         this.processEngine = activitiRule.getProcessEngine();
-        INSTANCE = this;
         initializeConfiguration();
+    }
+
+    public static final ProcessAssertActivitiConfiguration from(final ActivitiRule activitiRule) {
+        return new ProcessAssertActivitiConfiguration(activitiRule);
     }
 
     public ProcessAssertActivitiConfiguration(final SupportedLocale supportedLocale, final ProcessEngine processEngine) {
         super(supportedLocale);
         Validate.notNull(processEngine);
         this.processEngine = processEngine;
-        INSTANCE = this;
         initializeConfiguration();
+    }
+
+    public static final ProcessAssertActivitiConfiguration from(final SupportedLocale supportedLocale, final ProcessEngine processEngine) {
+        return new ProcessAssertActivitiConfiguration(supportedLocale, processEngine);
     }
 
     public ProcessAssertActivitiConfiguration(final SupportedLocale supportedLocale, final ActivitiRule activitiRule) {
         super(supportedLocale);
         Validate.notNull(activitiRule);
         this.processEngine = activitiRule.getProcessEngine();
-        INSTANCE = this;
         initializeConfiguration();
     }
+
+    public static final ProcessAssertActivitiConfiguration from(final SupportedLocale supportedLocale, final ActivitiRule activitiRule) {
+        return new ProcessAssertActivitiConfiguration(supportedLocale, activitiRule);
+    }
+
 
     public ProcessEngine getProcessEngine() {
         return processEngine;
@@ -98,6 +109,8 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
     }
 
     private void initializeConfiguration() {
+        this.assertFactory = new AssertFactoryImpl(this);
+
         this.messageLogger = new MessageLogger(LOG_MESSAGES_BUNDLE_NAME, getLocale());
 
         if (this.processEngine == null) {

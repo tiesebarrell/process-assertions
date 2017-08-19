@@ -46,7 +46,7 @@ public class MyProcessTest {
 
     @Before
     public void before() {
-        ProcessAssert.setConfiguration(new ProcessAssertActivitiConfiguration(activitiRule));
+        ProcessAssertActivitiConfiguration.from(activitiRule).register();
     }
 
     @Test

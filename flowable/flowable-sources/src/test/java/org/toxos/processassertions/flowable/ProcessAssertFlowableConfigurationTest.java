@@ -52,7 +52,6 @@ public class ProcessAssertFlowableConfigurationTest {
     public void engineConstructorSetsEngineAndInstance() {
         classUnderTest = new ProcessAssertFlowableConfiguration(processEngineMock);
         assertThat(classUnderTest.getProcessEngine(), is(sameInstance((ProcessEngine) processEngineMock)));
-        assertThat(ProcessAssertFlowableConfiguration.INSTANCE, is(sameInstance(classUnderTest)));
         verify(processEngineConfigurationMock, times(1)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
     }
 
@@ -65,7 +64,6 @@ public class ProcessAssertFlowableConfigurationTest {
     public void ruleConstructorSetsEngineAndInstance() {
         classUnderTest = new ProcessAssertFlowableConfiguration(flowableRuleMock);
         assertThat(classUnderTest.getProcessEngine(), is(sameInstance((ProcessEngine) processEngineMock)));
-        assertThat(ProcessAssertFlowableConfiguration.INSTANCE, is(sameInstance(classUnderTest)));
         verify(processEngineConfigurationMock, times(1)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
     }
 
@@ -79,7 +77,6 @@ public class ProcessAssertFlowableConfigurationTest {
         classUnderTest = new ProcessAssertFlowableConfiguration(SupportedLocale.ENGLISH_US, processEngineMock);
         assertThat(classUnderTest.getLocale(), is(locale));
         assertThat(classUnderTest.getProcessEngine(), is(sameInstance((ProcessEngine) processEngineMock)));
-        assertThat(ProcessAssertFlowableConfiguration.INSTANCE, is(sameInstance(classUnderTest)));
         verify(processEngineConfigurationMock, times(1)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
     }
 
@@ -98,7 +95,6 @@ public class ProcessAssertFlowableConfigurationTest {
         classUnderTest = new ProcessAssertFlowableConfiguration(SupportedLocale.ENGLISH_US, flowableRuleMock);
         assertThat(classUnderTest.getLocale(), is(locale));
         assertThat(classUnderTest.getProcessEngine(), is(sameInstance((ProcessEngine) processEngineMock)));
-        assertThat(ProcessAssertFlowableConfiguration.INSTANCE, is(sameInstance(classUnderTest)));
         verify(processEngineConfigurationMock, times(1)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
     }
 

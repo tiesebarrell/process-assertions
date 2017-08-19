@@ -25,11 +25,9 @@ public class ProcessAssertFlowableConfiguration extends DefaultProcessAssertConf
 
     private static final String LOG_MESSAGES_BUNDLE_NAME = "org.toxos.processassertions.flowable.messages.LogMessages";
 
-    static ProcessAssertFlowableConfiguration INSTANCE;
-
     private ProcessEngine processEngine;
 
-    private AssertFactory assertFactory = new AssertFactoryImpl();
+    private AssertFactory assertFactory;
 
     private MessageLogger messageLogger;
 
@@ -37,32 +35,44 @@ public class ProcessAssertFlowableConfiguration extends DefaultProcessAssertConf
         super();
         Validate.notNull(processEngine);
         this.processEngine = processEngine;
-        INSTANCE = this;
         initializeConfiguration();
+    }
+
+    public static final ProcessAssertFlowableConfiguration from(final ProcessEngine processEngine) {
+        return new ProcessAssertFlowableConfiguration(processEngine);
     }
 
     public ProcessAssertFlowableConfiguration(final FlowableRule flowableRule) {
         super();
         Validate.notNull(flowableRule);
         this.processEngine = flowableRule.getProcessEngine();
-        INSTANCE = this;
         initializeConfiguration();
+    }
+
+    public static final ProcessAssertFlowableConfiguration from(final FlowableRule flowableRule) {
+        return new ProcessAssertFlowableConfiguration(flowableRule);
     }
 
     public ProcessAssertFlowableConfiguration(final SupportedLocale supportedLocale, final ProcessEngine processEngine) {
         super(supportedLocale);
         Validate.notNull(processEngine);
         this.processEngine = processEngine;
-        INSTANCE = this;
         initializeConfiguration();
+    }
+
+    public static final ProcessAssertFlowableConfiguration from(final SupportedLocale supportedLocale, final ProcessEngine processEngine) {
+        return new ProcessAssertFlowableConfiguration(supportedLocale, processEngine);
     }
 
     public ProcessAssertFlowableConfiguration(final SupportedLocale supportedLocale, final FlowableRule flowableRule) {
         super(supportedLocale);
         Validate.notNull(flowableRule);
         this.processEngine = flowableRule.getProcessEngine();
-        INSTANCE = this;
         initializeConfiguration();
+    }
+
+    public static final ProcessAssertFlowableConfiguration from(final SupportedLocale supportedLocale,  final FlowableRule flowableRule) {
+        return new ProcessAssertFlowableConfiguration(supportedLocale, flowableRule);
     }
 
     public ProcessEngine getProcessEngine() {
@@ -98,6 +108,8 @@ public class ProcessAssertFlowableConfiguration extends DefaultProcessAssertConf
     }
 
     private void initializeConfiguration() {
+        this.assertFactory = new AssertFactoryImpl(this);
+
         this.messageLogger = new MessageLogger(LOG_MESSAGES_BUNDLE_NAME, getLocale());
 
         if (this.processEngine == null) {

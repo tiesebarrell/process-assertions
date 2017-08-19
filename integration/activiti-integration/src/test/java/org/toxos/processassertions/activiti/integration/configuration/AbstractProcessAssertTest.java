@@ -48,7 +48,7 @@ public abstract class AbstractProcessAssertTest implements DiagramConstants {
 
     @Before
     public void before() {
-        ProcessAssert.setConfiguration(new ProcessAssertActivitiConfiguration(activitiRule));
+        ProcessAssertActivitiConfiguration.from(activitiRule).register();
     }
 
 }

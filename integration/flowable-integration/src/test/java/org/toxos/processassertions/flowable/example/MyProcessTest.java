@@ -46,7 +46,7 @@ public class MyProcessTest {
 
     @Before
     public void before() {
-        ProcessAssert.setConfiguration(new ProcessAssertFlowableConfiguration(flowableRule));
+        ProcessAssertFlowableConfiguration.from(flowableRule).register();
     }
 
     @Test

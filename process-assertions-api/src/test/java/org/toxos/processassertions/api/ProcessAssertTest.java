@@ -42,7 +42,7 @@ public class ProcessAssertTest {
 
     @Before
     public void before() {
-        ProcessAssert.setConfiguration(new TestProcessAssertConfiguration(assertFactoryMock));
+        new TestProcessAssertConfiguration(assertFactoryMock).register();
         when(assertFactoryMock.getProcessInstanceAssertable(isA(ApiCallback.class))).thenReturn(processInstanceAssertableMock);
         when(assertFactoryMock.getTaskInstanceAssertable(isA(ApiCallback.class))).thenReturn(taskInstanceAssertableMock);
         when(assertFactoryMock.getEndEventAssertable(isA(ApiCallback.class))).thenReturn(endEventAssertableMock);
