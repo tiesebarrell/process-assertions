@@ -49,10 +49,15 @@ public class ProcessAssertFlowableConfigurationTest {
     }
 
     @Test
-    public void engineConstructorSetsEngineAndInstance() {
+    public void engineConstructorBuildsConfiguration() {
         classUnderTest = new ProcessAssertFlowableConfiguration(processEngineMock);
-        assertThat(classUnderTest.getProcessEngine(), is(sameInstance((ProcessEngine) processEngineMock)));
-        verify(processEngineConfigurationMock, times(1)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
+        assertConstructedConfiguration(classUnderTest);
+    }
+
+    @Test
+    public void fromEngineBuildsConfiguration() {
+        classUnderTest = ProcessAssertFlowableConfiguration.from(processEngineMock);
+        assertConstructedConfiguration(classUnderTest);
     }
 
     @Test(expected = NullPointerException.class)
@@ -61,10 +66,15 @@ public class ProcessAssertFlowableConfigurationTest {
     }
 
     @Test
-    public void ruleConstructorSetsEngineAndInstance() {
+    public void ruleConstructorBuildsConfiguration() {
         classUnderTest = new ProcessAssertFlowableConfiguration(flowableRuleMock);
-        assertThat(classUnderTest.getProcessEngine(), is(sameInstance((ProcessEngine) processEngineMock)));
-        verify(processEngineConfigurationMock, times(1)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
+        assertConstructedConfiguration(classUnderTest);
+    }
+
+    @Test
+    public void fromRuleBuildsConfiguration() {
+        classUnderTest = ProcessAssertFlowableConfiguration.from(flowableRuleMock);
+        assertConstructedConfiguration(classUnderTest);
     }
 
     @Test(expected = NullPointerException.class)
@@ -73,11 +83,17 @@ public class ProcessAssertFlowableConfigurationTest {
     }
 
     @Test
-    public void engineAndLocaleConstructorSetsEngineLocaleAndInstance() {
+    public void engineAndLocaleConstructorBuildsConfiguration() {
         classUnderTest = new ProcessAssertFlowableConfiguration(SupportedLocale.ENGLISH_US, processEngineMock);
         assertThat(classUnderTest.getLocale(), is(locale));
-        assertThat(classUnderTest.getProcessEngine(), is(sameInstance((ProcessEngine) processEngineMock)));
-        verify(processEngineConfigurationMock, times(1)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
+        assertConstructedConfiguration(classUnderTest);
+    }
+
+    @Test
+    public void fromEngineAndLocaleBuildsConfiguration() {
+        classUnderTest = ProcessAssertFlowableConfiguration.from(SupportedLocale.ENGLISH_US, processEngineMock);
+        assertThat(classUnderTest.getLocale(), is(locale));
+        assertConstructedConfiguration(classUnderTest);
     }
 
     @Test(expected = NullPointerException.class)
@@ -91,11 +107,17 @@ public class ProcessAssertFlowableConfigurationTest {
     }
 
     @Test
-    public void ruleAndLocaleConstructorSetsEngineLocalAndInstance() {
+    public void ruleAndLocaleConstructorBuildsConfiguration() {
         classUnderTest = new ProcessAssertFlowableConfiguration(SupportedLocale.ENGLISH_US, flowableRuleMock);
         assertThat(classUnderTest.getLocale(), is(locale));
-        assertThat(classUnderTest.getProcessEngine(), is(sameInstance((ProcessEngine) processEngineMock)));
-        verify(processEngineConfigurationMock, times(1)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
+        assertConstructedConfiguration(classUnderTest);
+    }
+
+    @Test
+    public void fromRuleAndLocaleBuildsConfiguration() {
+        classUnderTest = ProcessAssertFlowableConfiguration.from(SupportedLocale.ENGLISH_US, flowableRuleMock);
+        assertThat(classUnderTest.getLocale(), is(locale));
+        assertConstructedConfiguration(classUnderTest);
     }
 
     @Test(expected = NullPointerException.class)
@@ -158,6 +180,11 @@ public class ProcessAssertFlowableConfigurationTest {
     public void configuredHistoryLevelIsReturned() {
         classUnderTest = new ProcessAssertFlowableConfiguration(processEngineMock);
         assertThat(classUnderTest.getConfiguredHistoryLevel(), is(HistoryLevel.FULL));
+    }
+
+    private void assertConstructedConfiguration(final ProcessAssertFlowableConfiguration configuration) {
+        assertThat(configuration.getProcessEngine(), is(sameInstance((ProcessEngine) processEngineMock)));
+        verify(processEngineConfigurationMock, times(1)).setProcessEngineLifecycleListener(isA(ProcessEngineCloseListener.class));
     }
 
 }
