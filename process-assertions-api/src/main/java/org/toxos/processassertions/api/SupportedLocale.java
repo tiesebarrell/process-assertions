@@ -11,6 +11,7 @@ public enum SupportedLocale {
 
     ENGLISH_US("en", "US"),
     DUTCH_NL("nl", "NL"),
+    SPANISH_ES("es", "ES"),
     DEFAULT("en", "US");
 
     private final String language;
