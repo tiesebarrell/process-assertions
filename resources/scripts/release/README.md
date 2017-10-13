@@ -1,26 +1,29 @@
-#Release procedure for Process Assertions
+# Release procedure for Process Assertions
 
 This describes the procedure for creating a new release of Process Assertions. The project has the following characteristics that require a customized approach:
-* The project is listed in Maven Central and therefore utilises the org.sonatype.oss:oss-parent module as its parent. There are preconfigured options for various plugins in this parent;
+* The project is listed in Maven Central and therefore follows the guidelines and requirements for projects in Maven Central. There are preconfigured options for various plugins in this setup;
 * The project uses gitflow to manage its branches wrt the workflow. Gitflow doesn't seamlessly integrate with the maven-release-plugin as far as tagging is concerned. 
 
-##Attribution
+## Attribution
 Based on suggestions from the following sources:
 * https://gist.github.com/nwinkler/9213085
 * https://gist.github.com/searls/1043970
+* http://central.sonatype.org/pages/apache-maven.html#gpg-signed-components
 
-##Prerequisites
-To be able to perform release in batch mode (as is the case for the release script), the passphrase for signing artifacts is needed. This can be solved by configuring a profile with the passphrase in the Maven settings file. The profile must have the same id as the OSS release profile from the parent pom (sonatype-oss-release). For example:
+## Prerequisites
+To be able to perform release in batch mode (as is the case for the release script), the passphrase for signing artifacts is needed. This can be solved by configuring a profile with the passphrase in the Maven settings file. The profile must have the same id as the release profile from the parent pom. For example:
 
     <profile>
-        <id>sonatype-oss-release</id>
+        <id>ossrh</id>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
         <properties>
-            <gpg.passphrase><!--passphrase goes here--></gpg.passphrase>
-            <gpg.keyname><!--keyname (e.g. email address) goes here--></gpg.keyname>
+            <passphrase><!--passphrase goes here--></passphrase>
         </properties>
-    </profile> 
+    </profile>
 
-##Procedure
+## Procedure
 1. Open prepare-profile-build.sh in an editor and make sure all profiles for supported Activiti versions are listed.
 2. Run pre-release.sh. 
     This will run test profiles for all versions of Activiti that are supported, perform a mvn javadoc build and perform a mvn deploy on the latest version, to make sure all is well before actually releasing.
