@@ -24,7 +24,7 @@ To be able to perform release in batch mode (as is the case for the release scri
     </profile>
 
 ## Procedure
-1. Open prepare-profile-build.sh in an editor and make sure all profiles for supported Activiti versions are listed.
+1. Open prepare-profile-build.sh in an editor and make sure all profiles for supported Activiti and Flowable versions are listed.
 2. Run pre-release.sh. 
     This will run test profiles for all versions of Activiti that are supported, perform a mvn javadoc build and perform a mvn deploy on the latest version, to make sure all is well before actually releasing.
     These checks are effectively a way of performing pre-release checks without having a CI server available to run the profiles one last time or without having to trigger a build on such a server.

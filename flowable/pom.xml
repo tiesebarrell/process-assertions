@@ -36,23 +36,9 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <sourceDirectory>../flowable-sources/src/main/java</sourceDirectory>
-        <resources>
-            <resource>
-                <directory>../flowable-sources/src/main/resources</directory>
-            </resource>
-        </resources>
-        <testSourceDirectory>../flowable-sources/src/test/java</testSourceDirectory>
-    </build>
-
     <modules>
-        <module>flowable-sources</module>
-        <module>flowable-6_0_0</module>
-        <module>flowable-6_0_1</module>
-        <module>flowable-6_1_0</module>
-        <module>flowable-6_1_1</module>
-        <module>flowable-6_1_2</module>
+        <module>flowable-6_0_0-6_1_2</module>
+        <module>flowable-6_2_0-6_x</module>
     </modules>
 
 </project>
