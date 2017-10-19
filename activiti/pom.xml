@@ -36,39 +36,8 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <sourceDirectory>../activiti-sources/src/main/java</sourceDirectory>
-        <resources>
-            <resource>
-                <directory>../activiti-sources/src/main/resources</directory>
-            </resource>
-        </resources>
-        <testSourceDirectory>../activiti-sources/src/test/java</testSourceDirectory>
-    </build>
-
     <modules>
-        <module>activiti-sources</module>
-        <module>activiti-5_12</module>
-        <module>activiti-5_12_1</module>
-        <module>activiti-5_13</module>
-        <module>activiti-5_14</module>
-        <module>activiti-5_15</module>
-        <module>activiti-5_15_1</module>
-        <module>activiti-5_16</module>
-        <module>activiti-5_16_1</module>
-        <module>activiti-5_16_2</module>
-        <module>activiti-5_16_3</module>
-        <module>activiti-5_16_4</module>
-        <module>activiti-5_17_0</module>
-        <module>activiti-5_18_0</module>
-        <module>activiti-5_19_0</module>
-        <module>activiti-5_19_0_1</module>
-        <module>activiti-5_19_0_2</module>
-        <module>activiti-5_19_0_3</module>
-        <module>activiti-5_20_0</module>
-        <module>activiti-5_21_0</module>
-        <module>activiti-5_22_0</module>
-        <module>activiti-6_0_0</module>
+        <module>activiti-5_12-6_x</module>
     </modules>
 
 </project>

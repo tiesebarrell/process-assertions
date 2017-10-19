@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 echo "${prelude} Running Activiti integration tests";
 
-cd integration/activiti-integration;
+cd integration/activiti/activiti-integration-5_12-6_x;
 
 declare -a activitiVersions=(
                 "5.12"
@@ -41,4 +41,4 @@ do
 	mvn clean dependency:tree test -P activiti-${activitiVersion};
 done
 
-cd ../../;
+cd ../../../;

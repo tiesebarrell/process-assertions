@@ -24,7 +24,7 @@
 
     <modules>
         <module>common-integration</module>
-        <module>activiti-integration</module>
+        <module>activiti</module>
         <module>flowable</module>
     </modules>
 
