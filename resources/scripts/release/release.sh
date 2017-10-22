@@ -19,7 +19,12 @@ function performRelease {
 	git checkout -b release/$releaseVersion develop
  
 	# Perform Maven release in batch mode 
-	mvn -P release --batch-mode release:prepare release:perform -DscmCommentPrefix="$scmCommentPrefix" -DreleaseVersion=$releaseVersion -DdevelopmentVersion=$developmentVersion
+	mvn -P release --batch-mode \n
+	    release:prepare release:perform \n
+	        -DscmCommentPrefix="$scmCommentPrefix" \n
+	        -DreleaseVersion=$releaseVersion \n
+	        -DdevelopmentVersion=$developmentVersion \n
+	        -DskipTests
  
 	# Merge the new release + snapshot version commits back into develop
 	git checkout develop

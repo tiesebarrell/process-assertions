@@ -179,9 +179,10 @@
 					<artifactId>maven-release-plugin</artifactId>
 					<version>${maven.release.plugin.version}</version>
 					<configuration>
-						<!-- Perform changes locally, push manually after release -->
+						<!-- Perform changes locally, push manually after release
 						<pushChanges>false</pushChanges>
 						<localCheckout>true</localCheckout>
+						-->
                         <autoVersionSubmodules>true</autoVersionSubmodules>
                         <useReleaseProfile>false</useReleaseProfile>
                         <releaseProfiles>release</releaseProfiles>
