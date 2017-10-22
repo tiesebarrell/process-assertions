@@ -31,6 +31,11 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
 
     private MessageLogger messageLogger;
 
+    /**
+     * Constructs a new ProcessAssertActivitiConfiguration from the provided {@link ProcessEngine}.
+     *
+     * @param processEngine the process engine. May not be {@code null}
+     */
     public ProcessAssertActivitiConfiguration(final ProcessEngine processEngine) {
         super();
         Validate.notNull(processEngine);
@@ -38,10 +43,20 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
         initializeConfiguration();
     }
 
+    /**
+     * Constructs a new ProcessAssertActivitiConfiguration from the provided {@link ProcessEngine}.
+     *
+     * @param processEngine the process engine. May not be {@code null}
+     */
     public static final ProcessAssertActivitiConfiguration from(final ProcessEngine processEngine) {
         return new ProcessAssertActivitiConfiguration(processEngine);
     }
 
+    /**
+     * Constructs a new ProcessAssertActivitiConfiguration from the provided {@link ActivitiRule}.
+     *
+     * @param activitiRule the activiti rule. May not be {@code null}
+     */
     public ProcessAssertActivitiConfiguration(final ActivitiRule activitiRule) {
         super();
         Validate.notNull(activitiRule);
@@ -49,10 +64,21 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
         initializeConfiguration();
     }
 
+    /**
+     * Constructs a new ProcessAssertActivitiConfiguration from the provided {@link ActivitiRule}.
+     *
+     * @param activitiRule the activiti rule. May not be {@code null}
+     */
     public static final ProcessAssertActivitiConfiguration from(final ActivitiRule activitiRule) {
         return new ProcessAssertActivitiConfiguration(activitiRule);
     }
 
+    /**
+     * Constructs a new ProcessAssertActivitiConfiguration from the provided {@link ProcessEngine} with the provided {@link SupportedLocale}.
+     *
+     * @param supportedLocale the locale to be used. May not be {@code null}
+     * @param processEngine   the process engine. May not be {@code null}
+     */
     public ProcessAssertActivitiConfiguration(final SupportedLocale supportedLocale, final ProcessEngine processEngine) {
         super(supportedLocale);
         Validate.notNull(processEngine);
@@ -60,10 +86,22 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
         initializeConfiguration();
     }
 
+    /**
+     * Constructs a new ProcessAssertActivitiConfiguration from the provided {@link ProcessEngine} with the provided {@link SupportedLocale}.
+     *
+     * @param supportedLocale the locale to be used. May not be {@code null}
+     * @param processEngine   the process engine. May not be {@code null}
+     */
     public static final ProcessAssertActivitiConfiguration from(final SupportedLocale supportedLocale, final ProcessEngine processEngine) {
         return new ProcessAssertActivitiConfiguration(supportedLocale, processEngine);
     }
 
+    /**
+     * Constructs a new ProcessAssertActivitiConfiguration from the provided {@link ActivitiRule} with the provided {@link SupportedLocale}.
+     *
+     * @param supportedLocale the locale to be used. May not be {@code null}
+     * @param activitiRule    the activiti rule. May not be {@code null}
+     */
     public ProcessAssertActivitiConfiguration(final SupportedLocale supportedLocale, final ActivitiRule activitiRule) {
         super(supportedLocale);
         Validate.notNull(activitiRule);
@@ -71,15 +109,30 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
         initializeConfiguration();
     }
 
+    /**
+     * Constructs a new ProcessAssertActivitiConfiguration from the provided {@link ActivitiRule} with the provided {@link SupportedLocale}.
+     *
+     * @param supportedLocale the locale to be used. May not be {@code null}
+     * @param activitiRule    the activiti rule. May not be {@code null}
+     */
     public static final ProcessAssertActivitiConfiguration from(final SupportedLocale supportedLocale, final ActivitiRule activitiRule) {
         return new ProcessAssertActivitiConfiguration(supportedLocale, activitiRule);
     }
 
-
+    /**
+     * Gets the configured {@link ProcessEngine}.
+     *
+     * @return the ProcessEngine.
+     */
     public ProcessEngine getProcessEngine() {
         return processEngine;
     }
 
+    /**
+     * Sets the {@link ProcessEngine}.
+     *
+     * @param processEngine the process engine to set. May not be {@code null}
+     */
     public void setProcessEngine(final ProcessEngine processEngine) {
         Validate.notNull(processEngine);
         this.processEngine = processEngine;
@@ -92,14 +145,20 @@ public class ProcessAssertActivitiConfiguration extends DefaultProcessAssertConf
     }
 
     /**
+     * Sets the {@link ActivitiRule}.
      *
-     * @param activitiRule
+     * @param activitiRule the activiti rule to set. May not be {@code null}
      */
     public void setActivitiRule(final ActivitiRule activitiRule) {
         Validate.notNull(activitiRule);
         setProcessEngine(activitiRule.getProcessEngine());
     }
 
+    /**
+     * Gets the configured {@link HistoryLevel}.
+     *
+     * @return the HistoryLevel
+     */
     HistoryLevel getConfiguredHistoryLevel() {
         return doGetProcessEngineConfiguration().getHistoryLevel();
     }

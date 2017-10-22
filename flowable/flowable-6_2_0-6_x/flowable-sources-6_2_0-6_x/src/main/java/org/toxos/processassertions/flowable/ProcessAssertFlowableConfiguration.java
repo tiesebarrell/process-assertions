@@ -31,6 +31,11 @@ public class ProcessAssertFlowableConfiguration extends DefaultProcessAssertConf
 
     private MessageLogger messageLogger;
 
+    /**
+     * Constructs a new ProcessAssertFlowableConfiguration from the provided {@link ProcessEngine}.
+     *
+     * @param processEngine the process engine. May not be {@code null}
+     */
     public ProcessAssertFlowableConfiguration(final ProcessEngine processEngine) {
         super();
         Validate.notNull(processEngine);
@@ -38,10 +43,20 @@ public class ProcessAssertFlowableConfiguration extends DefaultProcessAssertConf
         initializeConfiguration();
     }
 
+    /**
+     * Constructs a new ProcessAssertFlowableConfiguration from the provided {@link ProcessEngine}.
+     *
+     * @param processEngine the process engine. May not be {@code null}
+     */
     public static final ProcessAssertFlowableConfiguration from(final ProcessEngine processEngine) {
         return new ProcessAssertFlowableConfiguration(processEngine);
     }
 
+    /**
+     * Constructs a new ProcessAssertFlowableConfiguration from the provided {@link FlowableRule}.
+     *
+     * @param flowableRule the flowable rule. May not be {@code null}
+     */
     public ProcessAssertFlowableConfiguration(final FlowableRule flowableRule) {
         super();
         Validate.notNull(flowableRule);
@@ -49,10 +64,21 @@ public class ProcessAssertFlowableConfiguration extends DefaultProcessAssertConf
         initializeConfiguration();
     }
 
+    /**
+     * Constructs a new ProcessAssertFlowableConfiguration from the provided {@link FlowableRule}.
+     *
+     * @param flowableRule the flowable rule. May not be {@code null}
+     */
     public static final ProcessAssertFlowableConfiguration from(final FlowableRule flowableRule) {
         return new ProcessAssertFlowableConfiguration(flowableRule);
     }
 
+    /**
+     * Constructs a new ProcessAssertFlowableConfiguration from the provided {@link ProcessEngine} for the provided {@link SupportedLocale}.
+     *
+     * @param supportedLocale the locale to be used. May not be {@code null}
+     * @param processEngine   the process engine. May not be {@code null}
+     */
     public ProcessAssertFlowableConfiguration(final SupportedLocale supportedLocale, final ProcessEngine processEngine) {
         super(supportedLocale);
         Validate.notNull(processEngine);
@@ -60,10 +86,22 @@ public class ProcessAssertFlowableConfiguration extends DefaultProcessAssertConf
         initializeConfiguration();
     }
 
+    /**
+     * Constructs a new ProcessAssertFlowableConfiguration from the provided {@link ProcessEngine} for the provided {@link SupportedLocale}.
+     *
+     * @param supportedLocale the locale to be used. May not be {@code null}
+     * @param processEngine   the process engine. May not be {@code null}
+     */
     public static final ProcessAssertFlowableConfiguration from(final SupportedLocale supportedLocale, final ProcessEngine processEngine) {
         return new ProcessAssertFlowableConfiguration(supportedLocale, processEngine);
     }
 
+    /**
+     * Constructs a new ProcessAssertFlowableConfiguration from the provided {@link FlowableRule} for the provided {@link SupportedLocale}.
+     *
+     * @param supportedLocale the locale to be used. May not be {@code null}
+     * @param flowableRule    the flowable rule. May not be {@code null}
+     */
     public ProcessAssertFlowableConfiguration(final SupportedLocale supportedLocale, final FlowableRule flowableRule) {
         super(supportedLocale);
         Validate.notNull(flowableRule);
@@ -71,14 +109,30 @@ public class ProcessAssertFlowableConfiguration extends DefaultProcessAssertConf
         initializeConfiguration();
     }
 
-    public static final ProcessAssertFlowableConfiguration from(final SupportedLocale supportedLocale,  final FlowableRule flowableRule) {
+    /**
+     * Constructs a new ProcessAssertFlowableConfiguration from the provided {@link FlowableRule} for the provided {@link SupportedLocale}.
+     *
+     * @param supportedLocale the locale to be used. May not be {@code null}
+     * @param flowableRule    the flowable rule. May not be {@code null}
+     */
+    public static final ProcessAssertFlowableConfiguration from(final SupportedLocale supportedLocale, final FlowableRule flowableRule) {
         return new ProcessAssertFlowableConfiguration(supportedLocale, flowableRule);
     }
 
+    /**
+     * Gets the configured {@link ProcessEngine}.
+     *
+     * @return the ProcessEngine.
+     */
     public ProcessEngine getProcessEngine() {
         return processEngine;
     }
 
+    /**
+     * Sets the {@link ProcessEngine}.
+     *
+     * @param processEngine the process engine to set. May not be {@code null}
+     */
     public void setProcessEngine(final ProcessEngine processEngine) {
         Validate.notNull(processEngine);
         this.processEngine = processEngine;
@@ -91,14 +145,20 @@ public class ProcessAssertFlowableConfiguration extends DefaultProcessAssertConf
     }
 
     /**
+     * Sets the {@link FlowableRule}.
      *
-     * @param flowableRule
+     * @param flowableRule the flowable rule to set. May not be {@code null}
      */
     public void setFlowableRule(final FlowableRule flowableRule) {
         Validate.notNull(flowableRule);
         setProcessEngine(flowableRule.getProcessEngine());
     }
 
+    /**
+     * Gets the configured {@link HistoryLevel}.
+     *
+     * @return the HistoryLevel
+     */
     HistoryLevel getConfiguredHistoryLevel() {
         return doGetProcessEngineConfiguration().getHistoryLevel();
     }
