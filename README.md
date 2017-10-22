@@ -6,6 +6,10 @@ More information is available on the [project's website][linkProject]
 ## Build status
 Build status: ![Build status][buildStatus]
 
+## Credits
+Thanks to:
+* @omaas for contributing the Czech translation.
+
 ## License
 Copyright 2014 Tiese Barrell
 
