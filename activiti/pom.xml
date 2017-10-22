@@ -37,6 +37,7 @@
     </dependencies>
 
     <modules>
+        <module>activiti-i18n</module>
         <module>activiti-5_12-6_x</module>
     </modules>
 

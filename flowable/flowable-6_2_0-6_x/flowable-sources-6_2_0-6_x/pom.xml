@@ -14,9 +14,7 @@
     <name>${projectNamePrefix} Flowable Sources 6.2.0 - 6.x</name>
 
     <properties>
-        <!-- Activate for development purposes on source -->
         <flowable.version>6.2.0</flowable.version>
-
     </properties>
 
     <build>

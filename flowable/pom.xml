@@ -37,6 +37,7 @@
     </dependencies>
 
     <modules>
+        <module>flowable-i18n</module>
         <module>flowable-6_0_0-6_1_2</module>
         <module>flowable-6_2_0-6_x</module>
     </modules>

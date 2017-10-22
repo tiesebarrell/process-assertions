@@ -24,6 +24,14 @@
         <testSourceDirectory>../activiti-sources-5_12-6_x/src/test/java</testSourceDirectory>
     </build>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.toxos.process-assertions.activiti</groupId>
+            <artifactId>activiti-i18n</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
     <modules>
         <module>activiti-sources-5_12-6_x</module>
         <module>activiti-5_12</module>

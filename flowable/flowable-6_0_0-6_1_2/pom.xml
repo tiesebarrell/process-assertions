@@ -24,6 +24,14 @@
         <testSourceDirectory>../flowable-sources-6_0_0-6_1_2/src/test/java</testSourceDirectory>
     </build>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.toxos.process-assertions.flowable</groupId>
+            <artifactId>flowable-i18n</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
     <modules>
         <module>flowable-sources-6_0_0-6_1_2</module>
         <module>flowable-6_0_0</module>
