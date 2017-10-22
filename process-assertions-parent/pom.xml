@@ -37,7 +37,6 @@
         <jdk.source.version>1.7</jdk.source.version>
 		<jdk.target.version>1.7</jdk.target.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<surefire.run.integration.suite>**/IntegrationSuite.class</surefire.run.integration.suite>
 
         <projectNamePrefix>Process Assertions ::</projectNamePrefix>
 
