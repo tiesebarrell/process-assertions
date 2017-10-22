@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Bootstrap configuration for Activiti test configuration.
  *
- * Created by tiesebarrell on 15/06/2017.
+ * @author Tiese Barrell
  */
 @Configuration
 @ComponentScan("org.toxos.processassertions.activiti")

@@ -33,7 +33,7 @@ import static org.toxos.processassertions.api.internal.Assert.assertThat;
 /**
  * Test cases for {@link MessageLogger}.
  *
- * Created by tiesebarrell on 21/06/2017.
+ * @author Tiese Barrell
  */
 @RunWith(MockitoJUnitRunner.class)
 public class MessageLoggerTest {

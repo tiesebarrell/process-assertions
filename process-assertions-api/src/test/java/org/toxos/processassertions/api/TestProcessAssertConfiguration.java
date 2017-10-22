@@ -18,7 +18,9 @@ package org.toxos.processassertions.api;
 import org.toxos.processassertions.api.internal.AssertFactory;
 
 /**
- * Created by tiesebarrell on 05/04/2017.
+ * ProcessAssertConfiguration for test purposes.
+ *
+ * @author Tiese Barrell
  */
 public class TestProcessAssertConfiguration extends DefaultProcessAssertConfiguration {
 
