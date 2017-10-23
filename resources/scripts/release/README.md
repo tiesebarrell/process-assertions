@@ -1,21 +1,34 @@
-#Release procedure for Process Assertions
+# Release procedure for Process Assertions
 
 This describes the procedure for creating a new release of Process Assertions. The project has the following characteristics that require a customized approach:
-* The project is listed in Maven Central and therefore utilises the org.sonatype.oss:oss-parent module as its parent. There are preconfigured options for various plugins in this parent;
+* The project is listed in Maven Central and therefore follows the guidelines and requirements for projects in Maven Central. There are preconfigured options for various plugins in this setup;
 * The project uses gitflow to manage its branches wrt the workflow. Gitflow doesn't seamlessly integrate with the maven-release-plugin as far as tagging is concerned. 
 
-##Attribution
+## Attribution
 Based on suggestions from the following sources:
 * https://gist.github.com/nwinkler/9213085
 * https://gist.github.com/searls/1043970
+* http://central.sonatype.org/pages/apache-maven.html#gpg-signed-components
 
-##Procedure
-1. Open pre-release.sh in an editor and make sure all profiles for supported Activiti versions are listed.
+## Prerequisites
+To be able to perform release in batch mode (as is the case for the release script), the passphrase for signing artifacts is needed. This can be solved by configuring a profile with the passphrase in the Maven settings file. The profile must have the same id as the release profile from the parent pom. For example:
+
+    <profile>
+        <id>ossrh</id>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
+        <properties>
+            <passphrase><!--passphrase goes here--></passphrase>
+        </properties>
+    </profile>
+
+## Procedure
+1. Open prepare-profile-build.sh in an editor and make sure all profiles for supported Activiti and Flowable versions are listed.
 2. Run pre-release.sh. 
-    This will run test profiles for all versions of Activiti that are supported and perform a mvn deploy on the latest version, to make sure all is well before actually releasing.
+    This will run test profiles for all versions of Activiti that are supported, perform a mvn javadoc build and perform a mvn deploy on the latest version, to make sure all is well before actually releasing.
     These checks are effectively a way of performing pre-release checks without having a CI server available to run the profiles one last time or without having to trigger a build on such a server.
-3. Open release.sh in an editor and change the values of the parameters at the top of the file to use the correct versions and comments.
-4. Run release.sh. This will perform the following actions:
+3. Run release.sh. It will prompt for the release version, new development version and release commit comment prefix and confirmation of the recorded values before actually performing the release. The release consists of the following actions:
     * Create a release branch according to gitflow's conventions;
     * Perform mvn release on the release branch;
     * Merge the commits performed on the release branch into develop and master, where master doesn't receive the final commit, so it sticks at the release version and not the next development version;

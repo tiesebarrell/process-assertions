@@ -3,25 +3,19 @@
 #Switch to the script's directory regardless of the path the script was invoked from
 cd $(dirname $0);
 
-source ../shared/prepare-profile-build.sh;
+source ../shared/shared.sh;
 
 prelude="[PRERELEASE]";
 
 echo "${prelude} Running pre-release build";
 
-echo "${prelude} Running test profiles";
-
-for activitiVersion in "${activitiVersions[@]}"
-do
-   	:
-	echo "${prelude} Running test profile for Activiti version ${activitiVersion}";
-	mvn clean test -P activiti-${activitiVersion};
-done
+echo "${prelude} Running default test profile for project";
+mvn clean test;
 
 echo "${prelude} Testing javadoc generation";
-mvn clean javadoc:javadoc;
+mvn clean javadoc:javadoc -P release;
 
 echo "${prelude} Running deploy";
-mvn clean deploy;
+mvn clean deploy -P release;
 
 echo "${prelude} Completed pre-release build";

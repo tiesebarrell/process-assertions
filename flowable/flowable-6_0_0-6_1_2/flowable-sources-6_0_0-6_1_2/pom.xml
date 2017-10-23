@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>flowable-6_0_0-6_1_2</artifactId>
+        <groupId>org.toxos.process-assertions.flowable</groupId>
+        <version>0.7.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.toxos.process-assertions.flowable</groupId>
+    <artifactId>flowable-sources-6_0_0-6_1_2</artifactId>
+    <name>${projectNamePrefix} Flowable Sources 6.0.0 - 6.1.2</name>
+
+    <properties>
+        <flowable.version>6.1.2</flowable.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <!-- Skip deployment of this module -->
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

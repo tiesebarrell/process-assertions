@@ -6,7 +6,7 @@
 #Switch to the script's directory regardless of the path the script was invoked from
 cd $(dirname $0);
 
-source ../shared/prepare-profile-build.sh;
+source ../shared/shared.sh;
 
 prelude="[RELEASE]";
 
@@ -19,7 +19,12 @@ function performRelease {
 	git checkout -b release/$releaseVersion develop
  
 	# Perform Maven release in batch mode 
-	mvn --batch-mode release:prepare release:perform -DscmCommentPrefix="$scmCommentPrefix" -DreleaseVersion=$releaseVersion -DdevelopmentVersion=$developmentVersion
+	mvn -P release --batch-mode \
+	    release:prepare release:perform \
+	        -DscmCommentPrefix="$scmCommentPrefix" \
+	        -DreleaseVersion=$releaseVersion \
+	        -DdevelopmentVersion=$developmentVersion \
+	        -DskipTests
  
 	# Merge the new release + snapshot version commits back into develop
 	git checkout develop
@@ -42,15 +47,15 @@ function performRelease {
 }
 
 # The version to be released
-echo "${prelude} Type the version to release (e.g.: 0.6.0) and press [ENTER]: "
+echo "${prelude} Type the version to release (e.g.: 0.7.0) and press [ENTER]: "
 read releaseVersion;
 
 # The next development version
-echo "${prelude} Type the development version to switch to after release (e.g.: 0.6.1-SNAPSHOT) and press [ENTER]: "
+echo "${prelude} Type the development version to switch to after release (e.g.: 0.7.0-SNAPSHOT) and press [ENTER]: "
 read developmentVersion;
 
 # Release comment prefix
-echo "${prelude} Type the release comment prefix for the release (e.g.: issue-18: Release 0.6.0) and press [ENTER]: "
+echo "${prelude} Type the release comment prefix for the release (e.g.: issue-18: Release 0.7.0) and press [ENTER]: "
 read scmCommentPrefix;
 
 echo "${prelude} You provided: '$releaseVersion' -> '$developmentVersion' with '$scmCommentPrefix'";

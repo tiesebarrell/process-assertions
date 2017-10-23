@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>activiti-5_12-6_x</artifactId>
+        <groupId>org.toxos.process-assertions.activiti</groupId>
+        <version>0.7.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.toxos.process-assertions.activiti</groupId>
+    <artifactId>activiti-5_19_0_3</artifactId>
+    <name>${projectNamePrefix} Activiti ${activiti.version}</name>
+
+    <properties>
+        <activiti.version>5.19.0.3</activiti.version>
+    </properties>
+
+</project>

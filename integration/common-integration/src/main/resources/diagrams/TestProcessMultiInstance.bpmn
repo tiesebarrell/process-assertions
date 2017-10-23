@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+             typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+    <process id="testProcessMultiInstance" name="Test Process Multi Instance" isExecutable="true">
+        <startEvent id="startevent1" name="Start"></startEvent>
+        <endEvent id="endProcess" name="End process"></endEvent>
+        <userTask id="multiUserTask" name="User Task">
+            <multiInstanceLoopCharacteristics isSequential="false">
+                <loopCardinality>3</loopCardinality>
+            </multiInstanceLoopCharacteristics>
+        </userTask>
+        <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="multiUserTask"></sequenceFlow>
+        <sequenceFlow id="flow2" sourceRef="multiUserTask" targetRef="endProcess"></sequenceFlow>
+    </process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_testProcessMultiInstance">
+        <bpmndi:BPMNPlane bpmnElement="testProcessMultiInstance" id="BPMNPlane_testProcessMultiInstance">
+            <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+                <omgdc:Bounds height="35.0" width="35.0" x="40.0" y="240.0"></omgdc:Bounds>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="endProcess" id="BPMNShape_endProcess">
+                <omgdc:Bounds height="35.0" width="35.0" x="310.0" y="240.0"></omgdc:Bounds>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="multiUserTask" id="BPMNShape_multiUserTask">
+                <omgdc:Bounds height="55.0" width="105.0" x="150.0" y="230.0"></omgdc:Bounds>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+                <omgdi:waypoint x="75.0" y="257.0"></omgdi:waypoint>
+                <omgdi:waypoint x="150.0" y="257.0"></omgdi:waypoint>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+                <omgdi:waypoint x="255.0" y="257.0"></omgdi:waypoint>
+                <omgdi:waypoint x="310.0" y="257.0"></omgdi:waypoint>
+            </bpmndi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</definitions>
