@@ -29,6 +29,7 @@ cd ../flowable-integration-6_2_0-6_x;
 
 declare -a flowableVersions=(
                 "6.2.0"
+                "6.2.1"
                 )
 
 echo "${prelude} Supported Flowable versions:";

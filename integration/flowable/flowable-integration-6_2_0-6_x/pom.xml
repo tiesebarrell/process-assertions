@@ -42,6 +42,14 @@
                 <spring.version>4.3.9.RELEASE</spring.version>
             </properties>
         </profile>
+        <profile>
+            <id>flowable-6.2.1</id>
+            <properties>
+                <flowable.version>6.2.1</flowable.version>
+                <module.engine.version>6_2_1</module.engine.version>
+                <spring.version>4.3.9.RELEASE</spring.version>
+            </properties>
+        </profile>
     </profiles>
 
 </project>

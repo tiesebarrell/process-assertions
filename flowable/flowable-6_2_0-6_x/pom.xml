@@ -35,6 +35,7 @@
     <modules>
         <module>flowable-sources-6_2_0-6_x</module>
         <module>flowable-6_2_0</module>
+        <module>flowable-6_2_1</module>
     </modules>
 
 </project>
