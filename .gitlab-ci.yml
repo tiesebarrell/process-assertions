@@ -1,3 +1,33 @@
-ci-sources:
+# Cache downloaded dependencies and plugins between builds.
+cache:
+  key: "$CI_JOB_REF_NAME"
+  paths:
+    - .m2/repository
+
+stages:
+  - test-sources
+  - integration
+  - deploy
+
+test-sources-jdk7:
+  stage: test-sources
+  script: "resources/scripts/ci/ci-sources.sh"
+  image: maven:3.3.9-jdk-7
+
+test-sources-jdk8:
+  stage: test-sources
   script: "resources/scripts/ci/ci-sources.sh"
   image: maven:3.3.9-jdk-8
+
+integration-jdk-7:
+  stage: integration
+  script: "resources/scripts/ci/ci.sh"
+  image: maven:3.3.9-jdk-7
+
+integration-jdk-8:
+  stage: integration
+  script: "resources/scripts/ci/ci.sh"
+  image: maven:3.3.9-jdk-8
+
+deploy:
+  script: echo "Deploy"
