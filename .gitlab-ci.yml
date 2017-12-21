@@ -26,8 +26,14 @@ test-sources-jdk8:
 
 integration-jdk-7:
   stage: integration
-  script: "resources/scripts/ci/ci.sh"
   image: maven:3.3.9-jdk-7
+  script:
+    - mvn $MAVEN_CLI_OPTS clean install -T 2C;
+    - cd integration/activiti/activiti-integration-5_12-6_x
+    - echo "Running test profile for Activiti version 5.12";
+    - mvn $MAVEN_CLI_OPTS clean dependency:tree test -P activiti-5.12;
+    - echo "Running test profile for Activiti version 6.0.0";
+    - mvn $MAVEN_CLI_OPTS clean dependency:tree test -P activiti-6.0.0;
 
 integration-jdk-8:
   stage: integration
