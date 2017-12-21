@@ -38,7 +38,7 @@ for activitiVersion in "${activitiVersions[@]}"
 do
    	:
 	echo "${prelude} Running test profile for Activiti version ${activitiVersion}";
-	mvn clean dependency:tree install -P activiti-${activitiVersion};
+	mvn clean dependency:tree test -P activiti-${activitiVersion};
 done
 
 cd ../../../;
