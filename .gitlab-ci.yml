@@ -1,8 +1,10 @@
-# Cache downloaded dependencies and plugins between builds.
 cache:
   key: "$CI_JOB_REF_NAME"
   paths:
     - .m2/repository
+
+variables:
+  MAVEN_CLI_OPTS: "-s resources/maven/settings.xml --batch-mode"
 
 stages:
   - test-sources
@@ -31,5 +33,5 @@ integration-jdk-8:
 
 deploy:
   stage: deploy
-  script: mvn clean deploy
+  script: mvn $MAVEN_CLI_OPTS clean deploy
   image: maven:3.3.9-jdk-8
