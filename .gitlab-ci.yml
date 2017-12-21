@@ -24,24 +24,26 @@ test-sources-jdk8:
   script:
     - mvn $MAVEN_CLI_OPTS clean test -T 2C;
 
-integration-jdk-7:
+.integration: &integration
   stage: integration
-  image: maven:3.3.9-jdk-7
   script:
-    - mvn $MAVEN_CLI_OPTS clean install -T 2C
-    - echo "Running test profile for Activiti version 5.12"
-    - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.12
-    - echo "Running test profile for Activiti version 6.0.0"
-    - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-6.0.0
-    - echo "Running test profile for Flowable version 6.0.0"
-    - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/flowable/flowable-integration-6_0_0-6_1_2 -P flowable-6.0.0
+      - mvn $MAVEN_CLI_OPTS clean install -T 2C
+      - echo "Running test profile for Activiti version 5.12"
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.12
+      - echo "Running test profile for Activiti version 6.0.0"
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-6.0.0
+      - echo "Running test profile for Flowable version 6.0.0"
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/flowable/flowable-integration-6_0_0-6_1_2 -P flowable-6.0.0
 
-integration-jdk-8:
-  stage: integration
-  script: "resources/scripts/ci/ci.sh"
+integration:jdk7:
+  <<: *integration
+  image: maven:3.3.9-jdk-7
+
+integration:jdk8:
+  <<: *integration
   image: maven:3.3.9-jdk-8
 
 deploy:
   stage: deploy
-  script: mvn $MAVEN_CLI_OPTS clean deploy
   image: maven:3.3.9-jdk-8
+  script: mvn $MAVEN_CLI_OPTS clean deploy
