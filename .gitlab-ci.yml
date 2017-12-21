@@ -29,12 +29,34 @@ test:jdk8:
   stage: integration
   script:
       - mvn $MAVEN_CLI_OPTS clean install -T 2C
-      - echo "Running test profile for Activiti version 5.12"
       - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.12
-      - echo "Running test profile for Activiti version 6.0.0"
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.12.1
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.13
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.14
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.15
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.15.1
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.16
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.16.1
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.16.2
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.16.3
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.16.4
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.17.0
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.18.0
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.19.0
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.19.0.1
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.19.0.2
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.19.0.3
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.20.0
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.21.0
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-5.22.0
       - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/activiti/activiti-integration-5_12-6_x -P activiti-6.0.0
-      - echo "Running test profile for Flowable version 6.0.0"
       - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/flowable/flowable-integration-6_0_0-6_1_2 -P flowable-6.0.0
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/flowable/flowable-integration-6_0_0-6_1_2 -P flowable-6.0.1
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/flowable/flowable-integration-6_0_0-6_1_2 -P flowable-6.1.0
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/flowable/flowable-integration-6_0_0-6_1_2 -P flowable-6.1.1
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/flowable/flowable-integration-6_0_0-6_1_2 -P flowable-6.1.2
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/flowable/flowable-integration-6_2_0-6_x -P flowable-6.2.0
+      - mvn $MAVEN_CLI_OPTS clean dependency:tree test --projects integration/flowable/flowable-integration-6_2_0-6_x -P flowable-6.2.1
 
 integration:jdk7:
   <<: *integration
