@@ -13,7 +13,7 @@ echo "${prelude} Running CI build";
 
 echo "${prelude} Running default test profile for project";
 
-mvn clean test -T 2C;
+mvn clean install -T 2C;
 
 source resources/scripts/ci/activiti-integration.sh;
 
