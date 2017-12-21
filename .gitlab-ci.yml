@@ -31,4 +31,5 @@ integration-jdk-8:
 
 deploy:
   stage: deploy
-  script: echo "Deploy"
+  script: mvn clean deploy
+  image: maven:3.3.9-jdk-8
