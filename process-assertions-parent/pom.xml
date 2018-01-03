@@ -12,7 +12,7 @@
 	<parent>
         <groupId>org.toxos</groupId>
 		<artifactId>process-assertions</artifactId>
-		<version>0.7.1-SNAPSHOT</version>
+		<version>0.7.1</version>
         <relativePath>../pom.xml</relativePath>
 	</parent>
 
