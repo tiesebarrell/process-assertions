@@ -5,7 +5,7 @@
     <parent>
         <artifactId>flowable</artifactId>
         <groupId>org.toxos.process-assertions.integration</groupId>
-        <version>0.7.0</version>
+        <version>0.7.1</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -39,6 +39,14 @@
             <properties>
                 <flowable.version>6.2.0</flowable.version>
                 <module.engine.version>6_2_0</module.engine.version>
+                <spring.version>4.3.9.RELEASE</spring.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>flowable-6.2.1</id>
+            <properties>
+                <flowable.version>6.2.1</flowable.version>
+                <module.engine.version>6_2_1</module.engine.version>
                 <spring.version>4.3.9.RELEASE</spring.version>
             </properties>
         </profile>

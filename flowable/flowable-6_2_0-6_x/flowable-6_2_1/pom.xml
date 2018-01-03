@@ -10,11 +10,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.toxos.process-assertions.flowable</groupId>
-    <artifactId>flowable-6_2_0</artifactId>
+    <artifactId>flowable-6_2_1</artifactId>
     <name>${projectNamePrefix} Flowable ${flowable.version}</name>
 
     <properties>
-        <flowable.version>6.2.0</flowable.version>
+        <flowable.version>6.2.1</flowable.version>
     </properties>
 
 </project>

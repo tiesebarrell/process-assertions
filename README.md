@@ -6,6 +6,9 @@ More information is available on the [project's website][linkProject]
 ## Build status
 Build status: ![Build status][buildStatus]
 
+## Get help
+[![Join the chat at https://gitter.im/process-assertions/Lobby](https://badges.gitter.im/process-assertions/Lobby.svg)](https://gitter.im/process-assertions/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## Credits
 Thanks to:
 * @omaas for contributing the Czech translation.

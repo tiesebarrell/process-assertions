@@ -7,12 +7,30 @@
     <groupId>org.toxos</groupId>
 	<artifactId>process-assertions</artifactId>
 	<packaging>pom</packaging>
-	<version>0.7.0</version>
+	<version>0.7.1</version>
 	<name>Process Assertions</name>
     <description>Process Assertions provide assertions for use in test cases to test for specific business process conditions when executed with the Activiti or
         Flowable BPM frameworks (http://www.activiti.org, http://www.flowable.org).
     </description>
 	<url>http://toxos.org/process-assertions/</url>
+
+    <properties>
+        <!-- Configuration -->
+        <javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
+        <jdk.source.version>1.7</jdk.source.version>
+        <jdk.target.version>1.7</jdk.target.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <projectNamePrefix>Process Assertions ::</projectNamePrefix>
+
+        <!-- Plugins -->
+        <maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
+        <maven.gpg.plugin.version>1.5</maven.gpg.plugin.version>
+        <maven.javadoc.plugin.version>2.9.1</maven.javadoc.plugin.version>
+        <maven.deploy.plugin.version>2.8.2</maven.deploy.plugin.version>
+        <maven.source.plugin.version>2.2.1</maven.source.plugin.version>
+        <codehaus.build.helper.plugin.version>3.0.0</codehaus.build.helper.plugin.version>
+    </properties>
 
 	<licenses>
 		<license>
@@ -56,5 +74,98 @@
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven.compiler.plugin.version}</version>
+					<configuration>
+						<source>${jdk.source.version}</source>
+						<target>${jdk.target.version}</target>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>${maven.deploy.plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${maven.source.plugin.version}</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${maven.javadoc.plugin.version}</version>
+					<executions>
+						<execution>
+							<id>attach-javadocs</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<additionalparam>-Xdoclint:none</additionalparam>
+						<stylesheetfile>resources/javadoc/stylesheet.css</stylesheetfile>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>${maven.gpg.plugin.version}</version>
+					<executions>
+						<execution>
+							<id>sign-artifacts</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>sign</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>${codehaus.build.helper.plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
