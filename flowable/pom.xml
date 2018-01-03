@@ -6,7 +6,7 @@
         <artifactId>process-assertions-parent</artifactId>
         <groupId>org.toxos.process-assertions</groupId>
         <relativePath>../process-assertions-parent/pom.xml</relativePath>
-        <version>0.7.1</version>
+        <version>0.7.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
